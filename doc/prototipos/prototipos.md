@@ -2,22 +2,35 @@
 
 ## Mapa do Site
 
-> Obs.: propõem-se a utilização de alguma ferramenta que possibilite a representação textual do diagrama. como o seguinte exemplo:
-
 ```mermaid
 flowchart TD
-    A[Index] --- B[Login]
-    A --- C[Cadastro]
-    C --- B
-    B --- D[Página 1]
-    B --- E[Página 2]
-    B --- F[Página 3]
+    A[**Feed] --- B[$$Feed próprio]
+    B --- C[$$Feed de quem eu sigo]
+    A --- D[**Fazer login]
+    D --- E[**Fazer cadastro]
+    E --- F[**Criar perfil]
+    F --- G[**Escolher comunidade]
+    B --- I[$$Visitar perfil]
+    B --- H[$$Realizar postagem no feed]
+    B --- J[$$Postar repositórios]
+    B --- K[$$Acessar repositório]
+    B --- L[$$Comunidades do sistema]
+    B --- M[$$Perfil da comunidade]
+    I --- N[$$Editar perfil]
+    I --- H
+    I --- J
 ```
+> Legenda:
+- $$ (Usuário autenticado)
+- ** (Usuário não autenticado)
 
-## A. Tela 1: Index
-
-> Obs. Substituir pela captura das imagens, sejam elas provenientes do Figma (anexar também o link para o Figma) ou já em HTML e CSS...
-
-## B. Tela 2: Login
-
-> Obs. Substituir pela captura das imagens, sejam elas provenientes do Figma (anexar também o link para o Figma) ou já em HTML e CSS...
+## A. Tela 1: Feed 
+## B. Tela 2: Login/cadastro
+## C. Tela 3: Feed próprio 
+## D. Tela 4: Feed de quem eu sigo
+## E. Tela 5: Realizar postagem no feed
+## F. Tela 6: Postar repositórios
+## G. Tela 7: Acessar repositório
+## H. Tela 8: Comunidades do sistema
+## I. Tela 9: Perfil da comunidade
+## J. Tela 10: Editar perfil
