@@ -36,7 +36,7 @@
 
 # Documentação
 
-[Documento de Visão](https://docs.google.com/document/d/18RBXh7BP-uHRYVCyiqW7hlhzSTTfC7TbwvYK-1jyUBg/edit?usp=sharing)
+- [Documento de Visão](https://docs.google.com/document/d/18RBXh7BP-uHRYVCyiqW7hlhzSTTfC7TbwvYK-1jyUBg/edit?usp=sharing)
 
 # Manual da Desenvolvedor
 
