@@ -40,7 +40,7 @@
 
 # Manual da Desenvolvedor
 
-[Documentação do DJANGO](https://docs.djangoproject.com/pt-br/5.1/)
-[Documentação HTML](https://www.w3schools.com/html/default.asp)
-[Documentação CSS](https://www.w3schools.com/css/default.asp)
+- [Documentação do DJANGO](https://docs.djangoproject.com/pt-br/5.1/)
+- [Documentação HTML](https://www.w3schools.com/html/default.asp)
+- [Documentação CSS](https://www.w3schools.com/css/default.asp)
 
