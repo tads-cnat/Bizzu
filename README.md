@@ -38,6 +38,7 @@
 
 - [Documento de Visão](https://docs.google.com/document/d/18RBXh7BP-uHRYVCyiqW7hlhzSTTfC7TbwvYK-1jyUBg/edit?usp=sharing)
 - [Protótipo - Figma](https://www.figma.com/design/UgFAxl67foAlG0ZSShDrab/PDS?node-id=0-1&t=IbbWAPlmOGhArKjJ-1)
+- [Casos de uso](https://docs.google.com/document/d/1HTovXVuPVUd3lLn2keLWehqH3aRt2yh2eA_fY4SG6k0/edit?usp=sharing)
 
 # Manual da Desenvolvedor
 
