@@ -1,0 +1,1064 @@
+/*  Thin - 100
+    ExtraLight - 200
+    Light - 300
+    Regular - 400
+    Medium - 500
+    Semibold - 600
+    Bold - 700
+    ExtraBold - 800
+    Black - 900     */
+
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+    :root {
+        --primary-color: #F79010;
+        --primary-color-dark: #1F1C19;
+        --secondary-color: #058B92;
+        --text-dark: Black;
+        --text-light: white;
+        --extra-light: #faf5ff;
+        --max-width: 1200px;
+    }
+    
+    *{
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+
+  /*Barra lateral esquerda*/
+    body {
+        background-color: #1B1818;
+        background-image: url(icones_perfil/background.png);
+        background-repeat: no-repeat;
+        background-size: 100%;
+        overflow-y: scroll;  
+    }
+    header {
+        width: 15%;
+        height: 75px;
+        border-right: 1px solid #DCCEB1;
+        display: flex;
+        align-items: center;
+        padding-left: 20px;
+        justify-content: space-between;
+        position: fixed; 
+      
+    }
+    
+    .logo {
+        display: flex;
+    }
+    
+    #abelhalogo {
+        padding-right: 15px;
+        width: 65px;
+    }
+    
+    #nomelogo {
+       width: 110px;
+       padding-right: 15px;
+    }   
+    
+    
+    /* BARRA LATERAL ESQUERDA */
+    
+    #barralateral {
+        position: fixed; 
+        padding-top: 100px;
+        width: 15%;
+        height: 100%;
+        border-right: 1px solid #DCCEB1;
+        padding-right: 30px;
+        list-style: none;
+        overflow: hidden;
+        padding-left: 20px;
+      
+    }
+    
+    #barralateral li a {
+        color: white;
+        text-decoration: none;
+        list-style: none;
+        margin-top: 3px;
+    }
+    
+    #barralateral li {
+        list-style: none;  
+        /* display: flex;
+        justify-content: center; */
+        margin-left: 8%;
+        padding: 5px;
+        font-weight: 600;
+    }
+    
+    .perfil {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 25px;
+    }
+    
+    .perfil2 {
+        margin-left: 10px;
+    }
+    
+    #userperfil {
+        padding-top: 5px;
+        font-weight: 500;
+        font-size: 20px;
+        color: white;
+    }
+    
+    #verperfil {
+        font-weight: 200;
+        font-size: 15px;
+    }
+    
+    #verperfil a {
+        text-decoration: none;
+        color: #DCCEB1;
+    }
+    
+    .paginas {
+        height: 80%;
+    }
+    
+    .paginas img {
+        margin-right: 12px;
+        padding-top: 0px;
+        cursor: pointer;
+    }   
+    
+    .paginas a {
+        font-style: normal;
+        font-weight: 300;
+        padding-top: 3px;
+    }
+    
+    #barralateral li a:hover{ 
+        color: var(--primary-color);
+    }
+    
+    .paginas li {
+        list-style: none;  
+        display: flex; 
+    }
+    
+    .seta-dropdown {
+        margin-left: 5px;
+        margin-top: 7px;
+    }
+    
+    .dropdown:hover .seta-dropdown {
+        transform: rotate(180deg);
+        transition: transform 0.4s ease;
+        cursor: pointer;
+    }
+    
+    .dropdown {
+        position: relative;
+    }
+    
+    .dropdown-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: -25px;
+    }
+    
+    .dropdown:hover .dropdown-menu {
+        display: block;
+    }
+    
+    .cursos {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        align-items: center;
+        padding: 10px;
+    }
+    
+    .cursos-conteudo h3{
+        color: var(--text-light);
+        font-weight: 600;
+        font-size: 15px;
+    }
+    
+    .cursos-conteudo p {
+        font-weight: 400;
+        font-size: 10px;
+        color: var(--text-light);
+        opacity: 50%;
+    }
+    
+    .vermais-btn {
+        cursor: pointer;
+        border: 1px solid #058B92;
+        border-radius: 15px;
+        background-color: transparent;
+        color: #058B92;
+        padding: 1px 7px;
+        font-size: 12px;
+    }
+    
+    .vermais-btn:hover {
+        color: var(--primary-color);
+        border: 1px solid var(--primary-color);
+    }
+    
+    #conteudo {
+        display: flex;
+    }
+    
+    form {
+        margin-bottom: 30px;
+        width: 486px;
+        height: 75px;
+        border-radius: 25px;    
+        background-color: rgb(98, 97, 97, 0.3);
+        border: 3px solid #F79010;
+        display: inline-block;
+      }
+      
+      form > input {
+        width: 400px;
+        height: 70px;
+        border: none;
+        border-radius: 22px;
+        background: none;
+        cursor: pointer;
+      }
+    
+      form > button:hover {
+          background-color: gray;
+      }
+    
+      #postar::placeholder {
+        font-weight: 500;
+        font-size: 16px;
+      }
+    
+      #postar {
+        padding-left: 20px;
+        color: white;
+      }
+      
+      form > button {
+        background: #F79010;
+        border: none;
+        color: #fff;
+        padding: 4px 10px;
+        border-radius: 25px;
+        box-shadow: 0 3px 10px black;
+        cursor: pointer;
+      }
+    
+      #conteudo {
+        display: flex;
+        gap: 10px; /* Espaço entre as colunas */
+        height: calc(100vh - 75px); /* Altura total da tela */
+        margin: auto;
+    }
+
+
+    /*Cabeçalho*/
+    .infopessoal{
+        position: absolute;
+        margin: 0 auto;
+        display: flex;
+        justify-self: center;
+        width: 60%;
+        top: 2%;
+        right: 25%;
+        border-bottom: 1px solid #DCCEB1;
+        padding: 20px;
+        padding-bottom: 40px;
+        padding-right: 40px;
+    }
+    .filiacao{
+        position: inherit;
+        padding: 100px 0px 0px 110px;
+    }
+ 
+    .cabecalho{
+        position: absolute;
+        margin: auto;
+    }
+    .infopessoal{
+        color: white;
+        
+    }
+    .infopessoal h1{
+        position: absolute;
+        padding: 30px;
+        padding-left: 180px;
+    }
+    .infopessoal h6{
+        color: rgb(146, 143, 143);
+        font-size: 15px;
+        position: absolute;
+        padding: 30px;
+        padding-left: 180px;
+        top: 30%;
+    }
+    .infopessoal p{
+        position: absolute;
+        top: 60%;
+        padding-left: 180px;
+    }
+    .seguidores{
+        font-size: 17px;
+        position: absolute;
+        padding-left: 180px;
+        top: 85%;
+    }
+    .follow{
+        font-size: 15px;
+        position: absolute;
+        left: 350px;
+        top: 85%;
+        color: white;
+    }
+
+    /*POP UP NOVO*/
+
+    .container-novo {
+        width: 15%;
+    }
+  
+    .botao-novo {
+        background-color: #058B92;
+        color: #FFFFFF;
+        border: none;
+        border-radius: 20px;
+        padding: 8px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        top: 80%;
+        position: absolute;
+        margin: auto;
+        margin-left: 350px;
+    }
+    
+    .botao-novo img {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .dropdownNovo {
+        display: none;
+        top: calc(100% + 8px);
+        left: 0;
+        background-color: #000000;
+        border-radius: 8px;
+        padding: 8px 0;
+        min-width: 200px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        z-index: 1000;
+    }
+    
+    .dropdownNovo.active {
+        display: flex;
+    }
+    
+    .dropdownNovo a {
+        color: #FFFFFF;
+        text-decoration: none;
+        padding: 8px 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .dropdownNovo a:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .dropdownNovo img {
+        width: 16px;
+        height: 16px;
+    }
+    
+    .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(4px);
+        z-index: 999;
+    }
+    
+    .overlay.active {
+        display: block;
+    }
+  /**/
+
+    /*Cabeçalhos: Postagens, comentários e repositórios*/
+    .cabecalho {
+        display: flex;                 
+        justify-content: space-between; 
+        flex-wrap: wrap;            
+        gap: 30px;       
+        top: 280px;
+        left: 25%;       
+        align-items: center;
+    }
+    .cabecalho div {
+        display: flex;                     
+        justify-content: center;   
+        margin: auto; 
+        padding: 10px;
+    }
+    .cabecalho h3 {                  
+        font-size: 16px;  
+        color: white;  
+        padding-left: 5px;       
+    }
+    .cabecalho .postagens:hover{
+        background-color: #F79010;
+        border-radius: 20px;
+    }
+    .cabecalho .repositorio:hover{
+        background-color: #F79010;
+        border-radius: 20px;
+    }
+    .cabecalho .comentario:hover{
+        background-color: #F79010;
+        border-radius: 20px;
+    }
+
+    /*Barra lateral direita*/
+    .lateral{
+        border-left: 1px solid #DCCEB1;
+        width: 35% ;
+        position: fixed;       
+        top: 0;
+        right: 0;
+        left: 75%;   
+        overflow-y: auto;
+        display: flex;  
+        padding-top: 50px;  
+        padding-left: 30px;            
+        height: 100%;            
+    }
+
+    #sair {
+        font-size: 18px;
+        margin-left: 30px;
+        margin-right: 40px;
+        width: 100px;
+        height: 38px;
+        background-color: red;
+        color: white;
+        font-weight: 500;
+        border-radius: 25px;
+        border: 0;
+        box-shadow: 0 3px 10px black;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+    }
+    
+    #sair a {
+        list-style: none;
+        color: white;
+        font-weight: 400;
+    }
+    
+    #sair:hover {
+        background-color: gray;
+    }
+    
+    #sairbtn {
+        padding-left: 18px;
+        margin-right: 7px;
+    }
+
+    #buscar {
+        display: flex;
+        border: 0;
+        box-shadow: 0 3px 5px black;
+        border-radius: 25px;
+        width: 250px;
+        height: 36px;
+        background-color: rgb(98, 97, 97, 0.3);
+        background-image: url(images/ícone\ lupa.svg);
+        background-repeat: no-repeat;
+        background-position: 5% 50%;
+        margin-right: 20px;
+        padding-left: 60px;
+        color: white;
+    }
+    
+    #buscar::placeholder {
+        font-weight: 300;
+        font-size: 13px;
+        color: rgb(255, 255, 255, 0.5);
+    }
+    .adicional{
+        color: white;
+        border-radius: 20px;
+        background-color: #100F0F;
+        padding: 30px;
+        width: 60%;
+        margin: 0 auto;
+        position: absolute;
+        font-size: 15px;
+        top: 15%;
+        flex-grow: 1;
+        padding-left: 30px;
+        align-items: center; 
+        justify-items: start;
+        display: inline-flexbox;
+    }
+    
+    .adicional  h4{
+        margin: 0;
+        display: inline-flexbox;
+    }
+    .adicional .comentarios{
+        top: 7%;
+        position: absolute;
+        left: 180px;
+    }
+    .adicional .postagens{
+        top: 25%;
+        position: absolute;
+        left: 180px;
+    }
+    .adicional .repositorios{
+        top: 25%;
+        position: absolute;
+    }
+    .adicional hr{
+        width: 95%;
+    }
+    .adicional img{
+       display: flex;
+       position: absolute;
+       padding-top: 5px;
+    }
+    .adicional h3{
+        display: flex;
+        font-size: 15px;
+        padding-left: 35px;
+        padding-top: 15px;
+        padding-bottom: 20px;
+     }
+     .adicional p.infos{
+        display: flex;
+        font-size: 14px;
+        padding-left: 45px;
+        padding-bottom: 10px;
+        padding-top: 10px;
+     }
+    .configuracoes{
+        display: block;
+        color: white;
+        border-radius: 20px;
+        background-color: #dcceb125;
+        padding: 30px;
+        width: 60%;
+        position: absolute;
+        font-size: 15px;
+        top: 600px;
+        margin: 0 auto;
+    }
+    .configuracoes img{
+        display: flex;
+        position: absolute;
+        padding-top: 5px;
+     }
+    .configuracoes h3#config{
+        display: flex;
+        font-size: 18px;
+        padding-left: 35px;
+        padding-bottom: 20px;
+        padding-top: 5px;
+     }
+     .configuracoes h3{
+     
+        font-size: 15px;
+        padding-top: 5px;
+     }
+     .configuracoes p{
+        font-size: 13px;
+        color: #b8b6b5;
+        padding-top: 5px;
+     }
+     .configuracoes a{
+        margin-left: 230px;
+        padding-top: -50px;
+        color: white;
+        font-size: 15px;
+        width: 100px;
+        border-color: #00000000;
+        background-color: #d9d9d983;
+        display: inline-flexbox;
+        border-radius: 20px;
+        padding: 5px;
+        padding-left: 20px;
+        padding-right: 20px;
+        margin-bottom: 30px;
+     }
+     .configuracoes a img{
+        margin-left: 232px;
+       
+        margin-top: 2px;
+        padding: 2px;
+        display: inline-flexbox;
+     }
+     .configuracoes img#salvo{
+        margin-top: 30px;
+    }
+    
+    .configuracoes h3#salvo{
+        margin-left: 30px;
+        margin-top: 15px;
+        color: white;
+    }
+    .configuracoes a#editar2{
+        margin-left: 230px;
+        margin-top: -30px;
+        color: white;
+        font-size: 15px;
+        width: 100px;
+        border-color: #00000000;
+        background-color: #d9d9d983;
+        display: inline-flexbox;
+        border-radius: 20px;
+    }
+   .configuracoes a#editar2 img{
+        margin-right: 300px;
+        margin-top: 2px;
+        padding: 2px;
+    
+        display: inline-flexbox;
+    }
+     
+    /*Postagem*/
+    #feed {
+        position: absolute;
+        right: 40%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 1;    
+        top: 52%;
+        width: 40%;
+        flex-direction: column;
+        gap: 20px;
+        height: calc(100% - 50px);
+        
+    }       
+    .post {
+        padding: 0 20px;
+        width: 520px;
+        border-radius: 10px;
+        color: white;
+    }
+    
+    .post-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .avatar {
+        width: 54px;
+        height: 56px;
+    }
+    
+    .post-header h3 {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 400;
+    }
+    
+    .post-header span {
+        font-size: 18px;
+        font-weight: 400;   
+        color: #DCCEB1;
+    }
+    
+    .post-content {
+        margin-top: 10px;
+    }
+    
+    .post-content p {
+        margin-bottom: 10px;
+        font-size: 15px;
+        font-weight: 300;
+    }
+    
+    .post-image {
+        width: 483px;
+        height: 325px;
+        border-radius: 8px;
+        object-fit: cover;
+    }
+    
+    /* Footer de cada publicação */
+    .post-footer {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        margin-top: 10px;
+    }
+    
+    .like-btn, .comment-btn {
+        border: none;
+        display: flex;
+        align-items: center;
+        color: white;
+        background: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 14px;
+        margin-right: 20px;
+    }
+    
+    .like-btn img, .comment-btn img{
+        margin-right: 5px;
+    }
+    
+    .like-btn:hover, .comment-btn:hover {
+        color: var(--primary-color)
+    }
+    
+    .post-coments {
+        margin-top: 15px;
+        font-weight: 300;
+        font-size: 14px;
+    }
+    
+    .post-coments span {
+        color: var(--primary-color);
+    }
+    
+    .post-coments button {
+        margin-top: 5px;
+        border: none;
+        background: none;
+        color: white;
+        padding: 5px;
+        cursor: pointer;
+    }
+    
+    .post-coments button:hover{
+        color: var(--primary-color)
+    }
+    
+    /*Repositório*/
+    #repositoriosPessoa{
+        display: none;
+        margin-top: 30px;
+        width: 50%;
+        flex-wrap: wrap;
+        position: absolute;
+        right: 32%;
+        top: 35%;
+        color: white;
+        justify-content: space-evenly;
+    }
+    #repositoriosPessoa .rep{
+        background-color: #34302c8a;
+        border: 1px solid #DCCEB1;
+        width: 38%;
+        margin-top: 30px;
+        border-radius: 20px;
+        padding: 2px;
+    }
+    div#repositoriosPessoa img#perfil{
+        width: 40px;
+        margin-top: 10px;
+        margin-left: 20px;
+    }
+    div#repositoriosPessoa h2{
+        color: white;
+        font-size: 18px;
+        display: flex;
+        margin-top: -40px;
+        margin-left: 70px;
+    }
+    div#repositoriosPessoa button#abrir{
+        border-color: #F79010;
+        background-color: #F79010;
+        color: white;
+        font-size: 20px;
+        width: 85px;
+        display: flex;
+        border-radius: 20px;
+        font-weight: 500;
+        margin-top: -28px;
+        margin-left: 240px;
+        text-align: center;
+        padding-left: 10px;
+    }
+    div#repositoriosPessoa h2#titulo{
+        font-size: 22px;
+        margin-top: 20px;
+        margin-left: 25px;
+    }
+    div#repositoriosPessoa p#descricao{
+        font-size: 15px;
+        margin-top: 50px;
+        font-weight: 300;
+        margin-left: 25px;
+        margin-top: 2px;
+    }
+    div#repositoriosPessoa p#tag1{
+        font-size: 15px;
+        font-weight: 700;
+        margin-top: 50px;
+        margin-left: 5px;
+        color: #EA3165;
+    }
+    div#repositoriosPessoa p#tag2{
+        font-size: 15px;
+        font-weight: 700;
+        margin-top: -24px;
+        margin-left: 80px;
+        color: #F7C110;
+    }
+    div#repositoriosPessoa p#tag3{
+        font-size: 15px;
+        font-weight: 700;
+        margin-left: 160px;
+        margin-top: -25px;
+        color: #6FB112;
+    }
+    
+    div#repositoriosPessoa .rep02{
+        margin-left: 550px;
+        margin-top: -260px;
+        background-color: #34302c8a;
+        border: 1px solid #DCCEB1;
+        width: 350px;
+        border-radius: 20px;
+        padding: 8px;
+        height: 260px;
+    }
+    div#repositoriosPessoa .rep03{
+        margin-left: 170px;
+        margin-top: 50px;
+        background-color: #34302c8a;
+        border: 1px solid #DCCEB1;
+        width: 350px;
+        border-radius: 20px;
+        padding: 8px;
+        height: 260px;
+    }
+    div#repositoriosPessoa .rep04{
+        margin-left: 550px;
+        margin-top: -260px;
+        background-color: #34302c8a;
+        border: 1px solid #DCCEB1;
+        width: 350px;
+        border-radius: 20px;
+        padding: 8px;
+        height: 260px;
+    }
+    div#repositoriosPessoa .rep05{
+        margin-left: 170px;
+        margin-top: 50px;
+        background-color: #34302c8a;
+        border: 1px solid #DCCEB1;
+        width: 350px;
+        border-radius: 20px;
+        padding: 8px;
+        height: 260px;
+    }
+    div#repositoriosPessoa .rep06{
+        margin-left: 550px;
+        margin-top: -260px;
+        background-color: #34302c8a;
+        border: 1px solid #DCCEB1;
+        width: 350px;
+        border-radius: 20px;
+        padding: 8px;
+        height: 260px;
+    }
+    div#repositoriosPessoa div#tags{
+        padding: 10px;
+        display: block;
+        
+    }
+
+    /*Conteudo comentario*/
+    div#coments{
+        display: none;
+        right: 50%;
+        top:35%;
+        flex-direction: column;
+        margin: auto;
+        position: absolute;
+    }
+    div#postReferente{
+        background-color: #100F0F;
+        width: 100%;
+        border-radius: 20px;
+        padding: 10px;
+        margin-top: 20px;
+    }
+    div#postReferente img#perfilcomentando{
+        margin-left: 15px;
+        margin-top: 15px;
+    }
+    div#postReferente h2#nomepost{
+        margin-left: 60px;
+        margin-top: -40px;
+        color: white;
+        font-size: 17px;
+        font-weight: 500;
+        display: flex;
+    }
+    div#postReferente botton#verpost{
+        background-color: #058B92;
+        border-color: #058B92;
+        border-radius: 20px;
+        color: white;
+        font-size: 17px;
+        display: flex;
+        margin-left: 300px;
+        margin-top: -30px;
+        width: 100px;
+        padding: 5px;
+        padding-left: 10px;
+    }
+    div#postReferente div#textoComentario1 p{
+        margin-left: 60px;
+        margin-top: 15px;
+        color: #817A6F;
+        font-size: 15px;
+        font-weight: 300;
+        display: flex;
+        padding-bottom: 30px;
+    }
+    hr#expandir{
+        width: 80px;
+        margin-top: 20px;
+    }
+    p#ver{
+        margin-top: -10px;
+        margin-left: 100px;
+        color: white;
+        font-size: 15px;
+        font-weight: 500;
+    }
+    img#perfilcomentario{
+        margin-top: 15px;
+        width: 40px;
+    }
+    h2#nomecomentario{
+        margin-top: -40px;
+        margin-left: 60px;
+        color: white;
+        font-size: 17px;
+        font-weight: 500;
+    }
+    div#textoComentario2 p{
+        margin-top: 10px;
+        color: white;
+        font-size: 15px;
+        font-weight: 300;
+    }
+
+    /*Seguindo pop-up*/
+    #conteudo{
+        width: 100%;
+    }
+    div#seguidoresPerfil{
+        display: none;
+        background-color: #100F0F;
+        left: 25%;
+        position: absolute;
+        top: 10%;
+        border-radius: 20px;
+        width: 40%;
+        box-shadow: 1px 1px 1px #1F1C19;
+        padding-bottom: 20px;
+    }
+    div#seguidoresPerfil img#fechar{
+        margin-top: 30px;
+        margin-left: 30px;
+        display: flex;
+    }
+    div#seguidoresPerfil div#barra_pesquisa2{
+        width: 400px;
+        border-radius: 20px;
+        background-color: #626161;
+        margin-left: 125px;
+        margin-top: -40px;
+        padding-bottom: 10px;
+    }
+    div#seguidoresPerfil div#barra_pesquisa2 img#lupa{
+        margin-top: 20px;
+        margin-left: 20px;
+        margin-bottom: 7px;
+        display: flex;
+        padding-top: 10px;
+    }
+    div#seguidoresPerfil div#barra_pesquisa2 input#barra{
+        border-color: #00000000;
+        outline: 0;
+        background-color: #058b9200;
+        margin-top: -40px;
+        margin-left: 55px;
+        color: white;
+        width: 220px;
+        font-size: 18px;
+        height: 30px;
+        display: flex;
+        padding: 10px;
+        border-radius: 20px;
+    }
+    img#perfil{
+        margin-top: 20px;
+        margin-left: 50px;
+    }
+    p#nomeusuario{
+        margin-top: -55px;
+        margin-left: 125px;
+        color: white;
+        font-size: 25px;
+        font-weight: 500;
+    }
+    div#bio p{
+        margin-top: 10px;
+        margin-left: 125px;
+        color: white;
+        font-size: 18px;
+        font-weight: 200;
+    }
+    button#vermais{
+        border-radius: 20px;
+        color: #058B92;
+        padding: 5px;
+        padding-left: 10px;
+        font-size: 18px;
+        font-weight: 500;
+        background-color: #058b9200;
+        border-color: #058B92;
+        margin-top: 10px;
+        margin-left: 125px;
+    }
+    div#traco{
+        height: 100px;
+        width: 1px;
+        display: flex;
+        background-color: #DCCEB1;
+        margin-left: 78px;
+        margin-top: -98px;
+    }

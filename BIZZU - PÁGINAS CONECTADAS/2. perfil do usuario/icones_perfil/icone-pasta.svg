@@ -1,0 +1,9 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 107 103" width="25" height="24">
+	<title>image</title>
+	<defs>
+		<image  width="58" height="58" id="img1" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADoAAAA6CAMAAADWZboaAAAAAXNSR0IB2cksfwAAAFdQTFRFAAAA38+v2s+v2c+v3c+y3M6x3M+y38+02s2v3M6x38+v3c6x3M2v3M+v28+v3c+x3c6x38+v3c6x282v286v2s+v3c+y3M6v3c+y3c+x3M+y3M+0286vET718wAAAB10Uk5TABBgUI//v19g7yDPkFBAz98w73CwMJ+gr9+vX8BGA6VOAAAA4ElEQVR4nO3WyQ6CMBAG4BlZ0xqUGEHf/9U8qajIYjSaSmO80GWAG0n/A4chX1qmCR2EyUFHh1JUPX6GUPR0K4v3ABoK7YvFk6SxYWs+thTlL4Co/7WSsZKiAQC/9aspVgBJQdPVWSlv7t1jfSJpelTrsnm81HeQoCyuLIqHdWukkDysu+0Oz0hhaT9YPzBTzK5GJ3sQmaktshP+NAq7wtxhIvnFUUcdddTRmdL/35+cGtTsu0EA5fW9rcfBRo4tDBfe6CV/yYwjF5X8gOT1rU/UCDlrMa8ZK4WY6Sg9K/oFH7ZmFBHDM20AAAAASUVORK5CYII="/>
+	</defs>
+	<style>
+	</style>
+	<use id="Camada 5" href="#img1" x="24" y="22"/>
+</svg>

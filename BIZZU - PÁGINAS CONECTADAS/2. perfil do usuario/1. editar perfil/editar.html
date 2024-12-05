@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="../icones_perfil/ abelha perfil.svg">
+    <!-- <link rel="stylesheet" href="postagem.css"> -->
+    <link rel="stylesheet" href="editar.css">
+    <script src="perfil.js"></script>
+    <script src="script.js"></script>
+    <script src="pops.js"></script>
+    <title>Bizzu</title>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="../icones_perfil/LOGO BIZZU V 1.0.svg" id="abelhalogo" width="48px" height="48px">
+            <img src="../icones_perfil/BIZZU.svg" id="nomelogo">
+        </div>
+    </header>
+        <section class="conteudo">
+                
+            <aside id="barralateral">
+                <div class="perfil">
+                <img src="../icones_perfil/fotoriel.svg">
+                <div class="perfil2">
+                <h2 id="userperfil">Riel Lopes</h2>
+                <h4 id="verperfil"><a href="../basePerfil.html">Ver perfil</a></h4>
+                </div>
+                </div>
+            
+                <ul>
+                    <div class="paginas">   
+                    <li><img src="../icones_perfil/icone pagina inicial.png" height="35px " width="35px"><a href="../../1. feed principal/index.html">Página Inicial</a></li>
+                    <li><img src="../icones_perfil/vocesegue.svg"><a href="#">Você segue</a></li>
+                    <li class="dropdown">
+                        <img src="../icones_perfil/icone comunidades.svg">
+                        <a href="#">Comunidades</a>
+                        <img class="seta-dropdown" src="../icones_perfil/icone dropdown.svg">
+                        
+                        <div class="dropdown-menu">
+                            <div class="cursos">
+                                <img src="../icones_perfil/icone tads.svg">
+                                    <div class="cursos-conteudo">
+                                        <h3>TADS</h3>
+                                        <p>Curso de Análise e desenvolv. de sistemas da diatinf</p>
+                                        <a href="../3. perfil da comunidade/comun-post.html"><button class="vermais-btn">Ver mais</button></a>
+                                    </div>
+                                </div> 
+                            <div class="cursos">
+                                <img src="../icones_perfil/icone redes.svg">
+                                    <div class="cursos-conteudo">
+                                        <h3>REDES</h3>
+                                        <p>Curso de REDES da diatinf</p>
+                                        <button class="vermais-btn">Ver mais</button>
+                                    </div>
+                                </div> 
+                            <div class="cursos">
+                                <img src="../icones_perfil/icone infoweb.svg">
+                                <div class="cursos-conteudo">
+                                    <h3>INFOWEB</h3>
+                                    <p>Curso de INFOWEB da diatinf</p>
+                                    <button class="vermais-btn">Ver mais</button>
+                                </div>
+                            </div> 
+                        </div>
+
+                    </li>
+                </div>
+            </ul>
+        </aside>
+
+            <main class="editarPerfil">
+                    <button class="voltar"> 
+                        <a href="../basePerfil.html"><img src="icones_perfil/voltar.svg" alt="voltar"></a>
+                        <p>Voltar</p>
+                    </button>
+                    <div class="alterarFoto">
+                        <img src="icones_perfil/semFoto.svg" alt="sem foto">
+                        <h3>Riel Moura</h3>
+                        <p>@riel.bizzu</p>
+                        <button class="alterar">
+                            Alterar Foto 
+                        </button>
+                    </div>
+                    <p id="nomeexibido">Nome de exibição</p>
+                    <input type="text" class="nome" placeholder="Digite seu nome aqui...">
+
+                <div class="click">
+                    <p id="nomeusuario">Nome de usuário</p>
+                    <input type="text" class="nomeUsuario" placeholder="Digite seu novo nome de usuário aqui...">
+                </div>
+
+                <div class="click">  
+                    <p class="descricao-titulo">Descrição</p>
+                    <input type="text" class="descricao" placeholder="Fale um pouco sobre você...">
+                </div>
+
+                <div class="click">
+                    <p class="formacaoA">Formação acadêmica</p>
+                    <input type="text" class="formacao" placeholder="digite sua formacao academica aqui.">
+                </div>
+
+                <div class="click">
+                    <div class="divC">
+                    <p class="cursoA">Curso</p>
+                    <input type="text" class="curso" placeholder="Selecione seu curso aqui">
+                   
+                    </div>
+
+                    <div class="divI">
+                    <p class="instituicaoA">Instituição de ensino</p>
+                    <input type="text" class="instituicao" placeholder="Selecione sua instituição de ensino aqui">
+                    </div>
+                </div>
+
+                   
+                    <p class="linkA">Adicione um link que será exibido no seu perfil</p>
+                    <input type="text" class="link" placeholder="Digite a URL aqui...">
+                    
+                    
+                    <div>
+                    <button class="descartar">
+                        <img src="icones_perfil/lixeira.svg" alt="">
+                        <p>Descartar</p>
+                    </button>
+                    </div>
+
+                   
+                    <button class="salvar">
+                        <img src="icones_perfil/Save.svg" alt="">
+                        <p>Salvar</p>
+                    </button>
+                    
+
+                </div>
+            </main>
+
+            <div class="lateral">
+                <input type="text" id="buscar" placeholder="Procurar...">
+                <a href="../../1. feed principal/deslogado.html"><button id="sair"><img src="../icones_perfil/entrar.svg" id="sairbtn">Sair</button></a>
+            <div class="adicional">
+                <h4 class="curtidas">15 <p>Curtidas</p></h4><br>
+                <h4 class="comentarios">99 <p>Comentários</p></h4><br>
+                <h4 class="repositorios">2 <p>Repositórios</p></h4><br>
+                <h4 class="postagens">5 <p>Postagens</p></h4><br>
+                <hr><img src="../icones_perfil/beca.svg" alt="chapeu"><h3>Educação(ou perfil profissional)</h3>
+                <img class="escola" src="../icones_perfil/escolaridade.svg" alt="escola"><p class="infos">Escola estadual de tempo integral Winston churchill</p>
+                <img class="instituicao" src="../icones_perfil/abelha formada.svg" alt="escola atual"><p class="infos">IFRN</p>
+                <img class="trabalho" src="../icones_perfil/trabalho.svg" alt="trabalho"><p class="infos">Lika´s Café</p>
+                <img class="progresso" src="../icones_perfil/periodo.svg" alt="progresso"><p class="infos">TADS  3/6</p>
+            </div>
+            <div class="configuracoes">
+                <img src="icones_perfil/Settings.svg" alt="chapeu"><h3 id="config">Configurações</h3>
+                <h3>Editar perfil</h3><p>Edite sua foto, descrição, tema,...</p><a id="editar" href="riel/editar.html"><img src="../icones_perfil/Edit.svg" alt="edit">Editar</a>
+                <h3>Tema</h3><p>Escuro/Claro</p><a id="editar"  href="#"><img src="../icones_perfil/editar.svg" alt="edit">Claro</a>
+                <img class="salvo" src="../icones_perfil/Save.svg" alt=""><h3 id="salvo">Salvos</h3><a id="editar2"  href="#"><img id="editar2" src="../icones_perfil/sair.svg" alt="edit">Editar</a>
+            </div>
+        </div>
+    
+    </section>
+    
+
+</body>
+</html>

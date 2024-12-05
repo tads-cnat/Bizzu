@@ -1,0 +1,660 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root {
+    --primary-color: #F79010;
+    --primary-color-dark: #1F1C19;
+    --secondary-color: #058B92;
+    --text-dark: Black;
+    --text-light: white;
+    --extra-light: #faf5ff;
+    --max-width: 1200px;
+}
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    width: 100%;
+    height: 100vh;
+    background-color: #1B1818;
+    background-image: url(../icones_perfil/background.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+.logo {
+    padding: 20px;
+}
+
+.conteudo {
+    display: flex;
+    width: 100%;
+    height: calc(100vh - 75px);
+}
+
+#barralateral {
+    padding-top: 30px;
+    width: 240px;
+    height: 100vh;
+    border-right: 1px solid #DCCEB1;
+    list-style: none;
+}
+
+#barralateral li a {
+    color: white;
+    text-decoration: none;
+    list-style: none;
+    margin-top: 3px;
+}
+
+#barralateral li {
+    list-style: none;  
+    /* display: flex; */
+    margin-left: 20px;
+    padding: 5px;
+    font-weight: 600;
+}
+
+.perfil {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 25px;
+}
+
+.perfil2 {
+    margin-left: 10px;
+}
+
+#userperfil {
+    padding-top: 5px;
+    font-weight: 500;
+    font-size: 20px;
+    color: white;
+}
+
+#verperfil {
+    font-weight: 200;
+    font-size: 15px;
+}
+
+#verperfil a {
+    text-decoration: none;
+    color: #DCCEB1;
+}
+
+.paginas img {
+    margin-right: 12px;
+    padding-top: 0px;
+}   
+
+.paginas a {
+    font-style: normal;
+    font-weight: 300;
+    padding-top: 3px;
+}
+
+.paginas li {
+    list-style: none;  
+    display: flex; 
+}
+
+.seta-dropdown {
+    margin-left: 7px;
+    margin-top: 3px;
+}
+
+.dropdown:hover .seta-dropdown {
+    transform: rotate(180deg);
+    transition: transform 0.4s ease;
+    cursor: pointer;
+}
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: -25px;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.cursos {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    padding: 10px;
+}
+
+.cursos-conteudo h3{
+    color: var(--text-light);
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.cursos-conteudo p {
+    font-weight: 400;
+    font-size: 10px;
+    color: var(--text-light);
+    opacity: 50%;
+}
+
+.vermais-btn {
+    cursor: pointer;
+    border: 1px solid #058B92;
+    border-radius: 15px;
+    background-color: transparent;
+    color: #058B92;
+    padding: 1px 7px;
+    font-size: 12px;
+}
+
+.vermais-btn:hover {
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+}
+
+.editarPerfil{
+    flex: 1;
+    margin-left: 5%;
+    width: 50%;
+    height: 100vh;
+}
+
+.voltar{
+    background-color: #058b9200;
+    border-color: #058b9200;
+    color: white;
+    font-weight: 700;
+    display: inline;
+    margin-top: 10px;
+}
+.voltar p{
+    margin-top: -40px;
+    margin-left: 100px;
+}
+.alterarFoto{
+    background-color: rgba(255, 255, 255, 0.164);
+    border-radius: 20px;
+    display: flex;
+    justify-self:start;
+    margin-top: 50px;
+    position: relative;
+    padding: 10px;
+    width: 850px; 
+
+}
+
+.alterarFoto h3{
+    color: white;
+    margin-left: 10px;
+    font-size: 25px;
+    margin-top: 20px;
+    position: relative;
+    top: 2px;
+}
+.alterarFoto p{
+    color: rgb(187, 183, 183);
+    margin-right: 100px;
+    font-size: 15px;
+    margin-top: 50px;
+    position: relative;
+    right: 135px;
+   
+}
+.alterar{
+    background-color: #058B92;
+    border-color: #058B92;
+    color: white;
+    font-size: 18px;
+    height: 40px;
+    width: 120px;
+    border-radius: 8px;
+    border: none;
+    position: relative;
+    left: 230px;
+    top: 35px;
+    cursor: pointer;
+}
+/*------------"nome de usuario"-----------*/
+.nomeUsuario{
+    background-color: rgba(255, 255, 255, 0.199);
+    height: 40px;
+    color: #ffffff;
+    width: 400px;
+    border-radius: 20px;
+    border: none;
+    text-align: left;
+    position: relative;
+    left: 450px;
+    padding-left: 10px;
+    font-weight: 500;
+    font-style: italic;
+}
+#nomeusuario{
+    color: white;
+    margin-left: 460px;
+}
+
+#digitarnome{
+    position: relative;
+    left: 10px;
+    top: 5px;
+}
+/*-----------------------------*/
+
+/*------------"nome de exibição"-----------*/
+#nomeexibido{
+    color: white;
+    text-align: left;
+    position: relative;
+    top: 65px;
+    left: 10px;
+}
+.nome{
+    background-color: rgba(255, 255, 255, 0.199);
+    height: 40px;
+    color: #ffffff;
+    width: 400px;
+    border-radius: 20px;
+    border: none;
+    font-weight: 100;
+    font-style: italic;
+    position:relative;
+    top:65px;
+    padding-left: 10px;
+    font-weight: 500;
+    font-style: italic;
+    
+}
+#nome{
+    position: relative;
+    top: 5px;
+    left: 10px;
+}
+
+/*-----------------------------*/
+
+
+/*------------"descrição"-----------*/
+.descricao{
+    background-color: rgba(255, 255, 255, 0.199);
+    height: 100px;
+    width: 850px;
+    color: #ffffff;
+    border-radius: 20px;
+    border: 0;
+    padding-left: 10px;
+    font-weight: 500;
+    font-style: italic;
+}
+
+.descricao-titulo {
+    color: white;
+    margin-left: 7px;
+}
+/*--------------------------------------------*/
+
+
+
+/*------------"formação academica"-----------*/
+.formacaoA{
+    color: white;
+    margin-left: 7px;
+}
+
+.formacao{
+    background-color: rgba(255, 255, 255, 0.199);
+    height: 40px;
+    width: 850px;
+    color: #ffffff;
+    border-radius: 20px;
+    border: 0;
+    padding-left: 10px;
+    font-weight: 500;
+    font-style: italic;
+}
+/*-----------------------------*/
+
+/*------------"Curso"-----------*/
+.cursoA{
+    color: white;
+    margin-left: 7px;
+}
+
+.curso{
+    background-color: rgba(255, 255, 255, 0.199);
+    height: 40px;
+    width: 400px;
+    color: #ffffff;
+    border-radius: 20px;
+    border: 0;
+    font-weight: 500;
+    font-style: italic;
+    background-image: url('images/icone dropdown.svg');
+    background-size: 20px; /* Tamanho da imagem */
+    background-repeat: no-repeat; /* Evita repetição da imagem */
+    background-position: 10px center; /* Posição da imagem (esquerda e centralizada verticalmente) */
+    padding-left: 10px; /* Espaço para o texto não sobrepor a imagem */
+    padding-right: 10px;
+    background-position: right;
+    background-position: calc(100% - 10px) center; /* Mova 10px para a esquerda */
+}
+/*-----------------------------*/
+
+/*------------"instituição de ensino"-----------*/
+.click{
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+.instituicaoA{
+    color: white;
+    margin-left: 7px;
+    position: relative;
+    bottom: 65px;
+    left: 450px;
+
+}
+
+.instituicao{
+    background-color: rgba(255, 255, 255, 0.199);
+    height: 40px;
+    color: #ffffff;
+    width: 400px;
+    border-radius: 20px;
+    border: none;
+    text-align: left;
+    position: relative;
+    left: 450px;
+    bottom: 65px;
+    font-weight: 500;
+    font-style: italic;
+    background-image: url('images/icone dropdown.svg');
+    background-size: 20px; /* Tamanho da imagem */
+    background-repeat: no-repeat; /* Evita repetição da imagem */
+    background-position: 10px center; /* Posição da imagem (esquerda e centralizada verticalmente) */
+    padding-left: 10px; /* Espaço para o texto não sobrepor a imagem */
+    padding-right: 10px;
+    background-position: right;
+    background-position: calc(100% - 10px) center; /* Mova 10px para a esquerda */
+    
+}
+/*-----------------------------*/
+
+/*------------"Link"-----------*/
+.link{
+    background-color: rgba(255, 255, 255, 0.199);
+    height: 40px;
+    width: 850px;
+    color: #ffffff;
+    border-radius: 20px;
+    border: 0;
+    padding-left: 10px;
+    font-weight: 500;
+    font-style: italic;
+
+    padding-right: 10px;
+    background-position: right;
+    background-position: calc(100% - 10px) center; /* Mova 10px para a esquerda */
+}
+
+.linkA{
+    color: white;
+    margin-left: 7px;
+}
+
+/*-----------------------------*/
+
+/*------------"descartar e salvar"-----------*/
+.descartar{
+    background-color:#9D0707;
+    color: white;
+    font-size: 18px;
+    height: 40px;
+    width: 140px;
+    border-radius: 8px;
+    border: none;
+    text-align: left;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    top: 35px;
+    left: 5px;
+    display: flex
+    
+}
+
+.salvar{
+    background-color:#058B92;
+    color: white;
+    font-size: 18px;
+    height: 40px;
+    width: 100px;
+    border-radius: 8px;
+    border: none;
+    text-align: left;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 1085px;
+    display: flex
+}
+/*-----------------------------*/
+
+/*Barra lateral direita*/
+.lateral{
+    border-left: 1px solid #DCCEB1;
+    width: 35% ;
+    position: fixed;       
+    top: 0;
+    right: 0;
+    left: 75%;   
+    overflow-y: auto;
+    display: flex;  
+    padding-top: 50px;  
+    padding-left: 30px;            
+    height: 100%;            
+}
+
+#sair {
+    font-size: 18px;
+    margin-left: 30px;
+    margin-right: 40px;
+    width: 100px;
+    height: 38px;
+    background-color: red;
+    color: white;
+    font-weight: 500;
+    border-radius: 25px;
+    border: 0;
+    box-shadow: 0 3px 10px black;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+#sair a {
+    list-style: none;
+    color: white;
+    font-weight: 400;
+}
+
+#sair:hover {
+    background-color: gray;
+}
+
+#sairbtn {
+    padding-left: 18px;
+    margin-right: 7px;
+}
+
+#buscar {
+    display: flex;
+    border: 0;
+    box-shadow: 0 3px 5px black;
+    border-radius: 25px;
+    width: 250px;
+    height: 36px;
+    background-color: rgb(98, 97, 97, 0.3);
+    background-image: url(images/ícone\ lupa.svg);
+    background-repeat: no-repeat;
+    background-position: 5% 50%;
+    margin-right: 20px;
+    padding-left: 60px;
+    color: white;
+}
+
+#buscar::placeholder {
+    font-weight: 300;
+    font-size: 13px;
+    color: rgb(255, 255, 255, 0.5);
+}
+.adicional{
+    color: white;
+    border-radius: 20px;
+    background-color: #100F0F;
+    padding: 30px;
+    width: 60%;
+    margin: 0 auto;
+    position: absolute;
+    font-size: 15px;
+    top: 15%;
+    flex-grow: 1;
+    padding-left: 30px;
+    align-items: center; 
+    justify-items: start;
+    display: inline-flexbox;
+}
+
+.adicional  h4{
+    margin: 0;
+    display: inline-flexbox;
+}
+.adicional .comentarios{
+    top: 7%;
+    position: absolute;
+    left: 180px;
+}
+.adicional .postagens{
+    top: 25%;
+    position: absolute;
+    left: 180px;
+}
+.adicional .repositorios{
+    top: 25%;
+    position: absolute;
+}
+.adicional hr{
+    width: 95%;
+}
+.adicional img{
+   display: flex;
+   position: absolute;
+   padding-top: 5px;
+}
+.adicional h3{
+    display: flex;
+    font-size: 15px;
+    padding-left: 35px;
+    padding-top: 15px;
+    padding-bottom: 20px;
+ }
+ .adicional p.infos{
+    display: flex;
+    font-size: 14px;
+    padding-left: 45px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+ }
+.configuracoes{
+    display: block;
+    color: white;
+    border-radius: 20px;
+    background-color: #dcceb125;
+    padding: 30px;
+    width: 60%;
+    position: absolute;
+    font-size: 15px;
+    top: 600px;
+    margin: 0 auto;
+}
+.configuracoes img{
+    display: flex;
+    position: absolute;
+    padding-top: 5px;
+ }
+.configuracoes h3#config{
+    display: flex;
+    font-size: 18px;
+    padding-left: 35px;
+    padding-bottom: 20px;
+    padding-top: 5px;
+ }
+ .configuracoes h3{
+ 
+    font-size: 15px;
+    padding-top: 5px;
+ }
+ .configuracoes p{
+    font-size: 13px;
+    color: #b8b6b5;
+    padding-top: 5px;
+ }
+ .configuracoes a{
+    margin-left: 230px;
+    padding-top: -50px;
+    color: white;
+    font-size: 15px;
+    width: 100px;
+    border-color: #00000000;
+    background-color: #d9d9d983;
+    display: inline-flexbox;
+    border-radius: 20px;
+    padding: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-bottom: 30px;
+ }
+ .configuracoes a img{
+    margin-left: 232px;
+   
+    margin-top: 2px;
+    padding: 2px;
+    display: inline-flexbox;
+ }
+ .configuracoes img#salvo{
+    margin-top: 30px;
+}
+
+.configuracoes h3#salvo{
+    margin-left: 30px;
+    margin-top: 15px;
+    color: white;
+}
+.configuracoes a#editar2{
+    margin-left: 230px;
+    margin-top: -30px;
+    color: white;
+    font-size: 15px;
+    width: 100px;
+    border-color: #00000000;
+    background-color: #d9d9d983;
+    display: inline-flexbox;
+    border-radius: 20px;
+}
+.configuracoes a#editar2 img{
+    margin-right: 300px;
+    margin-top: 2px;
+    padding: 2px;
+
+    display: inline-flexbox;
+}

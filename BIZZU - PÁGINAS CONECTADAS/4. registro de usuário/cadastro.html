@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styleregister.css">
+    <title>Cadastro</title>
+</head>
+<body>  
+    <!-- <div class="logo">
+        <img class="abelha" src="{%  static 'auth/img/icone_abelha.png' %}" alt="icone abelha">
+        <img class="bizzu"  src="{%  static 'auth/img/BIZZU.png' %}" alt="Logo do Bizzu">
+    </div> -->
+
+    <div class="TELA-DE-CADASTRO">
+        <form class="formulario"  action="{% url 'cadastro' %}" method="POST">  {% csrf_token %}
+          <div class="logo">
+              <img class="abelha" src="img/icone_abelha.png" />
+              <img class="bizzu" src="img/BIZZU.png">
+          </div>
+  
+          <!-- Campo Nome de Usuário -->
+          <label class="campo">
+            <div class="vermelho"><span class="text-wrapper">Nome de usuário </span><span class="vermelho">* </span></div>
+            <img class="icon" src="img/image16.svg" />
+            <input
+              type="text"
+              name="username"
+              placeholder="Ex: Jubileu da Silva"
+              class="input"
+              value="{{ username|default:'' }}" required
+            />
+          </label>
+  
+          <!-- Campo Email -->
+          <label class="campo">
+            <div class="vermelho"><span class="text-wrapper">Email </span><span class="vermelho">* </span></div>
+            <img class="icon" src="img/image21.png" />
+            <input
+              type="email"
+              name="email"
+              placeholder="Ex: jubileu@gmail.com"
+              class="input"
+              value="{{ email|default:'' }}" required
+            />
+          </label>
+  
+          <!-- Campo Senha -->
+          <label class="campo">
+            <div class="vermelho"><span class="text-wrapper">Senha </span><span class="vermelho">* </span></div>
+            <img class="icon" src="img/image17.png" />
+            <input
+              type="password"
+              name="senha"
+              placeholder="Digite sua senha aqui!"
+              class="input"
+              value="{{ password|default:'' }}" required
+            />
+          </label>
+  
+          <!-- Botão de Enviar -->
+          <a href="comunidade.html"> <button class="botao-submit">Criar conta</button></a>
+        </form>
+      </div>
+
+
+    <!-- <form class="form"  action="{% url 'cadastro' %}" method="POST">  {% csrf_token %}
+        <input type="text" placeholder="Username..." name="username">
+        <br>
+        <br>
+        <input type="email" placeholder="Email..." name="email">
+        <br>
+        <br>
+        <input type="password" placeholder="Senha..." name="senha">
+        <br>
+        <br>
+        <input type="submit" value="Cadastrar">
+    -->
+
+
+
+    
+</body>
+</html>
+
+

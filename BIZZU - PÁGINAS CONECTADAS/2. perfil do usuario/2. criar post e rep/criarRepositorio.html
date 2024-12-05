@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="criarPost.css">
+    <link rel="icon" type="image/x-icon" href="images/ícone abelha perfil.svg">
+    <script src="script.js" defer></script>
+    <title>Bizzu</title>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="images/ícone abelha perfil.svg" id="abelhalogo" alt="Logo Bizzu">
+            <img src="images/BIZZU.svg" id="nomelogo" alt="Bizzu">
+        </div>
+        <div class="barra-superior">
+            <div class="barra-busca">
+                <img src="images/icone-busca.svg" alt="Buscar">
+                <input type="text" placeholder="Procurar...">
+            </div>
+            <button class="botao-sair">
+                <img src="images/icone-sair.svg" alt="Sair">
+                Sair
+            </button>
+        </div>
+    </header>
+    <section class="conteudo">
+        <aside id="barralateral">
+            <div class="perfil">
+                <img src="images/fotoriel.svg" alt="Foto de perfil">
+                <div class="perfil2">
+                    <h2 id="userperfil">Riel Lopes</h2>
+                    <h4 id="verperfil"><a href="#">Ver perfil</a></h4>
+                </div>
+            </div>
+            <ul>
+                <div class="paginas">   
+                    <li><img src="images/icone pagina inicial.png" alt="Página Inicial"><a href="#">Página Inicial</a></li>
+                    <li><img src="images/vocesegue.svg" alt="Você segue"><a href="#">Você segue</a></li>
+                    <li class="dropdown">
+                        <img src="images/icone comunidades.svg" alt="Comunidades">
+                        <a href="#">Comunidades</a>
+                        <img class="seta-dropdown" src="images/icone dropdown.svg" alt="Expandir">
+                        <div class="dropdown-menu">
+                            <div class="cursos">
+                                <img src="images/icone tads.svg" alt="TADS">
+                                <div class="cursos-conteudo">
+                                    <h3>TADS</h3>
+                                    <p>Curso de Análise e desenvolv. de sistemas da diatinf</p>
+                                    <button class="vermais-btn">Ver mais</button>
+                                </div>
+                            </div> 
+                            <div class="cursos">
+                                <img src="images/icone redes.svg" alt="REDES">
+                                <div class="cursos-conteudo">
+                                    <h3>REDES</h3>
+                                    <p>Curso de REDES da diatinf</p>
+                                    <button class="vermais-btn">Ver mais</button>
+                                </div>
+                            </div> 
+                            <div class="cursos">
+                                <img src="images/icone infoweb.svg" alt="INFOWEB">
+                                <div class="cursos-conteudo">
+                                    <h3>INFOWEB</h3>
+                                    <p>Curso de INFOWEB da diatinf</p>
+                                    <button class="vermais-btn">Ver mais</button>
+                                </div>
+                            </div> 
+                        </div>
+                    </li>
+                </div>
+            </ul>
+        </aside>
+        <main class="conteudo-principal">
+            <div class="cabecalho-perfil">
+                <button class="botao-voltar">
+                    <img src="images/icone-voltar.svg" alt="Voltar">
+                    Voltar
+                </button>
+                <div class="info-perfil">
+                    <div class="perfil-principal">
+                        <img src="images/fotoriel.svg" alt="Foto de perfil" class="foto-perfil-grande">
+                        <div class="dados-perfil">
+                            <div class="nome-curso">
+                                <h1>Riel Moura</h1>
+                                <img src="images/icone-tads-perfil.svg" alt="TADS" class="icone-tads-perfil">
+                            </div>
+                            <p class="usuario">@Riel.bizzu</p>
+                            <p class="bio">Meu nome é Riel tenho 30 anos, 3 gatos e um budega em Miami</p>
+                            <div class="estatisticas">
+                                <a href="#" class="estatistica-link"><span>15 seguidores</span></a>
+                                <a href="#" class="estatistica-link"><span>99 seguindo</span></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="criar-post">
+                <h2>Novo repositório</h2>
+                <div class="selecionar-comunidade">
+                    <button class="botao-comunidade">
+                        <img src="images/icone comunidades.svg" alt="Comunidade">
+                        <span>Selecione uma comunidade</span>
+                        <img src="images/icone dropdown.svg" alt="Expandir" class="seta-dropdown">
+                    </button>
+                </div>
+                <input type="text" placeholder="Título" class="input-titulo">
+                <div class="selecionar-categoria">
+                    <button class="botao-categoria">
+                        <img src="images/icone-categoria.svg" alt="Categoria">
+                        <span>Selecione uma categoria</span>
+                        <img src="images/icone dropdown.svg" alt="Expandir" class="seta-dropdown">
+                    </button>
+                </div>
+                <textarea placeholder="Adicione uma descrição ao seu repositório" class="input-descricao"></textarea>
+                <div class="acoes-post">
+                    <div class="botoes-midia">
+                        <button><img src="images/icone-pasta.svg" alt="Anexar arquivo"></button>
+                        <button><img src="images/icone-imagem.svg" alt="Adicionar imagem"></button>
+                        <button><img src="images/icone-emoji.svg" alt="Adicionar emoji"></button>
+                    </div>
+                    <div class="botoes-publicacao">
+                        <button class="botao-descartar">
+                            <img src="images/icone-lixeira.svg" alt="Descartar">
+                            Descartar
+                        </button>
+                        <button class="botao-postar">
+                            <img src="images/icone-enviar.svg" alt="Postar">
+                            Postar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <aside class="barra-lateral-direita">
+            <div class="estatisticas-usuario">
+                <div class="estatistica">
+                    <span class="numero">15</span>
+                    <span class="label">Curtidas</span>
+                </div>
+                <div class="estatistica">
+                    <span class="numero">99</span>
+                    <span class="label">Comentários</span>
+                </div>
+                <div class="estatistica">
+                    <span class="numero">2</span>
+                    <span class="label">Repositórios</span>
+                </div>
+                <div class="estatistica">
+                    <span class="numero">5</span>
+                    <span class="label">Postagens</span>
+                </div>
+            </div>
+            <div class="secao-educacao">
+                <h3><img src="images/icone-educacao.svg" alt="Educação">Educação (ou perfil profissional)</h3>
+                <div class="item-educacao">
+                    <img src="images/icone-escola.svg" alt="Escola">
+                    <span>Escola estadual de tempo integral Winston churchill</span>
+                </div>
+                <div class="item-educacao">
+                    <img src="images/ícone abelha perfil.svg" alt="IFRN">
+                    <span>IFRN</span>
+                </div>
+                <div class="item-educacao">
+                    <img src="images/icone-cafe.svg" alt="Lika's Café">
+                    <span>Lika's Café</span>
+                </div>
+                <div class="item-educacao">
+                    <img src="images/icone tads.svg" alt="TADS">
+                    <span>TADS 3/6</span>
+                </div>
+            </div>
+            <div class="configuracoes">
+                <h3><img src="images/icone-configuracoes.svg" alt="Configurações">Configurações</h3>
+                <button class="botao-config">
+                    <div class="texto">
+                        <span>Editar perfil</span>
+                        <span class="descricao">Edite sua foto, descrição, tema...</span>
+                    </div>
+                    <button class="botao-editar"><img src="images/icone-editar.svg" alt="Editar">Editar</button>
+                </button>
+                <button class="botao-config">
+                    <div class="texto">
+                        <span>Tema</span>
+                        <span class="descricao">Escuro/Claro</span>
+                    </div>
+                    <button class="botao-mudar"><img src="images/icone-mudar-tema.svg" alt="Mudar tema">Mudar</button>
+                </button>
+                <button class="botao-config">
+                    <div class="texto">
+                        <span>Salvos</span>
+                    </div>
+                    <button class="botao-abrir"><img src="images/icone-abrir-salvos.svg" alt="Abrir salvos">Abrir</button>
+                </button>
+            </div>
+        </aside>
+    </section>
+</body>
+</html>
