@@ -22,6 +22,11 @@
 || 2 - O sistema processa a solicitação de pesquisa e se nenhum resultado correspondente é encontrado, então o sistema exibe a mensagem: “Sem resultados para sua pesquisa”|  
 | 3 - O usuário refaz a busca modificando a palavra-chave colocada anteriormente |
 
+## Protótipo
+![FEED PRINCIPAL - LOGADO (COM ALTERAÇÕES) (1)](https://github.com/user-attachments/assets/21e1fcc0-0dce-420a-8568-17e03ac54398)
+
+![COMUNIDADES - POSTS (1)](https://github.com/user-attachments/assets/802e282c-45cc-48c2-8368-bca2795b2fcf)
+
 > Obs. as seções a seguir apenas serão utilizadas na segunda unidade do PDSWeb (segundo orientações do gerente do projeto).
 
 ## Diagrama de Interação (Sequência ou Comunicação)
