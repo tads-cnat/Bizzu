@@ -49,6 +49,9 @@
 |-------------------------------------|-------------------------------------------------|
 | 1. Realiza alterações e tenta sair sem salvar. | 2. Exibe aviso de confirmação para sair sem salvar alterações. |
 ## Protótipo
+![image](https://github.com/user-attachments/assets/073489ca-d550-4368-9158-af792f3de1c4)
+![image](https://github.com/user-attachments/assets/972535ad-2772-4a0c-8aa3-ceaa51f52582)
+
 
 
 > **Obs.:** As seções a seguir apenas serão utilizadas na segunda unidade do PDSWeb (segundo orientações do gerente do projeto).
