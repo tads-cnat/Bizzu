@@ -10,17 +10,17 @@
 ## Fluxo Principal
 | Ações do ator | Ações do sistema |
 | :-----------------: | :-----------------: | 
-| 1 - O usuário acessa o campo de pesquisa na interface| 3 - O sistema processa a solicitação de pesquisa e busca na base de dados|  
-| 2 - O usuário preenche esse campo com uma palavra-chave, categoria ou nome de usuário que deseja achar e confirma a pesquisa | 4 - O sistema exibe os resultados, mostrando os conteúdos cadastrados no sistema, filtrados a partir da palavra-chave | 
+| 1 - O usuário acessa o campo de pesquisa na interface e o preenche com uma palavra-chave, categoria ou nome de usuário que deseja achar e confirma a pesquisa ||  
+|| 2 - O sistema processa a solicitação de pesquisa e exibe os resultados, mostrando os conteúdos cadastrados no sistema, filtrados a partir da palavra-chave | 
 
 ## Fluxo Alternativo I - Não há
 
 ## Fluxo de Excessão I - [Não existe conteúdo com a palavra-chave pesquisada]
 | Ações do ator | Ações do sistema |
 | :-----------------: | :-----------------: | 
-| 1 - O usuário acessa o campo de pesquisa na interface| 3 - O sistema processa a solicitação de pesquisa e busca na base de dados| 
-| 2 - O usuário preenche esse campo com uma palavra-chave, categoria ou nome de usuário que deseja achar e confirma a pesquisa | 4 - Nenhum resultado correspondente é encontrado, então o sistema exibe a mensagem: “Sem resultados para sua pesquisa”|  
-| 5 - O usuário refaz a busca modificando a palavra-chave colocada anteriormente | 6 - O sistema reinicia o processo de pesquisa |
+| 1 - O usuário acessa o campo de pesquisa na interface e o preenche com uma palavra-chave, categoria ou nome de usuário que deseja achar e confirma a pesquisa|| 
+|| 2 - O sistema processa a solicitação de pesquisa e se nenhum resultado correspondente é encontrado, então o sistema exibe a mensagem: “Sem resultados para sua pesquisa”|  
+| 3 - O usuário refaz a busca modificando a palavra-chave colocada anteriormente |
 
 > Obs. as seções a seguir apenas serão utilizadas na segunda unidade do PDSWeb (segundo orientações do gerente do projeto).
 
