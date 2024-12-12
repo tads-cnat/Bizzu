@@ -35,9 +35,9 @@ O sistema exibe uma mensagem informando que o e-mail já está cadastrado e suge
 | 3. O sistema retorna ao fluxo básico no passo 4. | |  
 
 **Protótipos**
-![Feed principal - Pop-up de login](https://github.com/user-attachments/assets/f038863b-83c1-4d5d-af49-854311529f68)
+![Feed principal - Pop-up de login](<LOGIN - DESLOGADO (COM ALTERAÇÕES.png>)
 
-![Tela de cadastro](https://github.com/user-attachments/assets/58d832c6-d659-4a50-ab38-7a955a493a7b)
+![Tela de cadastro](<TELA DE CADASTRO.png>)
 
 
 
