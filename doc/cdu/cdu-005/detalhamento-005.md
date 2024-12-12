@@ -1,6 +1,6 @@
 # CDU005. Gerenciar Postagem
 
-- **Ator principal**: Visitante 
+- **Ator principal**: Estudante
 - **Atores secundários**: ...  
 - **Resumo**: Permite ao usuário criar, visualizar, editar e deletar postagens pessoais, bem como visualizar postagens de outros usuários na comunidade.  
 - **Pré-condição**: O usuário deve ter uma conta e estar autenticado no sistema.  
