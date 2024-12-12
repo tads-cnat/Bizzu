@@ -1,6 +1,7 @@
 # Modelo de Domínio
 
-![a4a60ce7-8146-4a79-953e-32181a6e632e](https://github.com/user-attachments/assets/d907a087-d256-4219-9e32-acb879d9976b)
+![Dominio](https://github.com/user-attachments/assets/c57a4d7a-461a-4747-8f60-0844e93636cc)
+
 
 ## Glossário (sugestão)
 
