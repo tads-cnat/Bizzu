@@ -4,8 +4,7 @@
 - **Atores secundários**: ...	 
 - **Resumo**: O usuário, devidamente cadastrado e logado, pode comentar em uma postagem ao clicar no ícone de “balãozinho” associado à postagem. Ele pode responder a postagens com texto, imagens, ou ambos.
 - **Pré-condição**: 
-1. O usuário deve possuir um cadastro ativo na plataforma.
-2.  O usuário deve estar logado na sua conta.
+1.  O usuário deve estar logado na sua conta.
 
 - **Pós-Condição**: 
 1. O comentário será registrado no post correspondente, associado ao usuário que o realizou.
