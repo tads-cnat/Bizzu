@@ -1,4 +1,4 @@
-# CDU002. Manuntenção  perfil pessoa
+# CDU002. Manuntenção  perfil pessoal
 
 - **Ator principal**: Estudante 
 - **Atores secundários**: ...	 
