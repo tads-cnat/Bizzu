@@ -1,6 +1,6 @@
 # CDU007. Comentar postagem
 
-- **Ator principal**: Usuário registrado e logado.
+- **Ator principal**: Estudante
 - **Atores secundários**: ...	 
 - **Resumo**: O usuário, devidamente cadastrado e logado, pode comentar em uma postagem ao clicar no ícone de “balãozinho” associado à postagem. Ele pode responder a postagens com texto, imagens, ou ambos.
 - **Pré-condição**: 
