@@ -16,10 +16,8 @@
 | :-----------------: | :-----------------: | 
 | 1. O usuário clica no ícone de “balãozinho” de comentar em uma postagem específica. | ... | 
 | ... | 2. O sistema exibe o pop-up de comentar daquela postagem. |
-| 3. O usuário digita sua mensagem no campo de texto fornecido. | ... |
-| 4. O usuário confirma o envio do comentário clicando no botão “Comentar”. | ... | 
-| ... | 5. O sistema salva o comentário no banco de dados, associando-o ao post e ao usuário. |
-| ... | 6. O sistema atualiza a lista de comentários exibida, incluindo o novo comentário. |
+| 3. O usuário digita sua mensagem no campo de texto fornecido e confirma o envio do comentário clicando no botão “Comentar”. | ... |
+| ... | 4. O sistema salva o comentário no banco de dados, associando-o ao post e ao usuário e atualiza a lista de comentários exibida, incluindo o novo comentário.|
 
 
 
@@ -27,10 +25,8 @@
 | Ações do ator | Ações do sistema |
 | :-----------------: |:-----------------: | 
 | ... | 1. O sistema exibe a tela de comentários da postagem. |  
-| 2. O usuário digita uma mensagem, mas opta por fechar a tela sem clicar no botão “Comentar”.
- |  ... |
-| ... | 3. O sistema descarta o comentário digitado sem salvá-lo. |
-| ... | 4. O sistema retorna o usuário retorna à tela anterior. |
+| 2. O usuário digita uma mensagem, mas opta por fechar a tela sem clicar no botão “Comentar” |  ... |
+| ... | 3. O sistema descarta o comentário digitado sem salvá-lo e retorna o usuário retorna à tela anterior. |
 
 ## Fluxo alternativo [Comentar em postagens contendo diferentes formatos de mídia]
 | Ações do ator | Ações do sistema |
