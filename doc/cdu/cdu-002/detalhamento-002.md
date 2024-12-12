@@ -1,4 +1,4 @@
-# CDU002. Nome... 
+# CDU002. Manuntenção  perfil pessoa
 
 - **Ator principal**: Estudante 
 - **Atores secundários**: ...	 
@@ -12,6 +12,7 @@
 | O usuário acessa seu perfil pessoal | O sistema mostra a tela de perfil pessoal ao usuário |  
 | O usuário clica no botão 'Editar Perfil', localizado na seção de configurações | O sistema exibe a tela de editar perfil ao usuário | 
 |  O usuário faz as alterações desejadas, como editar os dados pessoais, atualizar seção de educação ou gerenciar conteúdos salvos que ele deseja | O sistema valida as alterações feitas e logo em seguida mostra o perfil já atualizado ao usuário |  
+
 
 ## Fluxo Excessão - [Informações inválidas]
 | Ações do ator | Ações do sistema |
