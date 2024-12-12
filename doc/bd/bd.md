@@ -2,7 +2,7 @@
 
 ## Diagrama ER
 
-> Texto e imagem do diagrama ER...
+![Diagrama bizzu revisado drawio](https://github.com/user-attachments/assets/a20a307e-f4a9-43ee-962b-f9ab4c3d0fbc)
 
 ## Modelo Relacional
 
