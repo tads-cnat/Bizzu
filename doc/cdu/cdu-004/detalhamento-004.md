@@ -1,9 +1,9 @@
 # CDU004. Fazer Login
 
-- **Ator principal**: Usuário do sistema  
+- **Ator principal**: Visitante
 - **Atores secundários**: ...
 - **Resumo**: Permite que um usuário com conta cadastrada no sistema se autentique utilizando e-mail ou nome de usuário e senha. Uma vez autenticado, o usuário tem acesso a funcionalidades exclusivas do sistema.  
-- **Pré-condição**: O usuário não pode estar logado. O usuário deve possuir uma conta previamente registrada no sistema com e-mail ou nome de usuário e senha válidos.  
+- **Pré-condição**: O usuário não pode estar logado.
 - **Pós-Condição**: Feedback de sucesso ou erro após a tentativa de login. Se bem-sucedido, o usuário é autenticado e ganha acesso a funcionalidades restritas.
 
 ## Fluxo Principal - [Fazer Login]
@@ -20,7 +20,6 @@
 | | 2 - Redireciona para uma tela de recuperação de senha. |
 | 3 - Insere e-mail para recuperação. | |
 | | 4 - Envia um e-mail com instruções para redefinição de senha. |
-| 5 - Redefine a senha e retorna à tela de login. | |
 
 ## Fluxo de Exceção - [Credenciais Inválidas]
 | Ações do ator | Ações do sistema |
