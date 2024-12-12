@@ -6,29 +6,40 @@
 - **Pré-condição**: O usuário não pode estar autenticado no sistema.
 - **Pós-Condição**: O Cadastro estará concluído com sucesso e o usuário estará habilitado para acessar o conteúdo das comunidades selecionadas na etapa de cadastro.
 
-## Fluxo Basico - [Fazer cadastro]
+## Fluxo Basico - [ Fazer cadastro ]
 | Ações do ator (usuario) | Ações do sistema |
 | :-----------------: | :-----------------: | 
 | 1. O usuário acessa o pop up de fazer login e Clica no botão de fazer cadastro |  |  
 | | 2. O sistema exibe o formulário de cadastro solicitando: nome de usuário, email, senha e seleção de comunidades. |  
 | 3. O usuário preenche os campos solicitados e confirma o cadastro. | | 
-|| 4. É retornado uma tela que possui informações necessária na criação de um repositório  | 
-| 5.  O sistema valida os dados fornecidos. |  | 
-|  | 6.  Os dados são armazenados no banco de dados e o sistema exibe uma mensagem confirmando o sucesso do cadastro..  |
+|| 4. O sistema valida os dados fornecidos.  | 
+|  | 5.  Os dados são armazenados no banco de dados e o sistema exibe uma mensagem confirmando o sucesso do cadastro..  |
 
 
 
-## Fluxo Alternativo I - ...
-| Ações do ator | Ações do sistema |
-| :-----------------: |:-----------------: | 
-| 1.1 - ... | |  
-| | 1.2 - ... |
-
-## Fluxo Alternativo II - ...
+## Fluxo Alternativo I - [ E-mail já cadastrado ]
 | Ações do ator | Ações do sistema |
 | :-----------------: | :-----------------: | 
-| 2.1 - ... | |  
-| | 2.2 - ... |  
+|  | 1. Após o passo 4 do fluxo básico, o sistema detecta que o e-mail já está registrado. |  
+|  | 2. O sistema exibe uma mensagem informando que o e-mail já está cadastrado e sugere fazer login ou usar outro e-mail. |  
+| 3. O usuário fornece um novo e-mail válido. | |  
+| | 4. O sistema valida os novos dados e retorna ao passo 5 do fluxo básico. | 
+O sistema exibe uma mensagem informando que o e-mail já está cadastrado e sugere fazer login ou usar outro e-mail.
+
+
+## Fluxo de exceção - [ Senha inválida ]
+| Ações do ator | Ações do sistema |
+| :-----------------: | :-----------------: | 
+| | 1. Durante o passo 4 do fluxo básico, o sistema detecta que a senha não atende aos critérios mínimos. |
+| | 2. O sistema exibe uma mensagem indicando os requisitos de senha. |
+| 3. O sistema retorna ao fluxo básico no passo 4. | |  
+
+**Protótipos**
+![Feed principal - Pop-up de login](https://github.com/user-attachments/assets/f038863b-83c1-4d5d-af49-854311529f68)
+
+![Tela de cadastro](https://github.com/user-attachments/assets/58d832c6-d659-4a50-ab38-7a955a493a7b)
+
+
 
 > Obs. as seções a seguir apenas serão utilizadas na segunda unidade do PDSWeb (segundo orientações do gerente do projeto).
 
