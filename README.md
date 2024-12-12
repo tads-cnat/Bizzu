@@ -4,7 +4,7 @@
 
 >Quando estamos nos referindo à ambientes acadêmicos o contato com novas matérias, pessoas e atividades é um desafio que afeta muitos estudantes, pois quando falamos de problemas que esse tópico desencadeia podemos citar a dificuldade de desempenho nas matérias e socialização, que é impactado pela falta de interação entre aqueles que já “passaram” por aquela etapa e aqueles que estão vivenciando pela primeira vez. 
 
->Uma solução viável, seria a criação de uma espécie de rede social que internamente contaria com a presença de comunidades referentes a cada curso que possuiriam fóruns onde alunos, que teriam seus próprios perfis, fariam comentários. Por sua vez, os perfis dos alunos disporiam de repositórios próprios para a inserção de materiais individuais de estudos.
+>Uma solução viável, seria a criação de uma espécie de rede social que internamente contaria com a presença de comunidades referentes a cada curso onde alunos, que teriam seus próprios perfis, fariam comentários. Por sua vez, os perfis dos alunos disporiam de repositórios próprios para a inserção de materiais individuais de estudos.
 
 
 # Equipe e Formas de Contato
