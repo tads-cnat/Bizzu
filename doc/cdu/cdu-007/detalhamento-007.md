@@ -47,6 +47,9 @@
 | ... | 4. O sistema exibe uma mensagem de erro ao usuário informando que o comentário não pôde ser salvo. | 
 | ... | 5. O sistema permite ao usuário tentar novamente ou descartar a tentativa. | 
 
+## Protótipo
+![Captura de tela 2024-12-10 214804](https://github.com/user-attachments/assets/aabaf6e6-6f5d-4f62-a2c4-7ff79c2100a7)
+
 > Obs. as seções a seguir apenas serão utilizadas na segunda unidade do PDSWeb (segundo orientações do gerente do projeto).
 
 ## Diagrama de Interação (Sequência ou Comunicação)
