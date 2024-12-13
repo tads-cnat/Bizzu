@@ -1,6 +1,6 @@
 # CDU003. Pesquisar Conteúdo
 
-- **Ator principal**: Usuário registrado na rede social
+- **Ator principal**: Estudante e visitante
 - **Atores secundários**: ...	 
 - **Resumo**: O usuário pode pesquisar conteúdos disponíveis na rede social, por meio de categorias ou palavras-chaves inseridas no campo de busca.  
 - **Pré-condição**: Não há.
@@ -15,7 +15,7 @@
 
 ## Fluxo Alternativo I - Não há
 
-## Fluxo de Excessão I - [Não existe conteúdo com a palavra-chave pesquisada]
+## Fluxo de Exceção I - [Não existe conteúdo com a palavra-chave pesquisada]
 | Ações do ator | Ações do sistema |
 | :-----------------: | :-----------------: | 
 | 1 - O usuário acessa o campo de pesquisa na interface e o preenche com uma palavra-chave, categoria ou nome de usuário que deseja achar e confirma a pesquisa|| 
