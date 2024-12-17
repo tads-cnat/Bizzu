@@ -20,10 +20,7 @@
 
 
 ## Fluxo Alternativo I - [Não há fluxo alternativo para esse CDU]
-| Ações do ator | Ações do sistema |
-| :-----------------: |:-----------------: | 
-| 1.1 - ... | |  
-| | 1.2 - ... |
+
 
 ## Fluxo exceção - [Informações inválidas]
 | Ações do ator | Ações do sistema |
