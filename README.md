@@ -4,7 +4,7 @@
 
 >Em ambientes acadêmicos, o contato entre estudantes mais experientes e os novatos desempenha um papel fundamental. No entanto, para muitos desses estudantes, a integração com novas matérias, pessoas e atividades pode ser um grande desafio. Isso se deve, em parte, às dificuldades na socialização, que, por sua vez, impactam diretamente no desempenho acadêmico.
 
->Portanto, o objetivo do Bizzu é promover uma solução viavél para este problema, por meio da criação de uma plataforma semelhante a uma rede social que internamente contará com a presença de comunidades referentes a cada curso de tecnologia da DIATINF. A plataforma incluirá fóruns conde os estudantes poderão interagir, além de permitir a criação de perfis individuais, nos quais poderão fazer postagens e armazenar materiais de estudo em repositórios próprios.
+>Portanto, o objetivo do Bizzu é promover uma solução viável para este problema, por meio da criação de uma plataforma semelhante a uma rede social que internamente contará com a presença de comunidades referentes a cada curso de tecnologia da DIATINF. A plataforma incluirá fóruns onde os estudantes poderão interagir, além de permitir a criação de perfis individuais, nos quais poderão fazer postagens e armazenar materiais de estudo em repositórios próprios.
 
 # Equipe e Formas de Contato
 
