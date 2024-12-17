@@ -25,7 +25,7 @@
 | 1.1 - ... | |  
 | | 1.2 - ... |
 
-## Fluxo excessão - [Informações inválidas]
+## Fluxo exceção - [Informações inválidas]
 | Ações do ator | Ações do sistema |
 | :-----------------: | :-----------------: | 
 | 1. O usuário acessa seu perfil pessoal. | ... | 
@@ -35,7 +35,7 @@
 | 5. O usuário faz as alterações desejadas, porém insere informações inválidas. | ... |
 | ... | 6. O sistema impede que a ação seja finalizada, informando que tem algum erro e solicita a correção para que a ação seja finalizada. |
 
-**Protótipos**
+## Protótipo
 ![PERFIL PESSOAL - EDITAR PERFIL](https://github.com/user-attachments/assets/97d43b2b-3cc7-42b2-8844-66bab55b1f8e)
 
 ![PERFIL PESSOAL - DESCARTAR ALTERAÇÕES](https://github.com/user-attachments/assets/7e05ee65-46a4-4df6-be12-cbcbf2bb5d9b)
