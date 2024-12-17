@@ -10,9 +10,9 @@
 | Ações do ator | Ações do sistema |
 | :-----------------: | :-----------------: |
 | 1 - Acessa a tela de login. | |
-|  | 3 - Valida as credenciais. |
-| 2 - Insere credenciais (e-mail ou nome de usuário e senha) e clica no botão "Entrar". |  |
-| | 4 - Autentica o usuário e redireciona ao feed principal. |
+|  | 2 - Mostra o pop-up do login |
+| 3 - Insere credenciais (e-mail ou nome de usuário e senha) e clica no botão "Entrar". |  |
+| | 4 - Valida as credenciais, utentica o usuário e redireciona ao feed principal.|
 ## Fluxo Alternativo - [Esquecer Senha]
 | Ações do ator | Ações do sistema |
 | :-----------------: |:-----------------: |
