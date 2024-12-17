@@ -10,7 +10,7 @@
 
 1. Ana Maria
 2. Fábio Alexandre
-3. Gabrielly Stephanny
+3. Gabrielly Stéphany
 4. Jesrriel Moura
 5. Luiz Fernando
 6. Luiz Roberto
