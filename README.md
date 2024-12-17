@@ -2,10 +2,9 @@
 
 <img src="https://github.com/tads-cnat/Bizzu/blob/main/BIZZU.png"/>
 
->Quando estamos nos referindo à ambientes acadêmicos o contato com novas matérias, pessoas e atividades é um desafio que afeta muitos estudantes, pois quando falamos de problemas que esse tópico desencadeia podemos citar a dificuldade de desempenho nas matérias e socialização, que é impactado pela falta de interação entre aqueles que já “passaram” por aquela etapa e aqueles que estão vivenciando pela primeira vez. 
+>Em ambientes acadêmicos, o contato entre estudantes mais experientes e os novatos desempenha um papel fundamental. No entanto, para muitos desses estudantes, a integração com novas matérias, pessoas e atividades pode ser um grande desafio. Isso se deve, em parte, às dificuldades na socialização, que, por sua vez, impactam diretamente no desempenho acadêmico.
 
->Uma solução viável, seria a criação de uma espécie de rede social que internamente contaria com a presença de comunidades referentes a cada curso onde alunos, que teriam seus próprios perfis, fariam comentários. Por sua vez, os perfis dos alunos disporiam de repositórios próprios para a inserção de materiais individuais de estudos.
-
+>Portanto, o objetivo do Bizzu é promover uma solução viavél para este problema, por meio da criação de uma plataforma semelhante a uma rede social que internamente contará com a presença de comunidades referentes a cada curso de tecnologia da DIATINF. A plataforma incluirá fóruns conde os estudantes poderão interagir, além de permitir a criação de perfis individuais, nos quais poderão fazer postagens e armazenar materiais de estudo em repositórios próprios.
 
 # Equipe e Formas de Contato
 
