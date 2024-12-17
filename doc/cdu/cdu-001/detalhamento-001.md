@@ -52,7 +52,7 @@
 | 1. Ao entrar na aplicação é possível visualizar os repositórios de outros usuários e ao clicar no botão abrir ele consegue ver detalhadamente o conteúdo daquele repositório | |  
 | | 2. É retornada uma tela que contém além de informações do repositório também contém os arquivos anexados a ele |
 
-## Fluxo excessão - [Criar repositório]
+## Fluxo exceção - [Criar repositório]
 | Ações do ator | Ações do sistema |
 | :-----------------: | :-----------------: | 
 | 1. Usuário se direciona ao seu perfil pessoal | |  
@@ -74,7 +74,7 @@
 | 5. Ele faz as alterações que julgar necessárias mas não salva | | 
 | | 6. Se o usuário tentar sair da tela sem confirmar alterações aparece um aviso | 
 
-**Protótipos**
+##Protótipos
 ![FEED PRINCIPAL - REPOSITÓRIO](https://github.com/user-attachments/assets/f038863b-83c1-4d5d-af49-854311529f68)
 
 ![PERFIL NA MINHA VISÂO - REPOSITÓRIO COMUNIDADE EXPANDIDA](https://github.com/user-attachments/assets/58d832c6-d659-4a50-ab38-7a955a493a7b)
