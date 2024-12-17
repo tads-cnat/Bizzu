@@ -11,19 +11,18 @@
 
 ## 1. Objetivo do projeto
 
-Quando estamos nos referindo à ambientes acadêmicos o contato com novas matérias, pessoas e atividades é um desafio que afeta muitos estudantes, pois quando falamos de problemas que esse tópico desencadeia podemos citar a dificuldade de desempenho nas matérias e socialização, que é impactado pela falta de interação entre estudantes mais experientes e aqueles que estão vivenciando essas etapas pela primeira vez. 
+Quando estamos nos referindo à ambientes acadêmicos o contato com novas matérias, pessoas e atividades é um desafio que afeta muitos estudantes, pois quando falamos de problemas que esse tópico desencadeia podemos citar a dificuldade de desempenho nas matérias e socialização, que é impactado pela falta de interação entre aqueles que já “passaram” por aquela etapa e aqueles que estão vivenciando pela primeira vez.
 
-Uma solução viável, seria a criação de uma plataforma semelhante a uma rede social que internamente contaria com a presença de comunidades referentes a cada curso de tecnologia da DIATINF. Essa plataforma possuiria fóruns onde alunos, que teriam seus próprios perfis, fariam postagens. Por sua vez, os perfis dos alunos disporiam de repositórios próprios para a inserção de materiais individuais de estudos.
-
+Portanto, o objetivo do Bizzu é promover uma solução viável para este problema, por meio da criação de uma plataforma semelhante a uma rede social que internamente contará com a presença de comunidades referentes a cada curso de tecnologia da DIATINF. A plataforma incluirá fóruns onde os estudantes poderão interagir, além de permitir a criação de perfis individuais, nos quais poderão fazer postagens e armazenar materiais de estudo em repositórios próprios.
 
 ## 2. Descrição do problema
 
 |     |      |
 | --- | --- |
-| **Problema**            | Podemos citar a dificuldade de desempenho nas matérias e socialização |
+| **Problema**            | Desafios na integração de estudantes novatos em ambientes acadêmicos, relacionados a primeiro contato principalmente com novas matérias, pessoas e atividades |
 | **Afeta**               | Os estudantes da instituição. |  
-| **Impacta**             | Falta de interação entre aqueles que já “passaram” por aquela etapa e aqueles que estão vivenciando pela primeira vez. |
-| **Solução**             | Seria a criação de uma espécie de rede social que internamente contaria com a presença de comunidades referentes a cada curso que possuiriam fóruns onde alunos, que teriam seus próprios perfis, fariam comentários. Por sua vez, os perfis dos alunos disporiam de repositórios próprios para a inserção de materiais individuais de estudos. | 
+| **Impacta**             | Impacta diretamente os estudantes, nas dificuldades de socialização e de desempenho acadêmico|
+| **Solução**             | Criação de uma espécie de rede social que internamente contaria com a presença de comunidades referentes a cada curso onde alunos, que teriam seus próprios perfis, fariam comentários. Por sua vez, os perfis dos alunos disporiam de repositórios próprios para a inserção de materiais individuais de estudos.| 
 
 ## 3. Descrição dos usuários 
 
@@ -85,7 +84,6 @@ Nosso projeto tem como concorrentes o Linkedin, o Github, o Reddit, o X, e o Ami
 | :-----------------: | :-----------------: | :-----------------: | :-----------------: |
 | Linkedin | Fórum Extenso / Mecanismo de busca com filtro relacionado a estágio ou postagens comuns | Pressão social relacionado ao objetivo e assuntos da plataforma, que é se destacar|  Mecanismo de filtro, porém ainda mais específico/ Promover união entre as pessoas |
 | Github | Presença de repositório | Precisa aprender linguagem git para utilizar repositórios | Repositório de fácil intuitividade |
-| Reddit | Presença de comunidades e diversificação delas | Não existe filtro dentro das comunidades por assunto | Comunidades voltadas para o estudantil e filtros por assunto |
 | Amino | Comunidades Diversificadas e possibilidade de uma grande customização de perfil |Design desorganizado e confuso, principalmente para encontrar tópicos específicos | Customização de perfil, porém mais simples. Design consistente e filtros para assuntos. |
 | X | Aceita grandes quantidades de pessoas e o feed é organizado com os assuntos do momento e muito bem estruturado | As comunidades são muito escondidas e as recomendações são aleatórias | Feed estruturado / Comunidades fáceis de achar|
 
