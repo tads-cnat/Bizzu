@@ -12,7 +12,7 @@
 | 1 - Acessa a tela de login. | |
 |  | 2 - Mostra o pop-up do login |
 | 3 - Insere credenciais (e-mail ou nome de usuário e senha) e clica no botão "Entrar". |  |
-| | 4 - Valida as credenciais, utentica o usuário e redireciona ao feed principal.|
+| | 4 - Valida as credenciais, autentica o usuário e redireciona ao feed principal.|
 ## Fluxo Alternativo - [Esquecer Senha]
 | Ações do ator | Ações do sistema |
 | :-----------------: |:-----------------: |
