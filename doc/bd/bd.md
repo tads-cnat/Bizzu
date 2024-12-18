@@ -7,28 +7,105 @@
 
 ## Modelo Relacional
 
-> Texto e imagem do Modelo Relacional...
+![Diagrama relacional](https://github.com/user-attachments/assets/c91aadbf-803d-40e5-91ca-4000623c12f2)
+
 
 ## Dicionário de Dados
 
 --- 
-**Tabela** : [nome da tabela 1]
+**Tabela** : Perfil
 
-*Descrição* : ...
+*Descrição* : Responsável por identificar os usuários do sistema
 
 *Observações* : ...
 
 | Colunas | Descrição | Tipo de Dado | Tamanho | Null | PK | FK | Unique | Identity | Default | Check | 
 | ------- | --------- | ------------ | ------- | ---- | -- | -- | ------ | -------- | ------- | ----- |
-| [nome da coluna] | [descrição da coluna] | [tipo_de_dado] | [tamanho - se necessário | &#9745;  | &#9744; | &#9744; | &#9744; | &#9744; | [default - se necessário] | [outras restrições - se necessário] | 
+| id_username | Identificador único do estudante | VARCHAR | 45 | &#9744;  | &#9745; | &#9744; | &#9744; | &#9745; |  | Not null |
+| Nome | Nome do estudante| VARCHAR | 200 | &#9744;  | &#9744; | &#9744; | &#9744; | &#9744; |  | Not null | 
+| Email | Email do estudante| VARCHAR |  | &#9744;  | &#9744; | &#9744; | &#9744; | &#9744; |  |  |
+| Descrição | Descrição do estudante| TEXT |  | &#9745;  | &#9744; | &#9744; | &#9744; | &#9744; |  |  |
+| Informação educação | Informações sobre escolaridade| TEXT |  | &#9745;  | &#9744; | &#9744; | &#9744; | &#9744; |  |  |
+
 
 --- 
-**Tabela** : [nome da tabela 2]
+**Tabela** : Repositorio
 
-*Descrição* : ...
+*Descrição* : Armazena e organiza arquivos associados a um perfil com intuito de compartilhamento em uma espécie de "depósito"  virtual
 
 *Observações* : ...
 
 | Colunas | Descrição | Tipo de Dado | Tamanho | Null | PK | FK | Unique | Identity | Default | Check | 
 | ------- | --------- | ------------ | ------- | ---- | -- | -- | ------ | -------- | ------- | ----- |
-| [nome da coluna] | [descrição da coluna] | [tipo_de_dado] | [tamanho - se necessário | &#9745;  | &#9744; | &#9744; | &#9744; | &#9744; | [default - se necessário] | [outras restrições - se necessário] | 
+| Titulo | Titulo do repositório | VARCHAR | 245 | &#9744;  | &#9745; | &#9744; | &#9744; | &#9744; |  | Not null |
+| Data de publicação | Data de quando foi postado o repositório | DATE |  | &#9744;  | &#9744; | &#9744; | &#9744; | &#9744; |  |  | 
+| Descrição | Descrição do que se trata o repositório | TEXT |  | &#9744;  | &#9744; | &#9744; | &#9744; | &#9744; |  |  |
+| Comunidade_id_comunidade | Que comunidade está associada a este repositório | INTEGER |  | &#9744;  | &#9744; | &#9745; | &#9744; | &#9745; |  | Not null |
+| Perfil_id_username | Que perfil postou o repositório | VARCHAR | 45 | &#9744;  | &#9744; | &#9745; | &#9744; | &#9745; |  | Not null |
+| id_repositorio | identificador único do repositório | INTEGER | 45 | &#9744;  | &#9745; | &#9744; | &#9744; | &#9745; |  |  |
+
+
+--- 
+**Tabela** : Comunidade
+
+*Descrição* : Grupos virtuais associados a cada curso de tecnologia da diatinf
+
+*Observações* : ...
+
+| Colunas | Descrição | Tipo de Dado | Tamanho | Null | PK | FK | Unique | Identity | Default | Check | 
+| ------- | --------- | ------------ | ------- | ---- | -- | -- | ------ | -------- | ------- | ----- |
+| id_comunidade | Identificador único da comunidade | INTEGER |  | &#9744;  | &#9745; | &#9744; | &#9744; | &#9745; |  | Not null |
+| Nome | Nome da comunidade | VARCHAR |  | &#9744;  | &#9744; | &#9744; | &#9744; | &#9744; |  |  |
+| Descrição | Descrição da comunidade | VARCHAR |  | &#9744;  | &#9744; | &#9744; | &#9744; | &#9744; |  |  |
+| Informações do curso | informações adicionais sobre o curso da comunidade | TEXT |  | &#9744;  | &#9744; | &#9744; | &#9744; | &#9744; |  |  |
+
+
+--- 
+**Tabela** : Postagem
+
+*Descrição* : Representa conteúdos publicados no sistema, podendo incluir texto, arquivos ou links
+
+*Observações* : ...
+
+| Colunas | Descrição | Tipo de Dado | Tamanho | Null | PK | FK | Unique | Identity | Default | Check | 
+| ------- | --------- | ------------ | ------- | ---- | -- | -- | ------ | -------- | ------- | ----- |
+| id_postagem | Código que identifica cada postagem no banco de dados | INTEGER |  | &#9744;  | &#9745; | &#9744; | &#9744; | &#9745; |  | Not null |
+| Data de publicação | Data de quando foi feita a postagem | DATE |  | &#9744;  | &#9744; | &#9744; | &#9744; | &#9744; |  |  |
+| Texto | Texto da postagem | TEXT |  | &#9744;  | &#9744; | &#9744; | &#9744; | &#9744; |  |  |
+| Imagem | Imagem da postagem | BIT |  | &#9744;  | &#9744; | &#9744; | &#9744; | &#9744; |  |  |
+| Curtir | Curtidas da postagem | BOOLEAN |  | &#9744;  | &#9744; | &#9744; | &#9744; | &#9744; |  |  |
+| Perfil_id_username | Associar qual perfil fez a postagem | VARCHAR | 45 | &#9744;  | &#9744; | &#9744; | &#9744; | &#9744; |  | Not null |
+| Comunidade_id_comunidade | Associar qual comunidade tem essa postagem | INTEGER |  | &#9744;  | &#9744; | &#9745; | &#9744; | &#9744; |  | Not null |
+
+
+--- 
+**Tabela** : Categorias
+
+*Descrição* : Organiza postagens e repositórios, permitindo que estudantes ou visitantes filtrem o conteúdo de forma eficiente e direcionado.
+
+*Observações* : As categorias já são pré-definidas e por isso o tipo de dado do atributo tipo é enum
+
+| Colunas | Descrição | Tipo de Dado | Tamanho | Null | PK | FK | Unique | Identity | Default | Check | 
+| ------- | --------- | ------------ | ------- | ---- | -- | -- | ------ | -------- | ------- | ----- |
+| id_categoria | Identificador único da categoria | VARCHAR | 45 | &#9744;  | &#9745; | &#9744; | &#9744; | &#9744; |  | Not null |
+| Nome | Nome da categoria | VARCHAR | 255 | &#9744;  | &#9744; | &#9744; | &#9744; | &#9744; |  | Tecnologia, período, matéria... |
+| Tipo | Tipo de categoria(outras restrições) | VARCHAR | 45 | &#9744;  | &#9744; | &#9744; | &#9744; | &#9744; |  |  |
+
+
+--- 
+**Tabela** : Arquivos
+
+*Descrição* : Responsável por definir os atributos e características que determinam os tipos de arquivos permitidos dentro de um repositório.
+
+*Observações* : O atributo tipo, é um dado do tipo enum
+
+| Colunas | Descrição | Tipo de Dado | Tamanho | Null | PK | FK | Unique | Identity | Default | Check | 
+| ------- | --------- | ------------ | ------- | ---- | -- | -- | ------ | -------- | ------- | ----- |
+| id_arquivos | Identificador dos arquivos  | INTEGER |  | &#9744;  | &#9745; | &#9744; | &#9744; | &#9745; |  | Not null |
+| Nome | Nome do arquivo a ser enviado  | VARCHAR | 45 | &#9744;  | &#9744; | &#9744; | &#9744; | &#9744; |  |  |
+| Tipo | Tipo de arquivo  | VARCHAR | 45 | &#9744;  | &#9744; | &#9744; | &#9744; | &#9744; |  | Not null |
+| Repositorio_Titulo | Associar a qual repositorio este arquivo pertence  | VARCHAR | 45 | &#9744;  | &#9744; | &#9745; | &#9744; | &#9744; |  | Not null |
+| Localização no diretorio | Localização dos arquivos no diretorio   | INTEGER |  | &#9744;  | &#9744; | &#9744; | &#9744; | &#9744; |  |  |
+
+
+
