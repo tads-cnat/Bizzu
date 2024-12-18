@@ -1,4 +1,4 @@
-# CDU005. Gerenciar Postagem
+# CDU005. CRUD Postagem
 
 - **Ator principal**: Estudante
 - **Atores secundários**: ...  
