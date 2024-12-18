@@ -64,7 +64,7 @@
 | 7. Usuário não preenche todas as informações/anexações obrigatórias | | 
 | | 8. Retorna uma mensagem de requisição de preenchimento de campos | 
 
-## Fluxo excessão - [Edição repositório]
+## Fluxo excecão - [Edição repositório]
 | Ações do ator | Ações do sistema |
 | :-----------------: | :-----------------: | 
 | 1. Usuário clica no ícone de três pontos (°°°) | | 
@@ -74,7 +74,7 @@
 | 5. Ele faz as alterações que julgar necessárias mas não salva | | 
 | | 6. Se o usuário tentar sair da tela sem confirmar alterações aparece um aviso | 
 
-##Protótipos
+## Protótipos
 ![FEED PRINCIPAL - REPOSITÓRIO](https://github.com/user-attachments/assets/f038863b-83c1-4d5d-af49-854311529f68)
 
 ![PERFIL NA MINHA VISÂO - REPOSITÓRIO COMUNIDADE EXPANDIDA](https://github.com/user-attachments/assets/58d832c6-d659-4a50-ab38-7a955a493a7b)
