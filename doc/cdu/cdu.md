@@ -13,4 +13,4 @@
 4. [CDU-004 - Fazer Login](cdu-004/detalhamento-004.md)
 5. [CDU-005 - CRUD postagem](cdu-005/detalhamento-005.md)
 6. [CDU-006 - Fazer cadastro](cdu-006/detalhamento-006.md)
-7. [CDU-007 - Comentar](cdu-007/detalhamento-007.md)
+7. [CDU-007 - Comentar postagem](cdu-007/detalhamento-007.md)
