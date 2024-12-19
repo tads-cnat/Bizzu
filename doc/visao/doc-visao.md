@@ -5,8 +5,11 @@
 | Data                |  Versão             |          Descrição  |  Autores            |
 | :-----------------: | :-----------------: | :-----------------: | :-----------------: |
 | - | - | Versão inicial |  - |
-| 07/11 | 1.0 | Primeira etapa |  - |
-| 11/12 | 2.0 | Segunda etapa |  - |
+| 07/11 | 1.0 | Mudança do documento do docs pro github | Luiz Fernando |
+| 11/12 | 2.0 | Atualização dos dados do documento de visão | Ana Maria |
+| 17/12 | 3.0 | Nova atualização dos dados do documento de visão | Gabrielly |
+| 19/12 | 4.0 | Atualização do histórico de revisões | Gabrielly |
+
 
 
 ## 1. Objetivo do projeto
