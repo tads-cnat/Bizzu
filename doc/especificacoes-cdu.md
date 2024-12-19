@@ -1,11 +1,4 @@
-# Modelo de Casos de Uso
-
-## 1. Diagrama de Casos de Uso
-
-![UseCase Diagram0](https://github.com/user-attachments/assets/9e9ea847-992a-4006-a97b-07084fc11011)
-
-
-## 2. Listagem dos detalhamentos dos casos de uso
+## Listagem dos detalhamentos dos casos de uso
 
 1. [CDU-001 - CRUD Repositório](cdu-001/detalhamento-001.md)
 2. [CDU-002 - Manuntenção do perfil pessoal](cdu-002/detalhamento-002.md)
