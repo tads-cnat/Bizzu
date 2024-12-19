@@ -35,11 +35,13 @@
 
 # Documentação
 
-- [Documento de Visão](https://docs.google.com/document/d/18RBXh7BP-uHRYVCyiqW7hlhzSTTfC7TbwvYK-1jyUBg/edit?usp=sharing)
+- [Documento de Visão](https://github.com/tads-cnat/Bizzu/blob/main/doc/visao/doc-visao.md)
 - [Protótipo - Figma](https://www.figma.com/design/UgFAxl67foAlG0ZSShDrab/PDS?node-id=0-1&t=IbbWAPlmOGhArKjJ-1)
-- [Casos de uso](https://docs.google.com/document/d/1HTovXVuPVUd3lLn2keLWehqH3aRt2yh2eA_fY4SG6k0/edit?usp=sharing)
-- [Diagrama entidade-relacionamento](https://drive.google.com/file/d/1WtND6zWbMtHgGzMvUuxp8gE9uFE1F4cp/view?usp=sharing)
-- [Especificações caso de uso](https://docs.google.com/document/d/1o5XsOgXaiTKwvvKkg19gN-uSJ25Xrl-zmk-DjPlS-bo/edit?usp=sharing)
+- [Mapa de uso / Interfaces](https://github.com/tads-cnat/Bizzu/blob/main/doc/prototipos/prototipos.md)
+- [Códigos HTML/CSS](https://github.com/tads-cnat/Bizzu/tree/main/BIZZU%20-%20P%C3%81GINAS%20CONECTADAS)
+- [Casos de usos completos](https://github.com/tads-cnat/Bizzu/blob/main/doc/cdu/casos-de-uso-completos.md)
+- [Diagrama ER / Modelo Relacional / Dicionário de Dados](https://github.com/tads-cnat/Bizzu/blob/main/doc/bd/bd.md)
+- [Especificações caso de uso individuais](https://github.com/tads-cnat/Bizzu/blob/main/doc/especificacoes-cdu.md)
 
 # Manual da Desenvolvedor
 
