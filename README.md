@@ -42,6 +42,7 @@
 - [Casos de usos completos](https://github.com/tads-cnat/Bizzu/blob/main/doc/cdu/casos-de-uso-completos.md)
 - [Diagrama ER / Modelo Relacional / Dicionário de Dados](https://github.com/tads-cnat/Bizzu/blob/main/doc/bd/bd.md)
 - [Especificações caso de uso individuais](https://github.com/tads-cnat/Bizzu/blob/main/doc/especificacoes-cdu.md)
+- [Diagrama de Domínio](https://github.com/tads-cnat/Bizzu/blob/main/doc/dominio/dominio.md)
 
 # Manual da Desenvolvedor
 
