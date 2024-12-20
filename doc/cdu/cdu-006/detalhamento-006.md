@@ -29,6 +29,7 @@
 | | 1. Durante o passo 3 do fluxo básico, o sistema detecta que a senha não atende aos critérios mínimos, e exibe uma mensagem indicando os requisitos de senha. |
 | 2. O usuario digita uma nova senha | |  
 | | 3. O sistema retorna ao fluxo básico no passo 4 |
+
 **Protótipos**
 ![Feed principal - Pop-up de login](<LOGIN - DESLOGADO (COM ALTERAÇÕES.png>)
 
