@@ -38,7 +38,7 @@
 - [Documento de Visão](https://github.com/tads-cnat/Bizzu/blob/main/doc/visao/doc-visao.md)
 - [Protótipo - Figma](https://www.figma.com/design/UgFAxl67foAlG0ZSShDrab/PDS?node-id=0-1&t=IbbWAPlmOGhArKjJ-1)
 - [Mapa de uso / Interfaces](https://github.com/tads-cnat/Bizzu/blob/main/doc/prototipos/prototipos.md)
-- [Códigos HTML/CSS](https://github.com/tads-cnat/Bizzu/tree/main/BIZZU%20-%20P%C3%81GINAS%20CONECTADAS)
+- [Códigos HTML/CSS](https://github.com/tads-cnat/Bizzu/tree/main/doc/prototipos/prototipos%20html%20e%20css)
 - [Casos de usos completos](https://github.com/tads-cnat/Bizzu/blob/main/doc/cdu/casos-de-uso-completos.md)
 - [Diagrama ER / Modelo Relacional / Dicionário de Dados](https://github.com/tads-cnat/Bizzu/blob/main/doc/bd/bd.md)
 - [Especificações caso de uso individuais](https://github.com/tads-cnat/Bizzu/blob/main/doc/especificacoes-cdu.md)
