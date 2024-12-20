@@ -42,7 +42,7 @@
 | Descrição | Descrição do que se trata o repositório | TEXT |  | &#9744;  | &#9744; | &#9744; | &#9744; | &#9744; |  |  |
 | Comunidade_id_comunidade | Que comunidade está associada a este repositório | INTEGER |  | &#9744;  | &#9744; | &#9745; | &#9744; | &#9745; |  | Not null |
 | Perfil_id_username | Que perfil postou o repositório | VARCHAR | 45 | &#9744;  | &#9744; | &#9745; | &#9744; | &#9745; |  | Not null |
-| id_repositorio | identificador único do repositório | INTEGER | 45 | &#9744;  | &#9745; | &#9744; | &#9744; | &#9745; |  |  |
+| id_repositorio | identificador único do repositório | INTEGER |  | &#9744;  | &#9745; | &#9744; | &#9744; | &#9745; |  |  |
 
 
 --- 
@@ -87,7 +87,7 @@
 
 | Colunas | Descrição | Tipo de Dado | Tamanho | Null | PK | FK | Unique | Identity | Default | Check | 
 | ------- | --------- | ------------ | ------- | ---- | -- | -- | ------ | -------- | ------- | ----- |
-| id_categoria | Identificador único da categoria | VARCHAR | 45 | &#9744;  | &#9745; | &#9744; | &#9744; | &#9744; |  | Not null |
+| id_categoria | Identificador único da categoria | VARCHAR | 45 | &#9744;  | &#9745; | &#9744; | &#9744; | &#9745; |  | Not null |
 | Nome | Nome da categoria | VARCHAR | 255 | &#9744;  | &#9744; | &#9744; | &#9744; | &#9744; |  | Tecnologia, período, matéria... |
 | Tipo | Tipo de categoria(outras restrições) | VARCHAR | 45 | &#9744;  | &#9744; | &#9744; | &#9744; | &#9744; |  |  |
 
