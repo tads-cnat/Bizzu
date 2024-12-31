@@ -106,7 +106,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "pt-br"
 
-TIME_ZONE = "Americas/Sao_Paulo"
+TIME_ZONE = "America/Sao_Paulo"
 
 USE_I18N = True
 
@@ -122,5 +122,9 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+STATICFILES_DIRS = [
+    BASE_DIR / "static",  
+]
 
 CSRF_TRUSTED_ORIGINS=['https://localhost:8000']
