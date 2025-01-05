@@ -1,0 +1,31 @@
+<style>
+    :root{
+        --primary-color: {{cor}};
+    }
+    div{
+        background-color: var(--primary-color);
+        display: flex;
+        width:auto;
+        max-width: 100px;
+        border-radius: 20px;
+        overflow: hidden;
+        justify-content: center;
+    }
+    a{
+        margin-top: 8px;
+        text-decoration: none;
+        font-size: 1.2em;
+        color:white;
+        margin-left: 8px;
+        margin-right: 8px;
+    }
+    img{
+        padding: 5px;
+        
+    }
+</style>
+{%load static%}
+<div>
+    <img src="{{icone}}" alt="">
+    <a href="{{link}}">{{label}}</a>
+</div>
