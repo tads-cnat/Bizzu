@@ -2,6 +2,9 @@
     :root{
         --primary-color: {{cor}};
     }
+    div:hover{
+        background-color: #c8f9fc;
+    }
     div{
         background-color: var(--primary-color);
         display: flex;
@@ -24,7 +27,6 @@
         
     }
 </style>
-{%load static%}
 <div>
     <img src="{{icone}}" alt="">
     <a href="{{link}}">{{label}}</a>

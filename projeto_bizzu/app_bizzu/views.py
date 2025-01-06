@@ -10,5 +10,4 @@ def index(request):
         'icone': '/static/img/desconectar.svg',
         'label': 'ver'
         }
-    #  #058B92
     return render(request,'feed.html', context)
