@@ -1,16 +1,36 @@
-{%load static%}
+{% load static %}
 <style>
-    input{
+    :root{
+        --secundary-color: {{corBarra}};
+    }
+    div{
         width: 25%;
-        height: 25px;
-        background-color: #3C3834;
+        height: auto;
+        max-height: 38px;
+        background-color: var(--secundary-color);
         color: #ffffff9a;
         border-radius: 20px;
         border-color: #3C3834;
-        padding: 5px;
-        outline: none;
-        border: 0;
+        display: flex;
+        justify-content: space-between;
     }
-    
+    input{
+        outline: none;
+        background-color: #3c383400;
+        border-color: #3c383400;
+        margin-left: 10px;
+    }
+    .lupa{
+        display: flex;
+        margin-right: 10px;
+    }
+    .imgLupa{
+        width: 18px;
+        height: auto;
+        padding: 10px;
+    }
 </style>
-<input type="text" placeholder="Pesquise aqui..." >
+<div>
+    <input type="text" placeholder="Pesquise aqui..." >
+    <a class="lupa" href="#"><img class="imgLupa" src="{%static 'img/lupa.svg' %}" alt=""></a>
+</div>

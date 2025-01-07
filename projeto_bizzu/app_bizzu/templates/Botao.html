@@ -2,32 +2,32 @@
     :root{
         --primary-color: {{cor}};
     }
-    div:hover{
+    .BotaoLink:hover{
         background-color: #c8f9fc;
     }
-    div{
+    .BotaoLink{
+        height: auto;
+        max-height: 45px;
         background-color: var(--primary-color);
         display: flex;
+        text-decoration: none;
         width:auto;
         max-width: 100px;
         border-radius: 20px;
         overflow: hidden;
         justify-content: center;
+        padding: 5px;
     }
-    a{
-        margin-top: 8px;
-        text-decoration: none;
+    p{
         font-size: 1.2em;
+        margin: 0;
         color:white;
         margin-left: 8px;
         margin-right: 8px;
     }
-    img{
-        padding: 5px;
-        
-    }
+   
 </style>
-<div>
+
+    <a class="BotaoLink" href="{{link}}">
     <img src="{{icone}}" alt="">
-    <a href="{{link}}">{{label}}</a>
-</div>
+    <p>{{label}}</p></a>

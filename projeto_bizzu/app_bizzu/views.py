@@ -8,6 +8,7 @@ def index(request):
         'cor':'#058B92',
         'link': '#',
         'icone': '/static/img/desconectar.svg',
-        'label': 'ver'
+        'label': 'ver', 
+        'corBarra' : '#000000'
         }
     return render(request,'feed.html', context)

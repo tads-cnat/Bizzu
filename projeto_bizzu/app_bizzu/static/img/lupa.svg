@@ -1,6 +1,1 @@
-<svg width="28" height="30" viewBox="0 0 28 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g opacity="0.66">
-<path d="M12.3507 20.9841C16.7623 20.2856 19.9317 15.8946 19.2429 11.0344C18.5541 6.17426 14.3066 2.95768 9.89504 3.65622C5.48352 4.35476 2.3141 8.74577 3.00287 13.6059C3.69165 18.4661 7.93921 21.6826 12.3507 20.9841Z" fill="#E3AA3F" stroke="#FCF2DC" stroke-width="3"/>
-<line y1="-1.5" x2="11.1987" y2="-1.5" transform="matrix(0.722502 0.679833 0.64933 -0.771034 18.9404 18)" stroke="#FCF2DC" stroke-width="3"/>
-</g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg>
