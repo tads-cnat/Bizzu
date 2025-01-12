@@ -1,36 +1,7 @@
 {% load static %}
-<style>
-    :root{
-        --secundary-color: {{corBarra}};
-    }
-    div{
-        width: 25%;
-        height: auto;
-        max-height: 38px;
-        background-color: var(--secundary-color);
-        color: #ffffff9a;
-        border-radius: 20px;
-        border-color: #3C3834;
-        display: flex;
-        justify-content: space-between;
-    }
-    input{
-        outline: none;
-        background-color: #3c383400;
-        border-color: #3c383400;
-        margin-left: 10px;
-    }
-    .lupa{
-        display: flex;
-        margin-right: 10px;
-    }
-    .imgLupa{
-        width: 18px;
-        height: auto;
-        padding: 10px;
-    }
-</style>
-<div>
-    <input type="text" placeholder="Pesquise aqui..." >
+<link rel="stylesheet" href="{% static "css/Feed.css" %}">
+
+<div class="barraPesquisa">
+    <input class="barra" type="text" placeholder="Pesquise aqui..." >
     <a class="lupa" href="#"><img class="imgLupa" src="{%static 'img/lupa.svg' %}" alt=""></a>
 </div>

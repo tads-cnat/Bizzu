@@ -5,10 +5,11 @@ from django.http import HttpResponse, HttpResponseRedirect
 
 def index(request):
     context = {
-        'cor':'#058B92',
+        'cor':'#F7C110',
         'link': '#',
         'icone': '/static/img/desconectar.svg',
         'label': 'ver', 
-        'corBarra' : '#000000'
+        'corBarra' : '#ffff',
+        'placeInput' : 'senha'
         }
     return render(request,'feed.html', context)

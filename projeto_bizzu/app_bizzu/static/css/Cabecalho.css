@@ -1,0 +1,23 @@
+
+.cabecalho{
+    display: flex;
+    background-color: blueviolet;
+}
+.cabecalhoImg{
+    display: inline;
+    max-height: 60%;
+}
+.cabecalhoP{
+    color: var(--preto);
+    display: inline;
+    font-size: 1.1em;
+    padding: 2px;
+    padding-bottom: 10px;
+}
+.postagensDiv{
+    background-color: blueviolet;
+    justify-content: center;
+    border-radius: 20px;
+    width: 10%;
+    padding: 5px;
+}

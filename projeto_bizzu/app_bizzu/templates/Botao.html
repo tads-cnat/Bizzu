@@ -1,33 +1,14 @@
+{% load static %}
+<link rel="stylesheet" href="{% static "css/Botao.css" %}">
 <style>
     :root{
-        --primary-color: {{cor}};
-    }
-    .BotaoLink:hover{
-        background-color: #c8f9fc;
+        --corBotao: {{cor}}
     }
     .BotaoLink{
-        height: auto;
-        max-height: 45px;
-        background-color: var(--primary-color);
-        display: flex;
-        text-decoration: none;
-        width:auto;
-        max-width: 100px;
-        border-radius: 20px;
-        overflow: hidden;
-        justify-content: center;
-        padding: 5px;
+        background-color: var(--corBotao);
     }
-    p{
-        font-size: 1.2em;
-        margin: 0;
-        color:white;
-        margin-left: 8px;
-        margin-right: 8px;
-    }
-   
 </style>
 
-    <a class="BotaoLink" href="{{link}}">
-    <img src="{{icone}}" alt="">
-    <p>{{label}}</p></a>
+<a class="BotaoLink" href="{{link}}" >
+<img src="{{icone}}" alt="">
+<p>{{label}}</p></a>
