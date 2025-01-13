@@ -2,10 +2,13 @@
 <link rel="stylesheet" href="{% static "css/Botao.css" %}?v=1.2">
 <style>
     :root{
-        --corBotao: {{corBotao}}
+        --corBotao: {{corBotao}};
+        --strokeBotao: {{strokeBotao}};
     }
     .BotaoLink{
         background-color: var(--corBotao);
+        border: 2px solid;
+        border-color: var(--strokeBotao);
     }
 </style>
 

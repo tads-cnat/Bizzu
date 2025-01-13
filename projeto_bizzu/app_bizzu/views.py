@@ -9,6 +9,7 @@ def index(request):
         'linkBotao': '#',
         'iconeBotao': '/static/img/desconectar.svg',
         'labelBotao': 'Abrir2', 
+        'strokeBotao': '#F7C110',
         'corBarra' : '#ffff',
         'placeInput' : 'senha'
         }
