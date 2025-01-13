@@ -7,7 +7,7 @@
     background-color: var(--variavel-botao);
     display: flex;
     text-decoration: none;
-    width:5%;
+    width:auto;
     max-width: 100%;
     border-radius: 20px;
     overflow: hidden;
