@@ -1,23 +1,41 @@
-
 .cabecalho{
     display: flex;
-    background-color: blueviolet;
+    padding: 2px;
+    width: 30%;
+    max-width: 100%;
+    justify-content: space-between;
 }
 .cabecalhoImg{
-    display: inline;
-    max-height: 60%;
+    width: 17%;
+    height: auto;
 }
+
 .cabecalhoP{
     color: var(--preto);
-    display: inline;
-    font-size: 1.1em;
+    font-size: 1.1vw;
     padding: 2px;
-    padding-bottom: 10px;
+    margin: 0;
+    padding: 5%;
+    
 }
 .postagensDiv{
-    background-color: blueviolet;
+    display: flex;
     justify-content: center;
     border-radius: 20px;
-    width: 10%;
     padding: 5px;
+    align-items: center;
+}
+.repositorioDiv{
+    display: flex;
+    justify-content: center;
+    border-radius: 20px;
+    padding: 5px;
+    align-items: center;
+}
+.comentariosDiv{
+    display: flex;
+    justify-content: center;
+    border-radius: 20px;
+    padding: 5px;
+    align-items: center;
 }

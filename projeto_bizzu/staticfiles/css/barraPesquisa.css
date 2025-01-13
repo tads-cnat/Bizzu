@@ -1,0 +1,26 @@
+.barraPesquisa{
+    width: 25%;
+    height: auto;
+    max-height: 38px;
+    background-color: var(--cinza);
+    color: #ffffff9a;
+    border-radius: 20px;
+    border-color: #3C3834;
+    display: flex;
+    justify-content: space-between;
+}
+.barra{
+    outline: none;
+    background-color: #3c383400;
+    border-color: #3c383400;
+    margin-left: 10px;
+}
+.lupa{
+    display: flex;
+    margin-right: 10px;
+}
+.imgLupa{
+    width: 18px;
+    height: auto;
+    padding: 10px;
+}
