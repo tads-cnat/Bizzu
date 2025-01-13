@@ -1,14 +1,14 @@
 {% load static %}
-<link rel="stylesheet" href="{% static "css/Botao.css" %}?v=1.1">
+<link rel="stylesheet" href="{% static "css/Botao.css" %}?v=1.2">
 <style>
     :root{
-        --corBotao: {{cor}}
+        --corBotao: {{corBotao}}
     }
     .BotaoLink{
         background-color: var(--corBotao);
     }
 </style>
 
-<a class="BotaoLink" href="{{link}}" >
-<img src="{{icone}}" alt="">
-<p>{{label}}</p></a>
+<a class="BotaoLink" href="{{linkBotao}}" >
+<img class="botaoImg"src="{{iconeBotao}}" alt="">
+<p class="botaoP">{{labelBotao}}</p></a>

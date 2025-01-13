@@ -1,7 +1,7 @@
 .cabecalho{
     display: flex;
     padding: 2px;
-    width: 30%;
+    width: 10%;
     max-width: 100%;
     justify-content: space-between;
 }

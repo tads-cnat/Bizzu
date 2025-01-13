@@ -5,10 +5,10 @@ from django.http import HttpResponse, HttpResponseRedirect
 
 def index(request):
     context = {
-        'cor':'#F7C110',
-        'link': '#',
-        'icone': '/static/img/desconectar.svg',
-        'label': 'ver', 
+        'corBotao':'#F7C110',
+        'linkBotao': '#',
+        'iconeBotao': '/static/img/desconectar.svg',
+        'labelBotao': 'Abrir2', 
         'corBarra' : '#ffff',
         'placeInput' : 'senha'
         }
