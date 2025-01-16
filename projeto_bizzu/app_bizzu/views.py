@@ -18,8 +18,8 @@ def index(request):
         #'iconeBotao2': '/static/img/icone pagina inicial.png ', #apenas se for selecionar comunidade
         'labelBotao2': 'Mais recente', 
         'strokeBotao2': '#F79010',
-        'usuario.foto_perfil.url': 'https://i.pinimg.com/736x/98/3b/c2/983bc2b504ff8cb23dbc44b2a877e918.jpg',
-        'post.tempo_postagem':'5h atrás',
-        'usuario.nome':'Namaria',
+        'usuarioFotoPerfilUrl': '/static/img/logo.svg',
+        'posttempo_postagem':'5h atrás',
+        'usuarionome':'Namaria',
         }
     return render(request,'feed.html', context)

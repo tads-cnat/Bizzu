@@ -4,11 +4,11 @@
 
 <div class="profile-container">
     <div class="hexagon">
-        <img src="{{usuario.foto_perfil.url|default:'https://via.placeholder.com/32'}}" class="profile-image">
+        <img src="{{usuarioFotoPerfilUrl}}" class="profile-image">
     </div>
     <div class="user-info">
-        <span class="username">{{usuario.nome|default:"Luiz Fernando"}}</span>
+        <span class="username">{{usuarionome|default:"Luiz Fernando"}}</span>
         <span class="separator">•</span>
-        <span class="timestamp">{{post.tempo_postagem|default:"4h atrás"}}</span>
+        <span class="timestamp">{{posttempo_postagem|default:"4h atrás"}}</span>
     </div>
 </div>
