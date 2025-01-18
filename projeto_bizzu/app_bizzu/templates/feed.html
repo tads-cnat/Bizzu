@@ -11,12 +11,6 @@
 <body>
     <h1>Olá</h1>
     {% include 'Cabecalho.html' %}
-    <div class="caixaInput">
-        <p class="inputP">Senha</p>
-        <div class="input">
-            <img class="inputImg" src="{% static "img/desconectar.svg" %}?v=1.1" alt="">
-            <input class="entrada" type="text" placeholder="Digite sua senha" >
-        </div>
-    </div>
+    {% include 'Botao2.html' %}
 </body>
 </html>

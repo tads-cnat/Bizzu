@@ -6,5 +6,14 @@ from django.http import HttpResponse, HttpResponseRedirect
 def index(request):
     context = {
         'placeInput' : 'senha',
+        #'corBotao2':'#9D0707',
+        'corFonteBotao2': '#F79010',
+        'linkBotao2': '#',
+        #'iconeBotao2': '/static/img/icone pagina inicial.png ', #apenas se for selecionar comunidade
+        'labelBotao2': 'Mais recente', 
+        'strokeBotao2': '#F79010',
+        'usuarioFotoPerfilUrl': '/static/img/logo.svg',
+        'posttempo_postagem':'5h atrás',
+        'usuarionome':'Namaria',
         }
     return render(request,'feed.html', context)
