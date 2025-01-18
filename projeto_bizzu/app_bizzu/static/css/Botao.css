@@ -1,7 +1,7 @@
-.BotaoLink:hover{
-    background-color: var(--cinza);
+#BotaoLink:hover{
+    background-color: #ACABA4;
 }
-.BotaoLink{
+#BotaoLink{
     height: auto;
     max-height: 27px;
     display: flex;
@@ -13,16 +13,65 @@
     align-items: center;
     padding: 0.5%;
     white-space: nowrap;
-    justify-self: right;
 }
-.botaoImg{
+#botaoImg{
     width: 20%;
     height: auto;
     padding-right: 8px;
    
 }
-.botaoP{
+#botaoP{
     font-size: 1.1vw;
     font-family: "Poppins", sans-serif;
     font-weight: 400;
 }
+
+.AlertaPrimario{
+    background-color: #9D0707;
+    color: white;
+}
+
+#BotaoLink.GeralPrimario{
+    background-color: #F7C110 ;
+    color: white;
+    padding-left: 1.5%;
+    padding-right: 1.5%;
+}
+
+#BotaoLink.GeralSecundario{
+    border: 1px solid;
+    border-color: #F7C110 ;
+    color: #F7C110;
+    padding-left: 2%;
+    padding-right: 2%;
+} 
+
+.EditPrimario{
+    background-color: #ACABA4;
+    color: white;
+}
+
+#BotaoLink.EditSecundario{
+    border: 1px solid;
+    border-color: #ACABA4;
+    color: #ACABA4;
+    max-height: 15px;
+    padding-left: 1.5%;
+    padding-right: 1.5%;
+} 
+
+.PerfilPrimario{
+    background-color: #058B92;
+    color: white;
+}
+
+#BotaoLink.PerfilSecundario{
+    border: 1px solid;
+    border-color: #058B92;
+    color: #058B92;
+    max-height: 15px;
+    padding-left: 1.5%;
+    padding-right: 1.5%;
+ } 
+
+

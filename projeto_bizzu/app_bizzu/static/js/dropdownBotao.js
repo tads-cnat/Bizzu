@@ -1,3 +1,0 @@
-function dropOrdenar(){
-    alert("heelo")
-}
