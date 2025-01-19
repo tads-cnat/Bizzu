@@ -1,0 +1,39 @@
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+
+<div class="container">
+    <div class="tag tag-rosa"><img src="/projeto_bizzu/app_bizzu/static/img/iconeTagRosa.svg"> Período</div>
+    <div class="tag tag-amarela"><img src="/projeto_bizzu/app_bizzu/static/img/iconeTagAmarelo.svg"> Matéria</div>
+    <div class="tag tag-verde"><img src="/projeto_bizzu/app_bizzu/static/img/iconeTagVerde.svg"> Tecnologia</div>
+</div>
+
+<style>
+.container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: poppins;
+    /*color: white;  --> como não tem fundo ainda, deixei a cor da fonte preta, mas colocar cor branca quando for juntar com os outros elementos do repositório (se for usar no repositório)*/
+    font-size: 12px;
+}
+
+.tag {
+    display: flex;
+    align-items: center;
+    gap: 5px; 
+    /* font-weight: bold; --> usar só quando for usar as tags com os nomes coloridos pra postagem */
+}
+
+/* 1. definir cor de acordo com a paleta do design system, essas cores são temporárias
+   2. as cores só são usadas no nome também, em postagens. As tags no repositório só tem a bolinha colorida e os nomes em branco */
+.tag-rosa {
+    color: rgb(214, 42, 71); 
+}
+
+.tag-amarela {
+    color: rgb(0, 255, 191);
+}
+
+.tag-verde {
+    color: green;
+}
+</style>
