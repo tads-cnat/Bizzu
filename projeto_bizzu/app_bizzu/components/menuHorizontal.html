@@ -1,0 +1,65 @@
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+
+<div class="menu-horizontal-container">
+    <a href="link da pagina selecionada" class="menuHorizontal postagensDiv">
+        <img class="imgMenu default" src="/projeto_bizzu/app_bizzu/static/img/iconePostagem.svg" alt="icone postagens">
+        <img class="imgMenu hover" src="colocar icone branco" alt="icone postagens hover">
+        Postagens
+    </a> 
+    <a href="link da pagina selecionada" class="menuHorizontal repositorioDiv">
+        <img class="imgMenu default" src="/projeto_bizzu/app_bizzu/static/img/iconeRepositorio.svg" alt="icone repositórios">
+        <img class="imgMenu hover" src="colocar icone branco" alt="icone repositórios hover">
+        Repositórios
+    </a>
+    <a href="link da pagina selecionada" class="menuHorizontal comentariosDiv">
+        <img class="imgMenu default" src="/projeto_bizzu/app_bizzu/static/img/iconeComentario.svg" alt="icone comentários">
+        <img class="imgMenu hover" src="colocar icone branco" alt="icone comentários hover">
+        Comentários
+    </a>
+</div>
+
+<style>
+    .menu-horizontal-container {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        font-family: poppins;
+        font-size: 15px;
+    }
+
+    .menuHorizontal {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        padding: 15px 20px;
+        border-radius: 20px;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        text-decoration: none;
+        color: inherit;
+        position: relative;
+    }
+
+    .imgMenu {
+        width: 12px;
+        height: 12px;
+    }
+
+    .imgMenu.hover {
+        display: none;
+    }
+
+    .menuHorizontal:hover .imgMenu.default {
+        display: none;
+    }
+
+    .menuHorizontal:hover .imgMenu.hover {
+        display: block;
+    }
+
+    .menuHorizontal:hover {
+        background-color: #F79010;
+        color: white;
+    }
+</style>
