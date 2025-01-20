@@ -1,9 +1,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
 
 <div class="container">
-    <div class="tag tag-rosa"><img src="/projeto_bizzu/app_bizzu/static/img/iconeTagRosa.svg"> Período</div>
-    <div class="tag tag-azul"><img src="/projeto_bizzu/app_bizzu/static/img/iconeTagAzul.svg"> Matéria</div>
-    <div class="tag tag-verde"><img src="/projeto_bizzu/app_bizzu/static/img/iconeTagVerde.svg"> Tecnologia</div>
+    <div class="tag tag-rosa"><img src="/projeto_bizzu/app_bizzu/static/img/iconeTagRosa.svg" class="imgMenu"> Período</div>
+    <div class="tag tag-azul"><img src="/projeto_bizzu/app_bizzu/static/img/iconeTagAzul.svg" class="imgMenu"> Matéria</div>
+    <div class="tag tag-verde"><img src="/projeto_bizzu/app_bizzu/static/img/iconeTagVerde.svg" class="imgMenu"> Tecnologia</div>
 </div>
 
 <style>
@@ -13,7 +13,8 @@
     gap: 10px;
     font-family: poppins;
     /*color: white;  --> como não tem fundo ainda, deixei a cor da fonte preta, mas colocar cor branca quando for juntar com os outros elementos do repositório (se for usar no repositório)*/
-    font-size: 12px;
+    font-size: 0.7vw;
+    justify-content: right;
 }
 
 .tag {
@@ -21,6 +22,10 @@
     align-items: center;
     gap: 5px; 
     /* font-weight: bold; --> usar só quando for usar as tags com os nomes coloridos pra postagem */
+}
+
+.imgMenu {
+    width: 10%;
 }
 
 /* 1. definir cor de acordo com a paleta do design system, essas cores são temporárias
