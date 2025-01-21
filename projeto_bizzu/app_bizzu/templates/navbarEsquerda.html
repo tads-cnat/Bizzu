@@ -1,0 +1,53 @@
+{% load static %}
+<link rel="stylesheet" href="{% static "css/navbarEsquerda.css" %}">
+
+<aside id="barralateral">
+    <div class="perfil">
+        <img src="{% static 'img/fotoriel.svg' %}">
+        <div class="perfil2">
+            <h2 id="userperfil">Riel Lopes</h2>
+            <h4 id="verperfil"><a href="../2. perfil do usuario/basePerfil.html">Ver perfil</a></h4>
+        </div>
+    </div>
+
+    <ul>
+        <div class="paginas">
+            <li><img src="{% static 'img/icone pagina inicial.png' %}" height="35px" width="35px"><a href="index.html">Página
+                    Inicial</a></li>
+            <li><img src="{% static 'img/vocesegue.svg' %}"><a href="#">Você segue</a></li>
+            <li class="dropdown">
+                <img src="{% static 'img/icone comunidades.svg' %}">
+                <a href="#">Comunidades</a>
+                <img class="seta-dropdown" src="{% static 'img/icone dropdown.svg' %}">
+
+                <div class="dropdown-menu">
+                    <div class="cursos">
+                        <img src="{% static 'img/icone tads.svg' %}">
+                        <div class="cursos-conteudo">
+                            <h3>TADS</h3>
+                            <p>Curso de Análise e desenvolv. de sistemas da diatinf</p>
+                            <a href="../3. perfil da comunidade/comun-post.html"><button class="vermais-btn">Ver mais</button></a>
+                        </div>
+                    </div>
+                    <div class="cursos">
+                        <img src="{% static 'img/icone redes.svg' %}">
+                        <div class="cursos-conteudo">
+                            <h3>REDES</h3>
+                            <p>Curso de REDES da diatinf</p>
+                            <button class="vermais-btn">Ver mais</button>
+                        </div>
+                    </div>
+                    <div class="cursos">
+                        <img src="{% static 'img/icone infoweb.svg' %}">
+                        <div class="cursos-conteudo">
+                            <h3>INFOWEB</h3>
+                            <p>Curso de INFOWEB da diatinf</p>
+                            <button class="vermais-btn">Ver mais</button>
+                        </div>
+                    </div>
+                </div>
+
+            </li>
+        </div>
+    </ul>
+</aside>
