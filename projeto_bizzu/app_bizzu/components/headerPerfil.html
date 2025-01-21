@@ -1,0 +1,65 @@
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+
+    <div class="comunidade-infos">
+        <img src="imagens/Group 546.png" alt="imagem da comunidade tads" class="icon">
+        <div class="principais-info">
+            <h1> TADS </h1> 
+            <p>Comunidade de TADS do curso diatinf</p>
+            <div class="seguindo-bt">
+                <p style="color: white;">99 seguindo</p>
+                <a id="BotaoLink" class="PerfilSecundario" href="#">
+                    <p id="botaoP">Seguir</p>
+                </a>    
+        </div>
+    </div>
+</div>
+
+<style>
+
+.comunidade-infos {
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid #DCCEB1;
+        gap: 20px
+    }
+
+    .icon {
+        width: 8vw;
+        height: 6vw;
+        margin-left: 25px;
+    }
+    
+
+#BotaoLink{
+    height: auto;
+    max-height: 27px;
+    display: flex;
+    text-decoration: none;
+    width: fit-content;
+    border-radius: 30px;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5%;
+    white-space: nowrap;
+}
+
+#botaoP{
+    font-size: 1.1vw;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+}
+
+    #BotaoLink.PerfilSecundario{
+    border: 1px solid;
+    border-color: #058B92;
+    color: #058B92;
+    max-height: 15px;
+    padding-left: 1.5%;
+    padding-right: 1.5%;
+} 
+
+ #BotaoLink:hover{
+    background-color: #ACABA4;
+}
+</style>
