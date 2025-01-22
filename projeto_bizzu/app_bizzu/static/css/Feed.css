@@ -15,5 +15,7 @@
 }
 
 body{
-    padding: 50px;
+    background-color: #27211B;
+    width: 100%;
+    height: calc(100vh - 70px);
 }
