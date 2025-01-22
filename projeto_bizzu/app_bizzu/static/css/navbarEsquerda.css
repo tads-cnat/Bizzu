@@ -19,11 +19,13 @@
 
 #barralateral {
     padding-top: 30px;
+    margin-top: 50px;
     width: 13%;
     height: 100%;
     border-right: 1px solid #DCCEB1;
     list-style: none;
     overflow: hidden;
+    background-color: #27211B;
 }
 
 #barralateral li a {
