@@ -1,16 +1,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
 
-    <div class="comunidade-infos">
-        <img src="imagens/Group 546.png" alt="imagem da comunidade tads" class="icon">
-        <div class="principais-info">
-            <h1> TADS </h1> 
-            <p>Comunidade de TADS do curso diatinf</p>
-            <div class="seguindo-bt">
-                <p style="color: white;">99 seguindo</p>
-                <a id="BotaoLink" class="PerfilSecundario" href="#">
-                    <p id="botaoP">Seguir</p>
-                </a>    
-        </div>
+<div class="comunidade-infos">
+    <img src="/projeto_bizzu/app_bizzu/static/img/comunidadeFotoPerfil.svg" alt="imagem da comunidade tads" class="icon">
+    <div class="principais-info">
+        <h1> TADS </h1> 
+        <p>Comunidade do curso TADS da diatinf</p>
+        <div class="seguindo-bt">
+            <p style="color: black">99 seguindo</p>
+            <a id="BotaoLink" class="PerfilSecundario" href="#">
+                <p id="botaoP">Seguir</p>
+            </a>  
+        </div>  
     </div>
 </div>
 
@@ -19,17 +19,24 @@
 .comunidade-infos {
         display: flex;
         align-items: center;
+        gap: 8px;
         border-bottom: 1px solid #DCCEB1;
-        gap: 20px
+        font-family: poppins;
     }
 
-    .icon {
-        width: 8vw;
-        height: 6vw;
-        margin-left: 25px;
-    }
+.seguindo-bt {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+}
+
+.icon {
+    width: 10vw;
+    height: 8vw;
+    margin-left: 25px;
+} 
     
-
 #BotaoLink{
     height: auto;
     max-height: 27px;
@@ -55,7 +62,7 @@
     border-color: #058B92;
     color: #058B92;
     max-height: 15px;
-    padding-left: 1.5%;
+    padding-left: 1.8%;
     padding-right: 1.5%;
 } 
 
