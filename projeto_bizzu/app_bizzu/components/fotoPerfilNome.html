@@ -1,0 +1,82 @@
+{% load static %}
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+    body {
+        background-color: #1B1818
+    }
+
+    body, .username, .timestamp {
+    font-family: 'Poppins', sans-serif;
+    }
+    
+    .profile-container {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        max-width: 300px;
+    }
+
+    .hexagon {
+        width: 32px;
+        height: 32px;
+        position: relative;
+        clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+        background: #DCCEB1; /* cor da borda */
+        padding: 2px;
+        margin-right: 10px;
+        overflow: hidden; /* Isso garante que a imagem não ultrapasse o hexágono */
+    }
+
+    .hexagon::after {
+        content: '';
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        right: 2px;
+        bottom: 2px;
+        background: linear-gradient(to bottom right, #f6b93b, #ffa502);
+        clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+        object-fit: cover; /* Isso faz a imagem preencher o espaço mantendo a proporção */
+    }
+
+    .profile-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    }
+
+    .user-info {
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+    }
+
+    .username {
+        font-weight: 500;
+        margin-right: 2px;
+        color: #ffffff;
+    }
+
+    .timestamp {
+        color: #DCCEB1;
+    }
+
+    .separator {
+        margin: 0 5px;
+        color: #ffffff;
+    }
+</style>
+
+<div class="profile-container">
+    <div class="hexagon">
+        <img src="{{ usuario.foto_perfil.url|default:'https://via.placeholder.com/32' }}" class="profile-image">
+    </div>
+    <div class="user-info">
+        <span class="username">{{ usuario.nome|default:"Sem nome" }}</span>
+        <span class="separator">•</span>
+        <span class="timestamp">{{ post.tempo_postagem|default:"0h atrás" }}</span>
+    </div>
+</div>
+
