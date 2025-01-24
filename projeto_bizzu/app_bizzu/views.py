@@ -23,3 +23,12 @@ def index(request):
         'usuarionome':'Namaria',
         }
     return render(request,'PagRepositorio.html', context)
+
+def pagInicial(request):
+    context = {
+
+    }
+    return render(request, 'feed.html', context)
+
+def deslogado(request):
+    return render(request, 'feed_deslogado.html')

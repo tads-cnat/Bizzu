@@ -1,0 +1,12 @@
+{% load static %}
+<link rel="stylesheet" href="{% static "css/headerDeslogado.css" %}">
+
+<header>
+    <div class="logo">
+        <img src="{% static 'img/abelha_bizzu.svg' %}" id="abelhalogo" href="/">
+        <img src="{% static 'img/logotipo_bizzu.svg' %}" id="nomelogo" href="">
+    </div>
+    <!-- {% include 'barraPesquisa.html' %} -->
+    <input type="text" id="buscar" placeholder="Procurar...">
+    <a href="deslogado.html"><button id="entrar"><img src="{% static 'img/entrar.svg' %}" id="entrarbtn">Entrar</button></a>
+</header>
