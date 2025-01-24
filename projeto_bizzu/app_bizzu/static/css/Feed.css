@@ -33,3 +33,4 @@ body::before {
     background-size: cover;
     transform: rotate(180deg);
     z-index: -1;
+}
