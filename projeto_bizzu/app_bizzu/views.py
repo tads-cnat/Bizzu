@@ -22,4 +22,4 @@ def index(request):
         'posttempo_postagem':'5h atrás',
         'usuarionome':'Namaria',
         }
-    return render(request,'feed.html', context)
+    return render(request,'PagRepositorio.html', context)
