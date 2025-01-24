@@ -18,9 +18,9 @@
 }
 
 #barralateral {
-    padding-top: 13px;
+    padding-top: 30px;
     /* margin-top: 20px; */
-    width: 13%;
+    width: 250px;
     height: 100%;
     border-right: 1px solid #DCCEB1;
     list-style: none;
@@ -39,7 +39,7 @@
     list-style: none;  
     /* display: flex;
     justify-content: center; */
-    margin-left: 4%;
+    margin-left: 12%;
     padding: 5px;
     font-weight: 600;
 }
@@ -94,6 +94,7 @@
 .paginas li {
     list-style: none;  
     display: flex; 
+    align-items: center; 
 }
 
 .seta-dropdown {

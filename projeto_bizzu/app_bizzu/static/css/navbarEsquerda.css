@@ -19,8 +19,8 @@
 
 #barralateral {
     padding-top: 30px;
-    margin-top: 50px;
-    width: 13%;
+    /* margin-top: 50px; */
+    width: 250px;
     height: 100%;
     border-right: 1px solid #DCCEB1;
     list-style: none;
@@ -93,7 +93,8 @@
 
 .paginas li {
     list-style: none;  
-    display: flex; 
+    display: flex;
+    align-items: center; 
 }
 
 .seta-dropdown {
@@ -159,4 +160,12 @@
 .vermais-btn:hover {
     color: var(--primary-color);
     border: 1px solid var(--primary-color);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    
+    #barralateral {
+        display: hidden;
+    }
 }

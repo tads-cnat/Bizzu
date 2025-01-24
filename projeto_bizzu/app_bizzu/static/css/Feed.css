@@ -34,3 +34,15 @@ body::before {
     transform: rotate(180deg);
     z-index: -1;
 }
+
+.conteudo {
+    display: flex;
+    gap: 10px; /* Espaço entre as colunas */
+    height: calc(100vh - 75px); /* Altura total da tela */
+    margin: auto;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+
+    
