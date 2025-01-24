@@ -1,4 +1,5 @@
 from django.db import models
+import os
 
 class Usuario(models.Model):
     nome = models.CharField(verbose_name="Nome", max_length= 50)
@@ -26,8 +27,8 @@ class Comunidade(models.Model):
 
 class Postagem(models.Model):
     texto = models.CharField(verbose_name="Texto de descrição",max_length= 200)
-    imagem = models.FileField(verbose_name="Imagem")
-    dataPublicacao = models.DateTimeField(verbose_name="Data de publicação")
+    imagem = models.ImageField(verbose_name="Imagem",upload_to="imgPostagens/")
+    dataPublicacao = models.DateTimeField(verbose_name="Data de publicação",)
 
     def __str__(self):
         return self.texto
