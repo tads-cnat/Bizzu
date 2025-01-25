@@ -1,0 +1,40 @@
+.hexagono {
+    width: 80px;
+    height: 92px;
+    background: url('teste.png') center/cover;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    margin-right: 15px;
+   
+}
+
+body{
+    background-color: #000000;
+}
+
+.nome {
+    margin: 0;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: 'Poppins', sans-serif;
+}
+
+.verperfil {
+    margin: 5px 0 0;
+    font-size: 16px;
+    color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+}
+
+.botao_perfil {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    background: transparent;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: rgb(255, 255, 255);
+    font-family: Arial, sans-serif;
+    border: none;
+}
