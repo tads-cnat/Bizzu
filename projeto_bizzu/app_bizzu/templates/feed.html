@@ -1,21 +1,43 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bizzu</title>
-    <link rel="stylesheet" href="{% static "css/Feed.css" %}">
+    <link rel="stylesheet" href="{% static 'css/Feed.css' %}">
 </head>
 <body>
 
-    
     {% include 'header.html' %}
     <section class="conteudo">
         {% include 'navbarEsquerda.html' %}
+        
+        <div class="feed">
+            {% for postagem in postagens %}
+            <div class="postagem">
+                <!-- Nome do usuário e hora da postagem -->
+                <div class="post-header">
+                    <h3>{{ postagem.usuario.username }}</h3>
+                    <small>{{ postagem.dataPublicacao|date:"d/m/Y H:i" }}</small>
+                </div>
+
+                <!-- Texto da postagem -->
+                <div class="post-body">
+                    <p>{{ postagem.texto }}</p>
+                    {% if postagem.imagem %}
+                    <img src="{{ postagem.imagem.url }}" alt="Imagem da postagem">
+                    {% endif %}
+                </div>
+            </div>
+            {% empty %}
+            <p>Nenhuma postagem disponível no momento.</p>
+            {% endfor %}
+        </div>
+
         {% include 'navbarRepositorios.html' %}
     </section>
     
-   
 </body>
 </html>

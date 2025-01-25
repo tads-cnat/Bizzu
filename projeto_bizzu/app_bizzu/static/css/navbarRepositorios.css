@@ -20,6 +20,7 @@
 /* ESTLIZAÇÃO */
 
 .barrarepositorios {  
+    flex: 2;
     position: fixed;
     right: 0;
     width: 510px;
@@ -27,6 +28,7 @@
     color: white;
     padding: 20px;
     border-left: 1px solid #DCCEB1;
+    background-color: #27211B;
   }
 
   .conteudodireita {

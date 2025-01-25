@@ -42,6 +42,44 @@ body::before {
     margin: auto;
 }
 
+/* FEED DE PUBLICAÇÕES ABAIXO */
+
+.feed {
+    flex: 1;
+    margin: auto;
+    max-width: 1200px;
+    padding: 20px;
+    border-radius: 10px;
+    overflow-y: auto;
+    height: calc(100% - 50px);
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary-color-dark) var(--primary-color);
+}
+
+.postagem {
+    width: 60%;
+    padding: 15px;
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+}
+
+.post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.post-body img {
+    max-width: 90%;
+    margin-top: 10px;
+    border-radius: 10px;
+}
+
+/* FEED DE PUBLICAÇÕES ACIMA */
+
 /* Responsividade */
 @media (max-width: 768px) {
 
