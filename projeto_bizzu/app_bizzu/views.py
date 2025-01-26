@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth import login as login_django
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
-from .models import Postagem, Comentario, Usuario, Repositorio, Comunidade
+from .models import Postagem, Comentario, Repositorio, Comunidade, Usuario
 
 @login_required(login_url="/login/")
 def feed(request):
