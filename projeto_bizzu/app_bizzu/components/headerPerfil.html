@@ -4,9 +4,9 @@
     <img src="/projeto_bizzu/app_bizzu/static/img/comunidadeFotoPerfil.svg" alt="imagem da comunidade tads" class="icon">
     <div class="principais-info">
         <h1> TADS </h1> 
-        <p>Comunidade do curso TADS da diatinf</p>
+        <p class="paragrafo">Comunidade do curso TADS da diatinf</p>
         <div class="seguindo-bt">
-            <p style="color: black">99 seguindo</p>
+            <p style="color: black" class="paragrafo">99 seguindo</p>
             <a id="BotaoLink" class="PerfilSecundario" href="#">
                 <p id="botaoP">Seguir</p>
             </a>  
@@ -17,29 +17,42 @@
 <style>
 
 .comunidade-infos {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        border-bottom: 1px solid #DCCEB1;
-        font-family: poppins;
-    }
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid #DCCEB1;
+    font-family: poppins;
+}
+
+.principais-info h1 {
+    font-size: 2.5vw;
+    line-height: 1.1; 
+    margin: 0;
+}
+
+.paragrafo {
+    font-size: 1.2vw; 
+    line-height: 1.5;
+    margin: 0;
+    margin-top: 5px;
+}
 
 .seguindo-bt {
     display: flex;
     align-items: center;
     gap: 8px;
-
 }
 
 .icon {
-    width: 10vw;
-    height: 8vw;
+    width: 14vw;
+    height: 11vw;
     margin-left: 25px;
+    margin-bottom: 10px;
 } 
-    
+
 #BotaoLink{
     height: auto;
-    max-height: 27px;
+    max-height: 30px;
     display: flex;
     text-decoration: none;
     width: fit-content;
@@ -47,7 +60,9 @@
     overflow: hidden;
     justify-content: center;
     align-items: center;
-    padding: 0.5%;
+    padding: 1%;
+    padding-top: 3%;
+    padding-bottom: 3%;
     white-space: nowrap;
 }
 
@@ -57,14 +72,14 @@
     font-weight: 400;
 }
 
-    #BotaoLink.PerfilSecundario{
+#BotaoLink.PerfilSecundario{
     border: 1px solid;
     border-color: #058B92;
     color: #058B92;
-    max-height: 15px;
-    padding-left: 1.8%;
-    padding-right: 1.5%;
-} 
+    max-height: 20px;
+    padding-left: 5%;
+    padding-right: 5%;
+ }
 
  #BotaoLink:hover{
     background-color: #ACABA4;
