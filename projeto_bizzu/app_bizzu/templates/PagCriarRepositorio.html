@@ -1,0 +1,58 @@
+{%load static%}
+<link rel="stylesheet" href="{% static "css/Selector.css" %}?v=1.2">
+<link rel="stylesheet" href="{% static "css/PagCriarRepositorio.css" %}?v=1.2">
+<link rel="stylesheet" href="{% static "css/textarea.css" %}?v=1.3">
+<link rel="stylesheet" href="{% static "css/Botao.css" %}?v=1.7">
+
+<body>
+    {% include 'header.html' %}
+    <section class="pagCriarRepositorioContainer">
+        {% include 'navbarEsquerda.html' %}
+        <div class="pagCriarRepositorio">
+            <a id="BotaoLink" class="voltar" href="#">
+                <img id="botaoImg"src="{% static "img/Voltar.svg" %}" alt="">
+                <p id="botaoP">Voltar</p>
+            </a>
+            <h1 class="novoRepositorioH1">Novo Repositório</h1>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <select id="opcao" name="opcao" required>
+                    <option value="">Selcione a comunidade</option>
+                    <option value="tads">TADS</option>
+                    <option value="info">InfoWeb</option>
+                    <option value="redes">Redes</option>
+                </select>
+                <div class="text">
+                    <p class="textLabel" for="titulo">Título</p>
+                    <input type="text" class="textArea" rows="1" cols="30" placeholder="Digite o título do seu repositório..." name="titulo" required />
+                </div>
+                <select id="opcao2" name="categoria">
+                    <option value="">Categoria</option>
+                    <option value="tads">Período</option>
+                    <option value="info">Tecnologia</option>
+                    <option value="redes">Matéria</option>
+                </select>
+                <div class="text">
+                    <p class="textLabel" for="descricao">Descrição</p>
+                    <input type="text" class="textArea" placeholder="Digite a descrição do seu repositório..." name="descricao" required/>
+                </div>
+                <p class="arquivoP">Arquivos</p>
+                <input type="file" name="arquivo" id="file-upload"/>
+                
+                <div class="footerRepositorio">
+                    <button type="submit" id="BotaoLink" class="AlertaPrimario">
+                        <img id="botaoImg"src="{% static "img/desconectar.svg" %}" alt="">
+                        <p id="botaoP">Descartar</p>
+                    </button>          
+                    <button type="submit" id="BotaoLink" class="PerfilPrimario">
+                        <img id="botaoImg"src="{% static "img/desconectar.svg" %}" alt="">
+                        <p id="botaoP">Postar</p>
+                    </button>                       
+                </div>
+            </form>
+        </div>
+    </div>
+        {% include 'navbarRepositorios.html' %}
+    </section>
+    
+</body>

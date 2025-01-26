@@ -4,10 +4,10 @@ body {
 .tabela {
     border-collapse: separate; /* Permite bordas arredondadas */
     border-spacing: 0; /* Remove o espaçamento entre as células */
-    width: 50%; /* Ajusta a largura da tabela */
+    width: 100%; /* Ajusta a largura da tabela */
     border-radius: 30px; /* Arredonda as bordas da tabela */
     overflow: hidden; /* Para garantir que as bordas arredondadas sejam aplicadas corretamente */
-    
+    padding-top: 20px;
 }
 .tabela_linha th{
     background-color: #DCCEB1;

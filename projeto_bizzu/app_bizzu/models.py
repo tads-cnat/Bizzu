@@ -25,8 +25,10 @@ class Comunidade(models.Model):
     linkPPC = models.URLField(verbose_name="Link ppc")
     linkHorarios = models.URLField(verbose_name="Link horários")
     linkExtra = models.URLField(verbose_name="Link extra")
-    seguidores = models.ManyToManyField("Comunidade", verbose_name="Seguidores", symmetrical=False,related_name="follows")
-    membros = models.ManyToManyField("Usuario", verbose_name="Membros", related_name="comunidades")
+    seguidores = models.ManyToManyField("Usuario", verbose_name="Seguidores", symmetrical=False,related_name="follows",blank=True)
+
+    def __str__(self):
+        return self.nome
 
 
 class Postagem(models.Model):
@@ -39,9 +41,12 @@ class Postagem(models.Model):
         return self.texto
 
 class Repositorio(models.Model):
-    dataPublicacao = models.DateTimeField(verbose_name="Data de publicação")
+    dataPublicacao = models.DateTimeField(verbose_name="Data de publicação", auto_now_add=True)
     descricao = models.CharField(verbose_name="Descrição",max_length= 200)
     titulo = models.CharField(verbose_name="Título", max_length= 50)
+    comunidade = models.ForeignKey(Comunidade,  verbose_name="Comunidade", on_delete=models.CASCADE, null=True, blank=True, default=None)
+    usuario = models.ForeignKey("Usuario", verbose_name="Usuário", on_delete=models.CASCADE, null=True, blank=True, default=None)
+    arquivo = models.FileField(verbose_name="Arquivos anexados", default=None)
 
     def __str__(self):
         return self.titulo

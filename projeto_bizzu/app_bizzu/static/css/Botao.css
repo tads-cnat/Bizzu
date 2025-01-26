@@ -1,9 +1,12 @@
 #BotaoLink:hover{
     background-color: #ACABA4;
 }
+#BotaoLink#BotaoLink.voltar:hover{
+    background-color: #058b9200;
+}
 #BotaoLink{
     height: auto;
-    max-height: 27px;
+    max-height: 30px;
     display: flex;
     text-decoration: none;
     width: fit-content;
@@ -11,8 +14,16 @@
     overflow: hidden;
     justify-content: center;
     align-items: center;
-    padding: 0.5%;
+    padding: 1%;
+    padding-top: 3%;
+    padding-bottom: 3%;
     white-space: nowrap;
+}
+button{
+    background-color: #ffffff00;
+    outline: none;
+    border-radius: 30px;
+    border-color: #058b9200;
 }
 #botaoImg{
     width: 20%;
@@ -76,7 +87,9 @@
 
  #BotaoLink.voltar{
     color: white;
- }
+    justify-content: left;
+    width: 30%;
+}
 
 
 

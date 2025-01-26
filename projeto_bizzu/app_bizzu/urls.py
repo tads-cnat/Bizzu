@@ -8,6 +8,8 @@ urlpatterns=[
     # path('index/',views.index,name='index'),
     path('cadastro/', views.cadastro, name='cadastro'),
     path('login/', views.login, name='login'),
+    path('repositorio/', views.verRepositorio, name='verRepositorio'),
+    path('novo/repositorio/', views.novoRepositorio, name='novoRepositorio'),
     # path('deslogado',views.deslogado,name='deslogado'),
 ]
 

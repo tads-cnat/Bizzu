@@ -135,4 +135,7 @@ STATICFILES_DIRS = [
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-CSRF_TRUSTED_ORIGINS=['https://localhost:8000']
+CSRF_TRUSTED_ORIGINS = ['https://localhost:8000']
+
+CSRF_COOKIE_SECURE = True  
+CSRF_COOKIE_HTTPONLY = True
