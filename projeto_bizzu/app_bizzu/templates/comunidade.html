@@ -24,6 +24,7 @@
                         <form method="POST" action="{% url 'escolher_comunidade' %}">
                             {% csrf_token %}
                             <input type="hidden" name="Comunidade" value="TADS">
+                            <span class="seguindo">500 seguindo</span>
                             <div class="botao">
                                 <button class="seguir" type="submit">Seguir</button>
                             </div>
@@ -39,8 +40,8 @@
                         <form method="POST" action="{% url 'escolher_comunidade' %}">
                             {% csrf_token %}
                             <input type="hidden" name="Comunidade" value="INFOWEB">
-                        <div class="botao">
                             <span class="seguindo">200 seguindo</span>
+                            <div class="botao">
                             <button class="seguir" type="submit">Seguir</button>
                         </div>
                         </form>
@@ -57,7 +58,7 @@
                             <input type="hidden" name="Comunidade" value="REDES">
                             <span class="seguindo">15 seguindo</span>
                             <div class="botao">
-                                <button class="seguir">Seguir</button>
+                                <button class="seguir" type="submit">Seguir</button>
                             </div>
                         </form>
                     </article>
