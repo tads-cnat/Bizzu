@@ -1,9 +1,12 @@
+{% load static %}
+
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/css/styleregister.css">
+    <link rel="stylesheet" href="{% static 'css/styleregister.css' %}">
     <title>Cadastro</title>
 </head>
 <body>  
@@ -11,8 +14,8 @@
     <div class="TELA-DE-CADASTRO">
         <form class="formulario"  action="{% url 'cadastro' %}" method="POST">  {% csrf_token %}
           <div class="logo">
-              <img class="abelha" src="img/icone_abelha.png" />
-              <img class="bizzu" src="img/BIZZU.png" alt="">
+              <img class="abelha" src="../static/img/abelha_bizzu.svg" />
+              <img class="bizzu" src="../static/img/logotipo_bizzu.svg" alt="">
           </div>
   
           <!-- Campo Nome de Usuário -->

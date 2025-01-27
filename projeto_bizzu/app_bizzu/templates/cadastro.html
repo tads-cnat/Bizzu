@@ -1,23 +1,26 @@
+{% load static %}
+
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/css/styleregister.css">
+    <link rel="stylesheet" href="{% static 'css/styleregister.css' %}">
     <title>Cadastro</title>
 </head>
 <body>  
     <div class="TELA-DE-CADASTRO">
         <form class="formulario"  action="{% url 'cadastro' %}" method="POST">  {% csrf_token %}
           <div class="logo">
-              <img class="abelha" src="../img/icone_abelha.png" />
-              <img class="bizzu" src="../img/BIZZU.png">
+              <img class="abelha" src="../static/img/abelha_bizzu.svg" />
+              <img class="bizzu" src="../static/img/logotipo_bizzu.svg">
           </div>
   
           <!-- Campo Nome de Usuário -->
           <label class="campo">
             <div class="vermelho"><span class="text-wrapper">Nome de usuário </span><span class="vermelho">* </span></div>
-            <img class="icon" src="img/image16.svg" />
+            <img class="icon" src="../static/img/image16.svg" />
             <input
               type="text"
               name="username"
@@ -30,7 +33,7 @@
           <!-- Campo Email -->
           <label class="campo">
             <div class="vermelho"><span class="text-wrapper">Email </span><span class="vermelho">* </span></div>
-            <img class="icon" src="img/image21.png" />
+            <img class="icon" src="../static/img/image21.png" />
             <input
               type="email"
               name="email"
@@ -43,7 +46,7 @@
           <!-- Campo Senha -->
           <label class="campo">
             <div class="vermelho"><span class="text-wrapper">Senha </span><span class="vermelho">* </span></div>
-            <img class="icon" src="img/image17.png" />
+            <img class="icon" src="../static/img/image17.png" />
             <input
               type="password"
               name="senha"

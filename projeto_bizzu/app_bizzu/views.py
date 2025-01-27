@@ -121,3 +121,20 @@ def novoRepositorio(request):
 def sair(request):
     logout(request)  # Desloga o usuário
     return redirect('feed')  # Redireciona para a página de login ou outra página
+
+
+
+
+@login_required
+def escolher_comunidade(request):
+    if request.method == "POST":
+        comunidade_nome = request.POST.get('comunidade')  # pega o nome da comunidade
+        comunidade = Comunidade.objects.filter(nome=comunidade_nome).first()
+
+        if comunidade:
+            usuario = request.user
+            comunidade.seguidores.add(usuario)  # Adiciona o usuário à lista de membros da comunidade
+            return redirect('feed')  # Redireciona para o proximo passo
+        else:
+            return render(request, "comunidade.html", {"erro": "Comunidade não encontrada."})
+    return redirect('comunidade')  # Em caso de GET, volta para a página de escolha

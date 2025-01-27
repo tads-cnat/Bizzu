@@ -141,3 +141,5 @@ CSRF_COOKIE_SECURE = True
 CSRF_COOKIE_HTTPONLY = True
 
 AUTH_USER_MODEL = 'app_bizzu.Usuario'
+
+LOGIN_URL = '/login/'
