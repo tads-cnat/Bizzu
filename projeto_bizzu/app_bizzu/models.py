@@ -2,6 +2,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.core.validators import RegexValidator
 import os
+import uuid
 
 class Usuario(AbstractUser):
     nome = models.CharField(verbose_name="Nome", max_length=50)
@@ -64,13 +65,20 @@ class Comunidade(models.Model):
 
 
 class Postagem(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     texto = models.CharField(verbose_name="Texto de descrição",max_length= 200)
     imagem = models.ImageField(verbose_name="Imagem",upload_to="imgPostagens/")
     dataPublicacao = models.DateTimeField(auto_now_add=True, verbose_name="Data de publicação")
     usuario = models.ForeignKey("Usuario", verbose_name="Usuário", on_delete=models.CASCADE, null=True, blank=True)
+    curtidas = models.IntegerField(verbose_name="Curtidas", default=0)
 
     def __str__(self):
         return self.texto
+
+class Curtida(models.Model):
+    usuario = models.ForeignKey("Usuario", verbose_name="Usuário", on_delete=models.CASCADE, related_name="usuario_curtida")
+    postagem = models.ForeignKey("Postagem", verbose_name="Postagem", on_delete=models.CASCADE, related_name="postagem_curtida")
+
 
 class Repositorio(models.Model):
     dataPublicacao = models.DateTimeField(verbose_name="Data de publicação", auto_now_add=True)
@@ -78,7 +86,7 @@ class Repositorio(models.Model):
     titulo = models.CharField(verbose_name="Título", max_length= 50)
     comunidade = models.ForeignKey(Comunidade,  verbose_name="Comunidade", on_delete=models.CASCADE, null=True, blank=True, default=None)
     usuario = models.ForeignKey("Usuario", verbose_name="Usuário", on_delete=models.CASCADE, null=True, blank=True, default=None)
-    arquivo = models.FileField(verbose_name="Arquivos anexados", default=None)
+    arquivo = models.FileField(verbose_name="Arquivos anexados", default=None, upload_to="arquivosRepositorios/")
 
     def __str__(self):
         return self.titulo

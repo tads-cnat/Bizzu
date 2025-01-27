@@ -24,7 +24,7 @@
     position: fixed;
     right: 0;
     width: 510px;
-    height: 100%;
+    height: calc(100vh - 75px);
     color: white;
     padding: 20px;
     border-left: 1px solid #DCCEB1;
@@ -36,7 +36,7 @@
     /* margin: auto; */
     margin-top: 15px;
     width: 472px;
-    height: 99%;
+    height: 97%;
     border-radius: 25px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     overflow-y: auto;

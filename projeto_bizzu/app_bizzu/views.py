@@ -1,16 +1,34 @@
 from django.shortcuts import render,redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import reverse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as login_django
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
-from .models import Postagem, Comentario, Repositorio, Comunidade, Usuario
+from .models import Postagem, Comentario, Repositorio, Comunidade, Usuario, Curtida
 
 @login_required(login_url="/login/")
 def feed(request):
     postagens = Postagem.objects.all().order_by('-dataPublicacao')  # Ordenar pela data (mais recente primeiro)
     return render(request, 'feed.html', {'postagens': postagens})
+
+def curtida(request, postagem_id):
+    user = request.user
+    post = Postagem.objects.get(id=postagem_id)
+    curtido_atuais = post.curtidas
+    curtido = Curtida.objects.filter(usuario=request.user, postagem=post).count()
+    if not curtido: 
+        curtido = Curtida.objects.create(usuario=user, postagem=post)
+        curtido_atuais = curtido_atuais + 1
+    else:
+        curtido = Curtida.objects.filter(usuario=user, postagem=post).delete()
+        curtido_atuais = curtido_atuais - 1
+    
+    post.curtidas = curtido_atuais
+    post.save()
+    return HttpResponseRedirect(reverse('feed'))
+
 
 
 def cadastro(request):
@@ -21,7 +39,7 @@ def cadastro(request):
         email = request.POST.get('email')
         senha = request.POST.get('senha')
         
-        user = User.objects.filter(username=username).first()
+        user = Usuario.objects.filter(username=username).first()
 
         if user:
             return HttpResponse("Já existe um usuário com esse username")

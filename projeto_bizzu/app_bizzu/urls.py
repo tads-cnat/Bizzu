@@ -5,7 +5,7 @@ from . import views
 
 urlpatterns=[
     path('feed/', views.feed, name='feed'),
-    # path('index/',views.index,name='index'),
+    path('<uuid:postagem_id>/curtida/', views.curtida, name='curtida'),
     path('cadastro/', views.cadastro, name='cadastro'),
     path('login/', views.login, name='login'),
     path('repositorio/', views.verRepositorio, name='verRepositorio'),
