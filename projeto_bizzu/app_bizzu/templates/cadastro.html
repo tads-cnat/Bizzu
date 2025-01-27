@@ -1,6 +1,9 @@
 {% load static %}
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> d9647c2e8089169c783ff5dab271b768a25d4436
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -13,8 +16,13 @@
     <div class="TELA-DE-CADASTRO">
         <form class="formulario"  action="{% url 'cadastro' %}" method="POST">  {% csrf_token %}
           <div class="logo">
+<<<<<<< HEAD
               <img class="abelha" src="../static/img/abelha_bizzu.svg" />
               <img class="bizzu" src="../static/img/logotipo_bizzu.svg">
+=======
+              <img class="abelha" src="{% static 'img/abelha_bizzu.svg' %}">
+              <img class="bizzu" src="{% static 'img/logotipo_bizzu.svg' %}">
+>>>>>>> d9647c2e8089169c783ff5dab271b768a25d4436
           </div>
   
           <!-- Campo Nome de Usuário -->
@@ -61,7 +69,7 @@
         </form>
       </div>
 
-
+<!-- 
     <form class="form"  action="{% url 'cadastro' %}" method="POST">  {% csrf_token %}
         <input type="text" placeholder="Username..." name="username">
         <br>
@@ -72,7 +80,7 @@
         <input type="password" placeholder="Senha..." name="senha">
         <br>
         <br>
-        <input type="submit" value="Cadastrar">
+        <input type="submit" value="Cadastrar"> -->
    
 
 
