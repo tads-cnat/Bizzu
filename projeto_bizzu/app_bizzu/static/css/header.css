@@ -81,10 +81,13 @@ header {
     display: flex;
     align-items: center;
     cursor: pointer;
+    text-decoration: none;
 }
 
 #entrar a {
     list-style: none;
+    text-decoration: none;
+    outline: none;
     color: white;
     font-weight: 400;
 }
@@ -98,6 +101,7 @@ header {
     margin-right: 7px;
 }
 
+<<<<<<< HEAD
 a {
     text-decoration: none; /* Remove sublinhados padrão */
 }
@@ -118,3 +122,9 @@ a:visited {
     outline: none;
     box-shadow: none; /* Remove qualquer sombra */
 }
+=======
+#sairbtn a {
+    text-decoration: none;
+    color: inherit;
+}
+>>>>>>> 270bb23401be3a242ae2cf04dc34132d442ef5b8
