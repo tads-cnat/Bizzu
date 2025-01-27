@@ -66,7 +66,7 @@ header {
     color: rgb(255, 255, 255, 0.5);
 }
 
-#sair {
+#entrar {
     font-size: 20px;
     margin-left: 30px;
     margin-right: 40px;
@@ -83,17 +83,38 @@ header {
     cursor: pointer;
 }
 
-#sair a {
+#entrar a {
     list-style: none;
     color: white;
     font-weight: 400;
 }
 
-#sair:hover {
+#entrar:hover {
     background-color: gray;
 }
 
 #sairbtn {
     padding-left: 18px;
     margin-right: 7px;
+}
+
+a {
+    text-decoration: none; /* Remove sublinhados padrão */
+}
+
+a:focus, 
+a:active, 
+a:hover, 
+a:visited {
+    outline: none; /* Remove a borda azul */
+    text-decoration: none; /* Remove sublinhado em todos os estados */
+}
+
+#entrar {
+    text-decoration: none; /* Garante que o botão também não herde sublinhado */
+}
+
+#entrar:focus {
+    outline: none;
+    box-shadow: none; /* Remove qualquer sombra */
 }

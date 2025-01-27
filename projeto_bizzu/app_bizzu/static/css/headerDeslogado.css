@@ -98,3 +98,28 @@ header {
     padding-left: 6px;
     margin-right: 6px;
 }
+
+header a button img{
+    text-decoration: none;
+}
+
+a {
+    text-decoration: none; /* Remove sublinhados padrão */
+}
+
+a:focus, 
+a:active, 
+a:hover, 
+a:visited {
+    outline: none; /* Remove a borda azul */
+    text-decoration: none; /* Remove sublinhado em todos os estados */
+}
+
+#entrar {
+    text-decoration: none; /* Garante que o botão também não herde sublinhado */
+}
+
+#entrar:focus {
+    outline: none;
+    box-shadow: none; /* Remove qualquer sombra */
+}
