@@ -7,11 +7,25 @@ from django.contrib.auth import login as login_django
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
 from .models import Postagem, Comentario, Repositorio, Comunidade, Usuario, Curtida
+from django.contrib.auth import logout
 
-@login_required(login_url="/login/")
+# @login_required(login_url="/login/")
+# def feed(request):
+#     user = request.user #LR
+#     postagens = Postagem.objects.all().order_by('-dataPublicacao')  # Ordenar pela data (mais recente primeiro)
+#     return render(request, 'feed.html', {'postagens': postagens})
+
 def feed(request):
-    postagens = Postagem.objects.all().order_by('-dataPublicacao')  # Ordenar pela data (mais recente primeiro)
-    return render(request, 'feed.html', {'postagens': postagens})
+    if request.user.is_authenticated:  # Verificação de login
+        user = request.user
+        postagens = Postagem.objects.all().order_by('-dataPublicacao')  # Ordenar pela data (mais recente primeiro)
+        return render(request, 'feed.html', {'postagens': postagens, 'user': request.user})
+    else:
+        postagens = Postagem.objects.all().order_by('-dataPublicacao')  # Ordenar pela data (mais recente primeiro)
+        return render(request, 'feed_deslogado.html', {'postagens': postagens, 'user': request.user})
+        # return render(request, 'feed_deslogado.html')
+
+
 
 def curtida(request, postagem_id):
     user = request.user
@@ -41,13 +55,24 @@ def cadastro(request):
         
         user = Usuario.objects.filter(username=username).first()
 
+        # if user:
+        #     # return HttpResponse("Já existe um usuário com esse username")
+        #     return render(request, "cadastro_existente.html")
+
+        # user = User.objects.create_user(username=username, email=email, password=senha)
+        # user.save()
+
+        # return HttpResponse("Usuário cadastrado com sucesso")
+
         if user:
-            return HttpResponse("Já existe um usuário com esse username")
+            return render(request, "cadastro_existente.html")
 
-        user = User.objects.create_user(username=username, email=email, password=senha)
+        # Cria o novo usuário
+        user = Usuario.objects.create_user(username=username, email=email, password=senha)
+        # user.foto_perfil = foto_perfil
         user.save()
-
-        return HttpResponse("Usuário cadastrado com sucesso")
+        # return redirect('login')
+        return render(request, 'comunidade.html')
 
 def login(request):
     if request.method == "GET":
@@ -60,7 +85,8 @@ def login(request):
 
         if user:
             login_django(request, user)
-            return HttpResponse('Autenticado')
+            # return HttpResponse('Autenticado')
+            return redirect('feed')     # Tem que fazer com que ele vá para a view feed, e que na view feed ele veja se é POST ou GET para conseguir calcular as postagens
         else:
             return HttpResponse('Usuário ou senha inválidos')
 
@@ -89,3 +115,9 @@ def novoRepositorio(request):
         else:
             raise ValidationError(comunidade)
     return render(request, "PagCriarRepositorio.html")
+
+
+
+def sair(request):
+    logout(request)  # Desloga o usuário
+    return redirect('feed')  # Redireciona para a página de login ou outra página

@@ -5,18 +5,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/styleregister.css">
-    <title>Login</title>
+    <title>Cadastro</title>
 </head>
 <body>
-    <h1>Login</h1>
-    <form action="{% url 'login' %}" method="POST">{% csrf_token %}
+    <h1>Cadastro</h1>
+    <form action="{% url 'cadastro' %}" method="POST">{% csrf_token %}
         <input type="text" placeholder="Username..." name="username">
+        <br>
+        <br>
+        <input type="email" placeholder="Email..." name="email">
         <br>
         <br>
         <input type="password" placeholder="Senha..." name="senha">
         <br>
         <br>
-        <a href="{% url 'feed' %}"><input type="submit" value="Logar"></a>
+        <input type="submit" value="cadastrar">
     </form>
 </body>
 </html>

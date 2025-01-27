@@ -4,12 +4,14 @@ from django.conf.urls.static import static
 from . import views
 
 urlpatterns=[
+    path('', views.feed, name="feedDeslogado"),
     path('feed/', views.feed, name='feed'),
     path('<uuid:postagem_id>/curtida/', views.curtida, name='curtida'),
     path('cadastro/', views.cadastro, name='cadastro'),
     path('login/', views.login, name='login'),
     path('repositorio/', views.verRepositorio, name='verRepositorio'),
     path('novo/repositorio/', views.novoRepositorio, name='novoRepositorio'),
+    path('sair/', views.sair, name='sair'),
     # path('deslogado',views.deslogado,name='deslogado'),
 ]
 

@@ -7,14 +7,16 @@
     <title>Cadastro</title>
 </head>
 <body>  
+
     <div class="TELA-DE-CADASTRO">
         <form class="formulario"  action="{% url 'cadastro' %}" method="POST">  {% csrf_token %}
           <div class="logo">
-              <img class="abelha" src="../img/icone_abelha.png" />
-              <img class="bizzu" src="../img/BIZZU.png">
+              <img class="abelha" src="img/icone_abelha.png" />
+              <img class="bizzu" src="img/BIZZU.png" alt="">
           </div>
   
           <!-- Campo Nome de Usuário -->
+          <span class="vermelho">Usuário ja existente! </span>
           <label class="campo">
             <div class="vermelho"><span class="text-wrapper">Nome de usuário </span><span class="vermelho">* </span></div>
             <img class="icon" src="img/image16.svg" />
@@ -54,12 +56,12 @@
           </label>
   
           <!-- Botão de Enviar -->
-          <a href="comunidade.html"> <button class="botao-submit">Criar conta</button></a>
+          <button type="submit" class="botao-submit">Criar conta</button>
         </form>
       </div>
 
 
-    <form class="form"  action="{% url 'cadastro' %}" method="POST">  {% csrf_token %}
+    <!-- <form class="form"  action="{% url 'cadastro' %}" method="POST">  {% csrf_token %}
         <input type="text" placeholder="Username..." name="username">
         <br>
         <br>
@@ -70,7 +72,7 @@
         <br>
         <br>
         <input type="submit" value="Cadastrar">
-   
+    -->
 
 
 
