@@ -81,10 +81,13 @@ header {
     display: flex;
     align-items: center;
     cursor: pointer;
+    text-decoration: none;
 }
 
 #sair a {
     list-style: none;
+    text-decoration: none;
+    outline: none;
     color: white;
     font-weight: 400;
 }
@@ -96,4 +99,9 @@ header {
 #sairbtn {
     padding-left: 18px;
     margin-right: 7px;
+}
+
+#sairbtn a {
+    text-decoration: none;
+    color: inherit;
 }
