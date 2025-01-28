@@ -19,7 +19,8 @@ def feed(request):
     if request.user.is_authenticated:  # Verificação de login
         user = request.user
         postagens = Postagem.objects.all().order_by('-dataPublicacao')  # Ordenar pela data (mais recente primeiro)
-        return render(request, 'feed.html', {'postagens': postagens, 'user': request.user})
+        repositorios = Repositorio.objects.all()
+        return render(request, 'feed.html', {'postagens': postagens, 'user': request.user, 'repositorios': repositorios})
     else:
         postagens = Postagem.objects.all().order_by('-dataPublicacao')  # Ordenar pela data (mais recente primeiro)
         return render(request, 'feed_deslogado.html', {'postagens': postagens, 'user': request.user})
@@ -90,11 +91,19 @@ def login(request):
         else:
             return HttpResponse('Usuário ou senha inválidos')
 
-def verRepositorio(request):
-    if request.method == "POST":
-        repositoriosFavoritados = request.POST.get('titulo')
-        Repositorio(repositoriosFavoritados = repositoriosFavoritados).save()
-    return render(request, "PagRepositorio.html")
+def verRepositorio(request): #Ver a parte interna repositório
+    #repositoriosFavoritados = request.POST.get('titulo')
+    #Repositorio(repositoriosFavoritados = repositoriosFavoritados).save()
+    repositorios = Repositorio.objects.all()
+    if request.method == "GET":
+        idRepositorio = request.GET.get('repositorio')
+        repAtual = Repositorio.objects.get(id=idRepositorio)
+        return render(request, "PagRepositorio.html", {'repositorios': repositorios, "repositorioAtual":repAtual})
+    elif request.method == "POST":
+        idRepositorio = request.POST.get('repositoriosFavoritados')
+        usuario = request.user
+        usuario.repositoriosFavoritados.add(Repositorio.objects.get(id=idRepositorio))
+    return render(request, "PagRepositorio.html", {'repositorios': repositorios})
 
 def novoRepositorio(request):
     if request.method == "POST":
@@ -102,9 +111,9 @@ def novoRepositorio(request):
         descricao = request.POST.get('descricao')
         opcao = request.POST.get('opcao')
         arquivo = request.FILES.get('arquivo')
-        if (opcao == "tads"):
+        if (opcao == "TADS"):
             comunidade = Comunidade.objects.all().filter(nome__icontains="TADS").first()
-        elif (opcao == "infoweb"):
+        elif (opcao == "INFOWEB"):
             comunidade = Comunidade.objects.all().filter(nome__icontains="INFOWEB").first()
         else:
             comunidade = Comunidade.objects.all().filter(nome__icontains="Redes").first()
@@ -114,14 +123,16 @@ def novoRepositorio(request):
             return HttpResponse("Deu bom")
         else:
             raise ValidationError(comunidade)
-    return render(request, "PagCriarRepositorio.html")
+    repositorios = Repositorio.objects.all()
+    return render(request, "PagCriarRepositorio.html", {'repositorios': repositorios})
 
-
+def repositorioSalvos(request): #Ver todos os repostórios salvos 
+    repositorios = Repositorio.objects.all()
+    return render(request, "repositoriosFavoritos.html", {'repositorios': repositorios})
 
 def sair(request):
     logout(request)  # Desloga o usuário
     return redirect('feed')  # Redireciona para a página de login ou outra página
-
 
 
 

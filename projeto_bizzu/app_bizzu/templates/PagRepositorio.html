@@ -1,7 +1,11 @@
 {%load static%}
 <link rel="stylesheet" href="{% static "css/Botao.css" %}?v=1.2">
 <link rel="stylesheet" href="{% static "css/PagRepositorio.css" %}?v=1.2">
-<link rel="stylesheet" href="{% static "css/tabela_repositorio.css" %}?v=1.2">
+<link rel="stylesheet" href="{% static "css/tabela_repositorio.css" %}?v=1.3">
+<link rel="stylesheet" href="{% static "css/navbarRepositorio.css" %}">
+<link rel="stylesheet" href="{% static "css/fotoPerfilNome.css" %}?v=1.2">
+<link rel="stylesheet" href="{% static "css/caixaRepositorio.css" %}?v=1.3">
+<link rel="stylesheet" href="{% static "css/Tags.css" %}?v=1.2">
 
 <body>
     {% include 'header.html' %}
@@ -14,20 +18,102 @@
                     <p id="botaoP">Voltar</p>
                 </a>
             </div>
-            <h1 class="repositorioH">Nome</h1>
-            <p class="repositorioP">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Minus aperiam nemo animi ipsam, reiciendis corporis eius facere quaerat aliquid placeat vel debitis quidem, sed eaque iure corrupti temporibus quae eveniet?</p>
-            {% include 'tabela_repositorio.html' %}
+            <h1 class="repositorioH">{{repositorioAtual.titulo}}</h1>
+            <p class="repositorioP">{{repositorioAtual.descricao}}</p>
+            
+            <table class="tabela">
+
+                <tr class="tabela_linha">
+                    <th>
+                        <!-- foto de perfil + nome -->
+                        <div class="profile-container">
+                            <div class="hexagon">
+                                <img src="{{ usuario.foto_perfil.url|default:'https://via.placeholder.com/32' }}" class="profile-image">
+                            </div>
+                            <div class="user-info">
+                                <span class="username">{{ usuario.nome|default:"Sem nome" }}</span>
+                                <span class="separator">•</span>
+                                <span class="timestamp">{{ post.tempo_postagem|default:"0h atrás" }}</span>
+                            </div>
+                            <!-- tags -->
+                            <div class="container">
+                                <div class="tag tag-rosa"><img src="/projeto_bizzu/app_bizzu/static/img/iconeTagRosa.svg" class="imgMenu"> Período</div>
+                                <div class="tag tag-azul"><img src="/projeto_bizzu/app_bizzu/static/img/iconeTagAzul.svg" class="imgMenu"> Matéria</div>
+                                <div class="tag tag-verde"><img src="/projeto_bizzu/app_bizzu/static/img/iconeTagVerde.svg" class="imgMenu"> Tecnologia</div>
+                            </div>
+                            <!-- tags -->
+        
+                        </div>
+                    </th>
+                </tr>
+                {% if repositorioAtual.arquivo != undefined %}
+                <tr class="tabela_linha">
+                    <td>
+                        <img src="pasta.png" alt="Ícone" class="icone_pasta">
+                        <a id="linkArquivo" href="#" target="_blank">{{repositorioAtual.arquivo.name}}</a>
+                    </td>
+                </tr>
+                {% else %}
+                <tr class="tabela_linha">
+                    <td>
+                        <img src="pasta.png" alt="Ícone" class="icone_pasta">
+                        <a id="linkArquivo" href="#" target="_blank">Não possui arquivos nesse repositório</a>
+                    </td>
+                </tr>
+                {% endif %}
+        
+            </table>
+
             <div class="footerRepositorio">
-                <a id="BotaoLink" class="GeralSecundario" href="#" name="repositoriosFavoritados" type="submit">
+                <form method="POST" action="{% url "verRepositorio" %}">
+                {% csrf_token %}
+                <button type="submit" id="BotaoLink" class="GeralSecundario" name="repositoriosFavoritados" value={{repositorioAtual.id}}>
                     <p id="botaoP">Favoritar</p>
-                </a>
-                <a id="BotaoLink" class="GeralSecundario" href="#">
+                </button> 
+            </form>
+                <button type="submit" id="BotaoLink" class="GeralSecundario" >
                     <p id="botaoP">Baixar</p>
-                </a>
+                </button> 
             </div> 
         </div>
     </div>
-        {% include 'navbarRepositorios.html' %}
+    <aside class="barrarepositorios">
+        <div class="conteudodireita">
+            <h1 id="titulorep">REPOSITÓRIOS</h1>
+            {% for repositorio in repositorios %}
+            <div class="repositorioContainer">
+                <div class="headerCaixa">
+                    <div class="profile-container">
+                        <div class="hexagon">
+                            <img src="{{usuarioFotoPerfilUrl}}" class="profile-image">
+                        </div>
+                        <div class="user-info">
+                            <span class="username">{{repositorio.usuario.nome|default:"Luiz Fernando"}}</span>
+                            <span class="separator">•</span>
+                            <span class="timestamp">{{repositorio.dataPublicacao|default:"4h atrás"}}</span>
+                        </div>
+                    </div>
+                    <form method="GET" action="{% url "verRepositorio" %}">
+                    <button type="submit" id="BotaoLink" class="GeralPrimario" name="repositorio" value={{repositorio.id}}>
+                        <p id="botaoP">Abrir</p>
+                    </button> 
+                </form>
+                </div>
+                <p class="tituloP">{{repositorio.titulo}}</p>
+                <p class="descricaoP">{{repositorio.descricao}}</p>
+                <div class="container">
+                    <div class="tag tag-rosa"><img src="/projeto_bizzu/app_bizzu/static/img/iconeTagRosa.svg" class="imgMenu"> Período</div>
+                    <div class="tag tag-azul"><img src="/projeto_bizzu/app_bizzu/static/img/iconeTagAzul.svg" class="imgMenu"> Matéria</div>
+                    <div class="tag tag-verde"><img src="/projeto_bizzu/app_bizzu/static/img/iconeTagVerde.svg" class="imgMenu"> Tecnologia</div>
+                </div>
+            </div>
+            {% empty %}
+                <p>Nenhum repositório disponível no momento.</p>
+            {% endfor %}
+        </div>
+    </aside>
+    </section>
+    
     </section>
     
 </body>
