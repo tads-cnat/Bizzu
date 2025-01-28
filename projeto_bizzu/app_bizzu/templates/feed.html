@@ -6,7 +6,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bizzu</title>
-    <link rel="stylesheet" href="{% static 'css/Feed.css' %}">
+    <link rel="stylesheet" href="{% static 'css/feed.css' %}">
+    <link rel="icon" type="image/svg+xml" href="{% static 'img/abelha_bizzu.svg' %}">
 </head>
 <body>
     {% include 'header.html' %}
@@ -18,16 +19,25 @@
             <div class="postagem">
                 <!-- Nome do usuário e hora da postagem -->
                 <div class="post-header">
-                    <h3>{{ postagem.usuario.nome }}</h3>
-                    <small>{{ postagem.dataPublicacao|date:"d/m/Y H:i" }}</small>
+                    <img src="{{ postagem.usuario.imagemPerfil.url }}" alt="Avatar" class="avatar">
+                    <h3>{{ postagem.usuario.nome }} • <span>{{ postagem.dataPublicacao|date:"d/m/Y H:i" }}</span></h3>
                 </div>
 
                 <!-- Texto da postagem -->
                 <div class="post-body">
                     <p>{{ postagem.texto }}</p>
                     {% if postagem.imagem %}
-                    <img src="{{ postagem.imagem.url }}" alt="Imagem da postagem">
+                    <img src="{{ postagem.imagem.url }}" alt="Imagem da postagem" class="post-image">
                     {% endif %}
+                </div>
+                <div class="post-footer">
+                    <div class="likes">
+                        <a href="{% url 'curtida' postagem.id %}" id="curtir-btn"><img src="{% static 'img/icone_curtir.png' %}" width="24px"></a>
+                        <span>{{postagem.curtidas}} <a href="#">curtidas</a></span>
+                    </div>
+                    <div class="comentarios">
+                        <button id="comentar-btn"><img src="{% static 'img/icone_comentar.png' %}" width="24px">Comentar</button>
+                    </div>
                 </div>
             </div>
             {% empty %}

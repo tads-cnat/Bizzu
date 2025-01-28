@@ -45,37 +45,100 @@ body::before {
 /* FEED DE PUBLICAÇÕES ABAIXO */
 
 .feed {
-    flex: 1;
-    margin: auto;
-    max-width: 1200px;
-    padding: 20px;
-    border-radius: 10px;
+    flex: 1;    
+    max-width: 59.5%;
+    margin-top: 38px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
     overflow-y: auto;
     height: calc(100% - 50px);
     scrollbar-width: thin;
-    scrollbar-color: var(--primary-color-dark) var(--primary-color);
+    scrollbar-color: var(--marromEscuro) var(--laranja);
 }
 
 .postagem {
-    width: 60%;
-    padding: 15px;
-    border: 1px solid #ddd;
-    margin-bottom: 20px;
-    background-color: #fff;
+    padding: 0 20px;
+    margin: 30px auto;
+    width: 520px;
     border-radius: 10px;
+    color: white;
 }
 
 .post-header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
+    gap: 10px;
 }
 
-.post-body img {
-    max-width: 90%;
+.avatar {
+    width: 54px;
+    height: 56px;
+}
+
+.post-header h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.post-header span {
+    font-size: 18px;
+    font-weight: 400;   
+    color: #DCCEB1;
+}
+
+.post-body {
     margin-top: 10px;
-    border-radius: 10px;
+}
+
+.post-body p {
+    margin-bottom: 10px;
+    font-size: 15px;
+    font-weight: 300;
+}
+
+.post-image {
+    width: 483px;
+    height: 325px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.post-footer {
+    display: flex;
+    width: 90%;
+    margin: 0 auto;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 5px;
+}
+
+#curtir-btn, #comentar-btn {
+    font-size: 16px;
+    background-color: transparent;
+    color: white;
+    gap: 10px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.likes {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.likes a {
+    text-decoration: none;
+    color: white;
+}
+]
+
+.comentarios {
+    display: flex;
+    gap: 10px;
 }
 
 /* FEED DE PUBLICAÇÕES ACIMA */

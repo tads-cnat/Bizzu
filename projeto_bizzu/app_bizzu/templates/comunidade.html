@@ -1,0 +1,78 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/stylecomunidade.css' %}">
+    <title>Concluir Cadastro</title>
+</head>
+<body>
+    <section class="concluir-cadastro">
+        <header>
+            <h3>Agora que tal deixar <br> o seu perfil único?</h3>
+        </header>
+
+        <div class="tudo">
+            <main class="comunidades">
+            
+                <div class="principais">
+                        <img class="primeira" src="../static/img/dentro1.png" alt="TADS">
+                        <article class="comunidade">
+                        <h2>TADS</h2>
+                        <p>Comunidade do curso TADS da diatinf</p>
+                        <form method="POST" action="{% url 'escolher_comunidade' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="Comunidade" value="TADS">
+                            <span class="seguindo">500 seguindo</span>
+                            <div class="botao">
+                                <button class="seguir" type="submit">Seguir</button>
+                            </div>
+                            </form>
+                    </article>
+                </div>
+
+                <div class="principais">
+                    <img class="primeira" src="../static/img/dentro1.png" alt="INFOWEB">
+                    <article class="comunidade">
+                        <h2>INFOWEB</h2>
+                        <p>Comunidade do curso INFOWEB da diatinf</p>
+                        <form method="POST" action="{% url 'escolher_comunidade' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="Comunidade" value="INFOWEB">
+                            <span class="seguindo">200 seguindo</span>
+                            <div class="botao">
+                            <button class="seguir" type="submit">Seguir</button>
+                        </div>
+                        </form>
+                    </article>
+                </div>
+
+                <div class="principais">
+                    <img class="primeira" src="../static/img/dentro1.png" alt="REDES">
+                    <article class="comunidade">
+                        <h2>REDES</h2>
+                        <p>Comunidade do curso REDES da diatinf</p>
+                        <form method="POST" action="{% url 'escolher_comunidade' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="Comunidade" value="REDES">
+                            <span class="seguindo">15 seguindo</span>
+                            <div class="botao">
+                                <button class="seguir" type="submit">Seguir</button>
+                            </div>
+                        </form>
+                    </article>
+                </div>
+
+            </main>
+        </div>
+
+            <!-- Adicionando o botão "Próximo Passo" -->
+    <div class="proximo-passo">
+        <button>Próximo Passo</button>
+    </div>
+
+    
+    </section>
+</body>
+</html>
