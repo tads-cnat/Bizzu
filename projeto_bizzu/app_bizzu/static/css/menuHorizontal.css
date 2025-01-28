@@ -1,0 +1,44 @@
+
+    .menu-horizontal-container {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        font-family: poppins;
+        font-size: 15px;
+    }
+
+    .menuHorizontal {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        padding: 15px 20px;
+        border-radius: 20px;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        text-decoration: none;
+        color: inherit;
+        position: relative;
+    }
+
+    .imgMenu {
+        width: 12px;
+        height: 12px;
+    }
+
+    .imgMenu.hover {
+        display: none;
+    }
+
+    .menuHorizontal:hover .imgMenu.default {
+        display: none;
+    }
+
+    .menuHorizontal:hover .imgMenu.hover {
+        display: block;
+    }
+
+    .menuHorizontal:hover {
+        background-color: #F79010;
+        color: white;
+    }
