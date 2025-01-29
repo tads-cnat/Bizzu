@@ -18,7 +18,7 @@ class CustomUsuarioAdmin(UserAdmin):
         (None, {
             "classes": ("wide",),
             "fields": (
-                "nome", "username", "email", "password1", "password2", "imagemPerfil", 
+                "nome","descricao", "username", "email", "password1", "password2", "imagemPerfil", 
                 "escolaFormacao", "localTrabalho", "progressoCurso", "instituicaoAtual",
             ),
         }),
@@ -28,8 +28,8 @@ class CustomUsuarioAdmin(UserAdmin):
         ("Informações Personalizadas", {
             "classes": ("wide",),
             "fields": (
-                "nome", "imagemPerfil", "escolaFormacao", "localTrabalho", "progressoCurso", "instituicaoAtual",
-                "comunidades",
+                "nome","descricao", "imagemPerfil", "escolaFormacao", "localTrabalho", "progressoCurso", "instituicaoAtual",
+                "comunidades","repositoriosFavoritados",
             ),
         }),
     )

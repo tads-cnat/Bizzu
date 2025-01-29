@@ -3,10 +3,10 @@
 
 <aside id="barralateral">
     <div class="perfil">
-        <img src="{% static 'img/fotoriel.svg' %}">
+        <img id="imgperfil2" src="{{ user.imagemPerfil.url }}" width="50px">
         <div class="perfil2">
-            <h2 id="userperfil">Riel Lopes</h2>
-            <h4 id="verperfil"><a href="../2. perfil do usuario/basePerfil.html">Ver perfil</a></h4>
+            <h2 id="userperfil">{{ user.username }}</h2>
+            <h4 id="verperfil"><a href="{% url 'perfil' user.username %}">Ver perfil</a></h4>
         </div>
     </div>
 

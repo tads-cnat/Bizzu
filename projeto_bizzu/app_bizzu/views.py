@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
-from django.urls import reverse
+from django.urls import reverse, resolve
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as login_django
@@ -8,12 +8,18 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
 from .models import Postagem, Comentario, Repositorio, Comunidade, Usuario, Curtida
 from django.contrib.auth import logout
+from django.core.paginator import Paginator
 
 # @login_required(login_url="/login/")
 # def feed(request):
 #     user = request.user #LR
 #     postagens = Postagem.objects.all().order_by('-dataPublicacao')  # Ordenar pela data (mais recente primeiro)
 #     return render(request, 'feed.html', {'postagens': postagens})
+
+
+def navbarLateral(request, username):
+    user = get_object_or_404(Usuario, username=username)
+        
 
 def feed(request):
     if request.user.is_authenticated:  # Verificação de login
@@ -43,6 +49,23 @@ def curtida(request, postagem_id):
     post.curtidas = curtido_atuais
     post.save()
     return HttpResponseRedirect(reverse('feed'))
+
+def perfil(request, username):
+    user = get_object_or_404(Usuario, username=username)  # Obtém o usuário pelo username
+    
+    # Determina quais postagens exibir
+    url_name = resolve(request.path).url_name
+    if url_name == 'perfil':    
+        postagens = Postagem.objects.filter(usuario=user).order_by('-dataPublicacao')
+    else: 
+        postagens = Postagem.objects.all().order_by('-dataPublicacao')
+
+    # Paginação
+    paginator = Paginator(postagens, 5)
+    page_number = request.GET.get('page')
+    postagens_paginator = paginator.get_page(page_number)
+
+    return render(request, 'perfilUsuario.html', {'usuario': user, 'postagens_paginator': postagens_paginator})
 
 
 

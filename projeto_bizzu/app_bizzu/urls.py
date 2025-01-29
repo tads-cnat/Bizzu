@@ -3,8 +3,11 @@ from django.conf import settings
 from django.conf.urls.static import static
 from . import views
 
+
+
 urlpatterns=[
     path('', views.feed, name="feedDeslogado"),
+    path('perfil/', views.perfil, name='perfil'),
     path('feed/', views.feed, name='feed'),
     path('<uuid:postagem_id>/curtida/', views.curtida, name='curtida'),
     path('cadastro/', views.cadastro, name='cadastro'),

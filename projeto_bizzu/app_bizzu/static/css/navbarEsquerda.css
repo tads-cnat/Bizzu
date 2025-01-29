@@ -18,6 +18,7 @@
 }
 
 #barralateral {
+    flex: 0;
     padding-top: 30px;
     /* margin-top: 50px; */
     width: 250px;
@@ -52,6 +53,16 @@
 
 .perfil2 {
     margin-left: 10px;
+}
+
+.imgperfil {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 3px solid #ffcc00;
+    margin-right: 15px;
+    object-fit: cover; /* Garante que a imagem preencha o espaço sem distorção */
+    object-position: center; /* Centraliza a imagem dentro do círculo */
 }
 
 #userperfil {

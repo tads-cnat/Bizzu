@@ -1,0 +1,227 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root{
+    --laranja: #F79010 ;
+    --amarelo: #F7C110 ;
+    --verdeAgua: #058B92 ;
+    --cinzaEscuro: #393737 ;
+    --vermelho: #9D0707 ;
+    --marromEscuro: #27211B ;
+    --amareloClaro: #DCCEB1 ;
+    --preto: #1B1A19 ;
+    --branco: #FFFFFF;
+    --cinza: #ACABA4;
+    --amareloEscuro: #B5862E;
+}
+
+body {
+    position: relative;
+    width: 100%;
+    height: calc(100vh);
+    overflow: hidden;
+}
+
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(../img/fundo_bizzu.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    transform: rotate(180deg);
+    z-index: -1;
+}
+
+.conteudo {
+    display: flex;
+    gap: 10px; /* Espaço entre as colunas */
+    height: calc(100vh - 75px); /* Altura total da tela */
+    margin: auto;
+}
+
+#principal {
+    flex: 1;
+    display: flex;
+    
+    width: 100%;
+    max-width: 1200px;
+}
+/* Estilização do perfil */
+.perfilUsuario {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.perfil-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 1200px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid white;
+}
+
+.perfil-info {
+    display: flex;
+}
+
+.foto-perfil {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 3px solid #ffcc00;
+    margin-right: 15px;
+    object-fit: cover; /* Garante que a imagem preencha o espaço sem distorção */
+    object-position: center; /* Centraliza a imagem dentro do círculo */
+}
+
+.perfil-detalhes h1 {
+    margin: 0;
+    font-size: 20px;
+    color: white;
+}
+
+.username {
+    color: #aaa;
+    font-size: 14px;
+    margin-top: 4px;
+}
+
+.descricao {
+    font-size: 14px;
+    color: #ccc;
+}
+
+.perfil-status {
+    display: flex;
+    gap: 30px;
+    color: white;
+    align-items: center;
+}
+
+.perfil-status span {
+    display: block;
+    font-size: 14px;
+}
+
+.btn-novo {
+    background-color: #00a3ff;
+    color: white;
+    padding: 5px 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.btn-novo:hover {
+    background-color: #0085cc;
+}
+
+/* Linha separadora */
+/* .separador {
+    border: 1px solid white;
+    margin: 20px 0;
+} */
+
+/* Estilização do Feed */
+.feed {  
+    margin-top: 38px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow-y: auto;
+    height: calc(100% - 50px);
+    scrollbar-width: thin;
+    scrollbar-color: var(--marromEscuro) var(--laranja);
+}
+
+.postagem {
+    padding: 0 20px;
+    margin: 30px auto;
+    width: 520px;
+    border-radius: 10px;
+    color: white;
+}
+
+.post-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.avatar {
+    width: 54px;
+    height: 56px;
+}
+
+.post-header h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.post-header span {
+    font-size: 18px;
+    font-weight: 400;   
+    color: #DCCEB1;
+}
+
+.post-body {
+    margin-top: 10px;
+}
+
+.post-body p {
+    margin-bottom: 10px;
+    font-size: 15px;
+    font-weight: 300;
+}
+
+.post-image {
+    width: 483px;
+    height: 325px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.post-footer {
+    display: flex;
+    width: 90%;
+    margin: 0 auto;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 5px;
+}
+
+#curtir-btn, #comentar-btn {
+    font-size: 16px;
+    background-color: transparent;
+    color: white;
+    gap: 10px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.likes {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.likes a {
+    text-decoration: none;
+    color: white;
+}
+
+.comentarios {
+    display: flex;
+    gap: 10px;
+}

@@ -17,14 +17,14 @@
 <body>
     {% include 'header.html' %}
     <section class="conteudo">
-        {% include 'navbarEsquerda.html' %}
+        {% include 'navbarEsquerda.html' with user=user %}
         
         <div class="feed">
             {% for postagem in postagens %}
             <div class="postagem">
                 <!-- Nome do usuário e hora da postagem -->
                 <div class="post-header">
-                    <img src="{{ postagem.usuario.imagemPerfil.url }}" alt="Avatar" class="avatar">
+                    <img src="{{ postagem.usuario.imagemPerfil.url }}" alt="Avatar" class="avatar" object-fit="cover">
                     <h3>{{ postagem.usuario.nome }} • <span>{{ postagem.dataPublicacao|date:"d/m/Y H:i" }}</span></h3>
                 </div>
 
