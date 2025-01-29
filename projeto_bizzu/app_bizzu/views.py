@@ -96,7 +96,7 @@ def cadastro(request):
         # user.foto_perfil = foto_perfil
         user.save()
         # return redirect('login')
-        return render(request, 'comunidade.html')
+        return redirect('escolher_comunidade')
 
 def login(request):
     if request.method == "GET":
@@ -158,17 +158,47 @@ def sair(request):
     return redirect('feed')  # Redireciona para a página de login ou outra página
 
 
+# @login_required
+# def associar_comunidade(request):
+#     if request.method == 'POST':
+#         usuario = request.user
+#         id_comunidade = request.POST.get('id_comunidade')
+#         if id_comunidade:  # verifica se o id não está vazio
+#             comunidade = Comunidade.objects.get(id=id_comunidade)
+#             usuario.comunidades.add(comunidade)
+#             return redirect('feed')
+#     return render(request, 'comunidade.html')
+
 
 @login_required
 def escolher_comunidade(request):
-    if request.method == "POST":
-        comunidade_nome = request.POST.get('comunidade')  # pega o nome da comunidade
-        comunidade = Comunidade.objects.filter(nome=comunidade_nome).first()
+    comunidades = Comunidade.objects.all()  # Buscar todas as comunidades do banco
+    return render(request, "comunidade.html", {"comunidades": comunidades})
 
-        if comunidade:
-            usuario = request.user
-            comunidade.seguidores.add(usuario)  # Adiciona o usuário à lista de membros da comunidade
-            return redirect('feed')  # Redireciona para o proximo passo
+
+
+from django.contrib import messages
+
+@login_required
+def associar_comunidade(request):
+    if request.method == 'POST':
+        usuario = request.user
+        id_comunidade = request.POST.get('id_comunidade')
+
+        if not id_comunidade:
+            messages.error(request, "Nenhuma comunidade selecionada.")
+            return redirect('escolher_comunidade')
+
+        comunidade = get_object_or_404(Comunidade, id=id_comunidade)
+
+        # Verifica se o usuário já está na comunidade
+        if usuario.comunidades.filter(id=id_comunidade).exists():
+            messages.warning(request, f"Você já segue a comunidade {comunidade.nome}.")
         else:
-            return render(request, "comunidade.html", {"erro": "Comunidade não encontrada."})
-    return redirect('comunidade')  # Em caso de GET, volta para a página de escolha
+            usuario.comunidades.add(comunidade)  # Adiciona o usuário à comunidade
+            comunidade.seguidores.add(usuario)  # Garante que o usuário seja um seguidor
+            messages.success(request, f"Agora você está seguindo {comunidade.nome}!")
+
+        return redirect('feed')  # Redireciona para o feed
+
+    return render(request, 'comunidade.html', {"erro": "Erro ao associar comunidade."})

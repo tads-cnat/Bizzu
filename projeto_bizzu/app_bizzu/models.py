@@ -21,6 +21,8 @@ class Usuario(AbstractUser):
         return self.username
 
 
+        self.save()
+
 # class Usuario(models.Model):
 #     nome = models.CharField(verbose_name="Nome", max_length=50)
 #     username = models.CharField(
@@ -52,6 +54,7 @@ class UsuarioSeguidores(models.Model):
     seguido = models.ForeignKey("Usuario", related_name="seguidores", on_delete=models.CASCADE)
 
 class Comunidade(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     nome = models.CharField(verbose_name="Nome", max_length= 50)
     descricao = models.CharField(verbose_name="Descrição", max_length= 200)
     anoFundacao = models.DateField(verbose_name="Ano de fundação", default=2025)

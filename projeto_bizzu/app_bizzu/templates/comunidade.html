@@ -16,14 +16,45 @@
         <div class="tudo">
             <main class="comunidades">
             
+                {% for comunidade in comunidades %}
+                    <div class="principais">
+                        <img class="primeira" src="{% static 'img/dentro1.png' %}" alt="{{ comunidade.nome }}">
+                        <article class="comunidade">
+                            <h2>{{ comunidade.nome }}</h2>
+                            <p>{{ comunidade.descricao }}</p>
+                            <span class="seguindo">{{ comunidade.seguidores.count }} seguindo</span>
+
+                            <form method="POST" action="{% url 'associar_comunidade' %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="id_comunidade" value="{{ comunidade.id }}">
+                                <div class="botao">
+                                    <button class="seguir" type="submit">Seguir</button>
+                                </div>
+                            </form>
+                        </article>
+                    </div>
+                {% empty %}
+                    <p>Nenhuma comunidade encontrada.</p>
+                {% endfor %}
+
+            </main>
+        </div>
+    </section>
+    
+
+
+
+        <!-- <div class="tudo">
+            <main class="comunidades">
+            
                 <div class="principais">
                         <img class="primeira" src="../static/img/dentro1.png" alt="TADS">
                         <article class="comunidade">
                         <h2>TADS</h2>
                         <p>Comunidade do curso TADS da diatinf</p>
-                        <form method="POST" action="{% url 'escolher_comunidade' %}">
+                        <form method="POST" action="{% url 'associar_comunidade' %}">
                             {% csrf_token %}
-                            <input type="hidden" name="Comunidade" value="TADS">
+                            <input type="hidden" name="id_comunidade" value="{{ comunidade.id }}">
                             <span class="seguindo">500 seguindo</span>
                             <div class="botao">
                                 <button class="seguir" type="submit">Seguir</button>
@@ -31,15 +62,16 @@
                             </form>
                     </article>
                 </div>
+                
 
                 <div class="principais">
                     <img class="primeira" src="../static/img/dentro1.png" alt="INFOWEB">
                     <article class="comunidade">
                         <h2>INFOWEB</h2>
                         <p>Comunidade do curso INFOWEB da diatinf</p>
-                        <form method="POST" action="{% url 'escolher_comunidade' %}">
+                        <form method="POST" action="{% url 'associar_comunidade' %}">
                             {% csrf_token %}
-                            <input type="hidden" name="Comunidade" value="INFOWEB">
+                            <input type="hidden" name="id_comunidade" value="{{ comunidade.id }}">
                             <span class="seguindo">200 seguindo</span>
                             <div class="botao">
                             <button class="seguir" type="submit">Seguir</button>
@@ -53,9 +85,9 @@
                     <article class="comunidade">
                         <h2>REDES</h2>
                         <p>Comunidade do curso REDES da diatinf</p>
-                        <form method="POST" action="{% url 'escolher_comunidade' %}">
+                        <form method="POST" action="{% url 'associar_comunidade' %}">
                             {% csrf_token %}
-                            <input type="hidden" name="Comunidade" value="REDES">
+                            <input type="hidden" name="id_comunidade" value="{{ comunidade.id }}">
                             <span class="seguindo">15 seguindo</span>
                             <div class="botao">
                                 <button class="seguir" type="submit">Seguir</button>
@@ -67,12 +99,28 @@
             </main>
         </div>
 
-            <!-- Adicionando o botão "Próximo Passo" -->
     <div class="proximo-passo">
         <button>Próximo Passo</button>
     </div>
 
     
-    </section>
+
+    <form method="POST" action="{% url 'associar_comunidade' %}">
+        {% csrf_token %}
+        <input type="hidden" name="id_comunidade" value="{{ comunidade.id }}">
+        <button class="seguir" type="submit">Seguir</button>
+    </form>
+
+
+    <form method="POST" action="{% url 'associar_comunidade' %}">
+        {% csrf_token %}
+        <input type="hidden" name="id_comunidade" value="{{ comunidade.id }}">
+        <button type="submit">Escolher Comunidade</button>
+    </form>
+    
+
+
+-->
+    </section> 
 </body>
 </html>
