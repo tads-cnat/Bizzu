@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ usuario.nome }} - Perfil</title>
-    <!-- <link rel="stylesheet" href="{% static 'css/perfilUsuario.css' %}"> -->
+    <link rel="stylesheet" href="{% static 'css/perfilUsuario.css' %}">
     <link rel="icon" type="image/svg+xml" href="{% static 'img/abelha_bizzu.svg' %}">
 </head>
 <body>
@@ -21,7 +21,9 @@
                 
                 <div class="perfil-info">
                     {% if usuario.imagemPerfil %}
-                    <img src="{{ user.imagemPerfil.url|default:'/static/img/default-profile.png' }}" alt="Foto de perfil" class="foto-perfil" width="100px">
+                        <img src="{{ user.imagemPerfil.url }}" alt="Foto de perfil" class="foto-perfil" width="100px">
+                    {% else %}
+                        <img src="{% static 'img/default-profile.png' %}" alt="Foto de perfil" class="foto-perfil" width="100px">
                     {% endif %} 
                     
                         <div class="perfil-detalhes">
@@ -70,7 +72,7 @@
                     </div>
                 </div>
                 {% empty %}
-                <p>Nenhuma postagem disponível no momento.</p>
+                <p class="postagem-off">Nenhuma postagem disponível no momento.</p>
                 {% endfor %}
             </div>
         </div>
