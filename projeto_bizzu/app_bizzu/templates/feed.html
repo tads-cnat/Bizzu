@@ -24,7 +24,11 @@
             <div class="postagem">
                 <!-- Nome do usuário e hora da postagem -->
                 <div class="post-header">
-                    <img src="{{ postagem.usuario.imagemPerfil.url }}" alt="Avatar" class="avatar" object-fit="cover">
+                    {% if user.imagemPerfil %}
+                        <img src="{{ postagem.usuario.imagemPerfil.url }}" alt="Avatar" class="avatar" object-fit="cover">
+                    {% else %}
+                        <img src="{% static 'img/default-profile.png' %}" alt="Avatar" class="avatar" object-fit="cover">
+                    {% endif %}
                     <h3>{{ postagem.usuario.nome }} • <span>{{ postagem.dataPublicacao|date:"d/m/Y H:i" }}</span></h3>
                 </div>
 
