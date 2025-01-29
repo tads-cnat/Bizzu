@@ -20,7 +20,9 @@
             <div class="perfil-header">
                 
                 <div class="perfil-info">
-                    <img src="{{ usuario.imagemPerfil.url }}" alt="Foto de perfil" class="foto-perfil" width="100px"> 
+                    {% if usuario.imagemPerfil %}
+                    <img src="{{ usuario.imagemPerfil.url }}" alt="Foto de perfil" class="foto-perfil" width="100px">
+                    {% endif %} 
                     
                         <div class="perfil-detalhes">
                         <h1>{{ usuario.nome }}</h1>
