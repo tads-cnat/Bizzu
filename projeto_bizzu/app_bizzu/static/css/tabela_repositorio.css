@@ -13,6 +13,11 @@ body {
     background-color: #DCCEB1;
     
 }
+#linkArquivo{
+    color: white;
+    text-decoration: none;
+    outline: none;
+}
 .tabela_linha th, .tabela_linha td {
     border: 1px solid #F79010; /* Define a borda das células */
     padding: 10px; /* Aumenta o espaçamento interno (altura da linha) */

@@ -11,7 +11,9 @@ urlpatterns=[
     path('login/', views.login, name='login'),
     path('repositorio/', views.verRepositorio, name='verRepositorio'),
     path('novo/repositorio/', views.novoRepositorio, name='novoRepositorio'),
+    path('salvos/repositorio/', views.repositorioSalvos, name='repositorioSalvos'),
     path('sair/', views.sair, name='sair'),
+    path('escolher_comunidade/', views.escolher_comunidade, name='escolher_comunidade'),
     # path('deslogado',views.deslogado,name='deslogado'),
 ]
 

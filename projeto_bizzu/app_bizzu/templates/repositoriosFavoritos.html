@@ -1,0 +1,46 @@
+{% load static %}
+<link rel="stylesheet" href="{% static "css/fotoPerfilNome.css" %}?v=1.2">
+<link rel="stylesheet" href="{% static "css/caixaRepositorio.css" %}?v=1.4">
+<link rel="stylesheet" href="{% static "css/repositoriosFavoritados.css" %}?v=1.2">
+<link rel="stylesheet" href="{% static "css/Botao.css" %}?v=1.2">
+<link rel="stylesheet" href="{% static "css/Tags.css" %}?v=1.2">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+<body>
+    {% include 'header.html' %}
+    <section class="salvosRepositorioContainer">
+        {% include 'navbarEsquerda.html' %}
+        <div class="salvosRepositorio">
+            
+            <div class="repositorioContainer">
+                <div class="headerCaixa">
+                    <div class="profile-container">
+                        <div class="hexagon">
+                            <img src="{{usuarioFotoPerfilUrl}}" class="profile-image">
+                        </div>
+                        <div class="user-info">
+                            <span class="username">{{usuarionome|default:"Luiz Fernando"}}</span>
+                            <span class="separator">•</span>
+                            <span class="timestamp">{{posttempo_postagem|default:"4h atrás"}}</span>
+                        </div>
+                    </div>
+                    <button type="submit" id="BotaoLink" class="GeralPrimario">
+                        <p id="botaoP">Abrir</p>
+                    </button> 
+                </div>
+                <p class="tituloP">Nome</p>
+                <p class="descricaoP">Lorem ipsum dolor sit amet consectetur adipisicing elit....</p>
+                <div class="container">
+                    <div class="tag tag-rosa"><img src="/projeto_bizzu/app_bizzu/static/img/iconeTagRosa.svg" class="imgMenu"> Período</div>
+                    <div class="tag tag-azul"><img src="/projeto_bizzu/app_bizzu/static/img/iconeTagAzul.svg" class="imgMenu"> Matéria</div>
+                    <div class="tag tag-verde"><img src="/projeto_bizzu/app_bizzu/static/img/iconeTagVerde.svg" class="imgMenu"> Tecnologia</div>
+                </div>
+            </div>
+
+            
+        </div>
+        {% include 'navbarRepositorios.html' %}
+    </section>
+    
+</body>

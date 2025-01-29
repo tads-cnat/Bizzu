@@ -1,0 +1,34 @@
+.container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: poppins;
+    /*color: white;  --> como não tem fundo ainda, deixei a cor da fonte preta, mas colocar cor branca quando for juntar com os outros elementos do repositório (se for usar no repositório)*/
+    font-size: 0.7vw;
+}
+
+.tag {
+    display: flex;
+    align-items: center;
+    gap: 5px; 
+    /* font-weight: bold; --> usar só quando for usar as tags com os nomes coloridos pra postagem */
+}
+
+.imgMenu {
+    width: 0.5vw;
+    height: 0.5vw;
+}
+
+/* 1. definir cor de acordo com a paleta do design system, essas cores são temporárias
+   2. as cores só são usadas no nome também, em postagens. As tags no repositório só tem a bolinha colorida e os nomes em branco */
+.tag-rosa {
+    color: #EA3165; 
+}
+
+.tag-azul {
+    color: #12B1A9;
+}
+
+.tag-verde {
+    color: #6FB112;
+}

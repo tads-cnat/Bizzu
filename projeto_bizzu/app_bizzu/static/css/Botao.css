@@ -6,18 +6,16 @@
 }
 #BotaoLink{
     height: auto;
-    max-height: 30px;
+    max-height: 27px;
     display: flex;
-    text-decoration: none;
     width: fit-content;
     border-radius: 30px;
     overflow: hidden;
     justify-content: center;
     align-items: center;
-    padding: 1%;
-    padding-top: 3%;
-    padding-bottom: 3%;
-    white-space: nowrap;
+    padding: 3%;
+    text-decoration: none;
+    outline: none;
 }
 button{
     background-color: #ffffff00;
@@ -26,10 +24,10 @@ button{
     border-color: #058b9200;
 }
 #botaoImg{
-    width: 20%;
+    width: 40%;
+    max-height: 20px;
     height: auto;
     padding-right: 8px;
-   
 }
 #botaoP{
     font-size: 1.1vw;
@@ -45,8 +43,8 @@ button{
 #BotaoLink.GeralPrimario{
     background-color: #F7C110 ;
     color: white;
-    padding-left: 1.5%;
-    padding-right: 1.5%;
+    padding-left: 4%;
+    padding-right: 4%;
 }
 
 #BotaoLink.GeralSecundario{
@@ -67,8 +65,8 @@ button{
     border-color: #ACABA4;
     color: #ACABA4;
     max-height: 15px;
-    padding-left: 1.5%;
-    padding-right: 1.5%;
+    padding-left: 4%;
+    padding-right: 4%;
 } 
 
 .PerfilPrimario{
@@ -88,7 +86,7 @@ button{
  #BotaoLink.voltar{
     color: white;
     justify-content: left;
-    width: 30%;
+    width: 15%;
 }
 
 

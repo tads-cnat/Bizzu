@@ -23,7 +23,7 @@
     flex: 2;
     position: fixed;
     right: 0;
-    width: 510px;
+    width: 27%;
     height: calc(100vh - 75px);
     color: white;
     padding: 20px;
@@ -35,8 +35,9 @@
     background-color: rgb(16, 15, 15, 0.6);
     /* margin: auto; */
     margin-top: 15px;
-    width: 472px;
+    width: 100%;
     height: 97%;
+    justify-items: center;
     border-radius: 25px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     overflow-y: auto;
@@ -50,94 +51,6 @@
     font-weight: 700;
     font-size: 26px;
     margin-bottom: 40px;
-  }
-
-  .rep1, .rep2, .rep3 {
-    margin: auto;
-    padding: 10px;
-    width: 395px;
-    height: 216px;
-    border-radius: 25px;
-    border: 2px solid #F79010;
-    margin-bottom: 40px;
-  }
-  
-  #fotorep1 {
-    margin-left: 5px;
-    width: 34px;
-    height: 34px;
-  }
-  
-  #titulorep1 {
-    margin-left: 10px;
-    font-weight: 100;
-    font-size: 15px;
-  }
-
-  .toporep1 {
-    width: 100%;
-    display: flex;
-    align-items: center;
-  }
-  
-  .abrirrep {
-    position: relative;
-    align-items: center;
-    margin-left: 117px;
-    width: 90px;
-    height: 30px;
-    border-radius: 25px;
-    color: white;
-    background-color: #F79010;
-    font-weight: 400;
-    font-size: 18px;
-    cursor: pointer;
-    border: 0;
-    box-shadow: 0 3px 10px black;
-  }
-
-  .abrirrep:hover {
-    background-color: gray;
-  }
-
-  .conteudorep1 {
-      margin-left: 5px;
-      margin-top: 10px;
-  }
-
-  .conteudorep1 h1{
-    font-weight:500;
-  }
-
-  #titulorep1 {
-      font-weight: 600;
-  }
-
-  #subtitulorep1 {
-    font-weight: 100;
-    font-size: 14px;
-    width: 280px;
-    padding-bottom: 60px;
-  }
-
-  .categoriasrep1 {
-    display: flex;
-    margin-left: 5px;
-  }
-
-  .categoriasrep1 h6 {
-    display: flex;
-    margin-top: 1px;
-    font-weight: 300;
-    padding-right: 30px;
-    margin-left: 3px; 
-  }
-
-  #subtitulorep3 {
-    font-weight: 100;
-    font-size: 14px;
-    width: 280px;
-    padding-bottom: 74px;
   }
 
   /* Responsividade */
