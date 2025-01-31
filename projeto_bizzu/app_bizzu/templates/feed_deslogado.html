@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bizzu</title>
     <link rel="stylesheet" href="{% static 'css/feed.css' %}">
+    <link rel="icon" type="image/svg+xml" href="{% static 'img/abelha_bizzu.svg' %}">
 </head>
 <body>
     {% include 'headerDeslogado.html' %}
@@ -18,10 +19,10 @@
             <div class="postagem">
                 <!-- Nome do usuário e hora da postagem -->
                 <div class="post-header">
-                    {% if user.imagemPerfil %}
-                        <img src="{{ postagem.usuario.imagemPerfil.url }}" alt="Avatar" class="avatar" object-fit="cover">
+                    {% if postagem.usuario.imagemPerfil and postagem.usuario.imagemPerfil.url %}
+                        <img src="{{ postagem.usuario.imagemPerfil.url }}" alt="Avatar" class="avatar" style="object-fit: cover;">
                     {% else %}
-                        <img src="{% static 'img/default-profile.png' %}" alt="Avatar" class="avatar" object-fit="cover">
+                        <img src="{% static 'img/default-profile.png' %}" alt="Avatar" class="avatar" style="object-fit: cover;">
                     {% endif %}
                     <h3>{{ postagem.usuario.nome }} • <span>{{ postagem.dataPublicacao|date:"d/m/Y H:i" }}</span></h3>
                 </div>

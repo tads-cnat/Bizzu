@@ -12,8 +12,8 @@
 
     <ul>
         <div class="paginas">
-            <li><img src="{% static 'img/casa_branco.svg' %}" width="35px"><a href="index.html">Página Inicial</a></li>
-            <li><img src="{% static 'img/voce_segue_branco.svg' %}" width="35px"><a href="#">Você segue</a></li>
+            <li><img src="{% static 'img/casa_branco.svg' %}" width="35px"><a href="{% url 'feed' %}">Página Inicial</a></li>
+            <!-- <li><img src="{% static 'img/voce_segue_branco.svg' %}" width="35px"><a href="#">Você segue</a></li> -->
             <li class="dropdown">
                 <img src="{% static 'img/comunidades_branco.svg' %}" width="35px">
                 <a href="#">Comunidades</a>

@@ -19,6 +19,7 @@ urlpatterns=[
     path('escolher-comunidade/', views.escolher_comunidade, name='escolher_comunidade'),
     # path('deslogado',views.deslogado,name='deslogado'),
     path('associar-comunidade/', views.associar_comunidade, name='associar_comunidade'),
+    path('editar-perfil/', views.editar_perfil, name='editar_perfil'),
 
 ]
 
