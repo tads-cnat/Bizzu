@@ -7,9 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bizzu</title>
     <link rel="stylesheet" href="{% static 'css/feed.css' %}">
-    <link rel="stylesheet" href="{% static "css/navbarRepositorio.css" %}">
+    <link rel="stylesheet" href="{% static "css/navbarRepositorio.css" %}?v=1.8">
     <link rel="stylesheet" href="{% static "css/fotoPerfilNome.css" %}?v=1.2">
-    <link rel="stylesheet" href="{% static "css/caixaRepositorio.css" %}?v=1.2">
+    <link rel="stylesheet" href="{% static "css/caixaRepositorio.css" %}?v=1.5">
     <link rel="stylesheet" href="{% static "css/Botao.css" %}?v=1.2">
     <link rel="stylesheet" href="{% static "css/Tags.css" %}?v=1.2">
     <link rel="icon" type="image/svg+xml" href="{% static 'img/abelha_bizzu.svg' %}">
@@ -66,12 +66,12 @@
                                 <img src="{{usuarioFotoPerfilUrl}}" class="profile-image">
                             </div>
                             <div class="user-info">
-                                <span class="username">{{repositorio.usuario.nome|default:"Luiz Fernando"}}</span>
+                                <span class="username">{{repositorio.usuario|default:"Luiz Fernando"}}</span>
                                 <span class="separator">•</span>
                                 <span class="timestamp">{{repositorio.dataPublicacao|default:"4h atrás"}}</span>
                             </div>
                         </div>
-                        <form method="GET" action="{% url "verRepositorio" %}">
+                        <form method="GET" action="{% url "verRepositorio" %}" id="form">
                         <button type="submit" id="BotaoLink" class="GeralPrimario" name="repositorio" value={{repositorio.id}}>
                             <p id="botaoP">Abrir</p>
                         </button> 

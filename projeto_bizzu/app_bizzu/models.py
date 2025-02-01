@@ -21,8 +21,6 @@ class Usuario(AbstractUser):
         return self.username
 
 
-        self.save()
-
 # class Usuario(models.Model):
 #     nome = models.CharField(verbose_name="Nome", max_length=50)
 #     username = models.CharField(
@@ -94,6 +92,7 @@ class Repositorio(models.Model):
 
     def __str__(self):
         return self.titulo
+    
 
 class Comentario(models.Model):
     conteudo = models.CharField(verbose_name="Conteudo",max_length= 300)

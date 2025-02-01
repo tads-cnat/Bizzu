@@ -5,8 +5,7 @@
     background-color: #058b9200;
 }
 #BotaoLink{
-    height: auto;
-    max-height: 27px;
+    height: 40px;
     display: flex;
     width: fit-content;
     border-radius: 30px;
@@ -43,14 +42,15 @@ button{
 #BotaoLink.GeralPrimario{
     background-color: #F7C110 ;
     color: white;
-    padding-left: 4%;
-    padding-right: 4%;
+    padding-left: 5%;
+    padding-right: 5%;
 }
 
 #BotaoLink.GeralSecundario{
     border: 1px solid;
     border-color: #F7C110 ;
     color: #F7C110;
+    padding: 0;
     padding-left: 2%;
     padding-right: 2%;
 } 

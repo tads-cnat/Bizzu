@@ -14,8 +14,6 @@ from django.contrib.auth import login as login_django
 from .forms import EditarPerfilForm
 
 
-
-
 # @login_required(login_url="/login/")
 # def feed(request):
 #     user = request.user #LR
@@ -122,8 +120,6 @@ def login(request):
             return HttpResponse('Usuário ou senha inválidos')
 
 def verRepositorio(request): #Ver a parte interna repositório
-    #repositoriosFavoritados = request.POST.get('titulo')
-    #Repositorio(repositoriosFavoritados = repositoriosFavoritados).save()
     repositorios = Repositorio.objects.all()
     if request.method == "GET":
         idRepositorio = request.GET.get('repositorio')
@@ -148,7 +144,7 @@ def novoRepositorio(request):
         else:
             comunidade = Comunidade.objects.all().filter(nome__icontains="Redes").first()
         if (titulo and descricao and arquivo and comunidade): #Se tudo for preenchido ele vai salvar no BD
-            usuario = Usuario.objects.first()
+            usuario = request.user
             Repositorio(titulo = titulo, descricao = descricao, comunidade = comunidade, arquivo = arquivo, usuario = usuario).save() #Salvar de acordo com o atrúbuto 
             return HttpResponse("Deu bom")
         else:
@@ -159,6 +155,9 @@ def novoRepositorio(request):
 def repositorioSalvos(request): #Ver todos os repostórios salvos 
     repositorios = Repositorio.objects.all()
     return render(request, "repositoriosFavoritos.html", {'repositorios': repositorios})
+
+def perfilPessoal(request):
+    return render(request, "perfilPessoal.html")
 
 def sair(request):
     logout(request)  # Desloga o usuário

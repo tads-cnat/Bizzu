@@ -42,6 +42,7 @@ body::before {
     margin: auto;
 }
 
+
 /* FEED DE PUBLICAÇÕES ABAIXO */
 
 .feed {
@@ -134,7 +135,7 @@ body::before {
     text-decoration: none;
     color: white;
 }
-]
+
 
 .comentarios {
     display: flex;

@@ -20,7 +20,7 @@ urlpatterns=[
     # path('deslogado',views.deslogado,name='deslogado'),
     path('associar-comunidade/', views.associar_comunidade, name='associar_comunidade'),
     path('editar-perfil/', views.editar_perfil, name='editar_perfil'),
-
+    path('perfil/pessoal/', views.perfilPessoal, name='basePerfil'),
 ]
 
 if settings.DEBUG:

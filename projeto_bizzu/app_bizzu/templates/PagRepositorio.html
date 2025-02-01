@@ -31,7 +31,7 @@
                                 <img src="{{ usuario.foto_perfil.url|default:'https://via.placeholder.com/32' }}" class="profile-image">
                             </div>
                             <div class="user-info">
-                                <span class="username">{{ usuario.nome|default:"Sem nome" }}</span>
+                                <span class="username">{{repositorioAtual.usuario.username|default:"Sem nome" }}</span>
                                 <span class="separator">•</span>
                                 <span class="timestamp">{{ post.tempo_postagem|default:"0h atrás" }}</span>
                             </div>
@@ -46,11 +46,12 @@
                         </div>
                     </th>
                 </tr>
+
                 {% if repositorioAtual.arquivo != undefined %}
                 <tr class="tabela_linha">
                     <td>
-                        <img src="pasta.png" alt="Ícone" class="icone_pasta">
-                        <a id="linkArquivo" href="#" target="_blank">{{repositorioAtual.arquivo.name}}</a>
+                        <img src="{% static "img/documento.svg" %}" alt="Ícone" class="icone_pasta">
+                        <a id="linkArquivo" href="{{repositorioAtual.arquivo.url}}" target="_blank">{{repositorioAtual.arquivo.name}}</a>
                     </td>
                 </tr>
                 {% else %}

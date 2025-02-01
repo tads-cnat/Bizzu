@@ -1,0 +1,189 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root {
+    --primary-color: #F79010;
+    --primary-color-dark: #1F1C19;
+    --secondary-color: #058B92;
+    --text-dark: Black;
+    --text-light: white;
+    --extra-light: #faf5ff;
+    --max-width: 1200px;
+}
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+
+.barraPerfil{  
+    flex: 2;
+    position: fixed;
+    right: 0;
+    width: 27%;
+    height: calc(100vh - 75px);
+    color: white;
+    padding: 20px;
+    border-left: 1px solid #DCCEB1;
+    background-color: #27211B;
+  }
+
+  .conteudodireita {
+    background-color: rgb(16, 15, 15, 0.6);
+    width: 100%;
+    height: 60%;
+    justify-items: center;
+    border-radius: 25px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    align-items: center;
+    padding: 20px;
+    padding-top: 30px;
+  }
+
+  #botao{
+    display: flex;
+    width: 40%;
+    height: 48px;
+    bottom: calc(5vh);
+    justify-self: right;
+    position: relative;
+    justify-content: right;
+  }
+
+  #buscar {
+   
+    display: flex;
+    align-items: center;
+    border: 0;
+    box-shadow: 0 3px 5px black;
+    border-radius: 25px;
+    width: 60%;
+    height: 38px;
+    background-color: rgb(98, 97, 97, 0.3);
+    background-image: url(../img/lupa.svg);
+    background-size: 23px;
+    background-repeat: no-repeat;
+    background-position: 5% 50%;
+    margin-right: 330px;
+    padding-left: 60px;
+    color: white;
+}
+
+#buscar::placeholder {
+    font-weight: 300;
+    font-size: 18px;
+    color: rgb(255, 255, 255, 0.5);
+}
+
+.informacoesPerfil{
+  display: flex;
+  flex-direction: column;
+}
+
+.quantidadeP{
+  color: white;
+  font-size: 1.1vw;
+}
+
+.tipoP{
+  color: #ACABA4;
+  font-size: 1vw;
+}
+
+.blocoDiv{
+    display: flex;
+    flex-wrap: wrap;   
+    gap: 10px;
+    padding-left: 20px;
+}
+
+#blocoInfo{
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+}
+
+#iconePerfil{
+  width: 20%;
+  height: auto; 
+}
+
+.perfilAcademico{
+  font-size: 1.1vw;
+  margin: 0;
+  color: white;
+  font-weight: 600;
+  padding-top: 10px;
+}
+
+.academicoDiv{
+  display: flex;
+  margin-top: 10px;
+  flex-direction: column;
+
+}
+
+.infosPerfil{
+  font-size: 0.9vw;
+  margin: 0;
+  color: white;
+  padding-top: 10px;
+}
+
+.topico{
+  display: flex;
+}
+
+.configuracoes{
+  background-color: #acaba485;
+  width: 100%;
+  margin-top: 20px;
+  height: 10%;
+  justify-items: center;
+  border-radius: 25px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  align-items: center;
+  padding-top: 10px;
+}
+
+.subP{
+  display: flex;
+  font-size: 0.8vw;
+  margin: 0;
+  color: #acaba4;
+  margin: 0;
+  display: block;  
+}
+
+.topico2{
+  display: flex;
+  flex-direction: column;
+  justify-self: left;
+}
+.salvosP{
+  font-size: 1vw;
+  font-weight: 600;
+  margin: 0;
+  color: white;
+}
+.salvos{
+  width: 25%;
+  margin-right: 10px;
+}
+.topico3{ 
+  display: flex;
+  text-decoration: none;
+  outline: none;
+  justify-self: left;
+  padding-left: 20px;
+  margin-bottom: 20px;
+}
+.botaoEditar{
+  display: flex;
+  margin-bottom: 20px;
+  justify-self: left;
+  width: 100%;
+  padding-left: 20px;
+}

@@ -17,8 +17,6 @@
     font-family: "Poppins", sans-serif;
 }
 
-/* ESTLIZAÇÃO */
-
 .barrarepositorios {  
     flex: 2;
     position: fixed;
@@ -53,10 +51,4 @@
     margin-bottom: 40px;
   }
 
-  /* Responsividade */
-@media (max-width: 768px) {
-    
-  .barrarepositorios {
-      display: hidden;
-  }
-}
+  

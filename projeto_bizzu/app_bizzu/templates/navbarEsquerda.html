@@ -12,7 +12,7 @@
 
 
         <div class="perfil2">
-            <h2 id="userperfil">@{{ user.username }}</h2> <!-- mudar para nome depois -->
+            <h2 id="userperfil">@{{ user.username }}</h2> <!-- mudar para nome depois {% url 'perfil' user.username %}--> 
             <h4 id="verperfil"><a href="{% url 'perfil' user.username %}">Ver perfil</a></h4>
         </div>
     </div>
