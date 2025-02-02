@@ -18,7 +18,8 @@
 6. Luiz Roberto
 7. Mateus Vitor
 
-<img src="https://github.com/user-attachments/assets/2646c522-9a2b-4991-b76d-0e77370a57c2"/>
+<img src="https://github.com/user-attachments/assets/a54f1ab2-9a63-4b72-a1df-c754f119993d"/>
+
 
 > Formas de contato da equipe - WhatsApp
 
