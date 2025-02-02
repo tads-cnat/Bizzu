@@ -1,6 +1,6 @@
 {%load static%}
 <link rel="stylesheet" href="{% static "css/Botao.css" %}?v=1.2">
-<link rel="stylesheet" href="{% static "css/PagRepositorio.css" %}?v=1.2">
+<link rel="stylesheet" href="{% static "css/PagRepositorio.css" %}?v=1.3">
 <link rel="stylesheet" href="{% static "css/tabela_repositorio.css" %}?v=1.3">
 <link rel="stylesheet" href="{% static "css/navbarRepositorio.css" %}">
 <link rel="stylesheet" href="{% static "css/fotoPerfilNome.css" %}?v=1.2">
@@ -72,9 +72,11 @@
                     <p id="botaoP">Favoritar</p>
                 </button> 
             </form>
+            <a href="{{repositorioAtual.arquivo.url}}" download id="download">
                 <button type="submit" id="BotaoLink" class="GeralSecundario" >
                     <p id="botaoP">Baixar</p>
                 </button> 
+            </a>
             </div> 
         </div>
     </div>

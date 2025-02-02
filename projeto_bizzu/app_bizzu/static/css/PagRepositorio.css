@@ -54,3 +54,6 @@ body::before {
 .footerRepositorio > .GeralSecundario{
     margin-right: 10px;
 }
+#download{
+    width: 60%;
+}
