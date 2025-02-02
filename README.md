@@ -1,6 +1,8 @@
 # Projeto Bizzu
+<img src="https://github.com/user-attachments/assets/6443d0f2-dbcd-40de-81b5-7c87b02cc613"/>
 
-<img src="https://github.com/tads-cnat/Bizzu/blob/main/BIZZU.png"/>
+
+
 
 >Em ambientes acadêmicos, o contato entre estudantes mais experientes e os novatos desempenha um papel fundamental. No entanto, para muitos desses estudantes, a integração com novas matérias, pessoas e atividades pode ser um grande desafio. Isso se deve, em parte, às dificuldades na socialização, que, por sua vez, impactam diretamente no desempenho acadêmico.
 
@@ -49,4 +51,6 @@
 - [Documentação do DJANGO](https://docs.djangoproject.com/pt-br/5.1/)
 - [Documentação HTML](https://www.w3schools.com/html/default.asp)
 - [Documentação CSS](https://www.w3schools.com/css/default.asp)
+  
+
 
