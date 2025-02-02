@@ -18,6 +18,7 @@
 6. Luiz Roberto
 7. Mateus Vitor
 
+<img src="https://github.com/user-attachments/assets/2646c522-9a2b-4991-b76d-0e77370a57c2"/>
 
 > Formas de contato da equipe - WhatsApp
 
@@ -28,6 +29,7 @@
 5. Luiz Fernando (84 98169-5259)
 6. Luiz Roberto (84 98829-4667)
 7. Mateus Vitor (84 98713-9671)
+
 
 # Horário de Reuniões
 
@@ -52,5 +54,7 @@
 - [Documentação HTML](https://www.w3schools.com/html/default.asp)
 - [Documentação CSS](https://www.w3schools.com/css/default.asp)
   
+<img src="https://github.com/user-attachments/assets/471b640b-f2b6-44c9-9b5f-dbe6f5f1a203" width="600px" height="400px" justify-content="right">
+
 
 
