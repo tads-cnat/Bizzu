@@ -1,19 +1,19 @@
 {% extends "basePerfil.html" %}
 {% load static %}
+<link rel="stylesheet" href="{% static 'css/perfilPessoal.css' %}">
 
 {% block content %}
-<link rel="stylesheet" href="{% static 'css/perfilPessoal.css' %}">
-<div class="comunidade-infos">
-    <img src="/projeto_bizzu/app_bizzu/static/img/comunidadeFotoPerfil.svg" alt="imagem da comunidade tads" class="icon">
-    <div class="principais-info">
-        <h1> TADS </h1> 
-        <p class="paragrafo">Comunidade do curso TADS da diatinf</p>
-        <div class="seguindo-bt">
-            <p style="color: black" class="paragrafo">99 seguindo</p>
-            <a id="BotaoLink" class="PerfilSecundario" href="#">
-                <p id="botaoP">Seguir</p>
-            </a>  
-        </div>  
+    <div class="comunidade-infos">
+        <img src="/projeto_bizzu/app_bizzu/static/img/comunidadeFotoPerfil.svg" alt="imagem da comunidade tads" class="icon">
+        <div class="principais-info">
+            <h1> TADS </h1> 
+            <p class="paragrafo">Comunidade do curso TADS da diatinf</p>
+            <div class="seguindo-bt">
+                <p style="color: black" class="paragrafo">99 seguindo</p>
+                <a id="BotaoLink" class="PerfilSecundario" href="#">
+                    <p id="botaoP">Seguir</p>
+                </a>  
+            </div>  
+        </div>
     </div>
-</div>
 {% endblock %}
