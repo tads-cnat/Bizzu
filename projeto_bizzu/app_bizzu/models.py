@@ -14,8 +14,8 @@ class Usuario(AbstractUser):
     progressoCurso = models.CharField(verbose_name="Progresso no curso", max_length=20, blank=True, null=True)
     repositoriosFavoritados = models.ManyToManyField("Repositorio", verbose_name="Repositórios salvos", symmetrical=False,related_name="repositorios_favoritados", blank=True)
     criado_em = models.DateTimeField(auto_now_add=True, verbose_name="Criado em", null=True, blank=True)
-    segue = models.ManyToManyField("self",symmetrical=False, verbose_name="Segue", related_name="seguido_por", default=0) # quem eu sigo
-    seguidores = models.ManyToManyField("self",symmetrical=False, verbose_name="Seguidores", related_name="seguindo", default=0) # quem me segue
+    segue = models.ManyToManyField("self",symmetrical=False, verbose_name="Segue", related_name="seguido_por", default=0, null=True, blank=True) # quem eu sigo
+    seguidores = models.ManyToManyField("self",symmetrical=False, verbose_name="Seguidores", related_name="seguindo", default=0, null=True, blank=True) # quem me segue
     comunidades = models.ManyToManyField("Comunidade",verbose_name="Comunidades",related_name="seguido_por",blank=True)
 
 

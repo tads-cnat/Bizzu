@@ -54,37 +54,70 @@ def curtida(request, postagem_id):
     post.save()
     return HttpResponseRedirect(reverse('feed'))
 
-def seguirPerfil(request,pk):
-    if request.user.is_authenticated:
-        perfil = Usuario.objects.get(user_id=pk)
+@login_required
+def seguirPerfil(request, pk):
+    perfil_alvo = get_object_or_404(Usuario, id=pk)
+    perfil_atual = request.user
 
-        if request.method == "POST":
-            perfil_atual = request.user.perfil # identificando o seu perfil
-            acao = request.POST["follow"]
-            # decidir se segue ou vai dar unfollow
-            if acao == "unfollow":
-                perfil_atual.segue.remove(perfil)
-            elif acao == "follow":
-                perfil_atual.segue.add(perfil)
-        perfil_atual.save() # registrando a decisão -> seguir ou desseguir
-    return render(request, "perfilPessoal.html", {'perfil' : perfil}, {"seguidor" : seguidores})
+    if request.method == "POST":
+        acao = request.POST.get("follow")  # Obtém a ação do botão
+        
+        if acao == "unfollow":
+            perfil_atual.segue.remove(perfil_alvo)
+            perfil_alvo.seguidores.remove(perfil_atual)
+        elif acao == "follow":
+            perfil_atual.segue.add(perfil_alvo)
+            perfil_alvo.seguidores.add(perfil_atual)
+
+        # Salvar no banco
+        perfil_atual.save()
+        perfil_alvo.save()
+
+        return JsonResponse({"status": "success", "following": perfil_atual in perfil_alvo.seguidores.all()})
+
+    return redirect('perfil', username=perfil_alvo.username)
+
 
 def perfil(request, username):
-    user = get_object_or_404(Usuario, username=username)  # Obtém o usuário pelo username
+    user = get_object_or_404(Usuario, username=username)
+    postagens = Postagem.objects.filter(usuario=user).order_by('-dataPublicacao')
     
-    # Determina quais postagens exibir
-    url_name = resolve(request.path).url_name
-    if url_name == 'perfil':    
-        postagens = Postagem.objects.filter(usuario=user).order_by('-dataPublicacao')
-    else: 
-        postagens = Postagem.objects.all().order_by('-dataPublicacao')
-
-    # Paginação
     paginator = Paginator(postagens, 5)
     page_number = request.GET.get('page')
     postagens_paginator = paginator.get_page(page_number)
 
-    return render(request, 'perfilPessoal.html', {'usuario': user, 'postagens_paginator': postagens_paginator})
+    is_following = False
+    if request.user.is_authenticated:
+        is_following = request.user.segue.filter(pk=user.pk).exists()
+
+    context = {
+        'usuario': user,
+        'postagens_paginator': postagens_paginator,
+        'is_following': is_following
+    }
+
+    return render(request, 'perfilPessoal.html', context)
+
+
+
+
+
+# def perfil(request, username):
+#     user = get_object_or_404(Usuario, username=username)  # Obtém o usuário pelo username
+    
+#     # Determina quais postagens exibir
+#     url_name = resolve(request.path).url_name
+#     if url_name == 'perfil':    
+#         postagens = Postagem.objects.filter(usuario=user).order_by('-dataPublicacao')
+#     else: 
+#         postagens = Postagem.objects.all().order_by('-dataPublicacao')
+
+#     # Paginação
+#     paginator = Paginator(postagens, 5)
+#     page_number = request.GET.get('page')
+#     postagens_paginator = paginator.get_page(page_number)
+
+#     return render(request, 'perfilPessoal.html', {'usuario': user, 'postagens_paginator': postagens_paginator})
 
 
 

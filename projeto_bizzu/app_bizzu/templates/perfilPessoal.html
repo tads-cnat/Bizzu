@@ -18,18 +18,62 @@
             <div class="seguindo-bt">
                 <p class="paragrafo">{{usuario.segue.count}} seguindo</p> <!-- Retorna quantas pessoam seguem o usuário -->
                 <p class="paragrafo">{{usuario.seguidores.count}} seguidores</p> <!-- Retorbna quantas pessoas o usuário segue -->
-            <form method=POST>
-                {% csrf_token %} <!-- Token de segurança que é necessário nos métodos do tipo POST -->
-                {% if perfil in user.perfil.segue.all %} <!-- Se essa pessoa está nos seu seguidores o botão deixar de seguir aparece-->
-                <a id="BotaoLink" class="PerfilSecundario" href="#"><p id="botaoP" value="follow">Deixar de seguir</p></a>
-            <!--<button name="follow" value="unfollow" type="submit">Deixar de seguir</button>-->
-                  
-                {%else%} <!-- Se ela não ta o botão seguir é mostrado -->
-                <a id="BotaoLink" class="PerfilSecundario" href="#"><p id="botaoP" value="unfollow">Seguir</p></a>  
-                <!--<button name="follow" value="follow" type="submit">Seguir</button>-->
+
+
+            {% if request.user != usuario %}  {# Verifica se não está no próprio perfil #}
+            <form method="POST" action="{% url 'seguir_perfil' usuario.id %}">
+                {% csrf_token %}
+                {% if request.user in usuario.seguidores.all %}
+                    <button type="submit" name="follow" value="unfollow" class="unfollow">Deixar de Seguir</button>
+                {% else %}
+                    <button type="submit" name="follow" value="follow" class="follow">Seguir</button>
                 {% endif %}
             </form>
+            {% endif %}
+            
+                
+            
+            <div class="seguidores">
+                <h3>Seguidores</h3>
+                {% for seguidor in seguidores %}
+                    <div class="seguidor">{{ seguidor.username }}</div>
+                {% endfor %}
+            </div>
+            
             </div>  
         </div>
     </div>
+
+
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const followForm = document.querySelector("form[action*='seguir_perfil']");
+        
+        if (followForm) {
+            followForm.addEventListener("submit", function (event) {
+                event.preventDefault();
+                
+                fetch(this.action, {
+                    method: "POST",
+                    body: new FormData(this),
+                    headers: { "X-Requested-With": "XMLHttpRequest" }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.following) {
+                        followForm.querySelector("button").textContent = "Deixar de Seguir";
+                        followForm.querySelector("button").value = "unfollow";
+                    } else {
+                        followForm.querySelector("button").textContent = "Seguir";
+                        followForm.querySelector("button").value = "follow";
+                    }
+                });
+            });
+        }
+    });
+</script>
+        
+
 {% endblock %}
