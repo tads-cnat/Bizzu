@@ -7,14 +7,23 @@
     <div class="comunidade-infos">
         <img src="{{ user.imagemPerfil.url }}" alt="imagem da comunidade tads" class="icon">
         <div class="principais-info">
-            <h1 class="nomeUsuario"> {{usuario.nome}} </h1> 
-            <p class="username">@{{ usuario.username }}</p>
-            <p class="descricao">{{ usuario.descricao }}</p>
+            <h1 class="nomeUsuario"> {{usuario.nome}} </h1> <!-- Retorna o nome do usuário -->
+            <p class="username">@{{ usuario.username }}</p> <!-- Retorna o username do usuário -->
+            <p class="descricao">{{ usuario.descricao }}</p> <!-- Retorna a descrição do usuário --> 
             <div class="seguindo-bt">
-                <p class="paragrafo">{{usuarioseguidores.seguidor.count}} segue</p>
-                <p class="paragrafo">{{usuarioseguidores.seguido.count}} seguindo</p>
-                <a id="BotaoLink" class="PerfilSecundario" href="#"><p id="botaoP">Seguir</p></a>  
-                <!-- <a id="BotaoLink" class="PerfilSecundario" href="#"><p id="botaoP">Deixar de seguir</p></a>  -->
+                <p class="paragrafo">{{usuario.segue.count}} seguindo</p> <!-- Retorna quantas pessoam seguem o usuário -->
+                <p class="paragrafo">{{usuario.seguidores.count}} seguidores</p> <!-- Retorbna quantas pessoas o usuário segue -->
+            <form method=POST>
+                {% csrf_token %} <!-- Token de segurança que é necessário nos métodos do tipo POST -->
+                {% if perfil in user.perfil.segue.all %} <!-- Se essa pessoa está nos seu seguidores o botão deixar de seguir aparece-->
+                <a id="BotaoLink" class="PerfilSecundario" href="#"><p id="botaoP" value="follow">Deixar de seguir</p></a>
+            <!--<button name="follow" value="unfollow" type="submit">Deixar de seguir</button>-->
+                  
+                {%else%} <!-- Se ela não ta o botão seguir é mostrado -->
+                <a id="BotaoLink" class="PerfilSecundario" href="#"><p id="botaoP" value="unfollow">Seguir</p></a>  
+                <!--<button name="follow" value="follow" type="submit">Seguir</button>-->
+                {% endif %}
+            </form>
             </div>  
         </div>
     </div>

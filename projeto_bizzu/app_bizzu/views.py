@@ -54,7 +54,20 @@ def curtida(request, postagem_id):
     post.save()
     return HttpResponseRedirect(reverse('feed'))
 
+def seguirPerfil(request,pk):
+    if request.user.is_authenticated:
+        perfil = Usuario.objects.get(user_id=pk)
 
+        if request.method == "POST":
+            perfil_atual = request.user.perfil # identificando o seu perfil
+            acao = request.POST["follow"]
+            # decidir se segue ou vai dar unfollow
+            if acao == "unfollow":
+                perfil_atual.segue.remove(perfil)
+            elif acao == "follow":
+                perfil_atual.segue.add(perfil)
+        perfil_atual.save() # registrando a decisão -> seguir ou desseguir
+    return render(request, "perfilPessoal.html", {'perfil' : perfil}, {"seguidor" : seguidores})
 
 def perfil(request, username):
     user = get_object_or_404(Usuario, username=username)  # Obtém o usuário pelo username
