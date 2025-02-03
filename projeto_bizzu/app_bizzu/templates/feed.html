@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="{% static "css/caixaRepositorio.css" %}?v=1.5">
     <link rel="stylesheet" href="{% static "css/Botao.css" %}?v=1.2">
     <link rel="stylesheet" href="{% static "css/Tags.css" %}?v=1.2">
+    <link rel="stylesheet" href="{% static 'css/comentarios.css' %}">
     <link rel="icon" type="image/svg+xml" href="{% static 'img/abelha_bizzu.svg' %}">
 </head>
 <body>
@@ -21,7 +22,7 @@
         
         <div class="feed">
             {% for postagem in postagens %}
-            <div class="postagem">
+            <div class="postagem" data-postagem-id="{{ postagem.id }}">
                 <!-- Nome do usuário e hora da postagem -->
                 <div class="post-header">
                     {% if postagem.usuario.imagemPerfil and postagem.usuario.imagemPerfil.url %}
@@ -46,7 +47,10 @@
                         <span>{{postagem.curtidas}} <a href="#">curtidas</a></span>
                     </div>
                     <div class="comentarios">
-                        <button id="comentar-btn"><img src="{% static 'img/icone_comentar.png' %}" width="24px">Comentar</button>
+                        <button class="comentar-btn" data-postagem-id="{{ postagem.id }}">
+                            <img src="{% static 'img/icone_comentar.png' %}" width="24px">
+                            <span>Comentar</span>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -91,6 +95,9 @@
             </div>
         </aside>
     </section>
-    
+    <script>
+        const userAvatar = "{{ request.user.imagemPerfil.url|default:'/static/img/default-profile.png' }}";
+    </script>
+    <script src="{% static 'js/comentarios.js' %}"></script>
 </body>
 </html>

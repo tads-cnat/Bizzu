@@ -1,5 +1,5 @@
 from django import forms
-from .models import Usuario
+from .models import Usuario, Comentario
 
 class EditarPerfilForm(forms.ModelForm):
     class Meta:
@@ -13,4 +13,15 @@ class EditarPerfilForm(forms.ModelForm):
             'instituicaoAtual': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Digite sua instituição atual...'}),
             'localTrabalho': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Digite seu local de trabalho...'}),
             'progressoCurso': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Digite o período de referência...'}),
+        }
+class ComentarioForm(forms.ModelForm):
+    class Meta:
+        model = Comentario
+        fields = ['conteudo']
+        widgets = {
+            'conteudo': forms.Textarea(attrs={
+                'class': 'comentario-input',
+                'placeholder': 'Postar sua resposta...',
+                'rows': '3'
+            })
         }

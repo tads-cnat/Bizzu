@@ -15,7 +15,8 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    border-bottom: 1px solid #DCCEB1;
+    width: 100%;
+    border-bottom: 1px solid var(--primary-color);
     font-family: poppins;
 }
 
@@ -39,12 +40,12 @@
 }
 
 .icon {
-    width: 80px;
-    height: 92px;
+    width: 20vh;
+    height: 20vh;
     clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
     margin-right: 15px;
-    object-fit: cover; /* Garante que a imagem preencha o espaço sem distorção */
-    object-position: center; /* Centraliza a imagem dentro do círculo */
+    object-fit: cover;
+    object-position: center; 
 } 
 
 #BotaoLink{

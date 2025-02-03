@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect, get_object_or_404
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.urls import reverse, resolve
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
@@ -11,8 +11,8 @@ from django.contrib.auth import logout
 from django.core.paginator import Paginator
 from django.contrib import messages
 from django.contrib.auth import login as login_django
-from .forms import EditarPerfilForm
-
+from .forms import EditarPerfilForm, ComentarioForm
+from django.utils import timezone
 
 # @login_required(login_url="/login/")
 # def feed(request):
@@ -233,3 +233,50 @@ def editar_perfil(request):
         form = EditarPerfilForm(instance=usuario)
 
     return render(request, 'editar_perfil.html', {'form': form})
+
+@login_required
+def adicionar_comentario(request, postagem_id):
+    postagem = get_object_or_404(Postagem, id=postagem_id)
+    
+    if request.method == 'POST':
+        form = ComentarioForm(request.POST)
+        if form.is_valid():
+            comentario = form.save(commit=False)
+            comentario.usuario = request.user
+            comentario.postagem = postagem
+            comentario.dataPostagem = timezone.now()
+            comentario.save()
+            
+            if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+                return JsonResponse({
+                    'status': 'success',
+                    'comentario': {
+                        'id': str(comentario.id),
+                        'conteudo': comentario.conteudo,
+                        'data': comentario.dataPostagem.strftime("%d/%m/%Y %H:%M"),
+                        'usuario': {
+                            'nome': comentario.usuario.nome,
+                            'avatar': comentario.usuario.imagemPerfil.url if comentario.usuario.imagemPerfil else '/static/img/default-profile.png'
+                        }
+                    }
+                })
+            
+            return redirect('feed')
+    
+    return JsonResponse({'status': 'error'}, status=400)
+
+def get_comentarios(request, postagem_id):
+    postagem = get_object_or_404(Postagem, id=postagem_id)
+    comentarios = Comentario.objects.filter(postagem=postagem).order_by('dataPostagem')
+    
+    comentarios_json = [{
+        'id': str(c.id),
+        'conteudo': c.conteudo,
+        'data': c.dataPostagem.strftime("%d/%m/%Y %H:%M"),
+        'usuario': {
+            'nome': c.usuario.nome,
+            'avatar': c.usuario.imagemPerfil.url if c.usuario.imagemPerfil else '/static/img/default-profile.png'
+        }
+    } for c in comentarios]
+    
+    return JsonResponse(comentarios_json, safe=False)
