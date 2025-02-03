@@ -54,6 +54,8 @@ def curtida(request, postagem_id):
     post.save()
     return HttpResponseRedirect(reverse('feed'))
 
+
+
 def perfil(request, username):
     user = get_object_or_404(Usuario, username=username)  # Obtém o usuário pelo username
     
@@ -69,7 +71,7 @@ def perfil(request, username):
     page_number = request.GET.get('page')
     postagens_paginator = paginator.get_page(page_number)
 
-    return render(request, 'perfilUsuario.html', {'usuario': user, 'postagens_paginator': postagens_paginator})
+    return render(request, 'perfilPessoal.html', {'usuario': user, 'postagens_paginator': postagens_paginator})
 
 
 
@@ -157,7 +159,7 @@ def repositorioSalvos(request): #Ver todos os repostórios salvos
     return render(request, "repositoriosFavoritos.html", {'repositorios': repositorios})
 
 def perfilPessoal(request):
-    return render(request, "perfilPessoal.html")
+     return render(request, "perfilPessoal.html")
 
 def sair(request):
     logout(request)  # Desloga o usuário
