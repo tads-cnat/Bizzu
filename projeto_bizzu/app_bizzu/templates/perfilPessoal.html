@@ -1,18 +1,20 @@
 {% extends "basePerfil.html" %}
 {% load static %}
-<link rel="stylesheet" href="{% static 'css/perfilPessoal.css' %}">
+
 
 {% block content %}
+<link rel="stylesheet" href="{% static 'css/perfilPessoal.css' %}">
     <div class="comunidade-infos">
-        <img src="/projeto_bizzu/app_bizzu/static/img/comunidadeFotoPerfil.svg" alt="imagem da comunidade tads" class="icon">
+        <img src="{{ user.imagemPerfil.url }}" alt="imagem da comunidade tads" class="icon">
         <div class="principais-info">
-            <h1> TADS </h1> 
-            <p class="paragrafo">Comunidade do curso TADS da diatinf</p>
+            <h1 class="nomeUsuario"> {{usuario.nome}} </h1> 
+            <p class="username">@{{ usuario.username }}</p>
+            <p class="descricao">{{ usuario.descricao }}</p>
             <div class="seguindo-bt">
-                <p style="color: black" class="paragrafo">99 seguindo</p>
-                <a id="BotaoLink" class="PerfilSecundario" href="#">
-                    <p id="botaoP">Seguir</p>
-                </a>  
+                <p class="paragrafo">{{usuarioseguidores.seguidor.count}} segue</p>
+                <p class="paragrafo">{{usuarioseguidores.seguido.count}} seguindo</p>
+                <a id="BotaoLink" class="PerfilSecundario" href="#"><p id="botaoP">Seguir</p></a>  
+                <!-- <a id="BotaoLink" class="PerfilSecundario" href="#"><p id="botaoP">Deixar de seguir</p></a>  -->
             </div>  
         </div>
     </div>
