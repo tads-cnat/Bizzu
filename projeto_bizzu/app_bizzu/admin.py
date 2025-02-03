@@ -19,7 +19,7 @@ class CustomUsuarioAdmin(UserAdmin):
             "classes": ("wide",),
             "fields": (
                 "nome","descricao", "username", "email", "password1", "password2", "imagemPerfil", 
-                "escolaFormacao", "localTrabalho", "progressoCurso", "instituicaoAtual",
+                "escolaFormacao", "localTrabalho", "progressoCurso", "instituicaoAtual", "segue", "seguidores",
             ),
         }),
     )
@@ -29,7 +29,7 @@ class CustomUsuarioAdmin(UserAdmin):
             "classes": ("wide",),
             "fields": (
                 "nome","descricao", "imagemPerfil", "escolaFormacao", "localTrabalho", "progressoCurso", "instituicaoAtual",
-                "comunidades","repositoriosFavoritados",
+                "comunidades","repositoriosFavoritados", "segue", "seguidores",
             ),
         }),
     )

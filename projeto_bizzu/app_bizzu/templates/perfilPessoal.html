@@ -5,7 +5,12 @@
 {% block content %}
 <link rel="stylesheet" href="{% static 'css/perfilPessoal.css' %}">
     <div class="comunidade-infos">
-        <img src="{{ user.imagemPerfil.url }}" alt="imagem da comunidade tads" class="icon">
+        {% if usuario.imagemPerfil %}
+            <img src="{{ usuario.imagemPerfil.url }}" alt="imagem do perfil" class="icon">
+        {% else %}
+            <img src="{% static 'img/default-profile.png' %}" alt="imagem padrão de perfil" class="icon">
+        {% endif %}
+
         <div class="principais-info">
             <h1 class="nomeUsuario"> {{usuario.nome}} </h1> <!-- Retorna o nome do usuário -->
             <p class="username">@{{ usuario.username }}</p> <!-- Retorna o username do usuário -->

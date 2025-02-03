@@ -179,17 +179,6 @@ def sair(request):
     return redirect('feed')  # Redireciona para a página de login ou outra página
 
 
-# @login_required
-# def associar_comunidade(request):
-#     if request.method == 'POST':
-#         usuario = request.user
-#         id_comunidade = request.POST.get('id_comunidade')
-#         if id_comunidade:  # verifica se o id não está vazio
-#             comunidade = Comunidade.objects.get(id=id_comunidade)
-#             usuario.comunidades.add(comunidade)
-#             return redirect('feed')
-#     return render(request, 'comunidade.html')
-
 @login_required
 def escolher_comunidade(request):
     comunidades = Comunidade.objects.all()  # Buscar todas as comunidades do banco
