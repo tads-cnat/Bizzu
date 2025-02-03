@@ -40,9 +40,15 @@ body::before {
 
 .conteudo {
     display: flex;
-    gap: 10px; /* Espaço entre as colunas */
-    height: calc(100vh - 75px); /* Altura total da tela */
+    gap: 10px; 
+    height: calc(100vh - 75px); 
     margin: auto;
+}
+
+.conteudoPerfil {
+    width: calc(100% - 277px);
+    margin-left: 250px;
+    margin-right: 27px
 }
 
 header {
