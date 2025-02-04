@@ -42,13 +42,13 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    "django.middleware.security.SecurityMiddleware",
-    "django.contrib.sessions.middleware.SessionMiddleware",
-    "django.middleware.common.CommonMiddleware",
-    "django.middleware.csrf.CsrfViewMiddleware",
-    "django.contrib.auth.middleware.AuthenticationMiddleware",
-    "django.contrib.messages.middleware.MessageMiddleware",
-    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
 ROOT_URLCONF = "projeto_bizzu.urls"
@@ -137,8 +137,8 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 CSRF_TRUSTED_ORIGINS = ['https://localhost:8000']
 
-CSRF_COOKIE_SECURE = True  
-CSRF_COOKIE_HTTPONLY = True
+CSRF_COOKIE_SECURE = True  # se estiver usando HTTPS
+CSRF_COOKIE_HTTPONLY = False  # para permitir acesso via JavaScript
 
 AUTH_USER_MODEL = 'app_bizzu.Usuario'
 

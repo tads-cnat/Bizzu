@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('Botão de comentar clicado');
             event.preventDefault();
             const postagem = this.closest('.postagem');
-            const postagemId = postagem.dataset.postagemId;
+            const postagemId = this.dataset.postagemId;
             console.log('ID da postagem:', postagemId);
 
             const postagemPreview = {
@@ -91,14 +91,19 @@ function configurarModal(modal, postagemId) {
         console.log('Formulário de comentário submetido');
         
         const formData = new FormData(form);
+        console.log('Form data:', Object.fromEntries(formData));
+        
+        const csrftoken = getCookie('csrftoken');
+        
         try {
             const response = await fetch(`/comentar/${postagemId}/`, {
                 method: 'POST',
                 body: formData,
                 headers: {
                     'X-Requested-With': 'XMLHttpRequest',
-                    'X-CSRFToken': getCookie('csrftoken')
-                }
+                    'X-CSRFToken': csrftoken
+                },
+                credentials: 'include'
             });
             
             if (response.ok) {
@@ -109,9 +114,11 @@ function configurarModal(modal, postagemId) {
                 btnComentar.disabled = true;
             } else {
                 console.error('Erro ao adicionar comentário:', response.statusText);
+                alert('Erro ao adicionar comentário. Por favor, tente novamente.');
             }
         } catch (error) {
             console.error('Erro ao enviar comentário:', error);
+            alert('Erro ao enviar comentário. Por favor, verifique sua conexão e tente novamente.');
         }
     };
 
@@ -123,18 +130,19 @@ async function carregarComentarios(postagemId, container) {
         const response = await fetch(`/api/comentarios/${postagemId}/`);
         const comentarios = await response.json();
         
+        container.innerHTML = ''; // Limpa o conteúdo existente
+        
         if (comentarios.length === 0) {
             container.innerHTML = '<p class="sem-comentarios">Seja o primeiro a comentar!</p>';
             return;
         }
         
-        container.innerHTML = ''; // Clear existing content
         comentarios.forEach(comentario => {
             adicionarComentario(container, comentario);
         });
     } catch (error) {
         console.error('Erro ao carregar comentários:', error);
-        container.innerHTML = '<p class="sem-comentarios">Erro ao carregar comentários</p>';
+        container.innerHTML = '<p class="sem-comentarios">Erro ao carregar comentários. Por favor, tente novamente.</p>';
     }
 }
 

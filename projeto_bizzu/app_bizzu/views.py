@@ -13,6 +13,7 @@ from django.contrib import messages
 from django.contrib.auth import login as login_django
 from .forms import EditarPerfilForm, ComentarioForm
 from django.utils import timezone
+from django.views.decorators.http import require_POST
 
 # @login_required(login_url="/login/")
 # def feed(request):
@@ -257,42 +258,38 @@ def editar_perfil(request):
     return render(request, 'editar_perfil.html', {'form': form})
 
 @login_required
+@require_POST
 def adicionar_comentario(request, postagem_id):
     postagem = get_object_or_404(Postagem, id=postagem_id)
+    conteudo = request.POST.get('conteudo')
     
-    if request.method == 'POST':
-        form = ComentarioForm(request.POST)
-        if form.is_valid():
-            comentario = form.save(commit=False)
-            comentario.usuario = request.user
-            comentario.postagem = postagem
-            comentario.dataPostagem = timezone.now()
-            comentario.save()
-            
-            if request.headers.get('x-requested-with') == 'XMLHttpRequest':
-                return JsonResponse({
-                    'status': 'success',
-                    'comentario': {
-                        'id': str(comentario.id),
-                        'conteudo': comentario.conteudo,
-                        'data': comentario.dataPostagem.strftime("%d/%m/%Y %H:%M"),
-                        'usuario': {
-                            'nome': comentario.usuario.nome,
-                            'avatar': comentario.usuario.imagemPerfil.url if comentario.usuario.imagemPerfil else '/static/img/default-profile.png'
-                        }
-                    }
-                })
-            
-            return redirect('feed')
-    
-    return JsonResponse({'status': 'error'}, status=400)
+    if conteudo:
+        comentario = Comentario.objects.create(
+            usuario=request.user,
+            postagem=postagem,
+            conteudo=conteudo
+        )
+        return JsonResponse({
+            'status': 'success',
+            'comentario': {
+                'id': comentario.id,
+                'conteudo': comentario.conteudo,
+                'data': comentario.dataPostagem.strftime("%d/%m/%Y %H:%M"),
+                'usuario': {
+                    'nome': comentario.usuario.nome,
+                    'avatar': comentario.usuario.imagemPerfil.url if comentario.usuario.imagemPerfil else '/static/img/default-profile.png'
+                }
+            }
+        })
+    else:
+        return JsonResponse({'status': 'error', 'message': 'Conteúdo do comentário não fornecido'}, status=400)
 
 def get_comentarios(request, postagem_id):
     postagem = get_object_or_404(Postagem, id=postagem_id)
-    comentarios = Comentario.objects.filter(postagem=postagem).order_by('dataPostagem')
+    comentarios = Comentario.objects.filter(postagem=postagem).order_by('-dataPostagem')
     
     comentarios_json = [{
-        'id': str(c.id),
+        'id': c.id,
         'conteudo': c.conteudo,
         'data': c.dataPostagem.strftime("%d/%m/%Y %H:%M"),
         'usuario': {

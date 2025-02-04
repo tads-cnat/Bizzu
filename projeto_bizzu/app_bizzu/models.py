@@ -4,6 +4,7 @@ from django.core.validators import RegexValidator
 import os
 import uuid
 
+
 class Usuario(AbstractUser):
     nome = models.CharField(verbose_name="Nome", max_length=50)
     descricao = models.CharField(verbose_name="Descrição", max_length=200)
@@ -97,14 +98,14 @@ class Repositorio(models.Model):
     
 
 class Comentario(models.Model):
-    conteudo = models.CharField(verbose_name="Conteudo",max_length= 300)
-    dataPostagem = models.DateTimeField(verbose_name="Data de postagem")
-    postagem = models.ForeignKey("Postagem", verbose_name="Postagem", on_delete=models.CASCADE, related_name="comentarios", null=True, blank=True)
-    usuario = models.ForeignKey("Usuario", verbose_name="Usuário", on_delete=models.CASCADE, null=True, blank=True)
-
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    usuario = models.ForeignKey('Usuario', on_delete=models.CASCADE)
+    postagem = models.ForeignKey('Postagem', on_delete=models.CASCADE)
+    conteudo = models.TextField()
+    dataPostagem = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.conteudo
+        return f"Comentário de {self.usuario.nome} em {self.dataPostagem}"
 
 class Categoria(models.Model):
     TIPOS = (("tec", "Tecnologia"), ("mat", "Matéria"), ("per", "Período"))

@@ -71,6 +71,8 @@
     height: auto;
     border-radius: 4px;
     margin-top: 10px;
+    object-fit: contain;
+    max-height: 300px;
 }
 
 .comentarios-container {
