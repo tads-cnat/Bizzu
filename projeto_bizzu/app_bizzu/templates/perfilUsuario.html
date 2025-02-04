@@ -5,7 +5,7 @@
 <!-- <title>{{ usuario.nome }} - Perfil</title> -->
 
 {% block content %}
-<link rel="stylesheet" href="{% static "css/perfilUsuario.css" %}?v=1.2">
+<link rel="stylesheet" href="{% static "css/perfilUsuario2.css" %}?v=1.2">
 <link rel="stylesheet" href="{% static "css/Botao.css" %}?v=1.2">
         <main id="principal">
         <div class="perfilUsuario">
@@ -23,25 +23,24 @@
                         <h1>{{ usuario.nome }}</h1>
                         <p class="username">@{{ usuario.username }}</p>
                         <p class="descricao">{{ usuario.descricao }}</p>
+                        <div class="perfil-status">
+                            <span><strong>{{ usuario.seguidores.count }}</strong> Seguidores</span>
+                            <span><strong>{{ usuario.seguindo.count }}</strong> Seguindo</span>
+                            {% if request.user == usuario %}
+                            <button class="btn-novo">+ Novo</button>
+                            {% endif %}
+                            {% if request.user != usuario %}  {# Verifica se não está no próprio perfil #}
+                            <form method="POST" action="{% url 'seguir_perfil' usuario.id %}">
+                                {% csrf_token %}
+                                {% if request.user in usuario.seguidores.all %}
+                                    <button type="submit" name="follow" value="unfollow" class="btn-novo">Deixar de Seguir</button>
+                                {% else %}
+                                    <button type="submit" name="follow" value="follow" class="btn-novo">Seguir</button>
+                                {% endif %}
+                            </form>
+                            {% endif %}
                         </div>
-                
-                </div>
-                <div class="perfil-status">
-                    <span><strong>{{ usuario.seguidores.count }}</strong> Seguidores</span>
-                    <span><strong>{{ usuario.seguindo.count }}</strong> Seguindo</span>
-                    {% if request.user == usuario %}
-                    <button class="btn-novo">+ Novo</button>
-                    {% endif %}
-                    {% if request.user != usuario %}  {# Verifica se não está no próprio perfil #}
-                    <form method="POST" action="{% url 'seguir_perfil' usuario.id %}">
-                        {% csrf_token %}
-                        {% if request.user in usuario.seguidores.all %}
-                            <button type="submit" name="follow" value="unfollow" class="btn-novo">Deixar de Seguir</button>
-                        {% else %}
-                            <button type="submit" name="follow" value="follow" class="btn-novo">Seguir</button>
-                        {% endif %}
-                    </form>
-                    {% endif %}
+                        </div>
                 </div>
             </div>
 
