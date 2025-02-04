@@ -1,0 +1,84 @@
+{% extends "basePerfil.html" %}
+{% load static %}
+
+
+{% block content %}
+<!-- alterar foto -->
+<form method="post" enctype="multipart/form-data">
+    <div class="profile-container"> <!-- componente "FotoPerfilNome"-->
+        <div class="hexagon">
+            <img src="{{ usuario.foto_perfil.url|default:'https://via.placeholder.com/32' }}" class="profile-image">
+        </div>
+        <div class="user-info">
+            <span class="username">{{ usuario.nome|default:"Sem nome" }}</span>
+        </div>
+    </div>
+    <div> <!-- componente "botao"-->
+        <button type="submit" id="BotaoLink" class="nomeClasse">
+            <img id="botaoImg"src="{% static "img/nomeImagem.svg" %}" alt="">
+            <p id="botaoP">Label</p>
+        </button> 
+    </div>
+    </form>
+
+    <!-- Fim alterar foto -->
+
+    <!-- Alterar nome e username -->
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <!-- Campo para o Nome -->
+        <div class="campoFormulario">
+            <p class="descricaoCampo50%" for="nomeDeExibicao">Nome de exibição</p>
+            <input type="text" class="campoNome" placeholder="Digite seu nome aqui..." name="nomeExibicao" required/>
+        </div>
+
+        <!-- Campo para o Username -->
+        <div class="campoFormulario">
+            <p class="descricaoCampo50%" for="username">Nome de usuario</p>
+            <input type="text" class="campoNome" placeholder="Digite seu novo nome de usuario aqui..." name="username" required/>
+        </div>
+    
+
+    <!--  Fim alterar nome e username -->
+
+    <!--  Alterar descrição -->
+    <div>
+        <div class="campoFormulario">
+            <p class="descricaoCampo" for="username">Nome de usuario</p>
+            <input type="text" class="campoNome" placeholder="Digite seu novo nome de usuario aqui..." name="username" required/>
+        </div>
+    </div>
+    <!--  fim Alterar descrição -->
+
+    <!--  formação academica -->
+    <div>
+        <div class="campoFormulario">
+            <p class="descricaoCampo" for="username">Nome de usuario</p>
+            <input type="text" class="campoNome" placeholder="Digite seu novo nome de usuario aqui..." name="username" required/>
+        </div>
+    </div>
+    <!--  fim formação academica -->
+
+    <!--  Dropdown de curso e instituição de ensino -->
+    <div>
+        <select id="opcao" name="opcao" required>
+            <option value="">Selecione Sua instituição de ensino aqui</option>
+            <option value="TADS">TADS</option>
+            <option value="INFOWEB">INFOWEB</option>
+            <option value="Redes">Redes</option>
+        </select>
+
+        <select id="opcao" name="opcao" required>
+            <option value="">Selecione Sua instituição de ensino aqui</option>
+            <option value="TADS">TADS</option>
+            <option value="INFOWEB">INFOWEB</option>
+            <option value="Redes">Redes</option>
+        </select>
+    </div>
+    <!--  Dropdown de curso e instituição de ensino -->
+
+</form>
+
+{% endblock %}

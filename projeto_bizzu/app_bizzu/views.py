@@ -297,3 +297,7 @@ def get_comentarios(request, postagem_id):
     } for c in comentarios]
 
     return JsonResponse(comentarios_json, safe=False)
+
+def editarPerfil(request):
+    return render(request,'editarPerfil.html')
+
