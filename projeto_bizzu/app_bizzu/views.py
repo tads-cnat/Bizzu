@@ -34,7 +34,8 @@ def feed(request):
         return render(request, 'feed.html', {'postagens': postagens, 'user': request.user, 'repositorios': repositorios})
     else:
         postagens = Postagem.objects.all().order_by('-dataPublicacao')  # Ordenar pela data (mais recente primeiro)
-        return render(request, 'feed_deslogado.html', {'postagens': postagens, 'user': request.user})
+        repositorios = Repositorio.objects.all()
+        return render(request, 'feed_deslogado.html', {'postagens': postagens, 'user': request.user, 'repositorios': repositorios})
         # return render(request, 'feed_deslogado.html')
 
 
@@ -139,21 +140,30 @@ def cadastro(request):
         # return redirect('login')
         return redirect('escolher_comunidade')
 
+from django.contrib.auth import authenticate, login as login_django
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
+
+@csrf_exempt  # Permite chamadas AJAX sem CSRF Token (se necessário)
 def login(request):
-    if request.method == "GET":
-       return render(request, 'login.html')
-    else: 
-        username = request.POST.get('username')
-        senha = request.POST.get('senha')
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+            username = data.get("username")
+            senha = data.get("password")
 
-        user = authenticate(username=username, password=senha)
+            user = authenticate(username=username, password=senha)
 
-        if user:
-            login_django(request, user)
-            # return HttpResponse('Autenticado')
-            return redirect('feed')     # Tem que fazer com que ele vá para a view feed, e que na view feed ele veja se é POST ou GET para conseguir calcular as postagens
-        else:
-            return HttpResponse('Usuário ou senha inválidos')
+            if user:
+                login_django(request, user)
+                return JsonResponse({"status": "success", "redirect_url": "/feed/"})
+            else:
+                return JsonResponse({"status": "error", "message": "Usuário ou senha inválidos"}, status=400)
+        except json.JSONDecodeError:
+            return JsonResponse({"status": "error", "message": "Erro no JSON"}, status=400)
+
+    return JsonResponse({"status": "error", "message": "Método não permitido"}, status=405)
 
 def verRepositorio(request): #Ver a parte interna repositório
     repositorios = Repositorio.objects.all()
@@ -271,10 +281,11 @@ def adicionar_comentario(request, postagem_id):
     else:
         return JsonResponse({'status': 'error', 'message': 'Conteúdo do comentário não fornecido'}, status=400)
 
+
 def get_comentarios(request, postagem_id):
-    postagem = get_object_or_404(Postagem, id=postagem_id)
-    comentarios = Comentario.objects.filter(postagem=postagem).order_by('-dataPostagem')
-    
+    postagem = Postagem.objects.get(id=postagem_id)
+    comentarios = Comentario.objects.filter(postagem=postagem).order_by('-dataPostagem')  # Ordena do mais recente para o mais antigo
+
     comentarios_json = [{
         'id': c.id,
         'conteudo': c.conteudo,
@@ -284,5 +295,5 @@ def get_comentarios(request, postagem_id):
             'avatar': c.usuario.imagemPerfil.url if c.usuario.imagemPerfil else '/static/img/default-profile.png'
         }
     } for c in comentarios]
-    
+
     return JsonResponse(comentarios_json, safe=False)

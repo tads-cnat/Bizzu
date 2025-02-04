@@ -96,8 +96,9 @@
         </aside>
     </section>
     <script>
-        const userAvatar = "{% if request.user.imagemPerfil and request.user.imagemPerfil.url %}{{ request.user.imagemPerfil.url }}{% else %}/static/img/default-profile.png{% endif %}";
+        const userImage = "{% if user.is_authenticated and user.imagemPerfil %}{{ user.imagemPerfil.url }}{% else %}{% static 'img/default-profile.png' %}{% endif %}";
     </script>
     <script src="{% static 'js/comentarios.js' %}"></script>
+    
 </body>
 </html>

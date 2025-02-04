@@ -1,154 +1,74 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Perfil</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #121212;
-            color: white;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        .container {
-            max-width: 600px;
-            background: #222;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-        }
-        .profile-card {
-            text-align: center;
-        }
-        .profile-header {
-            display: flex;
-            align-items: center;
-            flex-direction: column;
-            margin-bottom: 20px;
-        }
-        .profile-pic img {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid white;
-        }
-        .form-group {
-            margin-bottom: 15px;
-            text-align: left;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-        }
-        .form-control {
-            width: 100%;
-            padding: 10px;
-            border-radius: 5px;
-            border: none;
-        }
-        .btn {
-            padding: 10px;
-            margin-top: 10px;
-            cursor: pointer;
-            width: 100%;
-            border-radius: 5px;
-            border: none;
-            font-size: 16px;
-        }
-        .btn-primary {
-            background: #007bff;
-            color: white;
-        }
-        .btn-secondary {
-            background: gray;
-            color: white;
-            text-decoration: none;
-            display: inline-block;
-            text-align: center;
-        }
-        .btn-edit {
-            background: #00bfff;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 5px;
-            margin-top: 5px;
-            cursor: pointer;
-        }
-        textarea {
-            width: 100%;
-            padding: 10px;
-            border-radius: 5px;
-            border: none;
-            resize: none;
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'css/editarPerfil.css' %}">
 </head>
 <body>
 
-    <div class="container">
-        <div class="profile-card">
-            <div class="profile-header">
-                <div class="profile-pic">
-                    {% if user.imagemPerfil %}
-                        <img src="{{ user.imagemPerfil.url }}" alt="Imagem de Perfil">
-                    {% else %}
-                        <img src="/static/images/default-profile.png" alt="Imagem de Perfil">
-                    {% endif %}
-                </div>
-                <h2>{{ user.username }}</h2>
-                <button class="btn btn-edit" onclick="document.getElementById('id_imagemPerfil').click();">Alterar Foto</button>
+    <main class="editarPerfil">
+        <button class="voltar">
+            <a href="{% url 'perfil' user.username %}">
+                <img src="{% static 'img/icones_perfil/voltar.svg' %}" alt="Voltar">
+            </a>
+            <p>Voltar</p>
+        </button>
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="alterarFoto">
+                <img src="{% if user.imagemPerfil %}{{ user.imagemPerfil.url }}{% else %}{% static 'img/icones_perfil/semFoto.svg' %}{% endif %}" alt="Imagem de Perfil">
+                <h3>{{ user.nome }}</h3>
+                <p>@{{ user.username }}</p>
+                <label for="id_imagemPerfil" class="alterar">Alterar Foto</label>
+                {{ form.imagemPerfil }}
             </div>
 
-            <form method="post" enctype="multipart/form-data">
-                {% csrf_token %}
+            <label id="nomeexibido">Nome de exibição</label>
+            {{ form.nome }}
 
-                <div class="form-group">
-                    <label>Nome</label>
-                    {{ form.nome }}
-                </div>
+            <div class="click">
+                <label class="descricao-titulo">Descrição</label>
+                {{ form.descricao }}
+            </div>
 
-                <div class="form-group">
-                    <label>Escola de Formação</label>
-                    {{ form.escolaFormacao }}
-                </div>
+            <div class="click">
+                <label class="formacaoA">Formação acadêmica</label>
+                {{ form.escolaFormacao }}
+            </div>
 
-                <div class="form-group">
-                    <label>Instituição Atual</label>
-                    {{ form.instituicaoAtual }}
-                </div>
-
-                <div class="form-group">
-                    <label>Local de Trabalho</label>
-                    {{ form.localTrabalho }}
-                </div>
-
-                <div class="form-group">
-                    <label>Progresso no Curso</label>
+            <div class="click">
+                <div class="divC">
+                    <label class="cursoA">Progesso no Curso</label>
                     {{ form.progressoCurso }}
                 </div>
 
-                <div class="form-group">
-                    <label>Descrição do Perfil</label>
-                    {{ form.descricao }}
+                <div class="divI">
+                    <label class="instituicaoA">Instituição de ensino</label>
+                    {{ form.instituicaoAtual }}
                 </div>
 
-                <div class="form-group">
-                    <label>Imagem de Perfil</label>
-                    {{ form.imagemPerfil }}
-                </div>
+            <div class="click">
+                    <label class="linkA">Local de trabalho</label>
+                    {{ form.localTrabalho }}
+            </div>
 
-                <button type="submit" class="btn btn-primary">Salvar</button>
-                <a href="{% url 'perfil' user.username %}" class="btn btn-secondary">Cancelar</a>
-            </form>
-        </div>
-    </div>
+            <div class="botoes">
+                <button type="reset" class="descartar">
+                    <img src="{% static 'img/icones_perfil/lixeira.svg' %}" alt="">
+                    <p>Descartar</p>
+                </button>
+                <button type="submit" class="salvar">
+                    <img src="{% static 'img/icones_perfil/Save.svg' %}" alt="">
+                    <p>Salvar</p>
+                </button>
+            </div>
+        </form>
+    </main>
 
 </body>
 </html>

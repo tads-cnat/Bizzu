@@ -6,7 +6,28 @@
         <img src="{% static 'img/abelha_bizzu.svg' %}" id="abelhalogo" href="/">
         <img src="{% static 'img/logotipo_bizzu.svg' %}" id="nomelogo" href="">
     </div>
-    <!-- {% include 'barraPesquisa.html' %} -->
     <input type="text" id="buscar" placeholder="Procurar...">
-    <a href="{% url 'cadastro' %}"><button id="entrar"><img src="{% static 'img/entrar.svg' %}" id="entrarbtn">Entrar</button></a>
+    <button id="btn-abrir-modal"><img src="{% static 'img/entrar.svg' %}" id="entrarbtn">Entrar</button>
 </header>
+
+<!-- Modal de Login -->
+<dialog id="popup-login">
+    <button class="fechar-popup"><img src="{% static 'img/botaofechar.png' %}" alt="Fechar"></button>
+    <h1>Log In</h1>
+    <p>Ao continuar, você concorda com nosso <a href="#">Contrato de Usuário</a> e nossa <a href="#">Política de Privacidade</a>.</p>
+    <hr>
+    <div class="form-group">
+        <label for="email">Nome de usuário <span class="required">*</span></label>
+        <input id="email" type="text" placeholder="Ex: jubileu123">
+    </div>
+    <div class="form-group">
+        <label for="senha">Senha <span class="required">*</span></label>
+        <input id="senha" type="password" placeholder="Sua senha deve conter letras e números">
+    </div>
+    <a href="#" class="forgot-password">Esqueceu a senha?</a>
+    <button class="concluir-login">Entrar<img src="{% static 'img/entrar.svg' %}"></button>
+    <h3>Primeira vez no Bizzu? <a href="{% url 'cadastro' %}">Cadastre-se</a></h3>
+</dialog>
+
+<!-- JavaScript para abrir/fechar modal -->
+<script src="{% static 'js/modalLogin.js' %}"></script>

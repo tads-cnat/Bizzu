@@ -50,7 +50,7 @@ function criarModal(postagemPreview, postagemId) {
             </div>
             
             <form class="form-comentario">
-                <img src="/static/img/default-profile.png" alt="Seu avatar" class="user-avatar">
+                <img src="${userImage}" alt="Seu avatar" class="user-avatar">
                 <div style="flex-grow: 1;">
                     <textarea name="conteudo" placeholder="Postar sua resposta..." required></textarea>
                 </div>
@@ -129,16 +129,16 @@ async function carregarComentarios(postagemId, container) {
     try {
         const response = await fetch(`/api/comentarios/${postagemId}/`);
         const comentarios = await response.json();
-        
-        container.innerHTML = ''; // Limpa o conteúdo existente
-        
+
+        container.innerHTML = ''; // Limpa a lista antes de carregar novos comentários
+
         if (comentarios.length === 0) {
             container.innerHTML = '<p class="sem-comentarios">Seja o primeiro a comentar!</p>';
             return;
         }
-        
+
         comentarios.forEach(comentario => {
-            adicionarComentario(container, comentario);
+            adicionarComentario(container, comentario, true); // Passamos 'true' para adicionar no início
         });
     } catch (error) {
         console.error('Erro ao carregar comentários:', error);
@@ -146,7 +146,7 @@ async function carregarComentarios(postagemId, container) {
     }
 }
 
-function adicionarComentario(container, comentario) {
+function adicionarComentario(container, comentario, maisRecente = false) {
     const div = document.createElement('div');
     div.className = 'comentario';
     div.innerHTML = `
@@ -159,8 +159,12 @@ function adicionarComentario(container, comentario) {
             <div class="comentario-texto">${comentario.conteudo}</div>
         </div>
     `;
-    
-    container.appendChild(div);
+
+    if (maisRecente) {
+        container.prepend(div); // Adiciona no início (comentários mais novos primeiro)
+    } else {
+        container.appendChild(div); // Adiciona no final (caso padrão)
+    }
 }
 
 function getCookie(name) {

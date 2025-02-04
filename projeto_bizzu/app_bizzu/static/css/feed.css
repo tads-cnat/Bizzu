@@ -136,10 +136,7 @@ body::before {
     display: flex;
     align-items: center;
     cursor: pointer;
-}
-
-.likes:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    font-size: 14px;
 }
 
 .likes {
