@@ -1,84 +1,122 @@
 {% extends "basePerfil.html" %}
 {% load static %}
 
-
 {% block content %}
-<!-- alterar foto -->
-<form method="post" enctype="multipart/form-data">
-    <div class="profile-container"> <!-- componente "FotoPerfilNome"-->
-        <div class="hexagon">
-            <img src="{{ usuario.foto_perfil.url|default:'https://via.placeholder.com/32' }}" class="profile-image">
-        </div>
-        <div class="user-info">
-            <span class="username">{{ usuario.nome|default:"Sem nome" }}</span>
-        </div>
-    </div>
-    <div> <!-- componente "botao"-->
-        <button type="submit" id="BotaoLink" class="nomeClasse">
-            <img id="botaoImg"src="{% static "img/nomeImagem.svg" %}" alt="">
-            <p id="botaoP">Label</p>
-        </button> 
-    </div>
-    </form>
+<link rel="stylesheet" href="{% static 'css/editarPerfil.css' %}">
 
-    <!-- Fim alterar foto -->
-
-    <!-- Alterar nome e username -->
-
-    <form method="post" enctype="multipart/form-data">
+<div class="profile-edit-container">
+    <form method="post" enctype="multipart/form-data" class="edit-form">
         {% csrf_token %}
         
-        <!-- Campo para o Nome -->
-        <div class="campoFormulario">
-            <p class="descricaoCampo50%" for="nomeDeExibicao">Nome de exibição</p>
-            <input type="text" class="campoNome" placeholder="Digite seu nome aqui..." name="nomeExibicao" required/>
+        <a href="{% url 'perfil' request.user.username %}" class="back-link">
+            <img src="{% static 'images/arrow-left.svg' %}" alt="Voltar" />
+            Voltar
+        </a>
+
+        <!-- Seção da foto do perfil -->
+        <div class="profile-section">
+            <div class="profile-info">
+                <div class="profile-image-container">
+                    {% if user.imagemPerfil %}
+                        <img src="{{ user.imagemPerfil.url }}" alt="Profile" class="profile-image">
+                    {% else %}
+                        <div class="profile-image-placeholder">
+                            <span>📷</span>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="profile-text">
+                    <h2 class="profile-name">{{ user.nome|default:"Sem nome" }}</h2>
+                    <p class="profile-username">@{{ user.username }}</p>
+                </div>
+            </div>
+            <button type="button" class="photo-upload-button">
+                Alterar foto
+                {{ form.imagemPerfil }}
+            </button>
         </div>
 
-        <!-- Campo para o Username -->
-        <div class="campoFormulario">
-            <p class="descricaoCampo50%" for="username">Nome de usuario</p>
-            <input type="text" class="campoNome" placeholder="Digite seu novo nome de usuario aqui..." name="username" required/>
+        <!-- Campos do formulário -->
+        <div class="form-section">
+            {% if form.non_field_errors %}
+                <div class="form-error">
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+
+            <!-- Nome de exibição -->
+            <div class="form-group">
+                <label class="form-label">Nome de exibição</label>
+                {{ form.nome }}
+                {% if form.nome.errors %}
+                    <p class="error-message">{{ form.nome.errors.0 }}</p>
+                {% endif %}
+            </div>
+
+            <!-- Username -->
+            <div class="form-group">
+                <label class="form-label">Nome de usuário</label>
+                {{ form.username }}
+                {% if form.username.errors %}
+                    <p class="error-message">{{ form.username.errors.0 }}</p>
+                {% endif %}
+            </div>
+
+            <!-- Descrição -->
+            <div class="form-group">
+                <label class="form-label">Descrição</label>
+                {{ form.descricao }}
+                {% if form.descricao.errors %}
+                    <p class="error-message">{{ form.descricao.errors.0 }}</p>
+                {% endif %}
+            </div>
+
+            <!-- Formação Acadêmica -->
+            <div class="form-group">
+                <label class="form-label">Formação acadêmica</label>
+                {{ form.escolaFormacao }}
+                {% if form.escolaFormacao.errors %}
+                    <p class="error-message">{{ form.escolaFormacao.errors.0 }}</p>
+                {% endif %}
+            </div>
+
+            <!-- Curso e Instituição -->
+            <div class="form-grid">
+                <div class="form-group">
+                    <label class="form-label">Curso</label>
+                    {{ form.curso }}
+                    {% if form.curso.errors %}
+                        <p class="error-message">{{ form.curso.errors.0 }}</p>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Instituição de ensino</label>
+                    {{ form.instituicaoAtual }}
+                    {% if form.instituicaoAtual.errors %}
+                        <p class="error-message">{{ form.instituicaoAtual.errors.0 }}</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Link do Perfil -->
+            <div class="form-group">
+                <label class="form-label">Adicione um link que será exibido no seu perfil</label>
+                {{ form.linkPerfil }}
+                {% if form.linkPerfil.errors %}
+                    <p class="error-message">{{ form.linkPerfil.errors.0 }}</p>
+                {% endif %}
+            </div>
         </div>
-    
 
-    <!--  Fim alterar nome e username -->
-
-    <!--  Alterar descrição -->
-    <div>
-        <div class="campoFormulario">
-            <p class="descricaoCampo" for="username">Nome de usuario</p>
-            <input type="text" class="campoNome" placeholder="Digite seu novo nome de usuario aqui..." name="username" required/>
+        <!-- Botões -->
+        <div class="form-buttons">
+            <button type="button" class="button-discard" onclick="window.location.href='{% url 'perfil' request.user.username %}'">
+                Descartar
+            </button>
+            <button type="submit" class="button-save">
+                Salvar
+            </button>
         </div>
-    </div>
-    <!--  fim Alterar descrição -->
-
-    <!--  formação academica -->
-    <div>
-        <div class="campoFormulario">
-            <p class="descricaoCampo" for="username">Nome de usuario</p>
-            <input type="text" class="campoNome" placeholder="Digite seu novo nome de usuario aqui..." name="username" required/>
-        </div>
-    </div>
-    <!--  fim formação academica -->
-
-    <!--  Dropdown de curso e instituição de ensino -->
-    <div>
-        <select id="opcao" name="opcao" required>
-            <option value="">Selecione Sua instituição de ensino aqui</option>
-            <option value="TADS">TADS</option>
-            <option value="INFOWEB">INFOWEB</option>
-            <option value="Redes">Redes</option>
-        </select>
-
-        <select id="opcao" name="opcao" required>
-            <option value="">Selecione Sua instituição de ensino aqui</option>
-            <option value="TADS">TADS</option>
-            <option value="INFOWEB">INFOWEB</option>
-            <option value="Redes">Redes</option>
-        </select>
-    </div>
-    <!--  Dropdown de curso e instituição de ensino -->
-
-</form>
-
+    </form>
+</div>
 {% endblock %}

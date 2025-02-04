@@ -295,6 +295,19 @@ def get_comentarios(request, postagem_id):
 
     return JsonResponse(comentarios_json, safe=False)
 
+@login_required
 def editarPerfil(request):
-    return render(request,'editarPerfil.html')
+    if request.method == "POST":
+        form = EditarPerfilForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Perfil atualizado com sucesso!')
+            return redirect('perfil', username=request.user.username)
+        else:
+            messages.error(request, 'Por favor, corrija os erros abaixo.')
+    else:
+        form = EditarPerfilForm(instance=request.user)
+    
+    return render(request, 'editarPerfil.html', {'form': form})
+
 

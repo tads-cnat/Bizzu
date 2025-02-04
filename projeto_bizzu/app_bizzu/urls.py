@@ -23,8 +23,7 @@ urlpatterns=[
     path('comentar/<uuid:postagem_id>/', views.adicionar_comentario, name='adicionar_comentario'),
     path('api/comentarios/<uuid:postagem_id>/', views.get_comentarios, name='get_comentarios'),
     path('seguir/<int:pk>/', views.seguirPerfil, name='seguir_perfil'),
-    path('editar/perfil/', views.editarPerfil, name='editarPerfil'),
-
+    path('editarPerfil/', views.editarPerfil, name='editarPerfil'),
 ]
 
 if settings.DEBUG:
