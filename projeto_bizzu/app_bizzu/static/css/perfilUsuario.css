@@ -19,12 +19,16 @@
     display: flex;
     width: 100%;
     max-width: 1200px;
+    overflow-y: auto;
+    height: calc(100% - 50px);
+    scrollbar-width: thin;
+    scrollbar-color: var(--marromEscuro) var(--laranja);
 }
 /* Estilização do perfil */
 .perfilUsuario {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 90%;
     padding: 20px;
     border-radius: 10px;
 }
@@ -33,10 +37,9 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width: 1200px;
+    width: 90%;
     padding-bottom: 30px;
     border-bottom: 1px solid white;
-    background-color: #058B92;
 }
 
 .perfil-info {
@@ -46,11 +49,10 @@
 .foto-perfil {
     width: 80px;
     height: 80px;
-    border-radius: 50%;
-    border: 3px solid #ffcc00;
+    clip-path: polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0% 50%);
     margin-right: 15px;
     object-fit: cover; /* Garante que a imagem preencha o espaço sem distorção */
-    object-position: center; /* Centraliza a imagem dentro do círculo */
+    object-position: center; /* Centraliza a imagem dentro do hexágono */
 }
 
 .perfil-detalhes h1 {

@@ -44,7 +44,7 @@
                             <p class="tipoP">Comentários</p>
                         </div>
                         <div id="blocoInfo">
-                            <p class="quantidadeP">2</p>
+                            <p class="quantidadeP">1</p>
                             <p class="tipoP">Repositórios</p>
                         </div>
                         <div id="blocoInfo">
@@ -59,19 +59,19 @@
                     </div>
                     <div class="topico">
                         <img src="{% static 'img/abelha_bizzu.svg' %}" id="iconePerfil">
-                        <p class="infosPerfil">Escola estadual de tempo integral Winston churchill</p>
+                        <p class="infosPerfil">{{ usuario.escolaFormacao }}</p>
                     </div>
                     <div class="topico">
                         <img src="{% static 'img/abelha_bizzu.svg' %}" id="iconePerfil">
-                        <p class="infosPerfil">Instituto federal do Rio Grande do Norte</p>
+                        <p class="infosPerfil">{{ usuario.instituicaoAtual }}</p>
                     </div>
                     <div class="topico">
                         <img src="{% static 'img/abelha_bizzu.svg' %}" id="iconePerfil">
-                        <p class="infosPerfil">Lika's café</p>
+                        <p class="infosPerfil">{{ usuario.localTrabalho|default:"Não possui" }}</p>
                     </div>
                     <div class="topico">
                         <img src="{% static 'img/abelha_bizzu.svg' %}" id="iconePerfil">
-                        <p class="infosPerfil">TADS 3/6</p>
+                        <p class="infosPerfil">{{ usuario.progressoCurso }}</p>
                     </div>
                 </div>
                 <div class="configuracoes">

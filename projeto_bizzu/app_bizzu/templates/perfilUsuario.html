@@ -1,5 +1,6 @@
-{% load static %}
 {% extends "basePerfil.html" %}
+{% load static %}
+
 
 <!-- <title>{{ usuario.nome }} - Perfil</title> -->
 
@@ -12,8 +13,8 @@
             <div class="perfil-header">
                 
                 <div class="perfil-info">
-                    {% if user.imagemPerfil %}
-                        <img src="{{ user.imagemPerfil.url }}" alt="Foto de perfil" class="foto-perfil" width="100px">
+                    {% if usuario.imagemPerfil %}
+                        <img src="{{ usuario.imagemPerfil.url }}" alt="Foto de perfil" class="foto-perfil" width="100px">
                     {% else %}
                         <img src="{% static 'img/default-profile.png' %}" alt="Foto de perfil" class="foto-perfil" width="100px">
                     {% endif %} 

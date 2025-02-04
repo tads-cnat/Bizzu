@@ -1,13 +1,13 @@
 {% load static %}
 
-<link rel="stylesheet" href="{% static "css/navbarEsquerda.css" %}">
+<link rel="stylesheet" href="{% static "css/navbarEsquerda2.css" %}">
 
 <aside id="barralateral">
     <div class="perfil">
         {% if user.imagemPerfil %}
-            <img id="imgperfil2" src="{{ user.imagemPerfil.url }}" width="50px">
+            <img class="imgperfil" src="{{ user.imagemPerfil.url }}">
         {% else %}
-            <img id="imgperfil2" src="{% static 'img/default-profile.png' %}" width="50px">
+            <img class="imgperfil" src="{% static 'img/default-profile.png' %}">
         {% endif %}
 
 

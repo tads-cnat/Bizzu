@@ -97,11 +97,7 @@ def perfil(request, username):
         'is_following': is_following
     }
 
-    return render(request, 'perfilPessoal.html', context)
-
-
-
-
+    return render(request, 'perfilUsuario.html', context)
 
 # def perfil(request, username):
 #     user = get_object_or_404(Usuario, username=username)  # Obtém o usuário pelo username
@@ -131,15 +127,6 @@ def cadastro(request):
         senha = request.POST.get('senha')
         
         user = Usuario.objects.filter(username=username).first()
-
-        # if user:
-        #     # return HttpResponse("Já existe um usuário com esse username")
-        #     return render(request, "cadastro_existente.html")
-
-        # user = User.objects.create_user(username=username, email=email, password=senha)
-        # user.save()
-
-        # return HttpResponse("Usuário cadastrado com sucesso")
 
         if user:
             return render(request, "cadastro_existente.html")
