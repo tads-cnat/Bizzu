@@ -35,7 +35,7 @@
                             <form method="POST" action="{% url 'seguir_perfil' usuario.id %}">
                                 {% csrf_token %}
                                 {% if request.user in usuario.seguidores.all %}
-                                    <button type="submit" name="follow" value="unfollow" class="btn-novo">Deixar de Seguir</button>
+                                    <button type="submit" name="follow" value="unfollow" class="btn-unfollow">Seguindo</button>
                                 {% else %}
                                     <button type="submit" name="follow" value="follow" class="btn-novo">Seguir</button>
                                 {% endif %}

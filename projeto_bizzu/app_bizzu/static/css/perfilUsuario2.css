@@ -87,18 +87,29 @@
 }
 
 .btn-novo {
-    background-color: #00a3ff;
+    background-color: #058B92;
     color: white;
     padding: 5px 12px;
     border: none;
     border-radius: 8px;
     cursor: pointer;
     font-weight: bold;
-    margin-top: 5px;
+    margin-top: 0.1vh;
+}
+
+.btn-unfollow {
+    background-color: #393737;
+    color: #ACABA4;
+    padding: 5px 12px;
+    border: 0.1vh solid #686666;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 0.1vh;
 }
 
 .btn-novo:hover {
-    background-color: #0085cc;
+    background-color: #ACABA4;
 }
 
 /* Linha separadora */
