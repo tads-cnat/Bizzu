@@ -20,7 +20,6 @@ urlpatterns=[
     # path('deslogado',views.deslogado,name='deslogado'),
     path('associar-comunidade/', views.associar_comunidade, name='associar_comunidade'),
     path('editar-perfil/', views.editar_perfil, name='editar_perfil'),
-    path('perfil/pessoal/', views.perfilPessoal, name='basePerfil'),
     path('comentar/<uuid:postagem_id>/', views.adicionar_comentario, name='adicionar_comentario'),
     path('api/comentarios/<uuid:postagem_id>/', views.get_comentarios, name='get_comentarios'),
     path('seguir/<int:pk>/', views.seguirPerfil, name='seguir_perfil'),

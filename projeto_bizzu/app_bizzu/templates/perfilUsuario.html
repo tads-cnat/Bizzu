@@ -1,19 +1,11 @@
 {% load static %}
+{% extends "basePerfil.html" %}
 
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ usuario.nome }} - Perfil</title>
-    <link rel="stylesheet" href="{% static 'css/perfilUsuario.css' %}">
-    <link rel="icon" type="image/svg+xml" href="{% static 'img/abelha_bizzu.svg' %}">
-</head>
-<body>
-    {% include 'header.html' %}
-    <section class="conteudo">
-        {% include 'navbarEsquerdaDeslogado.html' %}
+<!-- <title>{{ usuario.nome }} - Perfil</title> -->
 
+{% block content %}
+<link rel="stylesheet" href="{% static "css/perfilUsuario.css" %}?v=1.2">
+<link rel="stylesheet" href="{% static "css/Botao.css" %}?v=1.2">
         <main id="principal">
         <div class="perfilUsuario">
             
@@ -81,7 +73,4 @@
             </div>
         </div>
     </main>
-    </section>
-    
-</body>
-</html>
+{% endblock %}

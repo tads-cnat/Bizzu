@@ -47,7 +47,6 @@ body::before {
 
 .conteudoPerfil {
     width: calc(100% - 277px);
-    margin-left: 250px;
     margin-right: 27px
 }
 
