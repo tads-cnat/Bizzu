@@ -18,7 +18,7 @@
     flex: 1;
     display: flex;
     width: 100%;
-    max-width: 1200px;
+    max-width: 1202px;
     overflow-y: auto;
     height: calc(100% - 50px);
     scrollbar-width: thin;
@@ -28,8 +28,7 @@
 .perfilUsuario {
     display: flex;
     flex-direction: column;
-    width: 90%;
-    padding: 20px;
+    width: 100%;
     border-radius: 10px;
 }
 
@@ -37,18 +36,19 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width: 90%;
-    padding-bottom: 30px;
-    border-bottom: 1px solid white;
+    width: 100%;
+    padding: 30px;
+    border-bottom: 1px solid #DCCEB1;
 }
 
 .perfil-info {
     display: flex;
+    align-items: center;
 }
 
 .foto-perfil {
-    width: 80px;
-    height: 80px;
+    width: 160px;
+    height: 160px;
     clip-path: polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0% 50%);
     margin-right: 15px;
     object-fit: cover; /* Garante que a imagem preencha o espaço sem distorção */
@@ -57,22 +57,24 @@
 
 .perfil-detalhes h1 {
     margin: 0;
-    font-size: 20px;
+    font-size: 32px;
     color: white;
 }
 
 .username {
-    color: #aaa;
+    color: #fcfcfc80;
     font-size: 14px;
     margin-top: 4px;
+    margin-bottom: 10px;
 }
 
 .descricao {
     font-size: 14px;
-    color: #ccc;
+    color: white;
 }
 
 .perfil-status {
+    margin-top: 20px;
     display: flex;
     gap: 30px;
     color: white;

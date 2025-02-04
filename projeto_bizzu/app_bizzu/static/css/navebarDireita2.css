@@ -17,9 +17,13 @@
     font-family: "Poppins", sans-serif;
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
 
 .barraPerfil{  
-    
     flex: 2;
     position: fixed;
     right: 0;
@@ -32,43 +36,37 @@
   }
 
   .conteudodireita {
-    display: flex;
+    margin: auto;
     background-color: rgb(16, 15, 15, 0.6);
     width: 90%;
-    justify-content: center;
     border-radius: 25px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     align-items: center;
     padding: 20px;  
-    padding-top: 30px;
   }
 
-  #botao{
+  .topoLateral {
+    margin: 0 23px;
     display: flex;
-    width: 40%;
-    height: 48px;
-    bottom: calc(5vh);
-    justify-self: right;
-    position: relative;
-    justify-content: right;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 30px;
   }
 
   #buscar {
-   
+    padding-left: 15px;
     display: flex;
     align-items: center;
+    width: 60%;
     border: 0;
     box-shadow: 0 3px 5px black;
     border-radius: 25px;
-    width: 60%;
     height: 38px;
     background-color: rgb(98, 97, 97, 0.3);
     background-image: url(../img/lupa.svg);
     background-size: 23px;
     background-repeat: no-repeat;
-    background-position: 5% 50%;
-    margin-right: 350px;
-    padding-left: 60px;
+    background-position: 90% 50%;
     color: white;
 }
 
@@ -96,8 +94,7 @@
 .blocoDiv{
     display: flex;
     flex-wrap: wrap;   
-    gap: 10px;
-    padding-left: 20px;
+    padding-bottom: 20px;
 }
 
 #blocoInfo{
@@ -112,11 +109,17 @@
 }
 
 .perfilAcademico{
-  font-size: 1.1vw;
-  margin: 0;
-  color: white;
-  font-weight: 600;
-  padding-top: 10px;
+    padding-left: 20px;
+    font-size: 1.1vw;
+    margin: 0;
+    color: white;
+    font-weight: 600;
+}
+
+.config {
+    color: white;
+    font-weight: 600;
+    font-size: 1.1vw;
 }
 
 .academicoDiv{
@@ -127,7 +130,8 @@
 }
 
 .infosPerfil{
-  font-size: 0.9vw;
+  font-weight: 200;  
+  font-size: 16px;
   margin: 0;
   color: white;
 }
@@ -138,7 +142,7 @@
   align-content: center;
 }
 
-.configuracoes{
+.configuracoes {
   background-color: #acaba485;
   width: 100%;
   margin-top: 20px;
@@ -162,7 +166,7 @@
 .topico2{
   display: flex;
   flex-direction: column;
-  justify-self: left;
+  /* justify-self: left; */
 }
 .salvosP{
   font-size: 1vw;
@@ -184,8 +188,8 @@
 }
 .botaoEditar{
   display: flex;
+  justify-content: space-between;
   margin-bottom: 20px;
-  justify-self: left;
   width: 100%;
-  padding-left: 20px;
+  padding: 0 20px;
 }

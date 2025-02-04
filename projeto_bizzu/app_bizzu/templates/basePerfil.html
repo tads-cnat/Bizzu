@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bizzu</title>
     <link rel="stylesheet" href="{% static "css/basePerfil.css" %}?v=1.2">
-    <link rel="stylesheet" href="{% static "css/navebarDireita.css" %}?v=1.4">
-    <link rel="stylesheet" href="{% static "css/Botao.css" %}?v=1.3">
+    <link rel="stylesheet" href="{% static "css/navebarDireita2.css" %}?v=1.4">
+    <link rel="stylesheet" href="{% static "css/Botao2.css" %}?v=1.3">
     <link rel="stylesheet" href="{% static "css/navbarEsquerda.css" %}?v=1.2">
     <link rel="icon" type="image/svg+xml" href="{% static 'img/abelha_bizzu.svg' %}">
 </head>
@@ -25,13 +25,16 @@
             {% block content %}{% endblock %}
         </div>
         <aside class="barraPerfil">
+            
+            
+            <div class="topoLateral">    
             <input type="text" id="buscar" placeholder="Procurar...">
-            <div id="botao">
-                <button type="submit" id="BotaoLink" class="AlertaPrimario">
-                    <img id="botaoImg"src="{% static "img/desconectar.svg" %}" alt="">
-                    <p id="botaoP">Sair</p>
-                </button> 
+            <button type="submit" id="BotaoLink" class="AlertaPrimario">
+                <a href="{% url 'sair' %}"><img id="botaoImg"src="{% static "img/desconectar.svg" %}" alt="">
+                <p id="botaoP">Sair</p></a>
+            </button>
             </div>
+            
             <div class="conteudodireita">
                 <div class="informacoesPerfil">
                     <div class="blocoDiv">
@@ -52,10 +55,10 @@
                             <p class="tipoP">Postagens</p>
                         </div>
                 </div>
+                <hr>
                 <div class="academicoDiv">
                     <div class="topico">
-                        <img src="{% static 'img/abelha_bizzu.svg' %}" id="iconePerfil">
-                        <p class="perfilAcademico">Perfil acadêmico</p>
+                        <p class="perfilAcademico">PERFIL ACÂDEMICO</p>
                     </div>
                     <div class="topico">
                         <img src="{% static 'img/abelha_bizzu.svg' %}" id="iconePerfil">
@@ -77,21 +80,26 @@
                 <div class="configuracoes">
                     <div class="topico">
                         <img src="{% static 'img/abelha_bizzu.svg' %}" id="iconePerfil">
-                        <p class="perfilAcademico">Configurações</p>
+                        <p class="config">Configurações</p>
                     </div>
                     <div class="botaoEditar">
                     <div class="topico2">
                         <p class="infosPerfil">Editar Perfil</p>
-                        <p class="subP">Edite sua foto, descrição,...</p>
+                        <p class="subP">Edite sua foto, descrição...</p>
                     </div>
-                        <button type="submit" id="BotaoLink" class="EditPrimario">
+                        <a href="{% url 'editar_perfil' %}"><button type="submit" id="BotaoLink" class="EditPrimario" width="100px">
                             <p id="botaoP">Editar</p>
-                        </button> 
+                        </button> </a>
                     </div>
-                    <a class="topico3" href="#">
-                        <img class="salvos" src="{% static "img/desconectar.svg" %}" alt="">
-                        <p class="salvosP">Salvos</p>
-                    </a>
+                    <div class="botaoEditar">
+                    <div class="topico2">
+                        <p class="infosPerfil">Salvos</p>
+                        <p class="subP">Seus repositórios favoritos</p>
+                    </div>
+                    <button type="submit" id="BotaoLink" class="EditPrimario">
+                        <p id="botaoP">Abrir</p>
+                    </button> 
+                </div>
                 </div>
             </div>
         </aside>

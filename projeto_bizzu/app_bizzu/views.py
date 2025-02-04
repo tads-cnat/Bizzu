@@ -202,9 +202,6 @@ def repositorioSalvos(request): #Ver todos os repostórios salvos
     repositorios = Repositorio.objects.all()
     return render(request, "repositoriosFavoritos.html", {'repositorios': repositorios})
 
-def perfilPessoal(request):
-     return render(request, "perfilPessoal.html")
-
 def sair(request):
     logout(request)  # Desloga o usuário
     return redirect('feed')  # Redireciona para a página de login ou outra página
