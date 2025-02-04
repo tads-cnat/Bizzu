@@ -74,7 +74,7 @@ def seguirPerfil(request, pk):
         perfil_atual.save()
         perfil_alvo.save()
 
-        return JsonResponse({"status": "success", "following": perfil_atual in perfil_alvo.seguidores.all()})
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
     return redirect('perfil', username=perfil_alvo.username)
 

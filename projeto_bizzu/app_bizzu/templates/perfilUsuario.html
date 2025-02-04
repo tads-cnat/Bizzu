@@ -29,7 +29,9 @@
                 <div class="perfil-status">
                     <span><strong>{{ usuario.seguidores.count }}</strong> Seguidores</span>
                     <span><strong>{{ usuario.seguindo.count }}</strong> Seguindo</span>
+                    {% if request.user == usuario %}
                     <button class="btn-novo">+ Novo</button>
+                    {% endif %}
                     {% if request.user != usuario %}  {# Verifica se não está no próprio perfil #}
                     <form method="POST" action="{% url 'seguir_perfil' usuario.id %}">
                         {% csrf_token %}

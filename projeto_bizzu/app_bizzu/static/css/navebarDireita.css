@@ -19,25 +19,27 @@
 
 
 .barraPerfil{  
+    
     flex: 2;
     position: fixed;
     right: 0;
-    width: 400px;
+    width: 450px;
     height: calc(100vh - 75px);
     color: white;
     border-left: 1px solid #DCCEB1;
     background-color: #27211B;
+    padding: 20px;
   }
 
   .conteudodireita {
+    display: flex;
     background-color: rgb(16, 15, 15, 0.6);
-    width: 400px;
-    height: 60%;
-    justify-items: center;
+    width: 90%;
+    justify-content: center;
     border-radius: 25px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     align-items: center;
-    padding: 20px;
+    padding: 20px;  
     padding-top: 30px;
   }
 
@@ -65,7 +67,7 @@
     background-size: 23px;
     background-repeat: no-repeat;
     background-position: 5% 50%;
-    margin-right: 330px;
+    margin-right: 350px;
     padding-left: 60px;
     color: white;
 }
