@@ -4,11 +4,137 @@
 <header>
     <div class="logo">
         <a href="{% url 'feed' %}">
-            <img src="{% static 'img/abelha_bizzu.svg' %}" id="abelhalogo" href="{% url 'feed' %}">
-            <img src="{% static 'img/logotipo_bizzu.svg' %}" id="nomelogo" href="{% url 'feed' %}">
+            <img src="{% static 'img/abelha_bizzu.svg' %}" id="abelhalogo">
+            <img src="{% static 'img/logotipo_bizzu.svg' %}" id="nomelogo">
         </a>
     </div>
-    <!-- {% include 'barraPesquisa.html' %} -->
-    <input type="text" id="buscar" placeholder="Procurar...">
-    <a href="{% url 'sair' %}"><button id="sair"><img src="{% static 'img/entrar.svg' %}" id="sairbtn">Sair</button></a>
+    
+    <!-- Barra de pesquisa -->
+    <div class="search-container">
+        <input type="text" id="buscar" placeholder="Procurar..." onkeyup="buscar()">
+        <div id="popup" class="popup"></div>
+    </div>
+
+    <a href="{% url 'sair' %}">
+        <button id="sair">
+            <img src="{% static 'img/entrar.svg' %}" id="sairbtn">Sair
+        </button>
+    </a>
 </header>
+
+<script>
+    function buscar() {
+        let query = document.getElementById('buscar').value;
+        let popup = document.getElementById('popup');
+
+        if (query.length > 0) {
+            fetch(`/pesquisa/?q=${query}`)
+            .then(response => response.json())
+            .then(data => {
+                popup.innerHTML = "";
+
+                // let rect = inputBox.getBoundingClientRect();
+                //     popup.style.top = rect.bottom + "px";
+                //     popup.style.left = rect.left + "px";
+                //     popup.style.width = rect.width + "px";
+
+                if (data.usuarios.length > 0 || data.postagens.length > 0) {
+                    popup.style.display = "block";
+
+                    // Exibir usuários encontrados
+                    data.usuarios.forEach(usuario => {
+                        let div = document.createElement('div');
+                        div.innerHTML = `
+                            <a href="${usuario.username}/" class="popup-item">
+                                <img src="${usuario.imagemPerfil ? usuario.imagemPerfil : '../static/img/default-profile.png'}" alt="Foto de ${usuario.nome}">
+                                <div>
+                                    <strong>${usuario.nome}</strong>
+                                    <p>${usuario.descricao}</p>
+                                </div>
+                            </a>
+                        `;
+                        popup.appendChild(div);
+                    });
+
+                    // Exibir postagens encontradas
+                    data.postagens.forEach(post => {
+                        let div = document.createElement('div');
+                        div.innerHTML = `
+                            <div class="popup-post">
+                                <strong>${post.usuario__nome}:</strong> ${post.texto}
+                            </div>
+                        `;
+                        popup.appendChild(div);
+                    });
+
+                } else {
+                    popup.style.display = "none";
+                }
+            });
+        } else {
+            popup.style.display = "none";
+        }
+    }
+
+    // Ocultar pop-up quando clicar fora
+    document.addEventListener("click", function(event) {
+        let popup = document.getElementById("popup");
+        let inputBox = document.getElementById("buscar");
+        if (!popup.contains(event.target) && !inputBox.contains(event.target)) {
+            popup.style.display = "none";
+        }
+    });
+
+
+
+</script>
+
+<style>
+.popup {
+    position: absolute;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    display: none; /* Mantém oculto até que seja necessário */
+    max-height: 250px;
+    overflow-y: auto;
+    z-index: 1000;
+    width: auto;
+    min-width: 250px; /* Garante que tenha um tamanho mínimo */
+    padding: 5px 0; /* Adiciona um espaço interno para não ficar colado */
+}
+
+.popup-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    text-decoration: none;
+    color: black;
+    border-bottom: 1px solid #eee;
+    transition: background 0.2s;
+}
+
+.popup-item:hover {
+    background: #f1f1f1;
+}
+
+.popup-item img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.popup-item div {
+    display: flex;
+    flex-direction: column;
+}
+
+.popup-item p {
+    font-size: 12px;
+    color: #777;
+    margin: 0;
+}
+
+</style>

@@ -14,7 +14,7 @@ from django.contrib.auth import login as login_django
 from .forms import EditarPerfilForm, ComentarioForm, CadastrarPerfilForm
 from django.utils import timezone
 from django.views.decorators.http import require_POST
-from django.http import JsonResponse
+from django.conf import settings
 
 
 # @login_required(login_url="/login/")
@@ -316,4 +316,26 @@ def editarPerfil(request):
     
     return render(request, 'editarPerfil.html', {'form': form})
 
+
+
+def pesquisa(request):
+    query = request.GET.get('q', '')
+
+    if query:
+        usuarios = Usuario.objects.filter(nome__icontains=query).values('id', 'nome', 'descricao', 'imagemPerfil', 'username')
+        postagens = Postagem.objects.filter(texto__icontains=query).values('id', 'texto', 'usuario__nome')
+
+        usuarios_lista = list(usuarios)
+        for usuario in usuarios_lista:
+            if usuario['imagemPerfil']:
+                usuario['imagemPerfil'] = request.build_absolute_uri(settings.MEDIA_URL + usuario['imagemPerfil'])
+            else:
+                usuario['imagemPerfil'] = request.build_absolute_uri(settings.STATIC_URL + 'img/default-profile.png')
+
+        return JsonResponse({
+            'usuarios': usuarios_lista,
+            'postagens': list(postagens),
+        })
+
+    return JsonResponse({'usuarios': [], 'postagens': []})
 

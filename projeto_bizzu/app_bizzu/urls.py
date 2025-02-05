@@ -25,6 +25,7 @@ urlpatterns=[
     path('seguir/<int:pk>/', views.seguirPerfil, name='seguir_perfil'),
     path('editarPerfil/', views.editarPerfil, name='editarPerfil'),
     path('curtida/<uuid:postagem_id>/', views.curtida, name='curtida'),
+    path('pesquisa/', views.pesquisa, name='pesquisa'),
 ]
 
 if settings.DEBUG:
