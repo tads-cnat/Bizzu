@@ -11,7 +11,7 @@ from django.contrib.auth import logout
 from django.core.paginator import Paginator
 from django.contrib import messages
 from django.contrib.auth import login as login_django
-from .forms import EditarPerfilForm, ComentarioForm
+from .forms import EditarPerfilForm, ComentarioForm, CadastrarPerfilForm
 from django.utils import timezone
 from django.views.decorators.http import require_POST
 
@@ -233,23 +233,23 @@ def associar_comunidade(request):
             comunidade.seguidores.add(usuario)  # Garante que o usuário seja um seguidor
             messages.success(request, f"Agora você está seguindo {comunidade.nome}!")
 
-        return redirect('editar_perfil')  # Redireciona para o término do cadastro.
+        return redirect('cadastro_perfil')  # Redireciona para o término do cadastro.
 
     return render(request, 'comunidade.html', {"erro": "Erro ao associar comunidade."})
 
 @login_required
-def editar_perfil(request):
+def cadastro_perfil(request):
     usuario = request.user  # Obtém o usuário logado
 
     if request.method == "POST":
-        form = EditarPerfilForm(request.POST, request.FILES, instance=usuario)
+        form = CadastrarPerfilForm(request.POST, request.FILES, instance=usuario)
         if form.is_valid():
             form.save()
             return redirect('perfil', username=usuario.username)
     else:
         form = EditarPerfilForm(instance=usuario)
 
-    return render(request, 'editar_perfil.html', {'form': form})
+    return render(request, 'cadastro_perfil.html', {'form': form})
 
 @login_required
 @require_POST

@@ -1,7 +1,7 @@
 from django import forms
 from .models import Usuario, Comentario
 
-class EditarPerfilForm(forms.ModelForm):
+class CadastrarPerfilForm(forms.ModelForm):
     class Meta:
         model = Usuario
         fields = ['nome','descricao', 'imagemPerfil', 'escolaFormacao', 'instituicaoAtual', 'localTrabalho', 'progressoCurso']
@@ -14,6 +14,7 @@ class EditarPerfilForm(forms.ModelForm):
             'localTrabalho': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Digite seu local de trabalho...'}),
             'progressoCurso': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Digite o período de referência...'}),
         }
+
 class ComentarioForm(forms.ModelForm):
     class Meta:
         model = Comentario
