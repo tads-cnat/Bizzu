@@ -97,6 +97,34 @@
     </section>
     <script>
         const userImage = "{% if user.is_authenticated and user.imagemPerfil %}{{ user.imagemPerfil.url }}{% else %}{% static 'img/default-profile.png' %}{% endif %}";
+
+        document.querySelectorAll('#curtir-btn').forEach(button => {
+    button.addEventListener('click', function(event) {
+        event.preventDefault(); // Evita o comportamento padrão de redirecionamento
+        const postagemId = this.closest('.postagem').getAttribute('data-postagem-id'); // Obtém o ID da postagem
+
+        fetch(`/curtida/${postagemId}/`, {
+            method: 'GET',
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}', // Incluindo o token CSRF
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Verifique se data.curtidas foi recebido corretamente
+            if (data.curtidas !== undefined) {
+                // Atualizando a quantidade de curtidas no frontend
+                const curtidasSpan = this.closest('.post-footer').querySelector('.likes span');
+                curtidasSpan.textContent = `${data.curtidas} curtidas`; // Atualiza o texto das curtidas
+            } else {
+                console.error('Erro: A quantidade de curtidas não foi retornada corretamente.');
+            }
+        })
+        .catch(error => {
+            console.error('Erro ao curtir a postagem:', error);
+        });
+    });
+});
     </script>
     <script src="{% static 'js/comentarios.js' %}"></script>
     

@@ -156,9 +156,12 @@ body::before {
     gap: 10px;
 }
 
+.likes span.clicked {
+    animation: pular 0.3s ease;
+  }
+  
 /* FEED DE PUBLICAÇÕES ACIMA */
 
 /* Responsividade */
 @media (max-width: 768px) {
-
 }

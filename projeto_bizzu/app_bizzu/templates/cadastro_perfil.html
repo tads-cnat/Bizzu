@@ -1,74 +1,100 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bizzu</title>
+    <title>Bizzu - Editar Perfil</title>
     <link rel="stylesheet" href="{% static 'css/cadastro_perfil.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-
     <main class="editarPerfil">
-        <button class="voltar">
-            <a href="{% url 'perfil' user.username %}">
+        <!-- <nav class="navigation">
+            <button class="voltar" onclick="window.location.href='{% url 'perfil' user.username %}'">
                 <img src="{% static 'img/icones_perfil/voltar.svg' %}" alt="Voltar">
-            </a>
-            <p>Voltar</p>
-        </button>
+                <span>Voltar</span>
+            </button>
+        </nav> -->
 
-        <form method="post" enctype="multipart/form-data">
+        <form method="post" enctype="multipart/form-data" class="profile-form">
             {% csrf_token %}
 
-            <div class="alterarFoto">
-                <img src="{% if user.imagemPerfil %}{{ user.imagemPerfil.url }}{% else %}{% static 'img/icones_perfil/semFoto.svg' %}{% endif %}" alt="Imagem de Perfil">
-                <h3>{{ user.nome }}</h3>
-                <p>@{{ user.username }}</p>
-                <label for="id_imagemPerfil" class="alterar">Alterar Foto</label>
-                {{ form.imagemPerfil }}
+            <div class="profile-header">
+                <div class="profile-image-container">
+                    <div class="profile-image">
+                        <img src="{% if user.imagemPerfil %}{{ user.imagemPerfil.url }}{% else %}{% static 'img/icones_perfil/semFoto.svg' %}{% endif %}" 
+                             alt="Imagem de Perfil"
+                             id="preview-image">
+                    </div>
+                    <div class="profile-info">
+                        <h3>{{ user.nome }}</h3>
+                        <p>@{{ user.username }}</p>
+                        <label for="id_imagemPerfil" class="alterar">
+                            Alterar Foto
+                            {{ form.imagemPerfil }}
+                        </label>
+                    </div>
+                </div>
             </div>
 
-            <label id="nomeexibido">Nome de exibição</label>
-            {{ form.nome }}
+            <div class="form-group">
+                <label for="id_nome">Nome de exibição</label>
+                {{ form.nome }}
+            </div>
 
-            <div class="click">
-                <label class="descricao-titulo">Descrição</label>
+            <div class="form-group">
+                <label for="id_descricao">Descrição</label>
                 {{ form.descricao }}
             </div>
 
-            <div class="click">
-                <label class="formacaoA">Formação acadêmica</label>
+            <div class="form-group">
+                <label for="id_escolaFormacao">Formação acadêmica</label>
                 {{ form.escolaFormacao }}
             </div>
 
-            <div class="click">
-                <div class="divC">
-                    <label class="cursoA">Progesso no Curso</label>
+            <div class="form-row">
+                <div class="form-group half">
+                    <label for="id_progressoCurso">Progresso no Curso</label>
                     {{ form.progressoCurso }}
                 </div>
 
-                <div class="divI">
-                    <label class="instituicaoA">Instituição de ensino</label>
+                <div class="form-group half" id="brancasso">
+                    <label for="id_instituicaoAtual">Instituição de ensino</label>
                     {{ form.instituicaoAtual }}
                 </div>
-
-            <div class="click">
-                    <label class="linkA">Local de trabalho</label>
-                    {{ form.localTrabalho }}
             </div>
 
-            <div class="botoes">
-                <button type="reset" class="descartar">
-                    <img src="{% static 'img/icones_perfil/lixeira.svg' %}" alt="">
-                    <p>Descartar</p>
+            <div class="form-group">
+                <label for="id_localTrabalho">Local de trabalho</label>
+                {{ form.localTrabalho }}
+            </div>
+
+            <div class="form-actions">
+                <button type="reset" class="btn btn-danger">
+                    <img src="{% static 'img/icones_perfil/lixeira.svg' %}" alt="Descartar">
+                    <span>Descartar</span>
                 </button>
-                <button type="submit" class="salvar">
-                    <img src="{% static 'img/icones_perfil/Save.svg' %}" alt="">
-                    <p>Salvar</p>
+                <button type="submit" class="btn btn-success">
+                    <img src="{% static 'img/icones_perfil/Save.svg' %}" alt="Salvar">
+                    <span>Salvar</span>
                 </button>
             </div>
         </form>
     </main>
 
+    <script>
+        // Preview da imagem
+        document.getElementById('id_imagemPerfil').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('preview-image').src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
 </body>
 </html>

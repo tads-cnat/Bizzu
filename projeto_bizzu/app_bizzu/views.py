@@ -14,6 +14,8 @@ from django.contrib.auth import login as login_django
 from .forms import EditarPerfilForm, ComentarioForm, CadastrarPerfilForm
 from django.utils import timezone
 from django.views.decorators.http import require_POST
+from django.http import JsonResponse
+
 
 # @login_required(login_url="/login/")
 # def feed(request):
@@ -45,16 +47,20 @@ def curtida(request, postagem_id):
     post = Postagem.objects.get(id=postagem_id)
     curtido_atuais = post.curtidas
     curtido = Curtida.objects.filter(usuario=request.user, postagem=post).count()
-    if not curtido: 
-        curtido = Curtida.objects.create(usuario=user, postagem=post)
-        curtido_atuais = curtido_atuais + 1
-    else:
-        curtido = Curtida.objects.filter(usuario=user, postagem=post).delete()
-        curtido_atuais = curtido_atuais - 1
     
+    if not curtido:
+        Curtida.objects.create(usuario=user, postagem=post)
+        curtido_atuais += 1
+    else:
+        Curtida.objects.filter(usuario=user, postagem=post).delete()
+        curtido_atuais -= 1
+
     post.curtidas = curtido_atuais
     post.save()
-    return HttpResponseRedirect(reverse('feed'))
+
+    # Retorna a nova quantidade de curtidas para a parte do feed
+    return JsonResponse({'curtidas': curtido_atuais})
+
 
 @login_required
 def seguirPerfil(request, pk):
