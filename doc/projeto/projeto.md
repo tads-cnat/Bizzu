@@ -1,5 +1,5 @@
 # Diagrama de Classes de Projeto
-![Diagrama de classe de projeto](https://github.com/user-attachments/assets/1c45d662-b2dc-4af0-be89-bdc9d7d0413d)
+![Diagrama de classe de projeto](https://github.com/user-attachments/assets/2345871f-6965-43d0-9250-5abe0f6ffd1d)
 
 
 ## Glossário (sugestão)
