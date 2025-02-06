@@ -1,11 +1,13 @@
 # Projeto Bizzu
-<img src="https://github.com/user-attachments/assets/a50ebdda-eaf1-4bdb-8407-5a12671f543a">
 <img src="https://github.com/user-attachments/assets/6443d0f2-dbcd-40de-81b5-7c87b02cc613" />
 
 
 >Em ambientes acadêmicos, o contato entre estudantes mais experientes e os novatos desempenha um papel fundamental. No entanto, para muitos desses estudantes, a integração com novas matérias, pessoas e atividades pode ser um grande desafio. Isso se deve, em parte, às dificuldades na socialização, que, por sua vez, impactam diretamente no desempenho acadêmico.
 
 >Portanto, o objetivo do Bizzu é promover uma solução viável para este problema, por meio da criação de uma plataforma semelhante a uma rede social que internamente contará com a presença de comunidades referentes a cada curso de tecnologia da DIATINF. A plataforma incluirá fóruns onde os estudantes poderão interagir, além de permitir a criação de perfis individuais, nos quais poderão fazer postagens e armazenar materiais de estudo em repositórios próprios.
+
+
+<img src="https://github.com/user-attachments/assets/a50ebdda-eaf1-4bdb-8407-5a12671f543a">
 
 # Equipe e Formas de Contato
 
