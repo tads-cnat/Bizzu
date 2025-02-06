@@ -1,0 +1,169 @@
+from django.shortcuts import get_object_or_404, render,redirect
+from django.http import HttpResponseRedirect, JsonResponse
+from django.contrib.auth import authenticate
+from django.contrib.auth import login as login_django
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.contrib.auth import login as login_django
+from app_bizzu.models import Postagem, Repositorio, Usuario
+from ..forms import EditarPerfilForm, CadastrarPerfilForm
+from django.contrib.auth import authenticate, login as login_django
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
+from django.contrib.auth import logout
+from django.conf import settings
+from django.core.paginator import Paginator
+
+
+class UsuarioView:
+    @csrf_exempt  # Permite chamadas AJAX sem CSRF Token (se necessário)
+    def login(request):
+        if request.method == "POST":
+            try:
+                data = json.loads(request.body)
+                username = data.get("username")
+                senha = data.get("password")
+
+                user = authenticate(username=username, password=senha)
+
+                if user:
+                    login_django(request, user)
+                    return JsonResponse({"status": "success", "redirect_url": "/feed/"})
+                else:
+                    return JsonResponse({"status": "error", "message": "Usuário ou senha inválidos"}, status=400)
+            except json.JSONDecodeError:
+                return JsonResponse({"status": "error", "message": "Erro no JSON"}, status=400)
+
+        return JsonResponse({"status": "error", "message": "Método não permitido"}, status=405)
+    
+    @login_required
+    def cadastro_perfil(request):
+        usuario = request.user  # Obtém o usuário logado
+
+        if request.method == "POST":
+            form = CadastrarPerfilForm(request.POST, request.FILES, instance=usuario)
+            if form.is_valid():
+                form.save()
+                return redirect('perfil', username=usuario.username)
+        else:
+            form = EditarPerfilForm(instance=usuario)
+
+        return render(request, 'cadastro_perfil.html', {'form': form})
+    @login_required
+    def editarPerfil(request):
+        if request.method == "POST":
+            form = EditarPerfilForm(request.POST, request.FILES, instance=request.user)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Perfil atualizado com sucesso!')
+                return redirect('perfil', username=request.user.username)
+            else:
+                messages.error(request, 'Por favor, corrija os erros abaixo.')
+        else:
+            form = EditarPerfilForm(instance=request.user)
+        
+        return render(request, 'editarPerfil.html', {'form': form})
+    
+    def sair(request):
+        logout(request)  # Desloga o usuário
+        return redirect('feed')  # Redireciona para a página de login ou outra página
+    
+    @login_required
+    def seguirPerfil(request, pk):
+        perfil_alvo = get_object_or_404(Usuario, id=pk)
+        perfil_atual = request.user
+
+        if request.method == "POST":
+            acao = request.POST.get("follow")  # Obtém a ação do botão
+            
+            if acao == "unfollow":
+                perfil_atual.segue.remove(perfil_alvo)
+                perfil_alvo.seguidores.remove(perfil_atual)
+            elif acao == "follow":
+                perfil_atual.segue.add(perfil_alvo)
+                perfil_alvo.seguidores.add(perfil_atual)
+
+            # Salvar no banco
+            perfil_atual.save()
+            perfil_alvo.save()
+
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+        return redirect('perfil', username=perfil_alvo.username)
+    def cadastro(request):
+        if request.method == "GET":
+            return render(request, 'cadastro.html')
+        else:
+            username = request.POST.get('username')
+            email = request.POST.get('email')
+            senha = request.POST.get('senha')
+            
+            user = Usuario.objects.filter(username=username).first()
+
+            if user:
+                return render(request, "cadastro_existente.html")
+
+            # Cria o novo usuário
+            user = Usuario.objects.create_user(username=username, email=email, password=senha)
+            # user.foto_perfil = foto_perfil
+            user.save()
+            login_django(request, user)
+            # return redirect('login')
+            return redirect('escolher_comunidade')
+        
+    def perfil(request, username):
+        user = get_object_or_404(Usuario, username=username)
+        postagens = Postagem.objects.filter(usuario=user).order_by('-dataPublicacao')
+        
+        paginator = Paginator(postagens, 5)
+        page_number = request.GET.get('page')
+        postagens_paginator = paginator.get_page(page_number)
+
+        is_following = False
+        if request.user.is_authenticated:
+            is_following = request.user.segue.filter(pk=user.pk).exists()
+
+        context = {
+            'usuario': user,
+            'postagens_paginator': postagens_paginator,
+            'is_following': is_following
+        }
+
+        return render(request, 'perfilUsuario.html', context)
+    
+    def navbarLateral(request, username):
+        user = get_object_or_404(Usuario, username=username)
+        
+    def feed(request):
+        if request.user.is_authenticated:  # Verificação de login
+            user = request.user
+            postagens = Postagem.objects.all().order_by('-dataPublicacao')  # Ordenar pela data (mais recente primeiro)
+            repositorios = Repositorio.objects.all()
+            return render(request, 'feed.html', {'postagens': postagens, 'user': request.user, 'repositorios': repositorios})
+        else:
+            postagens = Postagem.objects.all().order_by('-dataPublicacao')  # Ordenar pela data (mais recente primeiro)
+            repositorios = Repositorio.objects.all()
+            return render(request, 'feed_deslogado.html', {'postagens': postagens, 'user': request.user, 'repositorios': repositorios})
+            # return render(request, 'feed_deslogado.html')
+
+    def pesquisa(request):
+        query = request.GET.get('q', '')
+
+        if query:
+            usuarios = Usuario.objects.filter(nome__icontains=query).values('id', 'nome', 'descricao', 'imagemPerfil', 'username')
+            postagens = Postagem.objects.filter(texto__icontains=query).values('id', 'texto', 'usuario__nome')
+
+            usuarios_lista = list(usuarios)
+            for usuario in usuarios_lista:
+                if usuario['imagemPerfil']:
+                    usuario['imagemPerfil'] = request.build_absolute_uri(settings.MEDIA_URL + usuario['imagemPerfil'])
+                else:
+                    usuario['imagemPerfil'] = request.build_absolute_uri(settings.STATIC_URL + 'img/default-profile.png')
+
+            return JsonResponse({
+                'usuarios': usuarios_lista,
+                'postagens': list(postagens),
+            })
+
+        return JsonResponse({'usuarios': [], 'postagens': []})

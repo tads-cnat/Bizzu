@@ -1,0 +1,1 @@
+from app_bizzu.views import *

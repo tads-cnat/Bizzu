@@ -20,15 +20,14 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-from app_bizzu.models import Usuario
-from app_bizzu.views import perfil
+from app_bizzu.views import usuarioView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('',include('app_bizzu.urls')),
 
     #Perfil - seção
-    path('<username>/', perfil, name='perfil'),
+    path('<username>/', usuarioView.UsuarioView.perfil, name='perfil'),
 ]
 
 if settings.DEBUG:

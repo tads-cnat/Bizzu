@@ -16,7 +16,6 @@ from django.utils import timezone
 from django.views.decorators.http import require_POST
 from django.conf import settings
 
-
 # @login_required(login_url="/login/")
 # def feed(request):
 #     user = request.user #LR
@@ -214,10 +213,10 @@ def sair(request):
 
 
 @login_required
+
 def escolher_comunidade(request):
     comunidades = Comunidade.objects.all()  # Buscar todas as comunidades do banco
     return render(request, "comunidade.html", {"comunidades": comunidades})
-
 
 @login_required
 def associar_comunidade(request):
