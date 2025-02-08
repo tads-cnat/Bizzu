@@ -1,11 +1,10 @@
-from django.shortcuts import get_object_or_404, render,redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponseRedirect, JsonResponse
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as login_django
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth import login as login_django
-from app_bizzu.models import Postagem, Repositorio, Usuario
 from ..forms import EditarPerfilForm, CadastrarPerfilForm
 from django.contrib.auth import authenticate, login as login_django
 from django.http import JsonResponse
@@ -14,6 +13,12 @@ import json
 from django.contrib.auth import logout
 from django.conf import settings
 from django.core.paginator import Paginator
+from app_bizzu.models.categoria import Categoria
+from app_bizzu.models.comunidade import Comunidade
+from app_bizzu.models.postagem import Postagem
+from app_bizzu.models.usuario import Usuario
+from app_bizzu.models.repositorio import Repositorio
+
 
 
 class UsuarioView:
@@ -29,7 +34,7 @@ class UsuarioView:
 
                 if user:
                     login_django(request, user)
-                    return JsonResponse({"status": "success", "redirect_url": "/feed/"})
+                    return JsonResponse({"status": "success", "redirect_url": "/"})
                 else:
                     return JsonResponse({"status": "error", "message": "Usuário ou senha inválidos"}, status=400)
             except json.JSONDecodeError:
@@ -145,7 +150,6 @@ class UsuarioView:
             postagens = Postagem.objects.all().order_by('-dataPublicacao')  # Ordenar pela data (mais recente primeiro)
             repositorios = Repositorio.objects.all()
             return render(request, 'feed_deslogado.html', {'postagens': postagens, 'user': request.user, 'repositorios': repositorios})
-            # return render(request, 'feed_deslogado.html')
 
     def pesquisa(request):
         query = request.GET.get('q', '')
@@ -167,3 +171,44 @@ class UsuarioView:
             })
 
         return JsonResponse({'usuarios': [], 'postagens': []})
+
+    @login_required
+    def criar_postagem(request):
+        if request.method == "POST":
+            texto = request.POST.get("descricao")
+            comunidade_id = request.POST.get("comunidade")
+            imagem = request.FILES.get("imagem")
+
+            # Pegando categorias selecionadas
+            categorias_selecionadas = request.POST.getlist("categorias")  # Retorna lista de IDs
+
+            comunidade = Comunidade.objects.filter(id=comunidade_id).first()
+
+            postagem = Postagem.objects.create(
+                texto=texto,
+                imagem=imagem,
+                usuario=request.user,
+                comunidade=comunidade,
+            )
+
+            # Adicionar categorias à postagem
+            postagem.categorias.set(Categoria.objects.filter(id__in=categorias_selecionadas))
+
+            messages.success(request, "Postagem criada com sucesso!")
+            return redirect("perfil", username=request.user.username)  # Redireciona para o perfil
+
+        comunidades = Comunidade.objects.all()
+        categorias_materia = Categoria.objects.filter(tipo="mat")
+        categorias_periodo = Categoria.objects.filter(tipo="per")
+        categorias_tecnologia = Categoria.objects.filter(tipo="tec")
+
+        return render(
+            request, 
+            "criar_postagem.html", 
+            {
+                "comunidades": comunidades,
+                "categorias_materia": categorias_materia,
+                "categorias_periodo": categorias_periodo,
+                "categorias_tecnologia": categorias_tecnologia,
+            }
+        )

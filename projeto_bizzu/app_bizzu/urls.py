@@ -4,9 +4,9 @@ from django.conf.urls.static import static
 from app_bizzu.views import comentarioView,comunidadeView, curtidaView, postagemView, repositorioView, usuarioView
 
 urlpatterns=[
-    path('', usuarioView.UsuarioView.feed, name="feedDeslogado"),
+    path('', usuarioView.UsuarioView.feed, name="feed"),
     path('perfil/', usuarioView.UsuarioView.perfil, name='perfil'),
-    path('feed/', usuarioView.UsuarioView.feed, name='feed'),
+    # path('feed/', usuarioView.UsuarioView.feed, name='feed'),
     # path('<uuid:postagem_id>/curtida/', views.curtida, name='curtida'),
     path('cadastro/', usuarioView.UsuarioView.cadastro, name='cadastro'),
     path('login/', usuarioView.UsuarioView.login, name='login'),
@@ -24,6 +24,7 @@ urlpatterns=[
     path('editarPerfil/', usuarioView.UsuarioView.editarPerfil, name='editarPerfil'),
     path('curtida/<uuid:postagem_id>/', curtidaView.CurtidaView.curtida, name='curtida'),
     path('pesquisa/', usuarioView.UsuarioView.pesquisa, name='pesquisa'),
+    path('criar-postagem/', usuarioView.UsuarioView.criar_postagem, name='criar_postagem'),
 ]
 
 if settings.DEBUG:

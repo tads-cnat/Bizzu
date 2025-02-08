@@ -159,6 +159,11 @@ body::before {
 .likes span.clicked {
     animation: pular 0.3s ease;
   }
+
+.postagem-off {
+    color: white;
+    margin: 0 auto;
+}
   
 /* FEED DE PUBLICAÇÕES ACIMA */
 

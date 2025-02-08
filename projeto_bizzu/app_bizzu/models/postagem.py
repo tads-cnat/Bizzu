@@ -1,13 +1,21 @@
 from django.db import models
 import uuid
+from app_bizzu.models.comunidade import Comunidade
+from app_bizzu.models.categoria import Categoria
 
 class Postagem(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     texto = models.CharField(verbose_name="Texto de descrição",max_length= 200)
     imagem = models.ImageField(verbose_name="Imagem",upload_to="imgPostagens/")
     dataPublicacao = models.DateTimeField(auto_now_add=True, verbose_name="Data de publicação")
-    usuario = models.ForeignKey("Usuario", verbose_name="Usuário", on_delete=models.CASCADE, null=True, blank=True)
+    usuario = models.ForeignKey("Usuario", verbose_name="Usuário", on_delete=models.CASCADE, null=True, blank=True, related_name="postagens")
     curtidas = models.IntegerField(verbose_name="Curtidas", default=0)
+    comunidade = models.ForeignKey(Comunidade, verbose_name="Comunidade", on_delete=models.CASCADE, null=True, blank=True)
+    categorias = models.ManyToManyField(Categoria, verbose_name="Categorias", blank=True)
 
     def __str__(self):
         return self.texto
+
+    class Meta:
+        verbose_name = "Postagem"
+        verbose_name_plural = "Postagens"

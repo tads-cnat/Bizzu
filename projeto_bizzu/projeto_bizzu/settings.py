@@ -124,6 +124,7 @@ STATIC_URL = "static/"
 MEDIA_URL = '/media/'  # URL base para acessar os arquivos de mídia
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Diretório onde os arquivos serão armazenados
 
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 

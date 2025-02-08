@@ -3,6 +3,7 @@ import uuid
 
 class Comunidade(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    imagem = models.ImageField(upload_to='comunidade_imagens/', verbose_name="Imagem", blank=True, null=True)
     nome = models.CharField(verbose_name="Nome", max_length= 50)
     descricao = models.CharField(verbose_name="Descrição", max_length= 200)
     anoFundacao = models.DateField(verbose_name="Ano de fundação", default=2025)

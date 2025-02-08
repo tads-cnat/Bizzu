@@ -18,7 +18,7 @@
             
                 {% for comunidade in comunidades %}
                     <div class="principais">
-                        <img class="primeira" src="{% static 'img/dentro1.png' %}" alt="{{ comunidade.nome }}">
+                        <img class="primeira" src="{{ comunidade.imagem.url }}" alt="{{ comunidade.nome }}">
                         <article class="comunidade">
                             <h2>{{ comunidade.nome }}</h2>
                             <p>{{ comunidade.descricao }}</p>

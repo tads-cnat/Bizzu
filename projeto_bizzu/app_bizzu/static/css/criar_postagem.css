@@ -1,0 +1,204 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+:root {
+    --primary-color: #F79010;
+    --secondary-color: #058B92;
+    --danger-color: #C11F1F;
+    --text-light: #ffffff;
+    --text-dark: #1B1818;
+    --bg-dark: rgba(255, 255, 255, 0.05);
+    --border-radius: 10px;
+    --max-width: 600px;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+.criar-post {
+    background: var(--bg-dark);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    width: 100%;
+    max-width: var(--max-width);
+    margin: 140px auto;
+}
+
+.criar-post h2 {
+    color: var(--text-light);
+    font-size: 22px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+/* Estilizando os campos */
+.campo {
+    margin-bottom: 15px;
+}
+
+.campo label {
+    display: block;
+    font-weight: 500;
+    color: var(--text-light);
+    margin-bottom: 5px;
+}
+
+.campo select,
+.campo textarea,
+.campo input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: var(--border-radius);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-light);
+}
+
+.campo select {
+    cursor: pointer;
+}
+
+.campo textarea {
+    height: 120px;
+    resize: none;
+}
+
+/* Ajusta o fundo das opções dentro do select */
+.campo select option {
+    background-color: var(--text-dark);
+    color: var(--text-light);
+}
+
+
+/* Botões de ação */
+.acoes-post {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+
+.botao-descartar, .botao-postar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 10px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.botao-descartar {
+    background: var(--danger-color);
+    color: var(--text-light);
+}
+
+.botao-descartar:hover {
+    background: #a51a1a;
+}
+
+.botao-postar {
+    background: var(--secondary-color);
+    color: var(--text-light);
+}
+
+.botao-postar:hover {
+    background: #046a70;
+}
+
+.categorias-container {
+    position: relative;
+    width: 100%;
+}
+
+.botao-categorias {
+    width: 100%;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-light);
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    text-align: left;
+}
+
+.menu-categorias {
+    display: none;
+    position: absolute;
+    width: 100%;
+    background: var(--text-dark);
+    border-radius: var(--border-radius);
+    padding: 10px;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+}
+
+.abas {
+    display: flex;
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.aba {
+    flex: 1;
+    padding: 10px;
+    background: transparent;
+    border: none;
+    color: var(--text-light);
+    cursor: pointer;
+    text-align: center;
+}
+
+.aba.ativa {
+    background: var(--primary-color);
+    color: var(--text-dark);
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+.conteudo-categorias {
+    padding: 10px;
+}
+
+#pesquisaCategorias {
+    width: 100%;
+    padding: 8px;
+    border-radius: var(--border-radius);
+    border: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-light);
+}
+
+.lista-categorias label {
+    display: block;
+    padding: 5px;
+    color: var(--text-light);
+    cursor: pointer;
+}
+
+.lista-categorias input {
+    margin-right: 5px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .criar-post {
+        padding: 15px;
+    }
+
+    .acoes-post {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .botao-descartar, .botao-postar {
+        width: 100%;
+        text-align: center;
+    }
+}

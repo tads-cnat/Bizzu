@@ -18,7 +18,7 @@
     flex: 1;
     display: flex;
     width: 100%;
-    max-width: 1202px;
+    /* max-width: 1202px; */
     overflow-y: auto;
     height: calc(100% - 50px);
     scrollbar-width: thin;
@@ -215,6 +215,7 @@
 
 .postagem-off {
     color: white;
+    margin: 0 auto;
 }
 
 /* Estilos para o modal do botão Novo. */

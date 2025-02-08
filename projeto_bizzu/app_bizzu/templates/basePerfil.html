@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bizzu</title>
-    <link rel="stylesheet" href="{% static "css/basePerfil.css" %}?v=1.2">
+    <link rel="stylesheet" href="{% static "css/basePerfil2.css" %}?v=1.2">
     <link rel="stylesheet" href="{% static "css/navebarDireita2.css" %}?v=1.4">
     <link rel="stylesheet" href="{% static "css/Botao.css" %}?v=1.3">
     <link rel="stylesheet" href="{% static "css/navbarEsquerda.css" %}?v=1.2">
@@ -53,7 +53,7 @@
                             <p class="tipoP">Repositórios</p>
                         </div>
                         <div id="blocoInfo">
-                            <p class="quantidadeP">5</p>
+                            <p class="quantidadeP">{{ usuario.postagens.count }}</p>
                             <p class="tipoP">Postagens</p>
                         </div>
                 </div>
