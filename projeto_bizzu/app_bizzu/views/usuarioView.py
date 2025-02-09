@@ -151,6 +151,20 @@ class UsuarioView:
             repositorios = Repositorio.objects.all()
             return render(request, 'feed_deslogado.html', {'postagens': postagens, 'user': request.user, 'repositorios': repositorios})
 
+    @login_required
+    def feed_seguidos(request):
+        user = request.user  # Usuário logado
+
+        # Pegamos todos os usuários que o usuário logado segue
+        usuarios_seguidos = user.segue.all()
+
+        # Filtramos postagens apenas desses usuários
+        postagens = Postagem.objects.filter(usuario__in=usuarios_seguidos).order_by('-dataPublicacao')
+
+        repositorios = Repositorio.objects.all()  # Se for necessário no template
+
+        return render(request, 'feed_seguidos.html', {'postagens': postagens, 'user': user, 'repositorios': repositorios})
+
     def pesquisa(request):
         query = request.GET.get('q', '')
 

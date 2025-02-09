@@ -1,0 +1,130 @@
+{% load static %}
+{% csrf_token %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bizzu</title>
+    <link rel="stylesheet" href="{% static 'css/feed.css' %}">
+    <link rel="stylesheet" href="{% static "css/navbarRepositorio.css" %}?v=1.8">
+    <link rel="stylesheet" href="{% static "css/fotoPerfilNome.css" %}?v=1.2">
+    <link rel="stylesheet" href="{% static "css/caixaRepositorio.css" %}?v=1.5">
+    <link rel="stylesheet" href="{% static "css/Botao.css" %}?v=1.2">
+    <link rel="stylesheet" href="{% static "css/Tags.css" %}?v=1.2">
+    <link rel="stylesheet" href="{% static 'css/comentarios.css' %}">
+    <link rel="icon" type="image/svg+xml" href="{% static 'img/abelha_bizzu.svg' %}">
+</head>
+<body>
+    {% include 'header.html' %}
+
+    <section class="conteudo">
+        {% include 'navbarEsquerda.html' with user=user %}
+
+        <div class="feed">
+            {% if postagens %}
+                {% for postagem in postagens %}
+                <div class="postagem" data-postagem-id="{{ postagem.id }}">
+                    <!-- Nome do usuário e hora da postagem -->
+                    <div class="post-header">
+                        {% if postagem.usuario.imagemPerfil and postagem.usuario.imagemPerfil.url %}
+                            <img src="{{ postagem.usuario.imagemPerfil.url }}" alt="Avatar" class="avatar" style="object-fit: cover;">
+                        {% else %}
+                            <img src="{% static 'img/default-profile.png' %}" alt="Avatar" class="avatar" style="object-fit: cover;">
+                        {% endif %}
+                        <h3> <a href="{% url 'perfil' username=postagem.usuario.username %}">{{ postagem.usuario.nome }}</a> • <span>{{ postagem.dataPublicacao|date:"d/m/Y H:i" }}</span></h3>
+                    </div>
+
+                    <!-- Texto da postagem -->
+                    <div class="post-body">
+                        <p>{{ postagem.texto }}</p>
+                        {% if postagem.imagem %}
+                            <img src="{{ postagem.imagem.url }}" alt="Imagem da postagem" class="post-image">
+                        {% endif %}
+                    </div>
+
+                    <div class="post-footer">
+                        <div class="likes">
+                            <a href="{% url 'curtida' postagem.id %}" id="curtir-btn"><img src="{% static 'img/icone_curtir.png' %}" width="24px"></a>
+                            <span>{{ postagem.curtidas }} <a href="#">curtidas</a></span>
+                        </div>
+                        <div class="comentarios">
+                            <button class="comentar-btn" data-postagem-id="{{ postagem.id }}">
+                                <img src="{% static 'img/icone_comentar.png' %}" width="24px">
+                                <span>Comentar</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p class="postagem-off">Nenhuma postagem disponível. Siga mais pessoas para ver suas postagens!</p>
+            {% endif %}
+        </div>
+
+        <aside class="barrarepositorios">
+            <div class="conteudodireita">
+                <h1 id="titulorep">REPOSITÓRIOS</h1>
+                {% for repositorio in repositorios %}
+                <div class="repositorioContainer">
+                    <div class="headerCaixa">
+                        <div class="profile-container">
+                            <div class="hexagon">
+                                <img src="{{ usuarioFotoPerfilUrl }}" class="profile-image">
+                            </div>
+                            <div class="user-info">
+                                <span class="username">{{ repositorio.usuario|default:"Usuário" }}</span>
+                                <span class="separator">•</span>
+                                <span class="timestamp">{{ repositorio.dataPublicacao|default:"4h atrás" }}</span>
+                            </div>
+                        </div>
+                        <form method="GET" action="{% url "verRepositorio" %}" id="form">
+                            <button type="submit" id="BotaoLink" class="GeralPrimario" name="repositorio" value="{{ repositorio.id }}">
+                                <p id="botaoP">Abrir</p>
+                            </button> 
+                        </form>
+                    </div>
+                    <p class="tituloP">{{ repositorio.titulo }}</p>
+                    <p class="descricaoP">{{ repositorio.descricao }}</p>
+                </div>
+                {% empty %}
+                    <p>Nenhum repositório disponível no momento.</p>
+                {% endfor %}
+            </div>
+        </aside>
+    </section>
+
+    <script src="{% static 'js/comentarios.js' %}"></script>
+    <script>
+        const userImage = "{% if user.is_authenticated and user.imagemPerfil %}{{ user.imagemPerfil.url }}{% else %}{% static 'img/default-profile.png' %}{% endif %}";
+
+        document.querySelectorAll('#curtir-btn').forEach(button => {
+            button.addEventListener('click', function(event) {
+                event.preventDefault();
+                const postagemId = this.closest('.postagem').getAttribute('data-postagem-id');
+
+                fetch(`/curtida/${postagemId}/`, {
+                    method: 'GET',
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}',
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.curtidas !== undefined) {
+                        const curtidasSpan = this.closest('.post-footer').querySelector('.likes span');
+                        curtidasSpan.textContent = `${data.curtidas} curtidas`;
+                    } else {
+                        console.error('Erro ao receber os dados da curtida.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro ao curtir a postagem:', error);
+                });
+            });
+        });
+    </script>
+
+
+</body>
+</html>

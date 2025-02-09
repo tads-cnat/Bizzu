@@ -1,70 +1,191 @@
-body{
-    position: relative;
-    height: calc(100vh);
-    overflow: hidden;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+:root {
+    --primary-color: #F79010;
+    --secondary-color: #058B92;
+    --danger-color: #C11F1F;
+    --text-light: #ffffff;
+    --text-dark: #1B1818;
+    --bg-dark: rgba(255, 255, 255, 0.05);
+    --border-radius: 10px;
+    --max-width: 600px;
 }
 
-body::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url(../img/fundo_bizzu.svg);
-    background-repeat: no-repeat;
-    background-size: cover;
-    transform: rotate(180deg);
-    z-index: -1;
-}
-
-.pagCriarRepositorioContainer{
-    display: flex;
-    gap: 10px;
-    height: calc(100vh - 75px); 
-    margin: auto;
-}
-
-.pagCriarRepositorio{
-    padding: 50px;
-    width: 50%;
-}
-
-.novoRepositorioH1{
-    margin: 0;
+* {
     padding: 0;
-    font-size: 1.5vw;
-    color: white;
-    margin-bottom: 30px;
-    margin-top: 10px;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
 }
 
-form{
+.criar-repositorio {
+    background: var(--bg-dark);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    width: 100%;
+    max-width: var(--max-width);
+    margin: 140px auto;
+}
+
+.criar-repositorio h2 {
+    color: var(--text-light);
+    font-size: 22px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+/* Estilizando os campos */
+.campo {
+    margin-bottom: 15px;
+}
+
+.campo label {
+    display: block;
+    font-weight: 500;
+    color: var(--text-light);
+    margin-bottom: 5px;
+}
+
+.campo select,
+.campo textarea,
+.campo input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: var(--border-radius);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-light);
+}
+
+.campo select {
+    cursor: pointer;
+}
+
+.campo textarea {
+    height: 120px;
+    resize: none;
+}
+
+.acoes-post {
     display: flex;
-    flex-direction: column;
-}
-#opcao{
-    margin-bottom: 10px;
-}
-.text{
-    margin-bottom: 30px;
-}
-.footerRepositorio{
-    display: flex;
-    padding-top: 20px;
     justify-content: space-between;
-    align-items: left;
-    
+    margin-top: 15px;
+    flex-wrap: wrap;
 }
 
-#file-upload{
-    color: white;
-    text-decoration: none;
-    border-radius: 30px;
-    padding: 2%;
-    background-color: #3C3834;
+.botao-descartar, .botao-postar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 10px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.3s;
 }
-.arquivoP{
-    color: #6e6767;
-    width: 1.0vw;
+
+.botao-descartar {
+    background: var(--danger-color);
+    color: var(--text-light);
+}
+
+.botao-postar {
+    background: var(--secondary-color);
+    color: var(--text-light);
+}
+
+.botao-postar:hover {
+    background: #046a70;
+}
+
+.input-titulo {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: var(--border-radius);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-light);
+}
+
+/* Ajusta o fundo das opções dentro do select */
+.campo select option {
+    background-color: var(--text-dark);
+    color: var(--text-light);
+}
+
+/* Estilização do menu de categorias */
+.categorias-container {
+    position: relative;
+    width: 100%;
+}
+
+.botao-categorias {
+    width: 100%;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-light);
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    text-align: left;
+}
+
+.menu-categorias {
+    display: none;
+    position: absolute;
+    width: 100%;
+    background: var(--text-dark);
+    border-radius: var(--border-radius);
+    padding: 10px;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+}
+
+.abas {
+    display: flex;
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.aba {
+    flex: 1;
+    padding: 10px;
+    background: transparent;
+    border: none;
+    color: var(--text-light);
+    cursor: pointer;
+    text-align: center;
+}
+
+.aba.ativa {
+    background: var(--primary-color);
+    color: var(--text-dark);
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+.conteudo-categorias {
+    padding: 10px;
+}
+
+.lista-categorias label {
+    display: block;
+    padding: 5px;
+    color: var(--text-light);
+    cursor: pointer;
+}
+
+.lista-categorias input {
+    margin-right: 5px;
+}
+
+#pesquisaCategorias {
+    width: 100%;
+    padding: 8px;
+    border-radius: var(--border-radius);
+    border: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-light);
 }

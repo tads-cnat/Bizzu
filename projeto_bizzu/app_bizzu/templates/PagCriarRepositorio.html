@@ -1,98 +1,124 @@
-{%load static%}
-<link rel="stylesheet" href="{% static "css/Selector.css" %}?v=1.2">
-<link rel="stylesheet" href="{% static "css/PagCriarRepositorio.css" %}?v=1.2">
-<link rel="stylesheet" href="{% static "css/textarea.css" %}?v=1.3">
-<link rel="stylesheet" href="{% static "css/Botao.css" %}?v=1.2">
-<link rel="stylesheet" href="{% static "css/navbarRepositorio.css" %}">
-<link rel="stylesheet" href="{% static "css/fotoPerfilNome.css" %}?v=1.2">
-<link rel="stylesheet" href="{% static "css/caixaRepositorio.css" %}?v=1.3">
-<link rel="stylesheet" href="{% static "css/Tags.css" %}?v=1.2">
+{% extends "basePerfil.html" %}
+{% load static %}
 
-<body>
-    {% include 'header.html' %}
-    <section class="pagCriarRepositorioContainer">
-        {% include 'navbarEsquerda.html' %}
-        <div class="pagCriarRepositorio">
-            <a id="BotaoLink" class="voltar" href="#">
-                <img id="botaoImg"src="{% static "img/Voltar.svg" %}" alt="">
-                <p id="botaoP">Voltar</p>
-            </a>
-            <h1 class="novoRepositorioH1">Novo Repositório</h1>
-            <form method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                <select id="opcao" name="opcao" required>
-                    <option value="">Selcione a comunidade</option>
-                    <option value="TADS">TADS</option>
-                    <option value="INFOWEB">INFOWEB</option>
-                    <option value="Redes">Redes</option>
-                </select>
-                <div class="text">
-                    <p class="textLabel" for="titulo">Título</p>
-                    <input type="text" class="textArea" rows="1" cols="30" placeholder="Digite o título do seu repositório..." name="titulo" required />
-                </div>
-                <select id="opcao2" name="categoria">
-                    <option value="">Categoria</option>
-                    <option value="tads">Período</option>
-                    <option value="info">Tecnologia</option>
-                    <option value="redes">Matéria</option>
-                </select>
-                <div class="text">
-                    <p class="textLabel" for="descricao">Descrição</p>
-                    <input type="text" class="textArea" placeholder="Digite a descrição do seu repositório..." name="descricao" required/>
-                </div>
-                <p class="arquivoP">Arquivos</p>
-                <input type="file" name="arquivo" id="file-upload"/>
-                
-                <div class="footerRepositorio">
-                    <button type="submit" id="BotaoLink" class="AlertaPrimario">
-                        <img id="botaoImg"src="{% static "img/desconectar.svg" %}" alt="">
-                        <p id="botaoP">Descartar</p>
-                    </button>          
-                    <button type="submit" id="BotaoLink" class="PerfilPrimario">
-                        <img id="botaoImg"src="{% static "img/desconectar.svg" %}" alt="">
-                        <p id="botaoP">Postar</p>
-                    </button>                       
-                </div>
-            </form>
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/PagCriarRepositorio.css' %}">
+
+<div class="criar-repositorio">
+    <h2>Novo Repositório</h2>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <!-- Seletor de Comunidade -->
+        <div class="campo">
+            <label for="comunidade">Selecione uma comunidade:</label>
+            <select id="comunidade" name="comunidade" required>
+                <option value="">Escolha uma comunidade...</option>
+                {% for comunidade in comunidades %}
+                <option value="{{ comunidade.id }}">{{ comunidade.nome }}</option>
+                {% endfor %}
+            </select>
         </div>
-    </div>
-    <aside class="barrarepositorios">
-        <div class="conteudodireita">
-            <h1 id="titulorep">REPOSITÓRIOS</h1>
-            {% for repositorio in repositorios %}
-            <div class="repositorioContainer">
-                <div class="headerCaixa">
-                    <div class="profile-container">
-                        <div class="hexagon">
-                            <img src="{{usuarioFotoPerfilUrl}}" class="profile-image">
+
+        <!-- Seletor de Categorias -->
+        <div class="campo">
+            <label>Categorias:</label>
+            <div class="categorias-container">
+                <button type="button" class="botao-categorias" onclick="toggleCategorias()">Categorias ▼</button>
+                <div class="menu-categorias" id="menuCategorias">
+                    <div class="abas">
+                        <button type="button" class="aba ativa" onclick="mostrarAba('materia', this)">Matéria</button>
+                        <button type="button" class="aba" onclick="mostrarAba('periodo', this)">Período</button>
+                        <button type="button" class="aba" onclick="mostrarAba('tecnologia', this)">Tecnologia</button>
+                    </div>
+
+                    <div class="conteudo-categorias">
+                        <input type="text" id="pesquisaCategorias" placeholder="🔍 Procurar..." onkeyup="filtrarCategorias()">
+
+                        <div class="lista-categorias" id="materia">
+                            {% for categoria in categorias_materia %}
+                                <label><input type="checkbox" name="categorias" value="{{ categoria.id }}"> {{ categoria.nome }}</label>
+                            {% endfor %}
                         </div>
-                        <div class="user-info">
-                            <span class="username">{{repositorio.usuario.nome|default:"Luiz Fernando"}}</span>
-                            <span class="separator">•</span>
-                            <span class="timestamp">{{repositorio.dataPublicacao|default:"4h atrás"}}</span>
+
+                        <div class="lista-categorias" id="periodo" style="display: none;">
+                            {% for categoria in categorias_periodo %}
+                                <label><input type="checkbox" name="categorias" value="{{ categoria.id }}"> {{ categoria.nome }}</label>
+                            {% endfor %}
+                        </div>
+
+                        <div class="lista-categorias" id="tecnologia" style="display: none;">
+                            {% for categoria in categorias_tecnologia %}
+                                <label><input type="checkbox" name="categorias" value="{{ categoria.id }}"> {{ categoria.nome }}</label>
+                            {% endfor %}
                         </div>
                     </div>
-                    <form method="GET" action="{% url "verRepositorio" %}">
-                    <button type="submit" id="BotaoLink" class="GeralPrimario" name="repositorio" value={{repositorio.id}}>
-                        <p id="botaoP">Abrir</p>
-                    </button> 
-                </form>
-                </div>
-                <p class="tituloP">{{repositorio.titulo}}</p>
-                <p class="descricaoP">{{repositorio.descricao}}</p>
-                <div class="container">
-                    <div class="tag tag-rosa"><img src="/projeto_bizzu/app_bizzu/static/img/iconeTagRosa.svg" class="imgMenu"> Período</div>
-                    <div class="tag tag-azul"><img src="/projeto_bizzu/app_bizzu/static/img/iconeTagAzul.svg" class="imgMenu"> Matéria</div>
-                    <div class="tag tag-verde"><img src="/projeto_bizzu/app_bizzu/static/img/iconeTagVerde.svg" class="imgMenu"> Tecnologia</div>
                 </div>
             </div>
-            {% empty %}
-                <p>Nenhum repositório disponível no momento.</p>
-            {% endfor %}
         </div>
-    </aside>
-    </section>
-    
-    </section>
-    
-</body>
+
+        <!-- Campo de título -->
+        <div class="campo">
+            <label for="titulo">Título:</label>
+            <input type="text" id="titulo" name="titulo" class="input-titulo" placeholder="Digite o título do repositório..." required>
+        </div>
+
+        <!-- Campo de descrição -->
+        <div class="campo">
+            <label for="descricao">Descrição:</label>
+            <textarea id="descricao" name="descricao" placeholder="Descreva o conteúdo do repositório..." required></textarea>
+        </div>
+
+        <!-- Upload de Arquivos -->
+        <div class="campo">
+            <label for="arquivos">Anexar Arquivos:</label>
+            <input type="file" id="arquivos" name="arquivos" multiple>
+        </div>
+
+        <!-- Botões de ação -->
+        <div class="acoes-post">
+            <a href="{% url 'perfil' request.user.username %}"><button type="button" class="botao-descartar">❌ Descartar</button></a>
+            <button type="submit" class="botao-postar">📩 Criar</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    function toggleCategorias() {
+        let menu = document.getElementById("menuCategorias");
+        menu.style.display = menu.style.display === "block" ? "none" : "block";
+    }
+
+    function mostrarAba(aba, botao) {
+        let abas = document.querySelectorAll(".lista-categorias");
+        let botoes = document.querySelectorAll(".aba");
+
+        abas.forEach(div => div.style.display = "none");
+        botoes.forEach(btn => btn.classList.remove("ativa"));
+
+        document.getElementById(aba).style.display = "block";
+        botao.classList.add("ativa");
+    }
+
+    function filtrarCategorias() {
+        let input = document.getElementById("pesquisaCategorias").value.toLowerCase();
+        let labels = document.querySelectorAll(".lista-categorias label");
+
+        labels.forEach(label => {
+            let texto = label.textContent.toLowerCase();
+            label.style.display = texto.includes(input) ? "block" : "none";
+        });
+    }
+
+    document.addEventListener("click", function (event) {
+        let menu = document.getElementById("menuCategorias");
+        let botao = document.querySelector(".botao-categorias");
+
+        if (!menu.contains(event.target) && !botao.contains(event.target)) {
+            menu.style.display = "none";
+        }
+    });
+</script>
+
+{% endblock %}

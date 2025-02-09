@@ -5,13 +5,14 @@ from app_bizzu.views import comentarioView,comunidadeView, curtidaView, postagem
 
 urlpatterns=[
     path('', usuarioView.UsuarioView.feed, name="feed"),
+    path('feed-seguidos/', usuarioView.UsuarioView.feed_seguidos, name='feed_seguidos'),
     path('perfil/', usuarioView.UsuarioView.perfil, name='perfil'),
     # path('feed/', usuarioView.UsuarioView.feed, name='feed'),
     # path('<uuid:postagem_id>/curtida/', views.curtida, name='curtida'),
     path('cadastro/', usuarioView.UsuarioView.cadastro, name='cadastro'),
     path('login/', usuarioView.UsuarioView.login, name='login'),
     path('repositorio/', repositorioView.RepositorioView.verRepositorio, name='verRepositorio'),
-    path('novo/repositorio/', repositorioView.RepositorioView.novoRepositorio, name='novoRepositorio'),
+    path('novo-repositorio/', repositorioView.RepositorioView.novoRepositorio, name='novoRepositorio'),
     path('salvos/repositorio/', repositorioView.RepositorioView.repositorioSalvos, name='repositorioSalvos'),
     path('sair/', usuarioView.UsuarioView.sair, name='sair'),
     path('escolher-comunidade/', comunidadeView.ComunidadeView.escolher_comunidade, name='escolher_comunidade'),

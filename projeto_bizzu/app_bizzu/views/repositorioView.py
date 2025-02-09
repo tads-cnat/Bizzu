@@ -1,7 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.contrib import messages
 from django.core.exceptions import ValidationError
-from ..models import Repositorio, Comunidade
+from app_bizzu.models.repositorio import Repositorio
+from app_bizzu.models.comunidade import Comunidade
+from app_bizzu.models.repositorio import ArquivoRepositorio
+from app_bizzu.models.categoria import Categoria
+from django.contrib.auth.decorators import login_required
 
 
 class RepositorioView:
@@ -17,26 +22,53 @@ class RepositorioView:
             usuario.repositoriosFavoritados.add(Repositorio.objects.get(id=idRepositorio))
         return render(request, "PagRepositorio.html", {'repositorios': repositorios})
 
+    @login_required
     def novoRepositorio(request):
         if request.method == "POST":
             titulo = request.POST.get('titulo')
             descricao = request.POST.get('descricao')
-            opcao = request.POST.get('opcao')
-            arquivo = request.FILES.get('arquivo')
-            if (opcao == "TADS"):
-                comunidade = Comunidade.objects.all().filter(nome__icontains="TADS").first()
-            elif (opcao == "INFOWEB"):
-                comunidade = Comunidade.objects.all().filter(nome__icontains="INFOWEB").first()
+            comunidade_id = request.POST.get('comunidade')
+            arquivos = request.FILES.getlist('arquivos')  # Suporte para múltiplos arquivos
+            categorias_selecionadas = request.POST.getlist("categorias")  # Lista de categorias
+
+            comunidade = Comunidade.objects.filter(id=comunidade_id).first()
+
+            if titulo and descricao and comunidade and arquivos:
+                repositorio = Repositorio.objects.create(
+                    titulo=titulo,
+                    descricao=descricao,
+                    comunidade=comunidade,
+                    usuario=request.user
+                )
+
+                # Associar categorias ao repositório
+                repositorio.categorias.set(Categoria.objects.filter(id__in=categorias_selecionadas))
+
+                # Salvar múltiplos arquivos
+                for arquivo in arquivos:
+                    ArquivoRepositorio.objects.create(repositorio=repositorio, arquivo=arquivo)
+
+                messages.success(request, "Repositório criado com sucesso!")
+                return redirect('perfil', username=request.user.username)
+
             else:
-                comunidade = Comunidade.objects.all().filter(nome__icontains="Redes").first()
-            if (titulo and descricao and arquivo and comunidade): #Se tudo for preenchido ele vai salvar no BD
-                usuario = request.user
-                Repositorio(titulo = titulo, descricao = descricao, comunidade = comunidade, arquivo = arquivo, usuario = usuario).save() #Salvar de acordo com o atrúbuto 
-                return HttpResponse("Deu bom")
-            else:
-                raise ValidationError(comunidade)
-        repositorios = Repositorio.objects.all()
-        return render(request, "PagCriarRepositorio.html", {'repositorios': repositorios})
+                messages.error(request, "Preencha todos os campos corretamente!")
+
+        comunidades = Comunidade.objects.all()
+        categorias_materia = Categoria.objects.filter(tipo="mat")
+        categorias_periodo = Categoria.objects.filter(tipo="per")
+        categorias_tecnologia = Categoria.objects.filter(tipo="tec")
+
+        return render(
+            request, 
+            "PagCriarRepositorio.html",
+            {
+                "comunidades": comunidades,
+                "categorias_materia": categorias_materia,
+                "categorias_periodo": categorias_periodo,
+                "categorias_tecnologia": categorias_tecnologia,
+            }
+        )
 
     def repositorioSalvos(request): #Ver todos os repostórios salvos 
         repositorios = Repositorio.objects.all()

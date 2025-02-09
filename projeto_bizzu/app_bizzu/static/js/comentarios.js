@@ -1,4 +1,18 @@
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM totalmente carregado');
+    
+    const comentarBtns = document.querySelectorAll('.comentar-btn');
+    console.log(`Número de botões de comentar encontrados: ${comentarBtns.length}`);
+
+    comentarBtns.forEach(btn => {
+        btn.addEventListener('click', function(event) {
+            console.log('Botão de comentar clicado!');
+        });
+    });
+});
+
+
+document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM fully loaded');
     const comentarBtns = document.querySelectorAll('.comentar-btn');
     console.log('Número de botões de comentar:', comentarBtns.length);
