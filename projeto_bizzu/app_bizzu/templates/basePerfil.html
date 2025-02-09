@@ -31,10 +31,10 @@
             
             <div class="topoLateral">    
             <input type="text" id="buscar" placeholder="Procurar...">
-            <button type="submit" id="BotaoLink" class="AlertaPrimario">
-                <a href="{% url 'sair' %}"><img id="botaoImg"src="{% static "img/desconectar.svg" %}" alt="">
-                <p id="botaoP">Sair</p></a>
-            </button>
+            <a href="{% url 'sair' %}" id="BotaoLink" class="AlertaPrimario">
+                <img id="botaoImg" src="{% static "img/desconectar.svg" %}" alt="">
+                <p id="botaoP">Sair</p>
+            </a>
             </div>
             
             <div class="conteudodireita">

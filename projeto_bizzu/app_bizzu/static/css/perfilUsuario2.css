@@ -216,6 +216,7 @@
 .postagem-off {
     color: white;
     margin: 0 auto;
+    margin-top: 15vh;
 }
 
 /* Estilos para o modal do botão Novo. */
