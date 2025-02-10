@@ -26,6 +26,7 @@ urlpatterns=[
     path('curtida/<uuid:postagem_id>/', curtidaView.CurtidaView.curtida, name='curtida'),
     path('pesquisa/', usuarioView.UsuarioView.pesquisa, name='pesquisa'),
     path('criar-postagem/', usuarioView.UsuarioView.criar_postagem, name='criar_postagem'),
+    path('excluir-repositorio/', repositorioView.RepositorioView.excluirRepositorio, name='excluirRepositorio'),
 ]
 
 if settings.DEBUG:

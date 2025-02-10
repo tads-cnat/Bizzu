@@ -31,13 +31,12 @@ class RepositorioView:
 
     def excluirRepositorio(request):
         if request.method == "POST":
-            idRepositorio = request.GET.get("excluirRepositorio")
+            idRepositorio = request.POST.get('excluir')
             usuario = request.user 
             repositorios = Repositorio.objects.filter(usuario = usuario)
             repositorios = repositorios.filter(id= idRepositorio).first()
             if (repositorios):
                 repositorios.delete()
-                return HttpResponse("Exluiu")
         postagens = Postagem.objects.all().order_by('-dataPublicacao')  # Ordenar pela data (mais recente primeiro)
         repositorios = Repositorio.objects.all()
         return render(request, 'feed.html', {'postagens': postagens, 'user': request.user, 'repositorios': repositorios})
