@@ -55,5 +55,5 @@ body::before {
     margin-right: 10px;
 }
 #download{
-    width: 60%;
+    width: fit-content;
 }

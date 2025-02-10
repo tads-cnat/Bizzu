@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.core.exceptions import ValidationError
 from app_bizzu.models.repositorio import Repositorio
 from app_bizzu.models.comunidade import Comunidade
+from app_bizzu.models.postagem import Postagem
 from app_bizzu.models.repositorio import ArquivoRepositorio
 from app_bizzu.models.categoria import Categoria
 from django.contrib.auth.decorators import login_required
@@ -15,12 +16,33 @@ class RepositorioView:
         if request.method == "GET":
             idRepositorio = request.GET.get('repositorio')
             repAtual = Repositorio.objects.get(id=idRepositorio)
-            return render(request, "PagRepositorio.html", {'repositorios': repositorios, "repositorioAtual":repAtual})
+            return render(request, "PagRepositorio.html", {'repositorios': repositorios, "repositorioAtual":repAtual, "usuario":request.user})
         elif request.method == "POST":
             idRepositorio = request.POST.get('repositoriosFavoritados')
             usuario = request.user
-            usuario.repositoriosFavoritados.add(Repositorio.objects.get(id=idRepositorio))
+            repAtual = Repositorio.objects.get(id=idRepositorio)
+            if (repAtual in usuario.repositoriosFavoritados.all()):
+                usuario.repositoriosFavoritados.remove(Repositorio.objects.get(id=idRepositorio))
+                return render(request, "PagRepositorio.html", {'repositorios': repositorios, "repositorioAtual":repAtual, "usuario":request.user})
+            else:
+                usuario.repositoriosFavoritados.add(Repositorio.objects.get(id=idRepositorio))
+                return render(request, "PagRepositorio.html", {'repositorios': repositorios, "repositorioAtual":repAtual, "usuario":request.user})
         return render(request, "PagRepositorio.html", {'repositorios': repositorios})
+
+    def excluirRepositorio(request):
+        if request.method == "POST":
+            idRepositorio = request.GET.get("excluirRepositorio")
+            usuario = request.user 
+            repositorios = Repositorio.objects.filter(usuario = usuario)
+            repositorios = repositorios.filter(id= idRepositorio).first()
+            if (repositorios):
+                repositorios.delete()
+                return HttpResponse("Exluiu")
+        postagens = Postagem.objects.all().order_by('-dataPublicacao')  # Ordenar pela data (mais recente primeiro)
+        repositorios = Repositorio.objects.all()
+        return render(request, 'feed.html', {'postagens': postagens, 'user': request.user, 'repositorios': repositorios})
+            
+
 
     @login_required
     def novoRepositorio(request):

@@ -25,6 +25,7 @@
     width: 100%;
     max-width: var(--max-width);
     margin: 140px auto;
+    margin-top: 40px;
 }
 
 .criar-repositorio h2 {

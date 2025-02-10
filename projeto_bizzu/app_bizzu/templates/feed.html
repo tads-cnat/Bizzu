@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{% static 'css/feed.css' %}">
     <link rel="stylesheet" href="{% static "css/navbarRepositorio.css" %}?v=1.8">
     <link rel="stylesheet" href="{% static "css/fotoPerfilNome.css" %}?v=1.2">
-    <link rel="stylesheet" href="{% static "css/caixaRepositorio.css" %}?v=1.5">
+    <link rel="stylesheet" href="{% static "css/caixaRepositorio.css" %}?v=1.8">
     <link rel="stylesheet" href="{% static "css/Botao.css" %}?v=1.2">
     <link rel="stylesheet" href="{% static "css/Tags.css" %}?v=1.2">
     <link rel="stylesheet" href="{% static 'css/comentarios.css' %}">
@@ -84,10 +84,22 @@
                     <p class="tituloP">{{repositorio.titulo}}</p>
                     <p class="descricaoP">{{repositorio.descricao}}</p>
                     <div class="container">
-                        <div class="tag tag-rosa"><img src="/projeto_bizzu/app_bizzu/static/img/iconeTagRosa.svg" class="imgMenu"> Período</div>
-                        <div class="tag tag-azul"><img src="/projeto_bizzu/app_bizzu/static/img/iconeTagAzul.svg" class="imgMenu"> Matéria</div>
-                        <div class="tag tag-verde"><img src="/projeto_bizzu/app_bizzu/static/img/iconeTagVerde.svg" class="imgMenu"> Tecnologia</div>
+                        {% for categoria in repositorio.categorias.all %}
+                                    <div class="tag tag-rosa"><img src="/projeto_bizzu/app_bizzu/static/img/iconeTagRosa.svg" class="imgMenu">{{ categoria.nome }}</div>
+                                {% empty %}
+                                <div class="tag tag-rosa"><img src="/projeto_bizzu/app_bizzu/static/img/iconeTagRosa.svg" class="imgMenu"></div>
+                                <div class="tag tag-azul"><img src="/projeto_bizzu/app_bizzu/static/img/iconeTagAzul.svg" class="imgMenu"> </div>
+                                <div class="tag tag-verde"><img src="/projeto_bizzu/app_bizzu/static/img/iconeTagVerde.svg" class="imgMenu"> </div>
+                        {% endfor %}
                     </div>
+
+                    {% if repositorio.usuario.username == user.username %}
+                    <button class="mais" type="submit">...</button>
+                    <div class="dropRepositorio">
+                        <form method="POST"><button type="submit" class="optionRepositorio"><img src="{% static 'img/documento.svg' %}" class="dropImg" name="editarRepositorio" value="{{repositorioAtual.id}}"> Editar</button></form>
+                        <form method="POST" action="{% url 'excluirRepositorio' %}"><button type="submit" class="optionRepositorio" ><img src="{% static 'img/documento.svg' %}" class="dropImg" name="excluirRepositorio" > Excluir</button></form>
+                    </div>
+                {% endif %}
                 </div>
                 {% empty %}
                     <p>Nenhum repositório disponível no momento.</p>
@@ -127,6 +139,7 @@
 });
     </script>
     <script src="{% static 'js/comentarios.js' %}"></script>
+    <script src="{% static 'js/modalRepositorio.js' %}"></script>
     
 </body>
 </html>

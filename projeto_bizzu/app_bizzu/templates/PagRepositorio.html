@@ -1,10 +1,10 @@
 {%load static%}
-<link rel="stylesheet" href="{% static "css/Botao.css" %}?v=1.2">
+<link rel="stylesheet" href="{% static "css/Botao.css" %}?v=1.3">
 <link rel="stylesheet" href="{% static "css/PagRepositorio.css" %}?v=1.3">
 <link rel="stylesheet" href="{% static "css/tabela_repositorio.css" %}?v=1.3">
 <link rel="stylesheet" href="{% static "css/navbarRepositorio.css" %}">
 <link rel="stylesheet" href="{% static "css/fotoPerfilNome.css" %}?v=1.2">
-<link rel="stylesheet" href="{% static "css/caixaRepositorio.css" %}?v=1.3">
+<link rel="stylesheet" href="{% static "css/caixaRepositorio.css" %}?v=1.8">
 <link rel="stylesheet" href="{% static "css/Tags.css" %}?v=1.2">
 
 <body>
@@ -39,7 +39,7 @@
                             <div class="container">
                                 {% for categoria in repositorioAtual.categorias.all %}
                                     <div class="tag">
-                                        <img src="{% static 'img/iconeTag.svg' %}" class="imgMenu"> {{ categoria.nome }}
+                                        <div class="tag tag-rosa"><img src="/projeto_bizzu/app_bizzu/static/img/iconeTagRosa.svg" class="imgMenu">{{ categoria.nome }}</div>
                                     </div>
                                 {% empty %}
                                     <div class="tag">Sem categorias</div>
@@ -77,7 +77,7 @@
                         <p id="botaoP">Favoritar</p>
                     </button>
                 </form>
-                <a href="{{ repositorioAtual.arquivos.first.arquivo.url }}" download id="download">
+                <a href="{{ repositorioAtual.arquivos.first.arquivo.url }}" download id="download" name="baixar" >
                     <button type="submit" id="BotaoLink" class="GeralSecundario">
                         <p id="botaoP">Baixar</p>
                     </button>
@@ -95,7 +95,7 @@
                             <img src="{{usuarioFotoPerfilUrl}}" class="profile-image">
                         </div>
                         <div class="user-info">
-                            <span class="username">{{repositorio.usuario.nome|default:"Luiz Fernando"}}</span>
+                            <span class="username">{{repositorio.usuario|default:"Luiz Fernando"}}</span>
                             <span class="separator">•</span>
                             <span class="timestamp">{{repositorio.dataPublicacao|default:"4h atrás"}}</span>
                         </div>
@@ -109,10 +109,22 @@
                 <p class="tituloP">{{repositorio.titulo}}</p>
                 <p class="descricaoP">{{repositorio.descricao}}</p>
                 <div class="container">
-                    <div class="tag tag-rosa"><img src="/projeto_bizzu/app_bizzu/static/img/iconeTagRosa.svg" class="imgMenu"> Período</div>
-                    <div class="tag tag-azul"><img src="/projeto_bizzu/app_bizzu/static/img/iconeTagAzul.svg" class="imgMenu"> Matéria</div>
-                    <div class="tag tag-verde"><img src="/projeto_bizzu/app_bizzu/static/img/iconeTagVerde.svg" class="imgMenu"> Tecnologia</div>
+                    {% for categoria in repositorio.categorias.all %}
+                                <div class="tag tag-rosa"><img src="/projeto_bizzu/app_bizzu/static/img/iconeTagRosa.svg" class="imgMenu">{{ categoria.nome }}</div>
+                            {% empty %}
+                            <div class="tag tag-rosa"><img src="/projeto_bizzu/app_bizzu/static/img/iconeTagRosa.svg" class="imgMenu"></div>
+                            <div class="tag tag-azul"><img src="/projeto_bizzu/app_bizzu/static/img/iconeTagAzul.svg" class="imgMenu"> </div>
+                            <div class="tag tag-verde"><img src="/projeto_bizzu/app_bizzu/static/img/iconeTagVerde.svg" class="imgMenu"> </div>
+                    {% endfor %}
                 </div>
+                <!-- Só aparece opção para editar e excluir para aquele usuário especifico -->
+                {% if repositorio.usuario.username == usuario.username %}
+                    <button class="mais" type="submit">...</button>
+                    <div class="dropRepositorio">
+                        <form method="DELETE"><a href="#" class="optionRepositorio"><img src="{% static 'img/documento.svg' %}" class="dropImg" name="editarRepositorio" value="{{repositorioAtual.id}}"> Editar</a></form>
+                        <a href="#" class="optionRepositorio"><img src="{% static 'img/documento.svg' %}" class="dropImg" name="excluirRepositorio" > Excluír</a>
+                    </div>
+                {% endif %}
             </div>
             {% empty %}
                 <p>Nenhum repositório disponível no momento.</p>
@@ -123,4 +135,5 @@
     
     </section>
     
+    <script src="{% static 'js/modalRepositorio.js' %}"></script>
 </body>
