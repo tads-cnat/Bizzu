@@ -2,11 +2,13 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 # from .forms import UsuarioCreationForm, UsuarioChangeForm
 from .models import Usuario, Postagem, Repositorio, Comentario, Comunidade, Categoria
+from .models import Curtida
 
 admin.site.register(Postagem)
 admin.site.register(Repositorio)
 admin.site.register(Comentario)
 admin.site.register(Categoria)
+admin.site.register(Curtida)
 
 @admin.register(Usuario)
 class CustomUsuarioAdmin(UserAdmin):

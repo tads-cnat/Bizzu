@@ -112,10 +112,20 @@
 
                     <div class="post-footer">
                         <div class="likes">
-                            <a href="{% url 'curtida' postagem.id %}" id="curtir-btn">
-                                <img src="{% static 'img/icone_curtir.png' %}" width="24px">
+                            <a href="{% url 'curtida' postagem.id %}" class="curtir-btn" data-postagem-id="{{ postagem.id }}">
+                                <img 
+                                width="24px" 
+                                class="curtida-icon"
+                                data-curtida="{% static 'img/curtidaColor.svg' %}"
+                                data-nao-curtida="{% static 'img/curtida.svg' %}"
+                                {% if postagem.curtido %}
+                                    src="{% static 'img/curtidaColor.svg' %}" data-curtido="true"
+                                {% else %}
+                                    src="{% static 'img/curtida.svg' %}"  data-curtido="false"
+                                {% endif %}
+                            >
                             </a>
-                            <span>{{ postagem.curtidas }} curtidas</span>
+                            <span class="curtidas-count">{{ postagem.postagem_curtida.count }} curtidas</span>
                         </div>
                         <div class="comentarios">
                             <button id="comentar-btn">
@@ -130,5 +140,64 @@
             </div>
         </div>
     </main>
-<script src="{% static 'js/modalNovo.js' %}"></script> 
+<script src="{% static 'js/modalNovo.js' %}"></script>
+<script>
+    const userImage = "{% if user.is_authenticated and user.imagemPerfil %}{{ user.imagemPerfil.url }}{% else %}{% static 'img/default-profile.png' %}{% endif %}";
+
+    document.addEventListener("DOMContentLoaded", function () {
+        // Garante que o ícone esteja correto ao carregar a página
+        document.querySelectorAll(".curtida-icon").forEach((icone) => {
+            if (icone.getAttribute("data-curtido") === "true") {
+                icone.src = icone.getAttribute("data-curtida"); // Ícone colorido
+            } else {
+                icone.src = icone.getAttribute("data-nao-curtida"); // Ícone padrão
+            }
+        });
+
+        // Adiciona evento de clique para curtidas
+        document.querySelectorAll('.curtir-btn').forEach(button => {
+            button.addEventListener('click', function(event) {
+                event.preventDefault();  // Evita o redirecionamento
+
+                const postagemId = this.getAttribute('data-postagem-id'); // Obtém o ID
+                const icone = this.querySelector('.curtida-icon'); // Ícone da curtida
+                const contador = this.closest('.likes')?.querySelector('.curtidas-count'); // Contador de curtidas
+
+                fetch(`/curtida/${postagemId}/`, {
+                    method: 'GET',
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}',  // CSRF Token
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.curtidas !== undefined) {
+                        console.log("Curtidas recebidas do servidor:", data.curtidas); // DEBUG
+                        
+                        if (contador) {
+                            contador.innerHTML = `${data.curtidas} curtidas`; // **Atualiza o contador**
+                        }
+
+                        // Atualiza o ícone com base no status da curtida
+                        if (data.curtiu) {
+                            icone.src = icone.getAttribute('data-curtida'); // Ícone colorido
+                            icone.setAttribute("data-curtido", "true");
+                        } else {
+                            icone.src = icone.getAttribute('data-nao-curtida'); // Ícone normal
+                            icone.setAttribute("data-curtido", "false");
+                        }
+                    } else {
+                        console.error('Erro: Resposta inválida do servidor.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro ao curtir a postagem:', error);
+                });
+            });
+        });
+    });
+
+
+</script>
+<script src="{% static 'js/comentarios.js' %}"></script> 
 {% endblock %}

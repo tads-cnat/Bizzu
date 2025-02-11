@@ -18,6 +18,7 @@ from app_bizzu.models.comunidade import Comunidade
 from app_bizzu.models.postagem import Postagem
 from app_bizzu.models.usuario import Usuario
 from app_bizzu.models.repositorio import Repositorio
+from app_bizzu.models.curtida import Curtida
 
 
 
@@ -120,6 +121,8 @@ class UsuarioView:
     def perfil(request, username):
         user = get_object_or_404(Usuario, username=username)
         postagens = Postagem.objects.filter(usuario=user).order_by('-dataPublicacao')
+        for postagem in postagens:
+                postagem.curtido = Curtida.objects.filter(usuario=request.user, postagem=postagem).exists()
         
         paginator = Paginator(postagens, 5)
         page_number = request.GET.get('page')
@@ -145,6 +148,8 @@ class UsuarioView:
             user = request.user
             postagens = Postagem.objects.all().order_by('-dataPublicacao')  # Ordenar pela data (mais recente primeiro)
             repositorios = Repositorio.objects.all()
+            for postagem in postagens:
+                postagem.curtido = Curtida.objects.filter(usuario=request.user, postagem=postagem).exists()
             return render(request, 'feed.html', {'postagens': postagens, 'user': request.user, 'repositorios': repositorios})
         else:
             postagens = Postagem.objects.all().order_by('-dataPublicacao')  # Ordenar pela data (mais recente primeiro)
@@ -160,6 +165,8 @@ class UsuarioView:
 
         # Filtramos postagens apenas desses usuários
         postagens = Postagem.objects.filter(usuario__in=usuarios_seguidos).order_by('-dataPublicacao')
+        for postagem in postagens:
+                postagem.curtido = Curtida.objects.filter(usuario=request.user, postagem=postagem).exists()
 
         repositorios = Repositorio.objects.all()  # Se for necessário no template
 
