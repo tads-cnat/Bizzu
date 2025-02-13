@@ -27,7 +27,6 @@ a {
     position: relative;
     right: 0;
     width: 450px;
-    top: 75px;
     height: calc(100vh - 75px);
     color: white;
     border-left: 1px solid #DCCEB1;

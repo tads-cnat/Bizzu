@@ -55,23 +55,23 @@
             <div class="feed">
 
                 <div class="menu-horizontal-container">
-                    <a href="#" class="menuHorizontal postagensDiv">
-                       <!-- <img class="imgMenu default" src="{% static 'img/iconePostagem.svg' %}" alt="icone postagens"> -->
+                    <div class="menuHorizontal postagensDiv">
                         <img class="imgMenu" src="{% static 'img/iconePostagensCinza.svg' %}" alt="icone postagens hover">
-                        Postagens
-                    </a>
-                    <a href="#" class="menuHorizontal repositorioDiv">
-                       <!-- <img class="imgMenu default" src="{% static 'img/iconeRepositorio.svg' %} alt="icone repositórios"> -->
+                        <button type="button" class="aba ativa menuHorizontal postagensDiv" onclick="mostrarAba('postagens')">Postagens</button>
+                    </div>
+                    <div class="menuHorizontal postagensDiv">
                         <img class="imgMenu" src="{% static 'img/imagemRepositorio.svg' %}" alt="icone repositórios hover">
-                        Repositórios
-                    </a>
-                    <a href="#" class="menuHorizontal comentariosDiv">
-                        <!--<img class="imgMenu default" src="{% static 'img/iconeComentario.svg' %} alt="icone comentários"> -->
+                        <button type="button" class="aba menuHorizontal postagensDiv" onclick="mostrarAba('repositorio')">Repositórios</button>
+                    </div>
+                    <div class="menuHorizontal postagensDiv">
                         <img class="imgMenu" src="{% static 'img/imagemComentario.svg' %}" alt="icone comentários hover">
-                        Comentários
-                    </a>
-                </div>
+                        <button type="button" class="aba menuHorizontal postagensDiv" onclick="mostrarAba('comentario')">Comentários</button>
 
+                    </div>
+                </div>
+                <!-- Postagens -->
+                <div class="lista-categorias" id="postagens">
+                
                 {% for postagem in postagens_paginator %}
                 <div class="postagem">
                     <!-- Nome do usuário e hora da postagem -->
@@ -83,26 +83,6 @@
                     {% endif %}
                         <h3>{{ postagem.usuario.nome }} • <span>{{ postagem.dataPublicacao|date:"d/m/Y H:i" }}</span></h3>
                     </div>
-                    <!--
-                    <div class="menu-horizontal-container">
-                        <a href="#" class="menuHorizontal postagensDiv">
-                            <img class="imgMenu default" src="/projeto_bizzu/app_bizzu/static/img/iconePostagem.svg" alt="icone postagens">
-                            <img class="imgMenu hover" src="colocar icone branco" alt="icone postagens hover">
-                            Postagens
-                        </a> 
-                        <a href="#" class="menuHorizontal repositorioDiv">
-                            <img class="imgMenu default" src="/projeto_bizzu/app_bizzu/static/img/iconeRepositorio.svg" alt="icone repositórios">
-                            <img class="imgMenu hover" src="colocar icone branco" alt="icone repositórios hover">
-                            Repositórios"
-                        </a>
-                        <a href="#" class="menuHorizontal comentariosDiv">
-                            <img class="imgMenu default" src="/projeto_bizzu/app_bizzu/static/img/iconeComentario.svg" alt="icone comentários">
-                            <img class="imgMenu hover" src="colocar icone branco" alt="icone comentários hover">
-                            Comentários
-                        </a>
-                    </div>
-                    -->
-                    <!-- Texto da postagem -->
                     <div class="post-body">
                         <p>{{ postagem.texto }}</p>
                         {% if postagem.imagem %}
@@ -134,9 +114,22 @@
                         </div>
                     </div>
                 </div>
-                {% empty %}
-                <p class="postagem-off">Nenhuma postagem disponível no momento.</p>
                 {% endfor %}
+                {% if not postagens_paginator %} <!-- Se o usuário não tiver postagens mostra a mensagem abaixo-->
+                    <p class="postagem-off">Nenhuma postagem disponível no momento.</p>
+                {%endif%}
+                </div>
+                 <!-- Repositórios -->
+                
+                <div class="lista-categorias" id="repositorio" style="display: none;">
+                    
+                    <p class="postagem-off">Nenhum repositório disponível no momento.</p>   
+                </div> 
+                <!-- Comentários -->
+                <div class="lista-categorias" id="comentario" style="display: none;">
+                    <p class="postagem-off">Nenhum comentário disponível no momento.</p>
+                     
+                </div>
             </div>
         </div>
     </main>
@@ -199,5 +192,31 @@
 
 
 </script>
+<script>
+
+
+
+    // Alternar entre as abas de categoria
+    function mostrarAba(aba) {
+        let abas = document.querySelectorAll(".lista-categorias");
+        let botoes = document.querySelectorAll(".aba");
+    
+        abas.forEach(div => div.style.display = "none");
+        botoes.forEach(btn => btn.classList.remove("ativa"));
+    
+        document.getElementById(aba).style.display = "block";
+        event.target.classList.add("ativa");
+    }
+    
+    // Fechar menu ao clicar fora
+    document.addEventListener("click", function (event) {
+        let menu = document.getElementById("menuCategorias");
+        let botao = document.querySelector(".botao-categorias");
+    
+        if (!menu.contains(event.target) && !botao.contains(event.target)) {
+            menu.style.display = "none";
+        }
+    });
+    </script>
 <script src="{% static 'js/comentarios.js' %}"></script> 
 {% endblock %}

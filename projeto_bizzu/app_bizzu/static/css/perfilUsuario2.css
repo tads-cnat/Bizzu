@@ -217,6 +217,8 @@
     color: white;
     margin: 0 auto;
     margin-top: 15vh;
+    text-align: center;
+    
 }
 
 /* Estilos para o modal do botão Novo. */
@@ -254,4 +256,26 @@
 
 .modal-option:hover {
     background-color: #f0f0f0;
+}
+
+
+.aba {
+    flex: 1;
+    padding: 10px;
+    background: transparent;
+    border: none;
+    color: var(--text-light);
+    cursor: pointer;
+    text-align: center;
+}
+.aba:hover{
+    background-color: #F79010;
+    color: white;
+}
+
+.aba.ativa {
+    background: var(--primary-color);
+    color: var(--branco);
+    font-weight: bold;
+    border-radius: 20px;
 }
