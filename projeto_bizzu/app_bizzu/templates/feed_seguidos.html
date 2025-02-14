@@ -27,12 +27,23 @@
                 <div class="postagem" data-postagem-id="{{ postagem.id }}">
                     <!-- Nome do usuário e hora da postagem -->
                     <div class="post-header">
+                        <div class="user-info">
                         {% if postagem.usuario.imagemPerfil and postagem.usuario.imagemPerfil.url %}
                             <img src="{{ postagem.usuario.imagemPerfil.url }}" alt="Avatar" class="avatar" style="object-fit: cover;">
                         {% else %}
                             <img src="{% static 'img/default-profile.png' %}" alt="Avatar" class="avatar" style="object-fit: cover;">
                         {% endif %}
-                        <h3> <a href="{% url 'perfil' username=postagem.usuario.username %}">{{ postagem.usuario.nome }}</a> • <span>{{ postagem.dataPublicacao|date:"d/m/Y H:i" }}</span></h3>
+                        
+                            <h3> <a href="{% url 'perfil' username=postagem.usuario.username %}">{{ postagem.usuario.nome }} </a> • <span>{{ postagem.dataPublicacao|date:"d/m/Y H:i" }}</span></h3>
+                            <h3 class="comunidade-post">{{ postagem.comunidade }}</h3>
+                        </div>
+                        <div class="categorias-post">
+                            {% for categoria in postagem.categorias.all %}
+                                <h4 class="categoria {% if categoria.tipo == 'per' %}periodo{% elif categoria.tipo == 'mat' %}materia{% elif categoria.tipo == 'tec' %}tecnologia{% endif %}">
+                                    • {{ categoria.nome }}
+                                </h4>
+                            {% endfor %}
+                        </div>
                     </div>
 
                     <!-- Texto da postagem -->

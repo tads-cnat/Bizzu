@@ -72,8 +72,52 @@ body::before {
 
 .post-header {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    /* align-items: center; */
     gap: 10px;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+
+.comunidade-post {
+    height: 30px;
+    padding: 0 5px;
+    font-weight: 600;
+    border: 2px solid var(--verdeAgua);
+    border-radius: 10px;
+    color: var(--verdeAgua);
+}
+
+.categorias-post {
+    display: flex;
+    flex-wrap: wrap; /* Permite quebra se faltar espaço */
+    margin-left: 64px;
+    margin-top: -20px;
+}
+
+.categoria {
+    font-size: 14px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 8px;
+    text-transform: uppercase;
+}
+
+/* Estilos específicos para cada tipo de categoria */
+.periodo {
+    color: #EA3165;
+}
+
+.materia {
+    color: #F7C110;
+}
+
+.tecnologia {
+    color: #6FB112;
 }
 
 .avatar {
