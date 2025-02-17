@@ -1,11 +1,11 @@
 .repositorioContainer{
-    border: 1px solid #F7C110;
+    border: 2px solid #F79010;
     width: 90%;
     display: flex;
     flex-direction: column;
     border-radius: 30px;
     padding: 10px;
-    max-height: 230px;
+    /* max-height: 230px; */
     height: auto;
     margin: 0;
     padding-bottom: 30px;
@@ -13,6 +13,7 @@
     margin-bottom: 20px;
 }
 .headerCaixa{
+    width: 90%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -22,14 +23,15 @@
 .tituloP{
     color: white;
     font-weight: 700;
-    font-size: 1.4vw;
+    font-size: 1.1vw;
     font-family: Poppins;
     padding-bottom: 5px;
     padding-left: 5px;
 }
 .descricaoP{
     color: white;
-    font-size: 0.9vw;
+    font-size: 0.8vw;
+    font-weight: 200;
     padding-left: 5px;
     padding-bottom: 5%;
 }

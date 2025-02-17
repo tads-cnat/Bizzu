@@ -25,7 +25,7 @@
             <div class="postagem" data-postagem-id="{{ postagem.id }}">
                 <!-- Nome do usuário e hora da postagem -->
                 <div class="post-header">
-                    <div class="user-info">
+                    <div class="usuario-info">
                     {% if postagem.usuario.imagemPerfil and postagem.usuario.imagemPerfil.url %}
                         <img src="{{ postagem.usuario.imagemPerfil.url }}" alt="Avatar" class="avatar" style="object-fit: cover;">
                     {% else %}
@@ -89,12 +89,12 @@
                     <div class="headerCaixa">
                         <div class="profile-container">
                             <div class="hexagon">
-                                <img src="{{usuarioFotoPerfilUrl}}" class="profile-image">
+                                <img src="{{ repositorio.usuario.imagemPerfil.url }}" class="profile-image">
                             </div>
                             <div class="user-info">
                                 <span class="username">{{repositorio.usuario|default:"Luiz Fernando"}}</span>
                                 <span class="separator">•</span>
-                                <span class="timestamp">{{repositorio.dataPublicacao|default:"4h atrás"}}</span>
+                                <span class="timestamp">{{ repositorio.dataPublicacao|timesince }} atrás</span>
                             </div>
                         </div>
                         <form method="GET" action="{% url "verRepositorio" %}" id="form">
@@ -107,7 +107,7 @@
                     <p class="descricaoP">{{repositorio.descricao}}</p>
                     <div class="container">
                         {% for categoria in repositorio.categorias.all %}
-                                    <div class="tag tag-rosa"><img src="/projeto_bizzu/app_bizzu/static/img/iconeTagRosa.svg" class="imgMenu">{{ categoria.nome }}</div>
+                                    <div class="tag tag-rosa"><img src="/projeto_bizzu/app_bizzu/static/img/iconeTagRosa.svg" class="imgMenu">• {{ categoria.nome }}</div>
                                 {% empty %}
                                 <div class="tag tag-rosa"><img src="/projeto_bizzu/app_bizzu/static/img/iconeTagRosa.svg" class="imgMenu"></div>
                                 <div class="tag tag-azul"><img src="/projeto_bizzu/app_bizzu/static/img/iconeTagAzul.svg" class="imgMenu"> </div>

@@ -40,16 +40,18 @@ button{
 }
 
 #BotaoLink.GeralPrimario{
-    background-color: #F7C110 ;
+    background-color: #F79010 ;
     color: white;
-    padding-left: 5%;
-    padding-right: 5%;
+    width: 100px;
+    height: 35px;
+    /* padding-left: 5%; 
+    padding-right: 5%; */
 }
 
 #BotaoLink.GeralSecundario{
     border: 1px solid;
-    border-color: #F7C110 ;
-    color: #F7C110;
+    border-color: #F79010 ;
+    color: #F79010;
     padding: 0;
     padding-left: 3%;
     padding-right: 3%;

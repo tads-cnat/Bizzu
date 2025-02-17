@@ -41,19 +41,19 @@
                 <div class="informacoesPerfil">
                     <div class="blocoDiv">
                         <div id="blocoInfo">
-                            <p class="quantidadeP">15</p>
+                            <p class="quantidadeP">· 15</p>
                             <p class="tipoP">Curtidas</p>
                         </div>
                         <div id="blocoInfo">
-                            <p class="quantidadeP">99</p>
+                            <p class="quantidadeP">· 99</p>
                             <p class="tipoP">Comentários</p>
                         </div>
                         <div id="blocoInfo">
-                            <p class="quantidadeP">1</p>
+                            <p class="quantidadeP">· 1</p>
                             <p class="tipoP">Repositórios</p>
                         </div>
                         <div id="blocoInfo">
-                            <p class="quantidadeP">{{ usuario.postagens.count }}</p>
+                            <p class="quantidadeP">· {{ usuario.postagens.count }}</p>
                             <p class="tipoP">Postagens</p>
                         </div>
                 </div>
@@ -64,19 +64,19 @@
                     </div>
                     <div class="topico">
                         <img src="{% static 'img/abelha_bizzu.svg' %}" id="iconePerfil">
-                        <p class="infosPerfil">{{ usuario.escolaFormacao }}</p>
+                        <p class="infosPerfil">Ensino médio: {{ usuario.escolaFormacao }}</p>
                     </div>
                     <div class="topico">
                         <img src="{% static 'img/abelha_bizzu.svg' %}" id="iconePerfil">
-                        <p class="infosPerfil">{{ usuario.instituicaoAtual }}</p>
+                        <p class="infosPerfil">Atual: {{ usuario.instituicaoAtual }}</p>
                     </div>
                     <div class="topico">
                         <img src="{% static 'img/abelha_bizzu.svg' %}" id="iconePerfil">
-                        <p class="infosPerfil">{{ usuario.localTrabalho|default:"Não possui" }}</p>
+                        <p class="infosPerfil">Trabalho: {{ usuario.localTrabalho|default:"Não possui" }}</p>
                     </div>
                     <div class="topico">
                         <img src="{% static 'img/abelha_bizzu.svg' %}" id="iconePerfil">
-                        <p class="infosPerfil">{{ usuario.progressoCurso }}</p>
+                        <p class="infosPerfil">Progresso: {{ usuario.progressoCurso }}</p>
                     </div>
                 </div>
                 <div class="configuracoes">

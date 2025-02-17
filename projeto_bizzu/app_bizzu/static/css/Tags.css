@@ -22,7 +22,7 @@
 /* 1. definir cor de acordo com a paleta do design system, essas cores são temporárias
    2. as cores só são usadas no nome também, em postagens. As tags no repositório só tem a bolinha colorida e os nomes em branco */
 .tag-rosa {
-    color: #EA3165; 
+    color: white; 
 }
 
 .tag-azul {
