@@ -46,7 +46,7 @@ body::before {
 
 .conteudoPerfil {
     width: calc(100% - 700px);
-    height: calc(100vh - 75px);
+    height: calc(100vh - 25px);
 }
 
 header {

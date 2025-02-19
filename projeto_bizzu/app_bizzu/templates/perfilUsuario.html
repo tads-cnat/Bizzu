@@ -72,18 +72,33 @@
                 </div>
                 <!-- Postagens -->
                 <div class="lista-categorias" id="postagens">
+                <form id="csrf-form">
+                    {% csrf_token %}
+                </form>
                 
                 {% for postagem in postagens_paginator %}
                 <div class="postagem">
                     <!-- Nome do usuário e hora da postagem -->
                     <div class="post-header">
-                    {% if postagem.usuario.imagemPerfil and postagem.usuario.imagemPerfil.url %}
-                        <img src="{{ postagem.usuario.imagemPerfil.url }}" alt="Avatar" class="avatar" style="object-fit: cover;">
-                    {% else %}
-                        <img src="{% static 'img/default-profile.png' %}" alt="Avatar" class="avatar" style="object-fit: cover;">
-                    {% endif %}
-                        <h3>{{ postagem.usuario.nome }} • <span>{{ postagem.dataPublicacao|date:"d/m/Y H:i" }}</span></h3>
+                        <div class="usuario-info">
+                        {% if postagem.usuario.imagemPerfil and postagem.usuario.imagemPerfil.url %}
+                            <img src="{{ postagem.usuario.imagemPerfil.url }}" alt="Avatar" class="avatar1" style="object-fit: cover;">
+                        {% else %}
+                            <img src="{% static 'img/default-profile.png' %}" alt="Avatar" class="avatar1" style="object-fit: cover;">
+                        {% endif %}
+                        
+                            <h3> <a href="{% url 'perfil' username=postagem.usuario.username %}">{{ postagem.usuario.nome }} </a> • <span>{{ postagem.dataPublicacao|date:"d/m/Y H:i" }}</span></h3>
+                            <h3 class="comunidade-post">{{ postagem.comunidade }}</h3>
+                        </div>
+                        <div class="categorias-post">
+                            {% for categoria in postagem.categorias.all %}
+                                <h4 class="categoria {% if categoria.tipo == 'per' %}periodo{% elif categoria.tipo == 'mat' %}materia{% elif categoria.tipo == 'tec' %}tecnologia{% endif %}">
+                                    • {{ categoria.nome }}
+                                </h4>
+                            {% endfor %}
+                        </div>
                     </div>
+
                     <div class="post-body">
                         <p>{{ postagem.texto }}</p>
                         {% if postagem.imagem %}
@@ -112,6 +127,30 @@
                             <button id="comentar-btn">
                                 <img src="{% static 'img/icone_comentar.png' %}" width="24px"> Comentar
                             </button>
+                        </div>
+                        <div class="acoes-postagem">
+                            {% if request.user == postagem.usuario %}
+                                <!-- Botão de opções ⚙ -->
+                                <button class="btn-opcoes" onclick="abrirOpcoesModal('{{ postagem.id }}')">⚙️</button>
+                    
+                                <!-- Modal de Opções -->
+                                <div id="modal-opcoes-{{ postagem.id }}" class="modal-opcoes">
+                                    <div class="modal-content">
+                                        <button onclick="editarPostagem('{{ postagem.id }}')" class="btn-editar">✏ Editar</button>
+                                        <button onclick="abrirConfirmacaoExcluir('{{ postagem.id }}')" class="btn-excluir">🗑 Excluir</button>
+                                        <button onclick="fecharOpcoesModal('{{ postagem.id }}')" class="btn-cancelar">Cancelar</button>
+                                    </div>
+                                </div>
+                    
+                                <!-- Modal de Confirmação de Exclusão -->
+                                <div id="modal-excluir-{{ postagem.id }}" class="modal-excluir">
+                                    <div class="modal-content">
+                                        <p class="msg-excluir">Você tem certeza que deseja excluir esta publicação?</p>
+                                        <button onclick="excluirPostagem('{{ postagem.id }}')" class="btn-sim">Sim</button>
+                                        <button onclick="fecharConfirmacaoExcluir('{{ postagem.id }}')" class="btn-nao">Não</button>
+                                    </div>
+                                </div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -153,6 +192,7 @@
         </div>
     </main>
 <script src="{% static 'js/modalNovo.js' %}"></script>
+<script src="{% static 'js/postagens.js' %}"></script>
 <script>
     const userImage = "{% if user.is_authenticated and user.imagemPerfil %}{{ user.imagemPerfil.url }}{% else %}{% static 'img/default-profile.png' %}{% endif %}";
 
