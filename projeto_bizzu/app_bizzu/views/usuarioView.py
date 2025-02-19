@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect, JsonResponse
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as login_django
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
 from django.contrib.auth import login as login_django
 from ..forms import EditarPerfilForm, CadastrarPerfilForm
@@ -139,6 +140,20 @@ class UsuarioView:
         }
 
         return render(request, 'perfilUsuario.html', context)
+
+    @login_required
+    @csrf_exempt  # 🔴 Remova isso se for usar o CSRF Token corretamente no JavaScript!
+    def excluir_postagem(request, postagem_id):
+        if request.method != "POST":
+            return JsonResponse({"success": False, "error": "Método não permitido"}, status=405)
+
+        postagem = get_object_or_404(Postagem, id=postagem_id)
+
+        if request.user == postagem.usuario:
+            postagem.delete()
+            return JsonResponse({"success": True})
+
+        return JsonResponse({"success": False, "error": "Você não tem permissão para excluir esta postagem."}, status=403)
     
     def navbarLateral(request, username):
         user = get_object_or_404(Usuario, username=username)
