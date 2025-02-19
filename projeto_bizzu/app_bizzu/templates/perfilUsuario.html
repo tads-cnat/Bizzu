@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="{% static "css/perfilUsuario2.css" %}?v=1.2">
 <link rel="stylesheet" href="{% static "css/Botao.css" %}?v=1.2">
 <link rel="stylesheet" href="{% static "css/menuHorizontal.css" %}?v=1.2">
+<link rel="stylesheet" href="{% static "css/comentarioPerfil.css" %}?v=1.2">
         <main id="principal">
         <div class="perfilUsuario">
             
@@ -127,7 +128,25 @@
                 </div> 
                 <!-- Comentários -->
                 <div class="lista-categorias" id="comentario" style="display: none;">
-                    <p class="postagem-off">Nenhum comentário disponível no momento.</p>
+                    <div class="comment-container">
+                            <div class="user-info">
+                                <img src="user1.jpg" alt="User" class="avatar">
+                                <span class="username">Luiz Fernando</span>
+                                <span class="time">• 4h atrás</span>
+                                <button class="view-post">Ver post</button>
+                            </div>
+                            <p class="comment-text">Riel é frango, nunca vai treinar</p>
+                        
+                        </div>
+                        <img class="barraComentario" src="{% static 'img/barraComentario.svg' %}">
+                        <span class="reply-to">Resposta ao post de @Luuiz</span>
+                        <div class="user-info">
+                            <img src="{{ usuario.imagemPerfil.url }}" alt="Avatar" class="avatar" style="object-fit: cover;">
+                            <span class="username">{{usuario.username}}</span>
+                            <span class="time">• 2h atrás</span>
+                        </div>
+                        <p class="comment-reply">Mal treino e tenho mais tríceps que @Luuiz</p>
+                        <p class="postagem-off">Nenhum comentário disponível no momento.</p>
                      
                 </div>
             </div>
