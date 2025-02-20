@@ -8,3 +8,13 @@
 ![diag-sequencia-cdu-comentar](https://github.com/user-attachments/assets/15e29cec-cdd2-4d2f-8996-32aef549ead8)
 
 **Implementado por: Luiz Fernando Gama Nery**
+
+### Seguir Perfil
+![image](https://github.com/user-attachments/assets/f131a7e8-4aa7-4ff9-bd7a-4a9436920ecc)
+
+**Implementado por: Gabrielly Stéphany Siqueira Magalhães Martins**
+
+### Fazer Login
+![unnamed](https://github.com/user-attachments/assets/d23f8f5b-d50a-4680-819e-03b02992ae8c)
+
+**Implementado por: Mateus Vitor Cavalcanti Rodrigues**
