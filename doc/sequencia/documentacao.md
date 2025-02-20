@@ -24,3 +24,7 @@
 
 **Implementado por: Jesrriel Moura Lopes**
 
+### Fazer cadastro
+![image](https://github.com/user-attachments/assets/cc936d90-7a20-4ba6-bf76-25a1518545b5)
+
+**Implementado por: Luiz Roberto da Silva Gonzaga**
