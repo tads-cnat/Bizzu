@@ -2,9 +2,7 @@
 
 ## Diagrama ER
 
-![Diagrama bizzu revisado drawio (1)](https://github.com/user-attachments/assets/18df58bc-78f7-4636-8989-e048cfb6861b)
-
-
+![Diagrama bizzu revisado drawio](https://github.com/user-attachments/assets/9d8236d1-a8ae-4d0a-af27-79beb3b4dafd)
 
 ## Modelo Relacional
 
