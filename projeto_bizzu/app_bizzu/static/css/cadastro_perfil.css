@@ -18,6 +18,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
 }
 
 body {
@@ -136,10 +137,22 @@ body::before {
     min-width: 200px;
 }
 
+.brancasso {
+    background-color: #046a70;
+}
+
 label {
     display: block;
     margin-bottom: 0.5rem;
     font-weight: 500;
+}
+
+option {
+    color: black;
+}
+
+select::placeholder {
+    color: red;
 }
 
 input, textarea, select {
