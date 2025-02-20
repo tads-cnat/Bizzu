@@ -1,9 +1,6 @@
-{% extends "basePerfil.html" %}
+{% extends 'baseComunidade.html' %}
 {% load static %}
 
-
-
-<!-- <title>{{ usuario.nome }} - Perfil</title> -->
 
 {% block content %}
 <link rel="stylesheet" href="{% static "css/perfilUsuario2.css" %}?v=1.2">
@@ -28,7 +25,6 @@
                         <p class="descricao">{{ usuario.descricao }}</p>
                         <div class="perfil-status">
                             <span><strong>{{ usuario.seguidores.count }}</strong> Seguidores</span>
-                            <span><strong>{{ usuario.seguindo.count }}</strong> Seguindo</span>
                             {% if request.user == usuario %}
                             <button class="btn-novo" id="btn-novo">+ Novo</button>
                             <div id="modal-novo" class="modal">
@@ -72,18 +68,33 @@
                 </div>
                 <!-- Postagens -->
                 <div class="lista-categorias" id="postagens">
+                <form id="csrf-form">
+                    {% csrf_token %}
+                </form>
                 
                 {% for postagem in postagens_paginator %}
                 <div class="postagem">
                     <!-- Nome do usuário e hora da postagem -->
                     <div class="post-header">
-                    {% if postagem.usuario.imagemPerfil and postagem.usuario.imagemPerfil.url %}
-                        <img src="{{ postagem.usuario.imagemPerfil.url }}" alt="Avatar" class="avatar" style="object-fit: cover;">
-                    {% else %}
-                        <img src="{% static 'img/default-profile.png' %}" alt="Avatar" class="avatar" style="object-fit: cover;">
-                    {% endif %}
-                        <h3>{{ postagem.usuario.nome }} • <span>{{ postagem.dataPublicacao|date:"d/m/Y H:i" }}</span></h3>
+                        <div class="usuario-info">
+                        {% if postagem.usuario.imagemPerfil and postagem.usuario.imagemPerfil.url %}
+                            <img src="{{ postagem.usuario.imagemPerfil.url }}" alt="Avatar" class="avatar1" style="object-fit: cover;">
+                        {% else %}
+                            <img src="{% static 'img/default-profile.png' %}" alt="Avatar" class="avatar1" style="object-fit: cover;">
+                        {% endif %}
+                        
+                            <h3> <a href="{% url 'perfil' username=postagem.usuario.username %}">{{ postagem.usuario.nome }} </a> • <span>{{ postagem.dataPublicacao|date:"d/m/Y H:i" }}</span></h3>
+                            <h3 class="comunidade-post">{{ postagem.comunidade }}</h3>
+                        </div>
+                        <div class="categorias-post">
+                            {% for categoria in postagem.categorias.all %}
+                                <h4 class="categoria {% if categoria.tipo == 'per' %}periodo{% elif categoria.tipo == 'mat' %}materia{% elif categoria.tipo == 'tec' %}tecnologia{% endif %}">
+                                    • {{ categoria.nome }}
+                                </h4>
+                            {% endfor %}
+                        </div>
                     </div>
+
                     <div class="post-body">
                         <p>{{ postagem.texto }}</p>
                         {% if postagem.imagem %}
@@ -113,6 +124,30 @@
                                 <img src="{% static 'img/icone_comentar.png' %}" width="24px"> Comentar
                             </button>
                         </div>
+                        <div class="acoes-postagem">
+                            {% if request.user == postagem.usuario %}
+                                <!-- Botão de opções ⚙ -->
+                                <button class="btn-opcoes" onclick="abrirOpcoesModal('{{ postagem.id }}')">⚙️</button>
+                    
+                                <!-- Modal de Opções -->
+                                <div id="modal-opcoes-{{ postagem.id }}" class="modal-opcoes">
+                                    <div class="modal-content">
+                                        <button onclick="editarPostagem('{{ postagem.id }}')" class="btn-editar">✏ Editar</button>
+                                        <button onclick="abrirConfirmacaoExcluir('{{ postagem.id }}')" class="btn-excluir">🗑 Excluir</button>
+                                        <button onclick="fecharOpcoesModal('{{ postagem.id }}')" class="btn-cancelar">Cancelar</button>
+                                    </div>
+                                </div>
+                    
+                                <!-- Modal de Confirmação de Exclusão -->
+                                <div id="modal-excluir-{{ postagem.id }}" class="modal-excluir">
+                                    <div class="modal-content">
+                                        <p class="msg-excluir">Você tem certeza que deseja excluir esta publicação?</p>
+                                        <button onclick="excluirPostagem('{{ postagem.id }}')" class="btn-sim">Sim</button>
+                                        <button onclick="fecharConfirmacaoExcluir('{{ postagem.id }}')" class="btn-nao">Não</button>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
                 {% endfor %}
@@ -128,40 +163,32 @@
                 </div> 
                 <!-- Comentários -->
                 <div class="lista-categorias" id="comentario" style="display: none;">
-                    {%for postagem,comentario in comentario_post%}
-
-
-
-
                     <div class="comment-container">
+                            <div class="user-info">
+                                <img src="user1.jpg" alt="User" class="avatar">
+                                <span class="username">Luiz Fernando</span>
+                                <span class="time">• 4h atrás</span>
+                                <button class="view-post">Ver post</button>
+                            </div>
+                            <p class="comment-text">Riel é frango, nunca vai treinar</p>
+                        
+                        </div>
+                        <img class="barraComentario" src="{% static 'img/barraComentario.svg' %}">
+                        <span class="reply-to">Resposta ao post de @Luuiz</span>
                         <div class="user-info">
-                            <img src="{{ postagem.usuario.imagemPerfil.url }}" alt="User" class="avatar">
-                            <span class="username">{{postagem.usuario.username}}</span>
-                            <span class="time">• {{ postagem.dataPublicacao|date:"d/m/Y H:i" }}</span>
-                            <button class="view-post">Ver post</button>
-                        </div> <!-- Fechamento da div -> user-info -->
-                        <p class="comment-text">{{postagem.texto}}</p>
-                    </div> <!-- Fechamento da div -> comment-container-->
-
-                    <img class="barraComentario" src="{% static 'img/barraComentario.svg' %}">
-                    <span class="reply-to">Resposta ao post de {{postagem.usuario.username}}</span>
-                    {% for comentario in comentarios %}
-                    <div class="user-info">
-                        <img src="{{ usuario.imagemPerfil.url }}" alt="Avatar" class="avatar" style="object-fit: cover;">
-                        <span class="username">{{comentario.usuario.username}}</span>
-                        <span class="time">• {{ comentario.dataPostagem|date:"d/m/Y H:i" }}</span>
-                    </div> <!--Fechamento da div -> user-info -->
-                    <p class="comment-reply">{{comentario.usuario.conteudo}</p>
-                    {%endfor%}
-                    {%endfor%}
-                    {% if not comentario_paginator%}  
-                    <p class="postagem-off">Nenhum comentário disponível no momento.</p>
-                    {%endif%}
-                </div> <!--Fechamento da div listar-categorias -->
+                            <img src="{{ usuario.imagemPerfil.url }}" alt="Avatar" class="avatar" style="object-fit: cover;">
+                            <span class="username">{{usuario.username}}</span>
+                            <span class="time">• 2h atrás</span>
+                        </div>
+                        <p class="comment-reply">Mal treino e tenho mais tríceps que @Luuiz</p>
+                        <p class="postagem-off">Nenhum comentário disponível no momento.</p>
+                     
+                </div>
             </div>
         </div>
     </main>
 <script src="{% static 'js/modalNovo.js' %}"></script>
+<script src="{% static 'js/postagens.js' %}"></script>
 <script>
     const userImage = "{% if user.is_authenticated and user.imagemPerfil %}{{ user.imagemPerfil.url }}{% else %}{% static 'img/default-profile.png' %}{% endif %}";
 

@@ -6,6 +6,10 @@ from django.contrib import messages
 
 class ComunidadeView:
     @login_required
+    def ver_comunidade(request):  
+        return render(request, 'baseComunidade.html')
+        
+    @login_required
     def escolher_comunidade(request):
         comunidades = Comunidade.objects.all()  # Buscar todas as comunidades do banco
         return render(request, "comunidade.html", {"comunidades": comunidades})
