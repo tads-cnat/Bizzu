@@ -4,14 +4,15 @@
 {% block content %}
 <link rel="stylesheet" href="{% static 'css/editarPerfil.css' %}">
 <link rel="stylesheet" href="{% static 'css/popup.css' %}">
+
 <div class="profile-edit-container">
     <form method="post" enctype="multipart/form-data" class="edit-form">
         {% csrf_token %}
         
-        <a href="{% url 'perfil' request.user.username %}" class="back-link">
-            <img src="{% static 'images/arrow-left.svg' %}" alt="Voltar" />
+        <!-- <a href="{% url 'perfil' request.user.username %}" class="back-link">
+            <img src="{% static 'images/arrow-left.svg' %}" alt="Voltar">
             Voltar
-        </a>
+        </a> -->
 
         <!-- Seção da foto do perfil -->
         <div class="profile-section">
@@ -30,10 +31,14 @@
                     <p class="profile-username">@{{ user.username }}</p>
                 </div>
             </div>
-            <button type="button" class="photo-upload-button">
-                Alterar foto
+            
+            <!-- Corrigindo input de upload de imagem -->
+            <div class="profile-image-upload">
+                <label class="photo-upload-button" for="id_imagemPerfil">
+                    Alterar foto
+                </label>
                 {{ form.imagemPerfil }}
-            </button>
+            </div>
         </div>
 
         <!-- Campos do formulário -->
@@ -44,67 +49,60 @@
                 </div>
             {% endif %}
 
-            <!-- Nome de exibição -->
             <div class="form-group">
                 <label class="form-label">Nome de exibição</label>
                 {{ form.nome }}
-                {% if form.nome.errors %}
-                    <p class="error-message">{{ form.nome.errors.0 }}</p>
-                {% endif %}
+                {% for error in form.nome.errors %}
+                    <p class="error-message">{{ error }}</p>
+                {% endfor %}
             </div>
 
-            <!-- Username -->
             <div class="form-group">
                 <label class="form-label">Nome de usuário</label>
                 {{ form.username }}
-                {% if form.username.errors %}
-                    <p class="error-message">{{ form.username.errors.0 }}</p>
-                {% endif %}
+                {% for error in form.username.errors %}
+                    <p class="error-message">{{ error }}</p>
+                {% endfor %}
             </div>
 
-            <!-- Descrição -->
             <div class="form-group">
                 <label class="form-label">Descrição</label>
                 {{ form.descricao }}
-                {% if form.descricao.errors %}
-                    <p class="error-message">{{ form.descricao.errors.0 }}</p>
-                {% endif %}
+                {% for error in form.descricao.errors %}
+                    <p class="error-message">{{ error }}</p>
+                {% endfor %}
             </div>
 
-            <!-- Formação Acadêmica -->
             <div class="form-group">
                 <label class="form-label">Formação acadêmica</label>
                 {{ form.escolaFormacao }}
-                {% if form.escolaFormacao.errors %}
-                    <p class="error-message">{{ form.escolaFormacao.errors.0 }}</p>
-                {% endif %}
+                {% for error in form.escolaFormacao.errors %}
+                    <p class="error-message">{{ error }}</p>
+                {% endfor %}
             </div>
 
-            <!-- Curso e Instituição -->
             <div class="form-grid">
                 <div class="form-group">
-                    <label class="form-label">Curso</label>
-                    {{ form.curso }}
-                    {% if form.curso.errors %}
-                        <p class="error-message">{{ form.curso.errors.0 }}</p>
-                    {% endif %}
+                    <label class="form-label">Progresso no curso</label>
+                    {{ form.progressoCurso }}
+                    {% for error in form.progressoCurso.errors %}
+                        <p class="error-message">{{ error }}</p>
+                    {% endfor %}
                 </div>
                 <div class="form-group">
                     <label class="form-label">Instituição de ensino</label>
                     {{ form.instituicaoAtual }}
-                    {% if form.instituicaoAtual.errors %}
-                        <p class="error-message">{{ form.instituicaoAtual.errors.0 }}</p>
-                    {% endif %}
+                    {% for error in form.instituicaoAtual.errors %}
+                        <p class="error-message">{{ error }}</p>
+                    {% endfor %}
                 </div>
             </div>
-
-            <!-- Link do Perfil -->
             <div class="form-group">
-                <label class="form-label">Adicione um link que será exibido no seu perfil</label>
-                {{ form.linkPerfil }}
-                {% if form.linkPerfil.errors %}
-                    <p class="error-message">{{ form.linkPerfil.errors.0 }}</p>
-                {% endif %}
+                <label class="form-label">Local de Trabalho</label>
+                {{ form.localTrabalho }}
+                {% for error in form.localTrabalho.errors %}
+                    <p class="error-message">{{ error }}</p>
+                {% endfor %}
             </div>
         </div>
 

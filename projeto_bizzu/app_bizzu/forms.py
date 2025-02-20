@@ -29,14 +29,14 @@ class ComentarioForm(forms.ModelForm):
 
 class EditarPerfilForm(forms.ModelForm):
     CURSO_CHOICES = [
-        ('', 'Selecione sua instituição de ensino aqui'),
+        ('', 'Selecione seu curso'),
         ('TADS', 'TADS'),
         ('INFOWEB', 'Informática para Internet'),
         ('Redes', 'Redes de Computadores'),
     ]
-    
+
     INSTITUICAO_CHOICES = [
-        ('', 'Selecione sua instituição de ensino aqui'),
+        ('', 'Selecione sua instituição'),
         ('IFRN', 'IFRN'),
         ('UFRN', 'UFRN'),
     ]

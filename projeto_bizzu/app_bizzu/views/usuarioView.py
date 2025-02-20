@@ -59,17 +59,19 @@ class UsuarioView:
         return render(request, 'cadastro_perfil.html', {'form': form})
     @login_required
     def editarPerfil(request):
+        user = request.user  # Pegando o usuário autenticado
+
         if request.method == "POST":
-            form = EditarPerfilForm(request.POST, request.FILES, instance=request.user)
+            form = EditarPerfilForm(request.POST, request.FILES, instance=user)
             if form.is_valid():
                 form.save()
                 messages.success(request, 'Perfil atualizado com sucesso!')
-                return redirect('perfil', username=request.user.username)
+                return redirect('perfil', username=user.username)
             else:
                 messages.error(request, 'Por favor, corrija os erros abaixo.')
         else:
-            form = EditarPerfilForm(instance=request.user)
-        
+            form = EditarPerfilForm(instance=user)
+
         return render(request, 'editarPerfil.html', {'form': form})
     
     def sair(request):
