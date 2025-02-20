@@ -141,6 +141,29 @@ class UsuarioView:
 
         return render(request, 'perfilUsuario.html', context)
 
+    def perfilComentario(request,username):
+        user = get_object_or_404(Usuario, username=username) # Pegando o usuário  pelo username
+        comentarios = Comentario.objects.filter(usuario=user).order_by('-dataPublicacao') # faz uma pesquisa para pegar os comentários do usuário e ordena por data de publicação
+
+
+        comentario_post = {} # Cria um dicionário vazio
+        for comentario in comentarios:
+            if comentario.postagem not in comentario_post: # se o comentário da postagem não estiver no dicionário
+                comentario_post[comentario.postagem] = [] # cria uma lista vazia
+            comentario_post[comentario.postagem].append(comentario) # adiciona o comentário a essa lista
+
+        # Paginação
+        paginator = Paginator(list(comentario_post.items()), 5) # Organiza em 5 postagens por página
+        page_number = request.GET.get('page')
+        comentario_paginator = paginator.get_page(page_number)
+        
+        context = {
+            "user" : user,
+            "comentario_paginator" : comentario_paginator
+        }
+        return render(request, "perfilUsuario.html",context)
+
+
     @login_required
     @csrf_exempt  # 🔴 Remova isso se for usar o CSRF Token corretamente no JavaScript!
     def excluir_postagem(request, postagem_id):
