@@ -21,7 +21,7 @@
                         <img class="primeira" src="{{ comunidade.imagem.url }}" alt="{{ comunidade.nome }}">
                         <article class="comunidade">
                             <h2>{{ comunidade.nome }}</h2>
-                            <p>{{ comunidade.descricao }}</p>
+                            <p class="desc">{{ comunidade.descricao }}</p>
                             <span class="seguindo">{{ comunidade.seguidores.count }} seguindo</span>
 
                             <form method="POST" action="{% url 'associar_comunidade' %}">

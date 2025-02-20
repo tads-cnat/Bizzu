@@ -76,24 +76,29 @@ header {
     flex-direction: column;
     align-items: center;
     background-color: rgba(26, 23, 20, 0.8); /* Fundo com opacidade */
-    width: 100%;
-    max-width: 280px;
+    width: 280px;
+    /* max-width: 280px; */
     border-radius: 8px;
     padding: 20px; /* Mais espaço dentro da comunidade */
     transition: transform 0.3s ease;
     text-align: center;
     position: relative;
-    min-height: 450px; /* Aumenta a altura do fundo das comunidades */
+    height: 450px; /* Aumenta a altura do fundo das comunidades */
 }
 
 .principais:hover {
     transform: translateY(-10px); /* Efeito de hover para elevar a comunidade */
 }
 
+.desc {
+    margin-left: 5%;
+    width: 90%;
+}
+
 /* Imagem principal */
 .primeira {
-    width: 57%;
-    height: auto;
+    width: 180px;
+    height: 150px;
 }
 
 /* Estilo dos títulos e textos */
@@ -142,7 +147,7 @@ button:hover {
 .botao {
     display: flex;
     flex-direction: column;
-    margin-top: 60px;
+    margin-top: 90px;
 }
 
 .primeira {

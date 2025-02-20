@@ -28,6 +28,7 @@ urlpatterns=[
     path('criar-postagem/', usuarioView.UsuarioView.criar_postagem, name='criar_postagem'),
     path('excluir-repositorio/', repositorioView.RepositorioView.excluirRepositorio, name='excluirRepositorio'),
     path('postagem/excluir/<uuid:postagem_id>/', usuarioView.UsuarioView.excluir_postagem, name='excluir_postagem'),
+    path('comunidade/', comunidadeView.ComunidadeView.ver_comunidade, name='ver_comunidade'),
 ]
 
 if settings.DEBUG:
