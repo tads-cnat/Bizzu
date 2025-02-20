@@ -18,3 +18,9 @@
 ![unnamed](https://github.com/user-attachments/assets/d23f8f5b-d50a-4680-819e-03b02992ae8c)
 
 **Implementado por: Mateus Vitor Cavalcanti Rodrigues**
+
+### Fazer cadastro
+![image](https://github.com/user-attachments/assets/c66945f3-2a0c-4dbb-9fe8-402e75eb82d8)
+
+**Implementado por: Jesrriel Moura Lopes**
+
