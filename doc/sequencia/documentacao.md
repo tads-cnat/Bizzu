@@ -28,3 +28,9 @@
 ![image](https://github.com/user-attachments/assets/cc936d90-7a20-4ba6-bf76-25a1518545b5)
 
 **Implementado por: Luiz Roberto da Silva Gonzaga**
+
+### CDU Manuntenção perfil pessoal
+
+![Editar perfil](https://github.com/user-attachments/assets/d796afdf-5c2e-41ae-b2ca-905667ae7de2)
+
+**Implementado por: Fábio Alexandre de Souza Lucena Filho**
