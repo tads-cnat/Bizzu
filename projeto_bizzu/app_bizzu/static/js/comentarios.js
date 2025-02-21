@@ -49,7 +49,7 @@ function criarModal(postagemPreview, postagemId) {
             <button class="fechar-modal">&times;</button>
             
             <div class="post-preview">
-                <div class="post-header">
+                <div class="coment-header">
                     <img src="${postagemPreview.usuario.avatar}" class="avatar" alt="">
                     <h3>${postagemPreview.usuario.nome}</h3>
                 </div>

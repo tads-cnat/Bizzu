@@ -39,11 +39,13 @@
     font-family: 'Poppins', sans-serif;
 }
 
-.post-preview .post-header {
+.coment-header {
     display: flex;
-    align-items: center;
     margin-bottom: 10px;
+}
 
+.coment-header img{
+    clip-path: polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 6% 75%, 6% 25%);
 }
 
 .post-preview .avatar {
