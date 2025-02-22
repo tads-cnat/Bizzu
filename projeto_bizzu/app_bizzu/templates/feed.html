@@ -87,7 +87,7 @@
                 {% for repositorio in repositorios %}
                 <div class="repositorioContainer">
                     <div class="headerCaixa">
-                        <div class="profile-container">
+                        <a class="profile-container" href="{% url 'perfil' repositorio.usuario.username %}">
                             <div class="hexagon">
                                 <img src="{{ repositorio.usuario.imagemPerfil.url }}" class="profile-image">
                             </div>
@@ -96,7 +96,7 @@
                                 <span class="separator">•</span>
                                 <span class="timestamp">{{ repositorio.dataPublicacao|timesince }} atrás</span>
                             </div>
-                        </div>
+                        </a>
                         <form method="GET" action="{% url "verRepositorio" %}" id="form">
                         <button type="submit" id="BotaoLink" class="GeralPrimario" name="repositorio" value={{repositorio.id}}>
                             <p id="botaoP">Abrir</p>
@@ -194,7 +194,7 @@
 
     </script>
     <script src="{% static 'js/comentarios.js' %}"></script>
-    <script src="{% static 'js/modalRepositorio.js' %}"></script>
+    <script src="{% static 'js/modalRepositorio.js' %}?v=1.3"></script>
     
 </body>
 </html>

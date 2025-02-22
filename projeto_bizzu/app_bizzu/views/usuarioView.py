@@ -124,6 +124,8 @@ class UsuarioView:
     def perfil(request, username):
         user = get_object_or_404(Usuario, username=username)
         postagens = Postagem.objects.filter(usuario=user).order_by('-dataPublicacao')
+        repositorios = Repositorio.objects.filter(usuario=user).order_by('-dataPublicacao').order_by('-dataPublicacao')
+       
         for postagem in postagens:
                 postagem.curtido = Curtida.objects.filter(usuario=request.user, postagem=postagem).exists()
         
@@ -138,7 +140,8 @@ class UsuarioView:
         context = {
             'usuario': user,
             'postagens_paginator': postagens_paginator,
-            'is_following': is_following
+            'is_following': is_following,
+            'repositorios': repositorios,
         }
 
         return render(request, 'perfilUsuario.html', context)
@@ -187,13 +190,13 @@ class UsuarioView:
         if request.user.is_authenticated:  # Verificação de login
             user = request.user
             postagens = Postagem.objects.all().order_by('-dataPublicacao')  # Ordenar pela data (mais recente primeiro)
-            repositorios = Repositorio.objects.all()
+            repositorios = Repositorio.objects.all().order_by('-dataPublicacao')
             for postagem in postagens:
                 postagem.curtido = Curtida.objects.filter(usuario=request.user, postagem=postagem).exists()
             return render(request, 'feed.html', {'postagens': postagens, 'user': request.user, 'repositorios': repositorios})
         else:
             postagens = Postagem.objects.all().order_by('-dataPublicacao')  # Ordenar pela data (mais recente primeiro)
-            repositorios = Repositorio.objects.all()
+            repositorios = Repositorio.objects.all().order_by('-dataPublicacao')
             return render(request, 'feed_deslogado.html', {'postagens': postagens, 'user': request.user, 'repositorios': repositorios})
 
     @login_required
@@ -208,7 +211,7 @@ class UsuarioView:
         for postagem in postagens:
                 postagem.curtido = Curtida.objects.filter(usuario=request.user, postagem=postagem).exists()
 
-        repositorios = Repositorio.objects.all()  # Se for necessário no template
+        repositorios = Repositorio.objects.all().order_by('-dataPublicacao')  # Se for necessário no template
 
         return render(request, 'feed_seguidos.html', {'postagens': postagens, 'user': user, 'repositorios': repositorios})
 

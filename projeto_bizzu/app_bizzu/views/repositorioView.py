@@ -11,9 +11,10 @@ from django.contrib.auth.decorators import login_required
 
 
 class RepositorioView:
+    @login_required
     def verRepositorio(request): #Ver a parte interna repositório
         repositorios = Repositorio.objects.all()
-        if request.method == "GET":
+        if request.method == "GET": #Retorna o repositório especifico que cliquei 
             idRepositorio = request.GET.get('repositorio')
             repAtual = Repositorio.objects.get(id=idRepositorio)
             return render(request, "PagRepositorio.html", {'repositorios': repositorios, "repositorioAtual":repAtual, "usuario":request.user})
@@ -29,6 +30,7 @@ class RepositorioView:
                 return render(request, "PagRepositorio.html", {'repositorios': repositorios, "repositorioAtual":repAtual, "usuario":request.user})
         return render(request, "PagRepositorio.html", {'repositorios': repositorios})
 
+    @login_required
     def excluirRepositorio(request):
         if request.method == "POST":
             idRepositorio = request.POST.get('excluir')
@@ -38,9 +40,8 @@ class RepositorioView:
             if (repositorios):
                 repositorios.delete()
         postagens = Postagem.objects.all().order_by('-dataPublicacao')  # Ordenar pela data (mais recente primeiro)
-        repositorios = Repositorio.objects.all()
+        repositorios = Repositorio.objects.all().order_by('-dataPublicacao')
         return render(request, 'feed.html', {'postagens': postagens, 'user': request.user, 'repositorios': repositorios})
-            
 
 
     @login_required
