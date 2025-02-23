@@ -115,7 +115,7 @@
 /* Estilização do Feed */
 
 .feed {  
-    margin-top: 38px;
+    padding-top: 15px;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -207,6 +207,8 @@
 
 .post-header img {
     clip-path: polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0% 50%);
+    width: 55px;
+    height: 55px;
 }
 
 .post-body {
@@ -228,6 +230,7 @@
 
 .post-footer {
     display: flex;
+    align-items: center;
     width: 90%;
     margin: 0 auto;
     flex-direction: row;
@@ -250,6 +253,10 @@
     display: flex;
     align-items: center;
     gap: 10px;
+}
+
+.likes img {
+    margin-top: 5px;
 }
 
 .likes a {
