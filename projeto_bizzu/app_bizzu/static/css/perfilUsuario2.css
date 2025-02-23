@@ -424,7 +424,7 @@
 }
 
 .modal-seguidores-seguindo-content {
-    background: white;
+    background: #1A1A1A;
     margin: 10% auto;
     padding: 20px;
     width: 25%;
@@ -435,6 +435,7 @@
     float: right;
     font-size: 20px;
     cursor: pointer;
+    color: white;
 }
 
 #titulo-modal-seguidores-seguindo {
@@ -442,6 +443,7 @@
     font-weight: bold;
     margin-bottom: 20px;
     text-transform: uppercase;
+    color: white
 }
 
 .usuario-item-seguidores-seguindo {
@@ -453,14 +455,14 @@
 .foto-modal-seguidores-seguindo {
     width: 40px;
     height: 40px;
-    border-radius: 50%;
+    clip-path: polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0% 50%);
     margin-right: 10px;
 }
 
 .nome-modal-seguidores-seguindo {
     flex-grow: 1;
     text-decoration: none;
-    color: black;
+    color: white;
     font-weight: 400;
 }
 
