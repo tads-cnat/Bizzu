@@ -100,6 +100,7 @@ class UsuarioView:
             return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
         return redirect('perfil', username=perfil_alvo.username)
+    
     def cadastro(request):
         if request.method == "GET":
             return render(request, 'cadastro.html')

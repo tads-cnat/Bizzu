@@ -28,8 +28,8 @@ urlpatterns=[
     path('criar-postagem/', usuarioView.UsuarioView.criar_postagem, name='criar_postagem'),
     path('excluir-repositorio/', repositorioView.RepositorioView.excluirRepositorio, name='excluirRepositorio'),
     path('postagem/excluir/<uuid:postagem_id>/', usuarioView.UsuarioView.excluir_postagem, name='excluir_postagem'),
-    path('comunidade/', comunidadeView.ComunidadeView.ver_comunidade, name='ver_comunidade'),
-    path('editar-repositorio/<uuid:repositorio_id>/', repositorioView.RepositorioView.editarRepositorio, name="editarRepositorio")
+    path('editar-repositorio/<uuid:repositorio_id>/', repositorioView.RepositorioView.editarRepositorio, name="editarRepositorio"),
+    path('comunidade/<str:comunidade>/', comunidadeView.ComunidadeView.as_view(), name='perfil_comunidade'),
 ]
 
 if settings.DEBUG:

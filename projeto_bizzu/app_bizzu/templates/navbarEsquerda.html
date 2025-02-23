@@ -32,7 +32,9 @@
                         <div class="cursos-conteudo">
                             <h3>TADS</h3>
                             <p>Curso de Análise e desenvolv. de sistemas da diatinf</p>
-                            <a href="{% url 'ver_comunidade' %}"><button class="vermais-btn">Ver mais</button></a>
+                            <a href="{% url 'perfil_comunidade' 'tads' %}">
+                                <button class="vermais-btn">Ver mais</button>
+                            </a>
                         </div>
                     </div>
                     <div class="cursos">
@@ -40,15 +42,20 @@
                         <div class="cursos-conteudo">
                             <h3>REDES</h3>
                             <p>Curso de REDES da diatinf</p>
-                            <a href="{% url 'ver_comunidade' %}"><button class="vermais-btn">Ver mais</button></a>
+                            <a href="{% url 'perfil_comunidade' 'redes' %}">
+                                <button class="vermais-btn">Ver mais</button>
+                            </a>
                         </div>
                     </div>
                     <div class="cursos">
                         <img src="{% static 'img/icone infoweb.svg' %}">
                         <div class="cursos-conteudo">
-                            <h3>INFOWEB</h3>
-                            <p>Curso de INFOWEB da diatinf</p>
-                            <a href="{% url 'ver_comunidade' %}"><button class="vermais-btn">Ver mais</button></a>
+                            <div class="cursos-conteudo">
+                                <h3>INFOWEB</h3>
+                                <p>Curso de INFOWEB da diatinf</p>
+                                <a href="{% url 'perfil_comunidade' 'infoweb' %}">
+                                    <button class="vermais-btn">Ver mais</button>
+                                </a>
                         </div>
                     </div>
                 </div>

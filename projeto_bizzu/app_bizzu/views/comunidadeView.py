@@ -2,13 +2,36 @@ from django.shortcuts import render,redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from ..models import Comunidade
 from django.contrib import messages
+from django.views import View
+class ComunidadeView(View):
+    comunidades_info = {
+        "tads": {
+            'nome': 'TADS',
+            'descricao': 'Curso de Análise e Desenvolvimento de Sistemas da DIATINF',
+            'seguidores': 150,
+            'imagem': 'img/comunidades/tads.jpg',
+        },
+        "redes": {
+            'nome': 'REDES',
+            'descricao': 'Curso de Redes da DIATINF',
+            'seguidores': 120,
+            'imagem': 'img/comunidades/redes.jpg',
+        },
+        "infoweb": {
+            'nome': 'INFOWEB',
+            'descricao': 'Curso de Infoweb da DIATINF',
+            'seguidores': 90,
+            'imagem': 'img/comunidades/infoweb.jpg',  
+        },
+    }
 
-
-class ComunidadeView:
-    @login_required
-    def ver_comunidade(request):  
-        return render(request, 'baseComunidade.html')
+    def get(self, request, comunidade):
+        if comunidade not in self.comunidades_info:
+            messages.error(request, "Comunidade não encontrada.")
+            return redirect('escolher_comunidade')
         
+        return render(request, 'baseComunidade.html', {'comunidade': self.comunidades_info[comunidade]})
+    
     @login_required
     def escolher_comunidade(request):
         comunidades = Comunidade.objects.all()  # Buscar todas as comunidades do banco
