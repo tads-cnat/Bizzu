@@ -270,14 +270,26 @@
 <script>
 
     // Alternar entre as abas de categoria
+    // Alternar entre as abas de categoria
     function mostrarAba(aba) {
         let abas = document.querySelectorAll(".lista-categorias");
         let botoes = document.querySelectorAll(".aba");
-    
-        abas.forEach(div => div.style.display = "none");
+
+        abas.forEach(div => {
+            div.style.display = "none";
+        });
         botoes.forEach(btn => btn.classList.remove("ativa"));
-    
-        document.getElementById(aba).style.display = "flex";
+
+        let abaSelecionada = document.getElementById(aba);
+        abaSelecionada.style.display = "flex";
+
+        // Definir flex-direction corretamente para cada aba
+        if (aba === "postagens" || aba === "comentario") {
+            abaSelecionada.style.flexDirection = "column"; // Lista vertical
+        } else if (aba === "repositorio") {
+            abaSelecionada.style.flexDirection = "row"; // Repositórios lado a lado
+        }
+
         event.target.classList.add("ativa");
     }
     

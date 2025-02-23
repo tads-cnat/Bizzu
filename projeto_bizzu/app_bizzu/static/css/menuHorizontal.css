@@ -2,10 +2,10 @@
     .menu-horizontal-container {
         display: flex;
         align-items: center;
+        justify-content: center;
         gap: 20px;
-        font-family: poppins;
+        font-family: 'Poppins', sans-serif;
         font-size: 2.2vh;
-        margin-left: 22vh;
     }
 
     .menuHorizontal {
