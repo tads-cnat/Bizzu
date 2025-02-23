@@ -31,8 +31,18 @@
                         <p class="username">@{{ usuario.username }}</p>
                         <p class="descricao">{{ usuario.descricao }}</p>
                         <div class="perfil-status">
-                            <span><strong>{{ usuario.seguidores.count }}</strong> Seguidores</span>
-                            <span><strong>{{ usuario.seguindo.count }}</strong> Seguindo</span>
+                            <span>
+                                <strong>{{ usuario.seguidores.count }}</strong> 
+                                <a href="#" class="abrir-modal-seguidores-seguindo" data-user-id="{{ usuario.id }}" data-tipo="seguidores">
+                                    Seguidores
+                                </a>
+                            </span>
+                            <span>
+                                <strong>{{ usuario.seguindo.count }}</strong> 
+                                <a href="#" class="abrir-modal-seguidores-seguindo" data-user-id="{{ usuario.id }}" data-tipo="seguindo">
+                                    Seguindo
+                                </a>
+                            </span>
                             {% if request.user == usuario %}
                             <button class="btn-novo" id="btn-novo">+ Novo</button>
                             <div id="modal-novo" class="modal">
@@ -54,6 +64,14 @@
                             {% endif %}
                         </div>
                         </div>
+                </div>
+            </div>
+
+            <div id="modal-seguidores-seguindo" class="modal-seguidores-seguindo">
+                <div class="modal-seguidores-seguindo-content">
+                    <span id="fechar-modal-seguidores-seguindo" class="fechar-modal-seguidores-seguindo">&times;</span>
+                    <h2 id="titulo-modal-seguidores-seguindo"></h2>
+                    <div id="lista-usuarios-seguidores-seguindo"></div>
                 </div>
             </div>
 
@@ -81,13 +99,25 @@
                 <div class="postagem">
                     <!-- Nome do usuário e hora da postagem -->
                     <div class="post-header">
-                    {% if postagem.usuario.imagemPerfil and postagem.usuario.imagemPerfil.url %}
-                        <img src="{{ postagem.usuario.imagemPerfil.url }}" alt="Avatar" class="avatar" style="object-fit: cover;">
-                    {% else %}
-                        <img src="{% static 'img/default-profile.png' %}" alt="Avatar" class="avatar" style="object-fit: cover;">
-                    {% endif %}
-                        <h3>{{ postagem.usuario.nome }} • <span>{{ postagem.dataPublicacao|date:"d/m/Y H:i" }}</span></h3>
+                        <div class="usuario-info">
+                        {% if postagem.usuario.imagemPerfil and postagem.usuario.imagemPerfil.url %}
+                            <img src="{{ postagem.usuario.imagemPerfil.url }}" alt="Avatar" class="avatar" style="object-fit: cover;">
+                        {% else %}
+                            <img src="{% static 'img/default-profile.png' %}" alt="Avatar" class="avatar" style="object-fit: cover;">
+                        {% endif %}
+                        
+                            <h3> <a href="{% url 'perfil' username=postagem.usuario.username %}">{{ postagem.usuario.nome }} </a> • <span>{{ postagem.dataPublicacao|date:"d/m/Y H:i" }}</span></h3>
+                            <h3 class="comunidade-post">{{ postagem.comunidade }}</h3>
+                        </div>
+                        <div class="categorias-post">
+                            {% for categoria in postagem.categorias.all %}
+                                <h4 class="categoria {% if categoria.tipo == 'per' %}periodo{% elif categoria.tipo == 'mat' %}materia{% elif categoria.tipo == 'tec' %}tecnologia{% endif %}">
+                                    • {{ categoria.nome }}
+                                </h4>
+                            {% endfor %}
+                        </div>
                     </div>
+                    <!-- Corpo da postagem -->
                     <div class="post-body">
                         <p>{{ postagem.texto }}</p>
                         {% if postagem.imagem %}
@@ -305,4 +335,5 @@
     </script>
     <script src="{% static 'js/comentarios.js' %}"></script> 
     <script src="{% static 'js/modalRepositorio.js' %}?v=1.3"></script>
+    <script src="{% static 'js/modalSeguidores.js' %}"></script>
 {% endblock %}

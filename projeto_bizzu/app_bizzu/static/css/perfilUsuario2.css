@@ -115,7 +115,7 @@
 /* Estilização do Feed */
 
 .feed {  
-    margin-top: 38px;
+    padding-top: 15px;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -207,6 +207,8 @@
 
 .post-header img {
     clip-path: polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0% 50%);
+    width: 55px;
+    height: 55px;
 }
 
 .post-body {
@@ -228,6 +230,7 @@
 
 .post-footer {
     display: flex;
+    align-items: center;
     width: 90%;
     margin: 0 auto;
     flex-direction: row;
@@ -250,6 +253,10 @@
     display: flex;
     align-items: center;
     gap: 10px;
+}
+
+.likes img {
+    margin-top: 5px;
 }
 
 .likes a {
@@ -402,3 +409,73 @@
     font-weight: bold;
     border-radius: 20px;
 }
+
+/* PARTE DO MODAL DE SEGUIDORES / SEGUINDO */
+
+.modal-seguidores-seguindo {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-seguidores-seguindo-content {
+    background: #1A1A1A;
+    margin: 10% auto;
+    padding: 20px;
+    width: 25%;
+    border-radius: 8px;
+}
+
+.fechar-modal-seguidores-seguindo {
+    float: right;
+    font-size: 20px;
+    cursor: pointer;
+    color: white;
+}
+
+#titulo-modal-seguidores-seguindo {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    color: white
+}
+
+.usuario-item-seguidores-seguindo {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.foto-modal-seguidores-seguindo {
+    width: 40px;
+    height: 40px;
+    clip-path: polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0% 50%);
+    margin-right: 10px;
+}
+
+.nome-modal-seguidores-seguindo {
+    flex-grow: 1;
+    text-decoration: none;
+    color: white;
+    font-weight: 400;
+}
+
+.btn-seguir-seguidores-seguindo {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.btn-seguir-seguidores-seguindo:hover {
+    background: #0056b3;
+}
+
+/* FINAL DESSA PARTE */
