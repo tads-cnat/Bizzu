@@ -118,7 +118,7 @@
                     {% if repositorio.usuario.username == user.username %}
                     <button class="mais" type="submit">...</button>
                     <div class="dropRepositorio">
-                        <form method="POST">
+                        <form method="GET" action="{% url 'editarRepositorio' repositorio.id %}">
                             {% csrf_token %}
                             <button type="submit" class="optionRepositorio"><img src="{% static 'img/documento.svg' %}" class="dropImg" name="editarRepositorio"> Editar</button>
                         </form>

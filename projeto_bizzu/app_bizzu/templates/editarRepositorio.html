@@ -1,0 +1,205 @@
+{% extends "basePerfil.html" %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/PagCriarRepositorio.css' %}?v=1.2">
+<link rel="stylesheet" href="{% static 'css/popup.css' %}">
+<div class="criar-repositorio">
+    <h2>Editar Repositório</h2>
+    <form method="POST" enctype="multipart/form-data" action="{% url 'editarRepositorio' repositorio.id %}">
+        {% csrf_token %}
+
+        <!-- Seletor de Comunidade -->
+        <div class="campo">
+            <label for="comunidade">Selecione uma comunidade:</label>
+            <select id="comunidade" name="comunidade">
+                <option value="">Escolha uma comunidade...</option>
+                {% for comunidade in comunidades %}
+                <option value="{{ comunidade.id }}">{{ comunidade.nome }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Seletor de Categorias -->
+        <div class="campo">
+            <label>Categorias:</label>
+            <div class="categorias-container">
+                <button type="button" class="botao-categorias" onclick="toggleCategorias()">Categorias ▼</button>
+                <div class="menu-categorias" id="menuCategorias">
+                    <div class="abas">
+                        <button type="button" class="aba ativa" onclick="mostrarAba('materia', this)">Matéria</button>
+                        <button type="button" class="aba" onclick="mostrarAba('periodo', this)">Período</button>
+                        <button type="button" class="aba" onclick="mostrarAba('tecnologia', this)">Tecnologia</button>
+                    </div>
+
+                    <div class="conteudo-categorias">
+                        <input type="text" id="pesquisaCategorias" placeholder="🔍 Procurar..." onkeyup="filtrarCategorias()">
+
+                        <div class="lista-categorias" id="materia">
+                            {% for categoria in categorias_materia %}
+                                {% if categoria in materia_selecionada %}
+                                    <label><input type="checkbox" name="categorias" value="{{ categoria.id }}" checked> {{ categoria.nome }}</label>
+                                {% else %}
+                                    <label><input type="checkbox" name="categorias" value="{{ categoria.id }}"> {{ categoria.nome }}</label>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+
+                        <div class="lista-categorias" id="periodo" style="display: none;">
+                            {% for categoria in categorias_periodo %}
+                                {% if categoria in periodo_selecionado.all %}
+                                    <label><input type="checkbox" name="categorias" value="{{ categoria.id }}" checked> {{ categoria.nome }}</label>
+                                {% else %}
+                                    <label><input type="checkbox" name="categorias" value="{{ categoria.id }}"> {{ categoria.nome }}</label>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+
+                        <div class="lista-categorias" id="tecnologia" style="display: none;">
+                            {% for categoria in categorias_tecnologia %}
+                                {% if categoria in tecnologia_selecionada.all %}
+                                    <label><input type="checkbox" name="categorias" value="{{ categoria.id }}" checked> {{ categoria.nome }}</label>
+                                {% else %}
+                                    <label><input type="checkbox" name="categorias" value="{{ categoria.id }}"> {{ categoria.nome }}</label>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Campo de título -->
+        <div class="campo">
+            <label for="titulo">Título:</label>
+            <input type="text" id="titulo" name="titulo" class="input-titulo" placeholder="Digite o título do seu repositório..." value="{{repositorio.titulo}}">
+        </div>
+
+        <!-- Campo de descrição -->
+        <div class="campo">
+            <label for="descricao">Descrição:</label>
+            <textarea id="descricao" name="descricao" class="input-descricao" placeholder="Digite a descrição do seu repositório..." >{{repositorio.descricao}}</textarea>
+        </div>
+
+        <!-- Upload de Arquivos -->
+        <div class="campo">
+            <label for="arquivos">Anexar Arquivos:</label>
+            <input type="file" id="arquivos" name="arquivos" multiple value="{{arquivos}}">
+            <p style="color: white; font-size: 1.2vw; padding-bottom: 5px;">Arquivos já anexados:</p>
+            {% for arquivo in arquivos %}
+                <a href="{{ arquivo.arquivo.url }}" style="color: white; font-size: 1vw; padding-bottom: 5px;">{{ arquivo.arquivo.name }}</a>
+            {% endfor %}
+        </div>
+
+        <!-- Botões de ação -->
+        <div class="acoes-post">
+            <button type="button" class="botao-descartar" onclick="confirmarDescarte(event)">❌ Descartar</button>
+            <button type="submit" class="botao-postar">📩 Salvar</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    function toggleCategorias() {
+        let menu = document.getElementById("menuCategorias");
+        menu.style.display = menu.style.display === "block" ? "none" : "block";
+    }
+
+    function mostrarAba(aba, botao) {
+        let abas = document.querySelectorAll(".lista-categorias");
+        let botoes = document.querySelectorAll(".aba");
+
+        abas.forEach(div => div.style.display = "none");
+        botoes.forEach(btn => btn.classList.remove("ativa"));
+
+        document.getElementById(aba).style.display = "block";
+        botao.classList.add("ativa");
+    }
+
+    function filtrarCategorias() {
+        let input = document.getElementById("pesquisaCategorias").value.toLowerCase();
+        let labels = document.querySelectorAll(".lista-categorias label");
+
+        labels.forEach(label => {
+            let texto = label.textContent.toLowerCase();
+            label.style.display = texto.includes(input) ? "block" : "none";
+        });
+    }
+
+    document.addEventListener("click", function (event) {
+        let menu = document.getElementById("menuCategorias");
+        let botao = document.querySelector(".botao-categorias");
+
+        if (!menu.contains(event.target) && !botao.contains(event.target)) {
+            menu.style.display = "none";
+        }
+    });
+
+    function confirmarDescarte(event) {
+        event.preventDefault();
+        if (confirm("Tem certeza que deseja descartar as alterações?")) {
+            window.location.href = "{% url 'perfil' request.user.username %}";
+        }
+    }
+    function confirmarAcao(mensagem, acaoConfirmada) {
+    // Criar elementos do popup
+    const backdrop = document.createElement('div');
+    backdrop.className = 'custom-popup-backdrop';
+
+    const popup = document.createElement('div');
+    popup.className = 'custom-popup';
+
+    const title = document.createElement('div');
+    title.className = 'custom-popup-title';
+    title.textContent = 'Confirmação';
+
+    const message = document.createElement('div');
+    message.className = 'custom-popup-message';
+    message.textContent = mensagem;
+
+    const buttons = document.createElement('div');
+    buttons.className = 'custom-popup-buttons';
+
+    const cancelButton = document.createElement('button');
+    cancelButton.className = 'custom-popup-button custom-popup-button-cancel';
+    cancelButton.textContent = 'Cancelar';
+
+    const confirmButton = document.createElement('button');
+    confirmButton.className = 'custom-popup-button custom-popup-button-confirm';
+    confirmButton.textContent = 'Confirmar';
+
+    // Montar o popup
+    buttons.appendChild(cancelButton);
+    buttons.appendChild(confirmButton);
+    popup.appendChild(title);
+    popup.appendChild(message);
+    popup.appendChild(buttons);
+
+    // Adicionar ao body
+    document.body.appendChild(backdrop);
+    document.body.appendChild(popup);
+
+    // Lidar com as ações dos botões
+    cancelButton.onclick = function() {
+        document.body.removeChild(backdrop);
+        document.body.removeChild(popup);
+    };
+
+    confirmButton.onclick = function() {
+        document.body.removeChild(backdrop);
+        document.body.removeChild(popup);
+        acaoConfirmada();
+    };
+}
+    function confirmarDescarte(event) {
+        event.preventDefault();
+        confirmarAcao("Tem certeza que deseja descartar as alterações?", function() {
+            window.location.href = "{% url 'perfil' request.user.username %}";
+        });
+    }
+
+</script>
+
+<script src="{% static 'js/defaultRepositorio.js' %}?v=1.2"></script>
+
+{% endblock %}

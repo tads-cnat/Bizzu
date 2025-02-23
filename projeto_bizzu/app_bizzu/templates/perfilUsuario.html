@@ -157,11 +157,11 @@
                                         <div class="tag tag-verde"><img src="/projeto_bizzu/app_bizzu/static/img/iconeTagVerde.svg" class="imgMenu"> </div>
                                 {% endfor %}
                             </div>
-        
+
                             {% if repositorio.usuario.username == user.username %}
                             <button class="mais" type="submit">...</button>
                             <div class="dropRepositorio">
-                                <form method="POST">
+                                <form method="GET" action="{% url 'editarRepositorio' repositorio.id %}">
                                     {% csrf_token %}
                                     <button type="submit" class="optionRepositorio"><img src="{% static 'img/documento.svg' %}" class="dropImg" name="editarRepositorio"> Editar</button>
                                 </form>
@@ -172,8 +172,8 @@
                             </div>
                         {% endif %}
                         </div>
-                    {% empty %}
-                        <p class="postagem-off">Nenhum repositório disponível no momento.</p>   
+                        {% empty %}
+                            <p class="postagem-off">Nenhum repositório disponível no momento.</p>
                     {% endfor %}
                 </div> 
                 <!-- Comentários -->
@@ -291,5 +291,6 @@
         }
     });
     </script>
-<script src="{% static 'js/comentarios.js' %}"></script> 
+    <script src="{% static 'js/comentarios.js' %}"></script> 
+    <script src="{% static 'js/modalRepositorio.js' %}?v=1.3"></script>
 {% endblock %}

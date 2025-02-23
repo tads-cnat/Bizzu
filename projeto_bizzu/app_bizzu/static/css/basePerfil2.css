@@ -8,6 +8,8 @@
     --text-light: white;
     --extra-light: #faf5ff;
     --max-width: 1200px;
+    --laranja: #F79010;
+    --marromEscuro: #27211B;
 }
 
 *{
@@ -47,6 +49,9 @@ body::before {
 .conteudoPerfil {
     width: calc(100% - 700px);
     height: calc(100vh - 25px);
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--marromEscuro) var(--laranja);
 }
 
 header {
