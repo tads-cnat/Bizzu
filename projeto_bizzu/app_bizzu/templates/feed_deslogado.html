@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bizzu</title>
     <link rel="stylesheet" href="{% static 'css/feed.css' %}">
+    <link rel="stylesheet" href="{% static 'css/popup.css' %}">
     <link rel="icon" type="image/svg+xml" href="{% static 'img/abelha_bizzu.svg' %}">
 </head>
 <body>
@@ -26,7 +27,7 @@
                         <img src="{% static 'img/default-profile.png' %}" alt="Avatar" class="avatar" style="object-fit: cover;">
                     {% endif %}
                     
-                        <h3> <a href="{% url 'perfil' username=postagem.usuario.username %}">{{ postagem.usuario.nome }} </a> • <span>{{ postagem.dataPublicacao|date:"d/m/Y H:i" }}</span></h3>
+                        <h3> <a href="#" onclick="lidarComAcaoUsuarioDeslogado(event)">{{ postagem.usuario.nome }} </a> • <span>{{ postagem.dataPublicacao|date:"d/m/Y H:i" }}</span></h3>
                         <h3 class="comunidade-post">{{ postagem.comunidade }}</h3>
                     </div>
                     <div class="categorias-post">
@@ -47,11 +48,11 @@
                 </div>
                 <div class="post-footer">
                     <div class="likes">
-                        <a href="{% url 'curtida' postagem.id %}" id="curtir-btn"><img src="{% static 'img/curtida.svg' %}" width="24px"></a>
-                        <span>{{postagem.curtidas}} <a href="#">curtidas</a></span>
+                        <a href="#" onclick="lidarComAcaoUsuarioDeslogado(event)" id="curtir-btn"><img src="{% static 'img/curtida.svg' %}" width="24px"></a>
+                        <span>{{postagem.curtidas}} <a href="#" onclick="lidarComAcaoUsuarioDeslogado(event)">curtidas</a></span>
                     </div>
                     <div class="comentarios">
-                        <button id="comentar-btn"><img src="{% static 'img/icone_comentar.png' %}" width="24px">Comentar</button>
+                        <button id="comentar-btn" onclick="lidarComAcaoUsuarioDeslogado(event)"><img src="{% static 'img/icone_comentar.png' %}" width="24px">Comentar</button>
                     </div>
                 </div>
             </div>
@@ -62,5 +63,7 @@
 
         {% include 'navbarRepositorios.html' %}
     </section>
+
+    <script src="{% static 'js/popup_usuario_deslogado.js' %}"></script>
 </body>
 </html>

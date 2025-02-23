@@ -21,18 +21,16 @@
                         <span class="timestamp">{{repositorio.dataPublicacao|default:"4h atrás"}}</span>
                     </div>
                 </div>
-                <form method="GET" action="{% url "verRepositorio" %}">
-                <button type="submit" id="BotaoLink" class="GeralPrimario" name="repositorio" value={{repositorio.id}}>
+                <button type="button" id="BotaoLink" class="GeralPrimario" onclick="lidarComAcaoUsuarioDeslogado(event)">
                     <p id="botaoP">Abrir</p>
                 </button> 
-            </form>
             </div>
             <p class="tituloP">{{repositorio.titulo}}</p>
             <p class="descricaoP">{{repositorio.descricao}}</p>
             <div class="container">
-                <div class="tag tag-rosa"><img src="/projeto_bizzu/app_bizzu/static/img/iconeTagRosa.svg" class="imgMenu"> Período</div>
-                <div class="tag tag-azul"><img src="/projeto_bizzu/app_bizzu/static/img/iconeTagAzul.svg" class="imgMenu"> Matéria</div>
-                <div class="tag tag-verde"><img src="/projeto_bizzu/app_bizzu/static/img/iconeTagVerde.svg" class="imgMenu"> Tecnologia</div>
+                <div class="tag tag-rosa"><img src="{% static 'img/iconeTagRosa.svg' %}" class="imgMenu"> Período</div>
+                <div class="tag tag-azul"><img src="{% static 'img/iconeTagAzul.svg' %}" class="imgMenu"> Matéria</div>
+                <div class="tag tag-verde"><img src="{% static 'img/iconeTagVerde.svg' %}" class="imgMenu"> Tecnologia</div>
             </div>
         </div>
         {% empty %}
