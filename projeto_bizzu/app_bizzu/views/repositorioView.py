@@ -97,7 +97,8 @@ class RepositorioView:
 
     @login_required
     def repositorioSalvos(request): #Ver todos os repostórios salvos 
-        repositorios = Repositorio.objects.all()
+        usuario = request.user
+        repositorios = usuario.repositoriosFavoritados
         return render(request, "repositoriosFavoritos.html", {'repositorios': repositorios})
     
     @login_required

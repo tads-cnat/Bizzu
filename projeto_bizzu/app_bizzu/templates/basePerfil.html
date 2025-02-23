@@ -79,6 +79,7 @@
                         <p class="infosPerfil">Progresso: {{ usuario.progressoCurso }}</p>
                     </div>
                 </div>
+                {% if usuario == request.user %}
                 <div class="configuracoes">
                     <div class="topico">
                         <img src="{% static 'img/abelha_bizzu.svg' %}" id="iconePerfil">
@@ -93,16 +94,18 @@
                             <p id="botaoP">Editar</p>
                         </button> </a>
                     </div>
+
                     <div class="botaoEditar">
-                    <div class="topico2">
-                        <p class="infosPerfil">Salvos</p>
-                        <p class="subP">Seus repositórios favoritos</p>
+                        <div class="topico2">
+                            <p class="infosPerfil">Salvos</p>
+                            <p class="subP">Seus repositórios favoritos</p>
+                        </div>
+                            <a href="{% url 'repositorioSalvos' %}"><button type="submit" id="BotaoLink" class="EditPrimario" width="100px">
+                                <p id="botaoP">Abrir</p>
+                            </button> </a>
                     </div>
-                    <button type="submit" id="BotaoLink" class="EditPrimario">
-                        <p id="botaoP">Abrir</p>
-                    </button> 
                 </div>
-                </div>
+                {% endif %}
             </div>
         </aside>
     </section>

@@ -198,7 +198,7 @@
                         <span class="username">{{comentario.usuario.username}}</span>
                         <span class="time">• {{ comentario.dataPostagem|date:"d/m/Y H:i" }}</span>
                     </div> <!--Fechamento da div -> user-info -->
-                    <p class="comment-reply">{{comentario.usuario.conteudo}</p>
+                    <p class="comment-reply">{{comentario.usuario.conteudo}}</p>
                     {%endfor%}
                     {%endfor%}
                     {% if not comentario_paginator%}  
