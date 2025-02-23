@@ -424,7 +424,11 @@
 }
 
 .modal-seguidores-seguindo-content {
+<<<<<<< HEAD
     background: #1A1A1A;
+=======
+    background: white;
+>>>>>>> 8d2f641 ([feat] ✨  Adicionado popup para ver quem você segue ou quem está te seguindo)
     margin: 10% auto;
     padding: 20px;
     width: 25%;
