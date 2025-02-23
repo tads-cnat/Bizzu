@@ -29,10 +29,7 @@ urlpatterns=[
     path('excluir-repositorio/', repositorioView.RepositorioView.excluirRepositorio, name='excluirRepositorio'),
     path('postagem/excluir/<uuid:postagem_id>/', usuarioView.UsuarioView.excluir_postagem, name='excluir_postagem'),
     path('comunidade/', comunidadeView.ComunidadeView.ver_comunidade, name='ver_comunidade'),
-<<<<<<< HEAD
     path('editar-repositorio/<uuid:repositorio_id>/', repositorioView.RepositorioView.editarRepositorio, name="editarRepositorio")
-=======
->>>>>>> eae3e86 ([feat]: :sparkles:inicia views e template pra perfilComunidade)
 ]
 
 if settings.DEBUG:
