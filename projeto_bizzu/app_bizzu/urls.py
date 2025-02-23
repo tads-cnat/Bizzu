@@ -30,6 +30,7 @@ urlpatterns=[
     path('postagem/excluir/<uuid:postagem_id>/', usuarioView.UsuarioView.excluir_postagem, name='excluir_postagem'),
     path('editar-repositorio/<uuid:repositorio_id>/', repositorioView.RepositorioView.editarRepositorio, name="editarRepositorio"),
     path('comunidade/<str:comunidade>/', comunidadeView.ComunidadeView.as_view(), name='perfil_comunidade'),
+    path('perfil/<int:user_id>/<str:tipo>/', usuarioView.UsuarioView.lista_seguidores_seguindo, name='lista_seguidores_seguindo'),
 ]
 
 if settings.DEBUG:

@@ -89,15 +89,22 @@ class UsuarioView:
             if acao == "unfollow":
                 perfil_atual.segue.remove(perfil_alvo)
                 perfil_alvo.seguidores.remove(perfil_atual)
+                seguindo = False
             elif acao == "follow":
                 perfil_atual.segue.add(perfil_alvo)
                 perfil_alvo.seguidores.add(perfil_atual)
+                seguindo = True
+            else:
+                return JsonResponse({"erro": "Ação inválida"}, status=400)
 
             # Salvar no banco
             perfil_atual.save()
             perfil_alvo.save()
 
-            return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+            # Retorna JSON para atualizar o botão dinamicamente no modal
+            return JsonResponse({"seguindo": seguindo})
+
+            # return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
         return redirect('perfil', username=perfil_alvo.username)
     
@@ -277,3 +284,27 @@ class UsuarioView:
                 "categorias_tecnologia": categorias_tecnologia,
             }
         )
+
+    @login_required
+    def lista_seguidores_seguindo(request, user_id, tipo):
+        usuario = get_object_or_404(Usuario, id=user_id)
+
+        if tipo == "seguidores":
+            usuarios = usuario.seguidores.all()
+        elif tipo == "seguindo":
+            usuarios = usuario.seguindo.all()
+        else:
+            return JsonResponse({"erro": "Tipo inválido"}, status=400)
+
+        dados_usuarios = [
+            {
+                "id": user.id,
+                "nome": user.nome,
+                "username": user.username,
+                "imagemPerfil": user.imagemPerfil.url if user.imagemPerfil else "/static/img/default-profile.png",
+                "segue": request.user in user.seguidores.all(),
+            }
+            for user in usuarios
+        ]
+
+        return JsonResponse({"usuarios": dados_usuarios})
