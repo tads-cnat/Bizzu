@@ -58,8 +58,6 @@ body::before {
     gap: 20px;
     overflow-y: auto;
     height: calc(100% - 50px);
-    scrollbar-width: thin;
-    scrollbar-color: var(--marromEscuro) var(--laranja);
 }
 
 .postagem {
@@ -208,7 +206,23 @@ body::before {
     color: white;
     margin: 0 auto;
 }
-  
+/* Estilo da barra de rolagem */
+::-webkit-scrollbar {
+    width: 8px; /* Largura da barra de rolagem */
+}
+
+/* Estilo do "polegar" da barra de rolagem */
+::-webkit-scrollbar-thumb {
+    background-color: #F79010; /* Cor do polegar (laranja) */
+    border-radius: 10px;
+}
+
+/* Estilo do fundo da barra de rolagem */
+::-webkit-scrollbar-track {
+    background-color: #DCCEB1; /* Cor do fundo (bege claro) */
+    border-radius: 10px;
+}
+
 /* FEED DE PUBLICAÇÕES ACIMA */
 
 /* Responsividade */

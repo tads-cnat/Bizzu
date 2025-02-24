@@ -50,8 +50,6 @@ body::before {
     width: calc(100% - 700px);
     height: calc(100vh - 25px);
     overflow-y: auto;
-    scrollbar-width: thin;
-    scrollbar-color: var(--marromEscuro) var(--laranja);
 }
 
 header {
@@ -79,6 +77,22 @@ header {
    margin-left: -30px;
 }
 
+/* Estilo da barra de rolagem */
+::-webkit-scrollbar {
+    width: 8px; /* Largura da barra de rolagem */
+}
+
+/* Estilo do "polegar" da barra de rolagem */
+::-webkit-scrollbar-thumb {
+    background-color: #F79010; /* Cor do polegar (laranja) */
+    border-radius: 10px;
+}
+
+/* Estilo do fundo da barra de rolagem */
+::-webkit-scrollbar-track {
+    background-color: #DCCEB1; /* Cor do fundo (bege claro) */
+    border-radius: 10px;
+}
 
 
 
