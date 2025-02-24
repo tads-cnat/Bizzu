@@ -1,12 +1,17 @@
-function mostrarPopupUsuarioDeslogado() {
+function mostrarPopupUsuarioDeslogado(corAlternativa = true) {
     const popup = document.createElement('div');
     popup.className = 'custom-popup';
+
+    const botaoClasse = corAlternativa 
+        ? 'custom-popup-button-confirm-alternate' 
+        : 'custom-popup-button-confirm';
+
     popup.innerHTML = `
         <div class="custom-popup-title">Ops! Parece que você ainda não está na colmeia 🐝</div>
         <div class="custom-popup-message">Você precisa fazer parte da nossa colmeia para poder realizar esta ação. Que tal se juntar a nós?</div>
         <div class="custom-popup-buttons">
             <button class="custom-popup-button custom-popup-button-cancel" onclick="fecharPopupUsuarioDeslogado()">Fechar</button>
-            <button class="custom-popup-button custom-popup-button-confirm" onclick="abrirPopupLogin()">Fazer login</button>
+            <button class="custom-popup-button ${botaoClasse}" onclick="abrirPopupLogin()">Fazer login</button>
         </div>
     `;
 
