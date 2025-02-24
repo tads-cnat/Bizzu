@@ -1,5 +1,7 @@
 {% load static %}
 <link rel="stylesheet" href="{% static "css/navbarEsquerdaDeslogado.css" %}">
+<link rel="stylesheet" href="{% static 'css/popup.css' %}">
+<script src="{% static 'js/popup_usuario_deslogado.js' %}"></script>
 
 <aside id="barralateral">
     <!-- <div class="perfil">
@@ -25,15 +27,15 @@
                         <div class="cursos-conteudo">
                             <h3>TADS</h3>
                             <p>Curso de Análise e desenvolv. de sistemas da diatinf</p>
-                            <a href="../3. perfil da comunidade/comun-post.html"><button class="vermais-btn">Ver mais</button></a>
+                            <a href="../3. perfil da comunidade/comun-post.html"><button class="vermais-btn"><a href="#" onclick="lidarComAcaoUsuarioDeslogado(event)">Ver mais</a></button></a>
                         </div>
                     </div>
                     <div class="cursos">
-                        <img src="{% static 'img/icone redes.svg' %}">
+                        <img src="{% static 'img/icone_redes.svg' %}">
                         <div class="cursos-conteudo">
                             <h3>REDES</h3>
                             <p>Curso de REDES da diatinf</p>
-                            <button class="vermais-btn">Ver mais</button>
+                            <button class="vermais-btn"><a href="#" onclick="lidarComAcaoUsuarioDeslogado(event)">Ver mais</a></button>
                         </div>
                     </div>
                     <div class="cursos">
@@ -41,7 +43,7 @@
                         <div class="cursos-conteudo">
                             <h3>INFOWEB</h3>
                             <p>Curso de INFOWEB da diatinf</p>
-                            <button class="vermais-btn">Ver mais</button>
+                            <button class="vermais-btn"><a href="#" onclick="lidarComAcaoUsuarioDeslogado(event)">Ver mais</a></button>
                         </div>
                     </div>
                 </div>
@@ -50,3 +52,4 @@
         </div>
     </ul>
 </aside>
+
