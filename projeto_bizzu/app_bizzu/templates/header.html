@@ -1,5 +1,6 @@
 {% load static %}
 <link rel="stylesheet" href="{% static "css/header.css" %}">
+<link rel="stylesheet" href="{% static 'css/popup.css' %}">
 
 <header>
     <div class="logo">
@@ -15,7 +16,7 @@
         <div id="popup" class="popup"></div>
     </div>
 
-    <a href="{% url 'sair' %}">
+    <a href="{% url 'sair' %}" id="sair-link">
         <button id="sair">
             <img src="{% static 'img/entrar.svg' %}" id="sairbtn">Sair
         </button>
@@ -89,8 +90,47 @@
         }
     });
 
+    document.addEventListener('DOMContentLoaded', function() {
+        const sairLink = document.getElementById('sair-link');
+        sairLink.addEventListener('click', function(event) {
+            event.preventDefault();
+            confirmarSaida();
+        });
+    });
 
+    function confirmarSaida() {
+        const popup = document.createElement('div');
+        popup.className = 'custom-popup';
+        popup.innerHTML = `
+            <div class="custom-popup-title">Confirmar saída</div>
+            <div class="custom-popup-message">Tem certeza que deseja sair da sua conta?</div>
+            <div class="custom-popup-buttons">
+                <button class="custom-popup-button custom-popup-button-cancel">Cancelar</button>
+                <button class="custom-popup-button custom-popup-button-confirm custom-popup-button-sair">Sair</button>
+            </div>
+        `;
 
+        const fundo = document.createElement('div');
+        fundo.className = 'custom-popup-backdrop';
+
+        document.body.appendChild(fundo);
+        document.body.appendChild(popup);
+
+        // Adicionar event listeners diretamente
+        popup.querySelector('.custom-popup-button-cancel').addEventListener('click', fecharPopupSaida);
+        popup.querySelector('.custom-popup-button-sair').addEventListener('click', realizarSaida);
+    }
+
+    function fecharPopupSaida() {
+        const popup = document.querySelector('.custom-popup');
+        const fundo = document.querySelector('.custom-popup-backdrop');
+        if (popup) popup.remove();
+        if (fundo) fundo.remove();
+    }
+
+    function realizarSaida() {
+        window.location.href = "{% url 'sair' %}";
+    }
 </script>
 
 <style>
@@ -141,4 +181,14 @@
     margin: 0;
 }
 
+    /* Estilos inline para garantir que sejam aplicados */
+    .custom-popup-button-sair {
+        background-color: #ff3333 !important;
+        color: #ffffff !important;
+    }
+
+    .custom-popup-button-sair:hover {
+        background-color: #ff6666 !important;
+    }
 </style>
+

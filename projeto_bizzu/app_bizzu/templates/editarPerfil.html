@@ -119,68 +119,41 @@
 </div>
 
 <script>
-    function confirmarDescarte(event) {
-        event.preventDefault();
-        if (confirm("Tem certeza que deseja descartar as alterações?")) {
-            window.location.href = "{% url 'perfil' request.user.username %}";
-        }
-    }
     function confirmarAcao(mensagem, acaoConfirmada) {
-    // Criar elementos do popup
-    const backdrop = document.createElement('div');
-    backdrop.className = 'custom-popup-backdrop';
+        const popup = document.createElement('div');
+        popup.className = 'custom-popup';
+        popup.innerHTML = `
+            <div class="custom-popup-title">Confirmação</div>
+            <div class="custom-popup-message">${mensagem}</div>
+            <div class="custom-popup-buttons">
+                <button class="custom-popup-button custom-popup-button-cancel">Cancelar</button>
+                <button class="custom-popup-button custom-popup-button-confirm custom-popup-button-sair">Confirmar</button>
+            </div>
+        `;
 
-    const popup = document.createElement('div');
-    popup.className = 'custom-popup';
+        const fundo = document.createElement('div');
+        fundo.className = 'custom-popup-backdrop';
 
-    const title = document.createElement('div');
-    title.className = 'custom-popup-title';
-    title.textContent = 'Confirmação';
+        document.body.appendChild(fundo);
+        document.body.appendChild(popup);
 
-    const message = document.createElement('div');
-    message.className = 'custom-popup-message';
-    message.textContent = mensagem;
+        popup.querySelector('.custom-popup-button-cancel').addEventListener('click', function() {
+            document.body.removeChild(fundo);
+            document.body.removeChild(popup);
+        });
 
-    const buttons = document.createElement('div');
-    buttons.className = 'custom-popup-buttons';
+        popup.querySelector('.custom-popup-button-sair').addEventListener('click', function() {
+            document.body.removeChild(fundo);
+            document.body.removeChild(popup);
+            acaoConfirmada();
+        });
+    }
 
-    const cancelButton = document.createElement('button');
-    cancelButton.className = 'custom-popup-button custom-popup-button-cancel';
-    cancelButton.textContent = 'Cancelar';
-
-    const confirmButton = document.createElement('button');
-    confirmButton.className = 'custom-popup-button custom-popup-button-confirm';
-    confirmButton.textContent = 'Confirmar';
-
-    // Montar o popup
-    buttons.appendChild(cancelButton);
-    buttons.appendChild(confirmButton);
-    popup.appendChild(title);
-    popup.appendChild(message);
-    popup.appendChild(buttons);
-
-    // Adicionar ao body
-    document.body.appendChild(backdrop);
-    document.body.appendChild(popup);
-
-    // Lidar com as ações dos botões
-    cancelButton.onclick = function() {
-        document.body.removeChild(backdrop);
-        document.body.removeChild(popup);
-    };
-
-    confirmButton.onclick = function() {
-        document.body.removeChild(backdrop);
-        document.body.removeChild(popup);
-        acaoConfirmada();
-    };
-}
     function confirmarDescarte(event) {
         event.preventDefault();
         confirmarAcao("Tem certeza que deseja descartar as alterações?", function() {
             window.location.href = "{% url 'perfil' request.user.username %}";
         });
     }
-
 </script>
 {% endblock %}
