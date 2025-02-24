@@ -17,20 +17,21 @@ class RepositorioView:
     @login_required
     def verRepositorio(request): #Ver a parte interna repositório
         repositorios = Repositorio.objects.all()
+        comunidades = Comunidade.objects.all()
         if request.method == "GET": #Retorna o repositório especifico que cliquei 
             idRepositorio = request.GET.get('repositorio')
             repAtual = Repositorio.objects.get(id=idRepositorio)
-            return render(request, "PagRepositorio.html", {'repositorios': repositorios, "repositorioAtual":repAtual, "usuario":request.user})
+            return render(request, "PagRepositorio.html", {'repositorios': repositorios, "repositorioAtual":repAtual, "usuario":request.user, 'comunidades': comunidades})
         elif request.method == "POST":
             idRepositorio = request.POST.get('repositoriosFavoritados')
             usuario = request.user
             repAtual = Repositorio.objects.get(id=idRepositorio)
             if (repAtual in usuario.repositoriosFavoritados.all()):
                 usuario.repositoriosFavoritados.remove(Repositorio.objects.get(id=idRepositorio))
-                return render(request, "PagRepositorio.html", {'repositorios': repositorios, "repositorioAtual":repAtual, "usuario":request.user})
+                return render(request, "PagRepositorio.html", {'repositorios': repositorios, "repositorioAtual":repAtual, "usuario":request.user, 'comunidades': comunidades})
             else:
                 usuario.repositoriosFavoritados.add(Repositorio.objects.get(id=idRepositorio))
-                return render(request, "PagRepositorio.html", {'repositorios': repositorios, "repositorioAtual":repAtual, "usuario":request.user})
+                return render(request, "PagRepositorio.html", {'repositorios': repositorios, "repositorioAtual":repAtual, "usuario":request.user, 'comunidades': comunidades})
         return render(request, "PagRepositorio.html", {'repositorios': repositorios})
 
     @login_required

@@ -3,48 +3,29 @@ from django.contrib.auth.decorators import login_required
 from ..models import Comunidade
 from django.contrib import messages
 from django.views import View
+from app_bizzu.models.comunidade import Comunidade
+from app_bizzu.models.postagem import Postagem
+from app_bizzu.models.usuario import Usuario
 class ComunidadeView(View):
-    comunidades_info = {
-        "tads": {
-            'nome': 'TADS',
-            'descricao': 'Curso de Análise e Desenvolvimento de Sistemas da DIATINF',
-            'data_fundacao': '2004',  
-            'coordenador': 'Demóstenes Santos',
-            'seguidores': 150,
-            'imagem': 'img/icone tads.svg'
-        },
-        "redes": {
-            'nome': 'REDES',
-            'descricao': 'Curso de Redes da DIATINF',
-            'data_fundacao': '2004',  
-            'coordenador': 'Demóstenes Santos',
-            'seguidores': 120,
-            'imagem': 'img/icone_redes.svg'
-        },
-        "infoweb": {
-            'nome': 'INFOWEB',
-            'descricao': 'Curso de Infoweb da DIATINF',
-            'data_fundacao': '2004',  
-            'coordenador': 'Demóstenes Santos',
-            'seguidores': 90,
-            'imagem': 'img/icone infoweb.svg' 
-        },
-    }
+    
+    def comunidade_detalhe(request, nome):
+        comunidade = get_object_or_404(Comunidade, nome=nome)
+        postagens = Postagem.objects.filter(comunidade=comunidade).order_by('-dataPublicacao')
+        
+        
+        # Buscar outras comunidades excluindo a atual
+        outras_comunidades = Comunidade.objects.exclude(id=comunidade.id)[:2]
 
-    def get(self, request, comunidade):
-        if comunidade not in self.comunidades_info:
-            messages.error(request, "Comunidade não encontrada.")
-            return redirect('escolher_comunidade')
-        
-        # Filtro
-        comunidades_disponiveis = {
-            k: v for k, v in self.comunidades_info.items() if k != comunidade
-        }
-        
-        return render(request, 'baseComunidade.html', {
-            'comunidade': self.comunidades_info[comunidade],
-            'comunidades_disponiveis': comunidades_disponiveis,
+        # Verifica se o usuário está seguindo a comunidade
+        seguindo = request.user in comunidade.seguidores.all() if request.user.is_authenticated else False
+
+        return render(request, 'comunidade_detalhe.html', {
+            'comunidade': comunidade,
+            'postagens': postagens,
+            'outras_comunidades': outras_comunidades,
+            'seguindo': seguindo
         })
+
     
     @login_required
     def seguir_comunidade(request, comunidade_id):

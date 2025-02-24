@@ -20,6 +20,7 @@ from app_bizzu.models.postagem import Postagem
 from app_bizzu.models.usuario import Usuario
 from app_bizzu.models.repositorio import Repositorio
 from app_bizzu.models.curtida import Curtida
+from app_bizzu.models.comentario import Comentario
 
 
 
@@ -133,6 +134,7 @@ class UsuarioView:
         user = get_object_or_404(Usuario, username=username)
         postagens = Postagem.objects.filter(usuario=user).order_by('-dataPublicacao')
         repositorios = Repositorio.objects.filter(usuario=user).order_by('-dataPublicacao').order_by('-dataPublicacao')
+        comunidades = Comunidade.objects.all()
        
         for postagem in postagens:
                 postagem.curtido = Curtida.objects.filter(usuario=request.user, postagem=postagem).exists()
@@ -150,6 +152,7 @@ class UsuarioView:
             'postagens_paginator': postagens_paginator,
             'is_following': is_following,
             'repositorios': repositorios,
+            'comunidades': comunidades
         }
 
         return render(request, 'perfilUsuario.html', context)
@@ -195,17 +198,28 @@ class UsuarioView:
         user = get_object_or_404(Usuario, username=username)
         
     def feed(request):
-        if request.user.is_authenticated:  # Verificação de login
+        postagens = Postagem.objects.all().order_by('-dataPublicacao')
+        repositorios = Repositorio.objects.all().order_by('-dataPublicacao')
+        comunidades = Comunidade.objects.all() 
+
+        if request.user.is_authenticated:
             user = request.user
-            postagens = Postagem.objects.all().order_by('-dataPublicacao')  # Ordenar pela data (mais recente primeiro)
-            repositorios = Repositorio.objects.all().order_by('-dataPublicacao')
             for postagem in postagens:
                 postagem.curtido = Curtida.objects.filter(usuario=request.user, postagem=postagem).exists()
-            return render(request, 'feed.html', {'postagens': postagens, 'user': request.user, 'repositorios': repositorios})
-        else:
-            postagens = Postagem.objects.all().order_by('-dataPublicacao')  # Ordenar pela data (mais recente primeiro)
-            repositorios = Repositorio.objects.all().order_by('-dataPublicacao')
-            return render(request, 'feed_deslogado.html', {'postagens': postagens, 'user': request.user, 'repositorios': repositorios})
+
+            return render(request, 'feed.html', {
+                'postagens': postagens,
+                'user': request.user,
+                'repositorios': repositorios,
+                'comunidades': comunidades  # Agora passa comunidades também!
+            })
+        
+        return render(request, 'feed_deslogado.html', {
+            'postagens': postagens,
+            'user': request.user,
+            'repositorios': repositorios,
+            'comunidades': comunidades
+        })
 
     @login_required
     def feed_seguidos(request):
@@ -216,12 +230,13 @@ class UsuarioView:
 
         # Filtramos postagens apenas desses usuários
         postagens = Postagem.objects.filter(usuario__in=usuarios_seguidos).order_by('-dataPublicacao')
+        comunidades = Comunidade.objects.all()
         for postagem in postagens:
                 postagem.curtido = Curtida.objects.filter(usuario=request.user, postagem=postagem).exists()
 
         repositorios = Repositorio.objects.all().order_by('-dataPublicacao')  # Se for necessário no template
 
-        return render(request, 'feed_seguidos.html', {'postagens': postagens, 'user': user, 'repositorios': repositorios})
+        return render(request, 'feed_seguidos.html', {'postagens': postagens, 'user': user, 'repositorios': repositorios, 'comunidades': comunidades})
 
     def pesquisa(request):
         query = request.GET.get('q', '')
