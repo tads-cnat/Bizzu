@@ -77,20 +77,17 @@ header {
    margin-left: -30px;
 }
 
-/* Estilo da barra de rolagem */
 ::-webkit-scrollbar {
-    width: 8px; /* Largura da barra de rolagem */
+    width: 8px;
 }
 
-/* Estilo do "polegar" da barra de rolagem */
 ::-webkit-scrollbar-thumb {
-    background-color: #F79010; /* Cor do polegar (laranja) */
+    background-color: #F79010;
     border-radius: 10px;
 }
 
-/* Estilo do fundo da barra de rolagem */
 ::-webkit-scrollbar-track {
-    background-color: #DCCEB1; /* Cor do fundo (bege claro) */
+    background-color: #DCCEB1; 
     border-radius: 10px;
 }
 
