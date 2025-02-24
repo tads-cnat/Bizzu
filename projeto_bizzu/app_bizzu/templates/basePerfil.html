@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{% static "css/Botao.css" %}?v=1.3">
     <link rel="stylesheet" href="{% static "css/navbarEsquerda.css" %}?v=1.2">
     <link rel="icon" type="image/svg+xml" href="{% static 'img/abelha_bizzu.svg' %}">
+    <link rel="stylesheet" href="{% static 'css/popup.css' %}">
 </head>
 <body>
     <header>
@@ -111,3 +112,116 @@
     </section>
 </body>
 </html>
+
+<script>
+
+    // Ocultar pop-up quando clicar fora
+    document.addEventListener("click", function(event) {
+        let popup = document.getElementById("popup");
+        let inputBox = document.getElementById("buscar");
+        if (!popup.contains(event.target) && !inputBox.contains(event.target)) {
+            popup.style.display = "none";
+        }
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const BotaoLink = document.getElementById('BotaoLink');
+        BotaoLink.addEventListener('click', function(event) {
+            event.preventDefault();
+            confirmarSaida();
+        });
+    });
+
+    function confirmarSaida() {
+        const popup = document.createElement('div');
+        popup.className = 'custom-popup';
+        popup.innerHTML = `
+            <div class="custom-popup-title">Confirmar saída</div>
+            <div class="custom-popup-message">Tem certeza que deseja sair da sua conta?</div>
+            <div class="custom-popup-buttons">
+                <button class="custom-popup-button custom-popup-button-cancel">Cancelar</button>
+                <button class="custom-popup-button custom-popup-button-confirm custom-popup-button-sair">Sair</button>
+            </div>
+        `;
+
+        const fundo = document.createElement('div');
+        fundo.className = 'custom-popup-backdrop';
+
+        document.body.appendChild(fundo);
+        document.body.appendChild(popup);
+
+        // Adicionar event listeners diretamente
+        popup.querySelector('.custom-popup-button-cancel').addEventListener('click', fecharPopupSaida);
+        popup.querySelector('.custom-popup-button-sair').addEventListener('click', realizarSaida);
+    }
+
+    function fecharPopupSaida() {
+        const popup = document.querySelector('.custom-popup');
+        const fundo = document.querySelector('.custom-popup-backdrop');
+        if (popup) popup.remove();
+        if (fundo) fundo.remove();
+    }
+
+    function realizarSaida() {
+        window.location.href = "{% url 'sair' %}";
+    }
+</script>
+
+<style>
+.popup {
+    position: absolute;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    display: none; /* Mantém oculto até que seja necessário */
+    max-height: 250px;
+    overflow-y: auto;
+    z-index: 1000;
+    width: auto;
+    min-width: 250px; /* Garante que tenha um tamanho mínimo */
+    padding: 5px 0; /* Adiciona um espaço interno para não ficar colado */
+}
+
+.popup-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    text-decoration: none;
+    color: black;
+    border-bottom: 1px solid #eee;
+    transition: background 0.2s;
+}
+
+.popup-item:hover {
+    background: #f1f1f1;
+}
+
+.popup-item img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.popup-item div {
+    display: flex;
+    flex-direction: column;
+}
+
+.popup-item p {
+    font-size: 12px;
+    color: #777;
+    margin: 0;
+}
+
+    /* Estilos inline para garantir que sejam aplicados */
+    .custom-popup-button-sair {
+        background-color: #ff3333 !important;
+        color: #ffffff !important;
+    }
+
+    .custom-popup-button-sair:hover {
+        background-color: #ff6666 !important;
+    }
+</style>
