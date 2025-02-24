@@ -98,16 +98,16 @@ class UsuarioView:
             else:
                 return JsonResponse({"erro": "Ação inválida"}, status=400)
 
-            # Salvar no banco
             perfil_atual.save()
             perfil_alvo.save()
 
-            # Retorna JSON para atualizar o botão dinamicamente no modal
-            return JsonResponse({"seguindo": seguindo})
+            # 🔥 **Diferenciar AJAX de requisição normal**
+            if request.headers.get('X-Requested-With') == 'XMLHttpRequest':  # Se for AJAX, retorna JSON
+                return JsonResponse({"seguindo": seguindo})
+            else:
+                return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))  # Se não for AJAX, recarrega a página
 
-            # return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
-
-        return redirect('perfil', username=perfil_alvo.username)
+        return redirect('perfil_usuario', username=perfil_alvo.username)
     
     def cadastro(request):
         if request.method == "GET":
@@ -198,22 +198,29 @@ class UsuarioView:
         user = get_object_or_404(Usuario, username=username)
         
     def feed(request):
-        postagens = Postagem.objects.all().order_by('-dataPublicacao')
+        postagens = Postagem.objects.all().order_by('-dataPublicacao')  # Padrão: todas as postagens
         repositorios = Repositorio.objects.all().order_by('-dataPublicacao')
-        comunidades = Comunidade.objects.all() 
+        comunidades = Comunidade.objects.all()
 
         if request.user.is_authenticated:
             user = request.user
+
+            # Filtrando postagens apenas das comunidades que o usuário segue
+            comunidades_seguidas = user.comunidades.all()
+            postagens = Postagem.objects.filter(comunidade__in=comunidades_seguidas).order_by('-dataPublicacao')
+
+            # Marcar curtidas para cada postagem
             for postagem in postagens:
-                postagem.curtido = Curtida.objects.filter(usuario=request.user, postagem=postagem).exists()
+                postagem.curtido = postagem.postagem_curtida.filter(usuario=request.user).exists()
 
             return render(request, 'feed.html', {
                 'postagens': postagens,
                 'user': request.user,
                 'repositorios': repositorios,
-                'comunidades': comunidades  # Agora passa comunidades também!
+                'comunidades': comunidades
             })
-        
+
+        # Usuário deslogado vê todas as postagens
         return render(request, 'feed_deslogado.html', {
             'postagens': postagens,
             'user': request.user,

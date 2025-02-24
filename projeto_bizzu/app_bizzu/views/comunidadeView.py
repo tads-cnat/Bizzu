@@ -8,8 +8,8 @@ from app_bizzu.models.postagem import Postagem
 from app_bizzu.models.usuario import Usuario
 class ComunidadeView(View):
     
-    def comunidade_detalhe(request, nome):
-        comunidade = get_object_or_404(Comunidade, nome=nome)
+    def comunidade_detalhe(request, comunidade_id):
+        comunidade = get_object_or_404(Comunidade, id=comunidade_id)
         postagens = Postagem.objects.filter(comunidade=comunidade).order_by('-dataPublicacao')
         
         
@@ -48,7 +48,7 @@ class ComunidadeView(View):
             usuario.save()
             comunidade.save()
 
-            return redirect('detalhes_comunidade', comunidade=comunidade.nome.lower())
+            return redirect('detalhes_comunidade', comunidade_id=comunidade.id)
 
         return redirect('feed')
     

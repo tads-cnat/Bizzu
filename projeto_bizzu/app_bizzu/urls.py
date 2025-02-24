@@ -7,7 +7,7 @@ urlpatterns=[
     path('', usuarioView.UsuarioView.feed, name="feed"),
     path('feed-seguidos/', usuarioView.UsuarioView.feed_seguidos, name='feed_seguidos'),
     path('perfil/', usuarioView.UsuarioView.perfil, name='perfil'),
-    path('comunidade/<str:nome>/', comunidadeView.ComunidadeView.comunidade_detalhe, name='perfil_comunidade'),
+    path('comunidade/<uuid:comunidade_id>/', comunidadeView.ComunidadeView.comunidade_detalhe, name='detalhes_comunidade'),
     path('cadastro/', usuarioView.UsuarioView.cadastro, name='cadastro'),
     path('login/', usuarioView.UsuarioView.login, name='login'),
     path('repositorio/', repositorioView.RepositorioView.verRepositorio, name='verRepositorio'),
@@ -28,7 +28,6 @@ urlpatterns=[
     path('excluir-repositorio/', repositorioView.RepositorioView.excluirRepositorio, name='excluirRepositorio'),
     path('postagem/excluir/<uuid:postagem_id>/', usuarioView.UsuarioView.excluir_postagem, name='excluir_postagem'),
     path('editar-repositorio/<uuid:repositorio_id>/', repositorioView.RepositorioView.editarRepositorio, name="editarRepositorio"),
-    path('comunidade/<str:comunidade>/', comunidadeView.ComunidadeView.as_view(), name='perfil_comunidade'),
     path('comunidade/<uuid:comunidade_id>/seguir/', comunidadeView.ComunidadeView.seguir_comunidade,name='seguir_comunidade'),
     path('perfil/<int:user_id>/<str:tipo>/', usuarioView.UsuarioView.lista_seguidores_seguindo, name='lista_seguidores_seguindo'),
 ]

@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                         listaUsuarios.appendChild(div);
 
-                        // Adiciona evento ao formulário para seguir/desseguir
+                        // Evento para seguir/desseguir via AJAX
                         div.querySelector(".form-seguir").addEventListener("submit", function (e) {
                             e.preventDefault();
                             let form = this;
@@ -45,7 +45,8 @@ document.addEventListener("DOMContentLoaded", function () {
                             fetch(`/seguir/${userId}/`, {
                                 method: "POST",
                                 headers: {
-                                    "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value
+                                    "X-CSRFToken": getCsrfToken(), // Obtendo o token CSRF corretamente
+                                    "X-Requested-With": "XMLHttpRequest"
                                 },
                                 body: formData
                             })
@@ -53,12 +54,14 @@ document.addEventListener("DOMContentLoaded", function () {
                             .then(result => {
                                 followInput.value = result.seguindo ? "unfollow" : "follow";
                                 botao.textContent = result.seguindo ? "Seguindo" : "Seguir";
-                            });
+                            })
+                            .catch(error => console.error("Erro ao seguir/desseguir:", error));
                         });
                     });
 
                     modal.style.display = "block";
-                });
+                })
+                .catch(error => console.error("Erro ao carregar seguidores/seguidos:", error));
         });
     });
 
@@ -66,4 +69,14 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("fechar-modal-seguidores-seguindo").addEventListener("click", function () {
         document.getElementById("modal-seguidores-seguindo").style.display = "none";
     });
+
+    // Função para obter o token CSRF do cookie
+    function getCsrfToken() {
+        let cookies = document.cookie.split("; ");
+        for (let i = 0; i < cookies.length; i++) {
+            let [name, value] = cookies[i].split("=");
+            if (name === "csrftoken") return value;
+        }
+        return "";
+    }
 });
