@@ -136,8 +136,7 @@ STATICFILES_DIRS = [
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-CSRF_TRUSTED_ORIGINS = ['https://localhost:8000']
-CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1', 'http://localhost']
+CSRF_TRUSTED_ORIGINS = ['https://localhost:8000', 'http://127.0.0.1', 'http://localhost']
 
 CSRF_COOKIE_SECURE = False
 CSRF_COOKIE_HTTPONLY = False  # para permitir acesso via JavaScript

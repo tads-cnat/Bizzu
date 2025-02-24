@@ -1,0 +1,155 @@
+{% extends 'baseComunidade.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static "css/comunidade_detalhe2.css" %}?v=1.1">
+    <link rel="stylesheet" href="{% static "css/menuHorizontal.css" %}?v=1.2">
+{% endblock %}
+
+{% block content %}
+    <main id="principal">
+        <div class="perfilUsuario">
+
+            <!-- Cabeçalho da Comunidade -->
+            <div class="perfil-header">
+                <div class="perfil-info">
+                    <img src="{{ comunidade.imagem.url }}" alt="{{ comunidade.nome }}" class="foto-perfil" width="100px">
+                    
+                    <div class="perfil-detalhes">
+                        <h1>{{ comunidade.nome }}</h1>
+                        <p class="descricao">{{ comunidade.descricao }}</p>
+                        <div class="perfil-status">
+                            <span>
+                                <strong>{{ comunidade.seguidores.count }}</strong> seguidores
+                            </span>
+                            <form method="POST" action="{% url 'seguir_comunidade' comunidade.id %}">
+                                {% csrf_token %}
+                                {% if seguindo %}
+                                    <button type="submit" name="follow" value="unfollow" class="btn-unfollow">Seguindo</button>
+                                {% else %}
+                                    <button type="submit" name="follow" value="follow" class="btn-novo">Seguir</button>
+                                {% endif %}
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Menu de Navegação -->
+            <div class="menu-horizontal-container">
+                <div class="menuHorizontal">
+                    <img class="imgMenu" src="{% static 'img/iconePostagensCinza.svg' %}" alt="Ícone Postagens">
+                    <button type="button" class="aba ativa" onclick="mostrarAba('postagens')">Postagens</button>
+                </div>
+                <div class="menuHorizontal">
+                    <img class="imgMenu" src="{% static 'img/imagemRepositorio.svg' %}" alt="Ícone Repositórios">
+                    <button type="button" class="aba" onclick="mostrarAba('repositorio')">Repositório</button>
+                </div>
+                <div class="menuHorizontal">
+                    <img class="imgMenu" src="{% static 'img/imagemComentario.svg' %}" alt="Ícone Comentários">
+                    <button type="button" class="aba" onclick="mostrarAba('comentarios')">Comentários</button>
+                </div>
+            </div>
+
+            <!-- Conteúdo -->
+            <div class="feed">
+                
+                <!-- Postagens -->
+                <div class="lista-categorias ativa" id="postagens" style="display: flex;">
+                    {% for postagem in postagens %}
+                    <div class="postagem">
+                        <div class="post-header">
+                            <div class="usuario-info">
+                                {% if postagem.usuario.imagemPerfil %}
+                                    <img src="{{ postagem.usuario.imagemPerfil.url }}" alt="Avatar" class="avatar">
+                                {% else %}
+                                    <img src="{% static 'img/default-profile.png' %}" alt="Avatar" class="avatar">
+                                {% endif %}
+                                <h3>
+                                    <a href="{% url 'perfil' username=postagem.usuario.username %}">{{ postagem.usuario.nome }}</a> 
+                                    • <span style="color: beige;">{{ postagem.dataPublicacao|date:"d/m/Y H:i" }}</span>
+                                </h3>
+                            </div>
+                            <div class="categorias-post">
+                                {% for categoria in postagem.categorias.all %}
+                                    <h4 class="categoria {% if categoria.tipo == 'per' %}periodo{% elif categoria.tipo == 'mat' %}materia{% elif categoria.tipo == 'tec' %}tecnologia{% endif %}">
+                                        • {{ categoria.nome }}
+                                    </h4>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div class="post-body">
+                            <p>{{ postagem.texto }}</p>
+                            {% if postagem.imagem %}
+                                <img src="{{ postagem.imagem.url }}" alt="Imagem da postagem" class="post-image">
+                            {% endif %}
+                        </div>
+
+                        <div class="post-footer">
+                            <div class="likes">
+                                <a href="{% url 'curtida' postagem.id %}" class="curtir-btn">
+                                    <img 
+                                        width="24px" 
+                                        class="curtida-icon"
+                                        data-curtida="{% static 'img/curtidaColor.svg' %}"
+                                        data-nao-curtida="{% static 'img/curtida.svg' %}"
+                                        {% if postagem.curtido %}
+                                            src="{% static 'img/curtidaColor.svg' %}" data-curtido="true"
+                                        {% else %}
+                                            src="{% static 'img/curtida.svg' %}" data-curtido="false"
+                                        {% endif %}
+                                    >
+                                </a>
+                                <span class="curtidas-count">{{ postagem.postagem_curtida.count }} curtidas</span>
+                            </div>
+                            <div class="comentarios">
+                                <button class="comentar-btn">
+                                    <img src="{% static 'img/icone_comentar.png' %}" width="24px">
+                                    <span>Comentar</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                        <p class="postagem-off">Nenhuma postagem disponível no momento.</p>
+                    {% endfor %}
+                </div>
+
+                <!-- Repositório -->
+                <div class="lista-categorias" id="repositorio" style="display: none;">
+                    <p>Funcionalidade de repositório em desenvolvimento...</p>
+                </div>
+
+                <!-- Comentários -->
+                <div class="lista-categorias" id="comentarios" style="display: none;">
+                    <p>Funcionalidade de comentários em desenvolvimento...</p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        function mostrarAba(aba) {
+            let abas = document.querySelectorAll(".lista-categorias");
+            let botoes = document.querySelectorAll(".aba");
+
+            abas.forEach(div => {
+                div.style.display = "none";
+            });
+            botoes.forEach(btn => btn.classList.remove("ativa"));
+
+            let abaSelecionada = document.getElementById(aba);
+            abaSelecionada.style.display = "flex";
+
+            if (aba === "postagens" || aba === "comentarios") {
+                abaSelecionada.style.flexDirection = "column";
+            } else if (aba === "repositorio") {
+                abaSelecionada.style.flexDirection = "row";
+            }
+
+            event.target.classList.add("ativa");
+        }
+    </script>
+{% endblock %}
