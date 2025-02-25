@@ -21,8 +21,53 @@
         {% include 'navbarEsquerda.html' with user=user %}
         
         <div class="feed">
+            <button id="filtro-btn" class="filtro-btn" onclick="toggleFiltroCategorias()">Filtro ▼</button>
+
+            <!-- Menu de Categorias para Filtro -->
+            <div class="menu-categorias" id="menuFiltroCategorias" style="display: none;">
+                <div class="abas">
+                    <button type="button" class="aba ativa" onclick="mostrarAbaFiltro('materia')">Matéria</button>
+                    <button type="button" class="aba" onclick="mostrarAbaFiltro('periodo')">Período</button>
+                    <button type="button" class="aba" onclick="mostrarAbaFiltro('tecnologia')">Tecnologia</button>
+                </div>
+
+                <div class="conteudo-categorias">
+                    <input type="text" id="pesquisaFiltroCategorias" placeholder="🔍 Procurar..." onkeyup="filtrarCategoriasFiltro()">
+
+                    <!-- Matéria -->
+                    <div class="lista-categorias filtro-lista" id="materia">
+                        {% for categoria in categorias_materia %}
+                            <label><input type="checkbox" class="filtro-checkbox" value="{{ categoria.id }}"> {{ categoria.nome }}</label>
+                        {% empty %}
+                            <p class="mensagem-sem-categorias">Nenhuma categoria disponível.</p>
+                        {% endfor %}
+                    </div>
+
+                    <!-- Período -->
+                    <div class="lista-categorias filtro-lista" id="periodo" style="display: none;">
+                        {% for categoria in categorias_periodo %}
+                            <label><input type="checkbox" class="filtro-checkbox" value="{{ categoria.id }}"> {{ categoria.nome }}</label>
+                        {% empty %}
+                            <p class="mensagem-sem-categorias">Nenhuma categoria disponível.</p>
+                        {% endfor %}
+                    </div>
+
+                    <!-- Tecnologia -->
+                    <div class="lista-categorias filtro-lista" id="tecnologia" style="display: none;">
+                        {% for categoria in categorias_tecnologia %}
+                            <label><input type="checkbox" class="filtro-checkbox" value="{{ categoria.id }}"> {{ categoria.nome }}</label>
+                        {% empty %}
+                            <p class="mensagem-sem-categorias">Nenhuma categoria disponível.</p>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <button class="botao-aplicar-filtro" onclick="aplicarFiltro()">✔️ Aplicar Filtro</button>
+            </div>
+
+
             {% for postagem in postagens %}
-            <div class="postagem" data-postagem-id="{{ postagem.id }}">
+            <div class="postagem" data-postagem-id="{{ postagem.id }}" data-categorias="{% for categoria in postagem.categorias.all %}{{ categoria.id }},{% endfor %}">
                 <!-- Nome do usuário e hora da postagem -->
                 <div class="post-header">
                     <div class="usuario-info">
@@ -193,8 +238,10 @@
 
 
     </script>
+
     <script src="{% static 'js/comentarios.js' %}"></script>
     <script src="{% static 'js/modalRepositorio.js' %}?v=1.3"></script>
+    <script src="{% static 'js/filtro.js' %}"></script>
     
 </body>
 </html>

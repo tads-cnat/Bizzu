@@ -46,6 +46,94 @@ body::before {
     margin: auto;
 }
 
+.filtro-btn {
+    position: absolute;
+    top: 100px;
+    right: 29%;
+    width: 110px;
+    height: 40px;
+    background-color: var(--laranja);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: 0 3px 10px black;
+}
+
+.categorias-container {
+    position: relative;
+    width: 100%;
+}
+
+.botao-categorias {
+    width: 100%;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-light);
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    text-align: left;
+}
+
+.menu-categorias {
+    display: none;
+    position: absolute;
+    width: 100%;
+    background: var(--text-dark);
+    border-radius: var(--border-radius);
+    padding: 10px;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+}
+
+.abas {
+    display: flex;
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.aba {
+    flex: 1;
+    padding: 10px;
+    background: transparent;
+    border: none;
+    color: var(--text-light);
+    cursor: pointer;
+    text-align: center;
+}
+
+.aba.ativa {
+    background: var(--primary-color);
+    color: var(--text-dark);
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+.conteudo-categorias {
+    padding: 10px;
+}
+
+#pesquisaCategorias,
+#pesquisaFiltroCategorias {
+    width: 100%;
+    padding: 8px;
+    border-radius: var(--border-radius);
+    border: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-light);
+}
+
+.lista-categorias label {
+    display: block;
+    padding: 5px;
+    color: var(--text-light);
+    cursor: pointer;
+}
+
+.lista-categorias input {
+    margin-right: 5px;
+}
 
 /* FEED DE PUBLICAÇÕES ABAIXO */
 
