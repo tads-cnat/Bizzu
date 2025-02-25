@@ -32,9 +32,16 @@ body::before {
 }
 .headerRepositorio{
     display: flex;
-    align-content: right;
+    justify-content: space-between;
+
     padding-bottom: 10px;
 }
+
+.header-final {
+    display: flex;
+    flex-direction: row;
+}
+
 .repositorioH{
     margin: 0;
     padding: 0;

@@ -20,6 +20,19 @@
             </div>
             <h1 class="repositorioH">{{ repositorioAtual.titulo }}</h1>
             <p class="repositorioP">{{ repositorioAtual.descricao }}</p>
+            <div class="header-final">        
+                <form method="POST" action="{% url 'verRepositorio' %}">
+                        {% csrf_token %}
+                        <button type="submit" id="BotaoLink" class="GeralSecundario" name="repositoriosFavoritados" value="{{ repositorioAtual.id }}">
+                            <p id="botaoP">Favoritar</p>
+                        </button>
+                    </form>
+                    <a href="{{ repositorioAtual.arquivos.first.arquivo.url }}" download id="download" name="baixar">
+                        <button type="submit" id="BotaoLink" class="GeralSecundario">
+                            <p id="botaoP">Baixar</p>
+                        </button>
+                    </a>
+                </div>
 
             <table class="tabela">
                 <tr class="tabela_linha">
@@ -69,20 +82,6 @@
                     </tr>
                 {% endif %}
             </table>
-
-            <div class="footerRepositorio">
-                <form method="POST" action="{% url 'verRepositorio' %}">
-                    {% csrf_token %}
-                    <button type="submit" id="BotaoLink" class="GeralSecundario" name="repositoriosFavoritados" value="{{ repositorioAtual.id }}">
-                        <p id="botaoP">Favoritar</p>
-                    </button>
-                </form>
-                <a href="{{ repositorioAtual.arquivos.first.arquivo.url }}" download id="download" name="baixar" >
-                    <button type="submit" id="BotaoLink" class="GeralSecundario">
-                        <p id="botaoP">Baixar</p>
-                    </button>
-                </a>
-            </div>
         </div>
     <aside class="barrarepositorios">
         <div class="conteudodireita">

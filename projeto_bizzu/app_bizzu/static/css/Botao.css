@@ -1,5 +1,5 @@
 #BotaoLink:hover{
-    background-color: #ACABA4;
+    background-color: #F79010;
 }
 #BotaoLink#BotaoLink.voltar:hover{
     background-color: #058b9200;
@@ -52,12 +52,15 @@ button{
 
 #BotaoLink.GeralSecundario{
     border: 1px solid;
-    border-color: #F79010 ;
-    color: #F79010;
-    padding: 0;
-    padding-left: 3%;
-    padding-right: 3%;
+    border-color: #F79010;
+    color: white;
+    margin-top: 15px;
+    padding: 0 20px;
 } 
+
+#BotaoLink.GeralSecundadio:hover{
+    background-color: #F79010;
+}
 
 
 .EditPrimario{
