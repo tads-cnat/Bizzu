@@ -134,6 +134,9 @@ class UsuarioView:
         user = get_object_or_404(Usuario, username=username)
         postagens = Postagem.objects.filter(usuario=user).order_by('-dataPublicacao')
         repositorios = Repositorio.objects.filter(usuario=user).order_by('-dataPublicacao').order_by('-dataPublicacao')
+        # postagensComentadas =  Postagem.objects.filter(comentario__usuario=usuario).order_by('dataPublicacao')   
+        comentarios = Comentario.objects.filter(usuario=user).order_by('-dataPostagem')
+
         comunidades = Comunidade.objects.all()
        
         for postagem in postagens:
@@ -152,32 +155,12 @@ class UsuarioView:
             'postagens_paginator': postagens_paginator,
             'is_following': is_following,
             'repositorios': repositorios,
-            'comunidades': comunidades
+            'comunidades': comunidades,
+            "comentarios" : comentarios,
         }
 
         return render(request, 'perfilUsuario.html', context)
 
-    def perfilComentario(request,username):
-        user = get_object_or_404(Usuario, username=username) # Pegando o usuário  pelo username
-        comentarios = Comentario.objects.filter(usuario=user).order_by('-dataPublicacao') # faz uma pesquisa para pegar os comentários do usuário e ordena por data de publicação
-
-
-        comentario_post = {} # Cria um dicionário vazio
-        for comentario in comentarios:
-            if comentario.postagem not in comentario_post: # se o comentário da postagem não estiver no dicionário
-                comentario_post[comentario.postagem] = [] # cria uma lista vazia
-            comentario_post[comentario.postagem].append(comentario) # adiciona o comentário a essa lista
-
-        # Paginação
-        paginator = Paginator(list(comentario_post.items()), 5) # Organiza em 5 postagens por página
-        page_number = request.GET.get('page')
-        comentario_paginator = paginator.get_page(page_number)
-        
-        context = {
-            "user" : user,
-            "comentario_paginator" : comentario_paginator
-        }
-        return render(request, "perfilUsuario.html",context)
 
 
     @login_required

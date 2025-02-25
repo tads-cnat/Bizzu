@@ -207,34 +207,20 @@
                     {% endfor %}
                 </div> 
                 <!-- Comentários -->
-                <div class="lista-categorias" id="comentario" style="display: none;">
-                    {%for postagem,comentario in comentario_post%}
-
-                    <div class="comment-container">
-                        <div class="user-info">
-                            <img src="{{ postagem.usuario.imagemPerfil.url }}" alt="User" class="avatar">
-                            <span class="username">{{postagem.usuario.username}}</span>
-                            <span class="time">• {{ postagem.dataPublicacao|date:"d/m/Y H:i" }}</span>
-                            <button class="view-post">Ver post</button>
-                        </div> <!-- Fechamento da div -> user-info -->
-                        <p class="comment-text">{{postagem.texto}}</p>
-                    </div> <!-- Fechamento da div -> comment-container-->
-
-                    <img class="barraComentario" src="{% static 'img/barraComentario.svg' %}">
-                    <span class="reply-to">Resposta ao post de {{postagem.usuario.username}}</span>
-                    {% for comentario in comentarios %}
-                    <div class="user-info">
-                        <img src="{{ usuario.imagemPerfil.url }}" alt="Avatar" class="avatar" style="object-fit: cover;">
-                        <span class="username">{{comentario.usuario.username}}</span>
-                        <span class="time">• {{ comentario.dataPostagem|date:"d/m/Y H:i" }}</span>
-                    </div> <!--Fechamento da div -> user-info -->
-                    <p class="comment-reply">{{comentario.usuario.conteudo}}</p>
-                    {%endfor%}
-                    {%endfor%}
-                    {% if not comentario_paginator%}  
-                    <p class="postagem-off">Nenhum comentário disponível no momento.</p>
-                    {%endif%}
-                </div> <!--Fechamento da div listar-categorias -->
+                    <div class="lista-categorias" id="comentario" style="display: none;">
+                        {% for comentario in comentarios %}
+                        <div class="comment-container">
+                            <div class="user-info">
+                                <img src="{{ comentario.usuario.imagemPerfil.url }}" alt="Avatar" class="avatar" style="object-fit: cover;">
+                                <span class="username">{{ comentario.usuario.username }}</span>
+                                <span class="time">• {{ comentario.dataPostagem|date:"d/m/Y H:i" }}</span>
+                            </div> <!-- Fechamento da div -> user-info -->
+                        <p class="comment-reply">{{ comentario.conteudo }}</p>
+                        </div> <!-- Fechamento da div -> comment-container -->
+                        {% empty %}
+                            <p class="postagem-off">Nenhum comentário disponível no momento.</p>
+                        {% endfor %}
+                    </div> <!--Fechamento da div listar-categorias -->
             </div>
         </div>
     </main>
