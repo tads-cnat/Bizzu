@@ -50,7 +50,7 @@
     clip-path: polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0% 50%);
     margin-right: 15px;
     object-fit: cover; /* Garante que a imagem preencha o espaço sem distorção */
-    object-position: center; /* Centraliza a imagem dentro do hexágono */
+    object-position: center;
 }
 
 .perfil-detalhes h1 {

@@ -208,25 +208,30 @@
                 <!-- Comentários -->
                 <div class="lista-categorias" id="comentario" style="display: none;">
                     {% for postagem in postagensComentadas %}
+                    
                     <div class="comment-container">
                         <div class="user-info">
                             <img src="{{ postagem.usuario.imagemPerfil.url }}" alt="User" class="avatar">
-                            <span class="username">{{ postagem.usuario.username }}</span>
-                            <span class="time">• {{ postagem.dataPublicacao|date:"d/m/Y H:i" }}</span>
-                            <button class="view-post">Ver post</button>
+                            <h3><a href="{% url 'perfil' username=postagem.usuario.username %}" class="username">{{ postagem.usuario.nome }} <span class="time">• {{ postagem.dataPublicacao|date:"d/m/Y H:i" }}</span> </a> </h3>
                         </div> <!-- Fechamento da div -> user-info -->
                         <p class="comment-text">{{ postagem.texto }}</p>
+                        {% if postagem.imagem %}
+                        <img src="{{ postagem.imagem.url }}" alt="Imagem da postagem" class="comment-image">
+                        {% endif %}
                     </div> <!-- Fechamento da div -> comment-container -->
-                
-                    <span class="reply-to">Respostas ao post de {{ postagem.usuario.username }}</span>
+                    
+                        <img class="barraComentario" src="{% static 'img/barraComentario.svg' %}" alt="Barra"> 
+                        <span class="reply-to">Resposta ao post de @{{ postagem.usuario.username }}</span>
+                  
+
+
                 
                     {% for comentario in comentarios %}
                         {% if comentario.postagem.id == postagem.id %}
-                            <div class="comment-container">
+                            <div class="reply-container">
                                 <div class="user-info">
                                     <img src="{{ comentario.usuario.imagemPerfil.url }}" alt="Avatar" class="avatar" style="object-fit: cover;">
-                                    <span class="username">{{ comentario.usuario.username }}</span>
-                                    <span class="time">• {{ comentario.dataPostagem|date:"d/m/Y H:i" }}</span>
+                                    <h3><span class="username">{{ comentario.usuario.username }} <span class="time">• {{ comentario.dataPostagem|date:"d/m/Y H:i" }}</span> </span> </h3>
                                 </div> <!-- Fechamento da div -> user-info -->
                                 <p class="comment-reply">{{ comentario.conteudo }}</p>
                             </div> <!-- Fechamento da div -> comment-container -->

@@ -13,6 +13,17 @@
     border-radius: 25px;
     
 }
+.reply-container {
+    display: flex;            
+    flex-direction: column;       
+    text-align: left;      
+    margin: 0 auto;    
+    width: 400px;
+    padding: 16px;
+    margin-bottom: 3%;
+    border-radius: 25px;
+    
+}
 .comment, .reply {
     background-color: #242424;
     padding: 12px;
@@ -27,8 +38,8 @@
 }
 
 .avatar {
-    width: 32px;
-    height: 32px;
+    width: 54px;
+    height: 56px;
     border-radius: 50%;
     clip-path: polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0% 50%);
     margin-right: 15px;
@@ -69,10 +80,25 @@
     font-size: 12px;
     font-weight: bold;
     color: #FFFFFF;
+    text-align: center;
 }
 .barraComentario{
-    margin-left: 4%;
+    margin-left: 30%;
+    width: 80px;
+    height: 80px;
 }
 .comment-reply{
-    color: #FFFFFF
+    color: #FFFFFF;
+    margin-left: 20%;
+}
+.coment-image{
+    width: 40px;
+    height: 40px;
+}
+.reply-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 5px; /* Espaço entre a barra e o texto */
+    width: 100%; /* Mantém a barra ocupando toda a largura disponível */
+    margin-bottom: 10%;
 }
