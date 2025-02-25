@@ -127,9 +127,9 @@
     cursor: pointer;
 }
 
-.menuHorizontal button:hover {
+/* .menuHorizontal button:hover {
     color: var(--laranja);
-}
+} */
 
 .aba.ativa {
     font-weight: bold;
