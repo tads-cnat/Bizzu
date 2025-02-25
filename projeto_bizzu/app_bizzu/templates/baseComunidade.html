@@ -13,52 +13,6 @@
     <link rel="stylesheet" href="{% static "css/navbarEsquerda.css" %}?v=1.2">
     <link rel="icon" type="image/svg+xml" href="{% static 'img/abelha_bizzu.svg' %}">
     {% block css %}{% endblock %}
-    <style>
-        .comunidades-lateral {
-            margin-top: 20px;
-        }
-
-        .titulo-lateral {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: white;
-        }
-
-        .comunidade-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 10px;
-            padding: 10px;
-            border-radius: 8px;
-            background-color: #2a2a2a;
-        }
-
-        .comunidade-info {
-            flex: 1;
-        }
-
-        .comunidade-nome {
-            font-weight: bold;
-            color: white;
-        }
-
-        .comunidade-descricao {
-            font-size: 12px;
-            color: #ccc;
-        }
-
-        .vermais-btn {
-            padding: 5px 10px;
-            background-color: var(--verdeAgua);
-            border: none;
-            color: white;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-
-    </style>
 </head>
 <body>
     <header>
@@ -76,7 +30,6 @@
         </div>
         <aside class="barraPerfil">
             
-            
             <div class="topoLateral">    
             <input type="text" id="buscar" placeholder="Procurar...">
             <a href="{% url 'sair' %}" id="BotaoLink" class="AlertaPrimario">
@@ -84,7 +37,8 @@
                 <p id="botaoP">Sair</p>
             </a>
             </div>
-            
+
+            <!-- Navebar direita -->
             <div class="conteudodireita">
                 <div class="informacoesPerfil">
                     <div class="blocoDiv">
@@ -109,11 +63,11 @@
                 <div class="academicoDiv">
                     <div class="topico">
                         <img src="{% static 'img/abelha_bizzu.svg' %}" id="iconePerfil">
-                        <p class="infosPerfil">Fundado em {{ comunidade.data_fundacao }}</p>
+                        <p class="infosPerfil">Fundado em {{ comunidade.anoFundacao|date:"Y" }}</p>
                     </div>
                     <div class="topico">
                         <img src="{% static 'img/abelha_bizzu.svg' %}" id="iconePerfil">
-                        <p class="infosPerfil">Coordenação: {{ comunidade.coordenador }}</p>
+                        <p class="infosPerfil">Coordenação: {{ comunidade.coordenacao }}</p>
                     </div> 
                     <br>
                     <div class="topico">
@@ -122,13 +76,13 @@
                     <div class="links-importantes">
                         <a href="{{ comunidade.linkPPC }}" target="_blank"><button class="botao-doc">PPC</button></a>
                         <a href="{{ comunidade.linkHorarios }}" target="_blank"><button class="botao-doc">Horários</button></a>
-                        <a href="{{ comunidade.linkExtra }}" target="_blank"><button class="botao-doc">Extra</button></a>
+                        <a href="{{ comunidade.linkExtra }}" target="_blank"><button class="botao-doc">SUAP</button></a>
                     </div>
                     <br>
                     <hr>
                     <br>
                     <div class="comunidades-lateral">
-                        <h3>Siga Outras Comunidades</h3>
+                        <h3>Veja Outras Comunidades</h3>
                             {% for outra in outras_comunidades %}
                                 <div class="outra-comunidade">
                                     <img src="{{ outra.imagem.url }}" alt="{{ outra.nome }}" width="50px">
