@@ -134,7 +134,7 @@ class UsuarioView:
         user = get_object_or_404(Usuario, username=username)
         postagens = Postagem.objects.filter(usuario=user).order_by('-dataPublicacao')
         repositorios = Repositorio.objects.filter(usuario=user).order_by('-dataPublicacao').order_by('-dataPublicacao')
-        # postagensComentadas =  Postagem.objects.filter(comentario__usuario=usuario).order_by('dataPublicacao')   
+        postagensComentadas =  Postagem.objects.filter(comentario__usuario=user).order_by('dataPublicacao')   
         comentarios = Comentario.objects.filter(usuario=user).order_by('-dataPostagem')
 
         comunidades = Comunidade.objects.all()
@@ -157,6 +157,7 @@ class UsuarioView:
             'repositorios': repositorios,
             'comunidades': comunidades,
             "comentarios" : comentarios,
+            "postagensComentadas" : postagensComentadas,
         }
 
         return render(request, 'perfilUsuario.html', context)
