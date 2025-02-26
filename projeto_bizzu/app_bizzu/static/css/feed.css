@@ -80,13 +80,17 @@ body::before {
 .menu-categorias {
     display: none;
     position: absolute;
-    width: 100%;
+    width: 40%; /* 🔹 Reduzindo o tamanho do modal */
     background: var(--text-dark);
     border-radius: var(--border-radius);
     padding: 10px;
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
     z-index: 10;
+    top: 140px;  /* 🔹 Posição abaixo do botão */
+    left: 68%;  /* 🔹 Alinha horizontalmente */
+    transform: translateX(-50%); /* 🔹 Centraliza abaixo do botão */
 }
+
 
 .abas {
     display: flex;

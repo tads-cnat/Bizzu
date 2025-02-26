@@ -182,18 +182,20 @@ class UsuarioView:
         user = get_object_or_404(Usuario, username=username)
         
     def feed(request):
-        postagens = Postagem.objects.all().order_by('-dataPublicacao')  # Padrão: todas as postagens
+        postagens = Postagem.objects.all().order_by('-dataPublicacao')
         repositorios = Repositorio.objects.all().order_by('-dataPublicacao')
         comunidades = Comunidade.objects.all()
+
+        categorias_materia = Categoria.objects.filter(tipo="mat")
+        categorias_periodo = Categoria.objects.filter(tipo="per")
+        categorias_tecnologia = Categoria.objects.filter(tipo="tec")
 
         if request.user.is_authenticated:
             user = request.user
 
-            # Filtrando postagens apenas das comunidades que o usuário segue
             comunidades_seguidas = user.comunidades.all()
             postagens = Postagem.objects.filter(comunidade__in=comunidades_seguidas).order_by('-dataPublicacao')
 
-            # Marcar curtidas para cada postagem
             for postagem in postagens:
                 postagem.curtido = postagem.postagem_curtida.filter(usuario=request.user).exists()
 
@@ -201,7 +203,10 @@ class UsuarioView:
                 'postagens': postagens,
                 'user': request.user,
                 'repositorios': repositorios,
-                'comunidades': comunidades
+                'comunidades': comunidades,
+                'categorias_materia': categorias_materia,  # 🔹 Passando as categorias para o template
+                'categorias_periodo': categorias_periodo,
+                'categorias_tecnologia': categorias_tecnologia
             })
 
         # Usuário deslogado vê todas as postagens
@@ -209,7 +214,10 @@ class UsuarioView:
             'postagens': postagens,
             'user': request.user,
             'repositorios': repositorios,
-            'comunidades': comunidades
+            'comunidades': comunidades,
+            'categorias_materia': categorias_materia,
+            'categorias_periodo': categorias_periodo,
+            'categorias_tecnologia': categorias_tecnologia
         })
 
     @login_required
@@ -222,12 +230,29 @@ class UsuarioView:
         # Filtramos postagens apenas desses usuários
         postagens = Postagem.objects.filter(usuario__in=usuarios_seguidos).order_by('-dataPublicacao')
         comunidades = Comunidade.objects.all()
+
+        categorias_materia = Categoria.objects.filter(tipo="mat")
+        categorias_periodo = Categoria.objects.filter(tipo="per")
+        categorias_tecnologia = Categoria.objects.filter(tipo="tec")
+
         for postagem in postagens:
                 postagem.curtido = Curtida.objects.filter(usuario=request.user, postagem=postagem).exists()
 
-        repositorios = Repositorio.objects.all().order_by('-dataPublicacao')  # Se for necessário no template
+        repositorios = Repositorio.objects.all().order_by('-dataPublicacao')
 
-        return render(request, 'feed_seguidos.html', {'postagens': postagens, 'user': user, 'repositorios': repositorios, 'comunidades': comunidades})
+        return render(
+            request, 
+            'feed_seguidos.html', 
+            {
+            'postagens': postagens, 
+            'user': user, 
+            'repositorios': repositorios, 
+            'comunidades': comunidades, 
+            'categorias_materia': categorias_materia, 
+            'categorias_periodo': categorias_periodo, 
+            'categorias_tecnologia': categorias_tecnologia
+            }
+        )
 
     def pesquisa(request):
         query = request.GET.get('q', '')

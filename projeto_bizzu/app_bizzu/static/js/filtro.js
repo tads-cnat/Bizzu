@@ -27,19 +27,32 @@
     function aplicarFiltro() {
         let checkboxes = document.querySelectorAll(".filtro-checkbox:checked");
         let categoriasSelecionadas = Array.from(checkboxes).map(checkbox => checkbox.value);
-
+    
         let postagens = document.querySelectorAll(".postagem");
-
+    
         postagens.forEach(postagem => {
-            let categoriasPostagem = Array.from(postagem.querySelectorAll(".categorias-post h4"))
-                                          .map(cat => cat.textContent.trim().replace("• ", ""));
+            let categoriasPostagem = postagem.getAttribute("data-categorias");
             
-            let temCategoria = categoriasSelecionadas.length === 0 || 
-                categoriasPostagem.some(cat => categoriasSelecionadas.includes(cat));
-
+            // Se a postagem não tiver categorias, esconde
+            if (!categoriasPostagem) {
+                postagem.style.display = "none";
+                return;
+            }
+    
+            let categoriasArray = categoriasPostagem.split(",").map(cat => cat.trim());
+    
+            // Se nenhuma categoria estiver selecionada, mostra todas as postagens
+            if (categoriasSelecionadas.length === 0) {
+                postagem.style.display = "block";
+                return;
+            }
+    
+            // Verifica se pelo menos uma das categorias selecionadas está na postagem
+            let temCategoria = categoriasSelecionadas.some(cat => categoriasArray.includes(cat));
+    
             postagem.style.display = temCategoria ? "block" : "none";
         });
-
+    
         document.getElementById("menuFiltroCategorias").style.display = "none";
     }
 

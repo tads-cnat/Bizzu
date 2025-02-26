@@ -22,9 +22,54 @@
         {% include 'navbarEsquerda.html' with user=user %}
 
         <div class="feed">
+            <button id="filtro-btn" class="filtro-btn" onclick="toggleFiltroCategorias()">Filtro ▼</button>
+
+            <!-- Menu de Categorias para Filtro -->
+            <div class="menu-categorias" id="menuFiltroCategorias" style="display: none;">
+                <div class="abas">
+                    <button type="button" class="aba ativa" onclick="mostrarAbaFiltro('materia')">Matéria</button>
+                    <button type="button" class="aba" onclick="mostrarAbaFiltro('periodo')">Período</button>
+                    <button type="button" class="aba" onclick="mostrarAbaFiltro('tecnologia')">Tecnologia</button>
+                </div>
+
+                <div class="conteudo-categorias">
+                    <input type="text" id="pesquisaFiltroCategorias" placeholder="🔍 Procurar..." onkeyup="filtrarCategoriasFiltro()">
+
+                    <!-- Matéria -->
+                    <div class="lista-categorias filtro-lista" id="materia">
+                        {% for categoria in categorias_materia %}
+                            <label><input type="checkbox" class="filtro-checkbox" value="{{ categoria.id }}"> {{ categoria.nome }}</label>
+                        {% empty %}
+                            <p class="mensagem-sem-categorias">Nenhuma categoria disponível.</p>
+                        {% endfor %}
+                    </div>
+
+                    <!-- Período -->
+                    <div class="lista-categorias filtro-lista" id="periodo" style="display: none;">
+                        {% for categoria in categorias_periodo %}
+                            <label><input type="checkbox" class="filtro-checkbox" value="{{ categoria.id }}"> {{ categoria.nome }}</label>
+                        {% empty %}
+                            <p class="mensagem-sem-categorias">Nenhuma categoria disponível.</p>
+                        {% endfor %}
+                    </div>
+
+                    <!-- Tecnologia -->
+                    <div class="lista-categorias filtro-lista" id="tecnologia" style="display: none;">
+                        {% for categoria in categorias_tecnologia %}
+                            <label><input type="checkbox" class="filtro-checkbox" value="{{ categoria.id }}"> {{ categoria.nome }}</label>
+                        {% empty %}
+                            <p class="mensagem-sem-categorias">Nenhuma categoria disponível.</p>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <button class="botao-aplicar-filtro" onclick="aplicarFiltro()">✔️ Aplicar Filtro</button>
+            </div>
+
+
             {% if postagens %}
                 {% for postagem in postagens %}
-                <div class="postagem" data-postagem-id="{{ postagem.id }}">
+                <div class="postagem" data-postagem-id="{{ postagem.id }}" data-categorias="{% for categoria in postagem.categorias.all %}{% if not forloop.first %},{% endif %}{{ categoria.id }}{% endfor %}">
                     <!-- Nome do usuário e hora da postagem -->
                     <div class="post-header">
                         <div class="usuario-info">
@@ -91,24 +136,47 @@
                 {% for repositorio in repositorios %}
                 <div class="repositorioContainer">
                     <div class="headerCaixa">
-                        <div class="profile-container">
+                        <a class="profile-container" href="{% url 'perfil' repositorio.usuario.username %}">
                             <div class="hexagon">
-                                <img src="{{ usuarioFotoPerfilUrl }}" class="profile-image">
+                                <img src="{{ repositorio.usuario.imagemPerfil.url }}" class="profile-image">
                             </div>
                             <div class="user-info">
-                                <span class="username">{{ repositorio.usuario|default:"Usuário" }}</span>
+                                <span class="username">{{repositorio.usuario|default:"Luiz Fernando"}}</span>
                                 <span class="separator">•</span>
-                                <span class="timestamp">{{ repositorio.dataPublicacao|default:"4h atrás" }}</span>
+                                <span class="timestamp">{{ repositorio.dataPublicacao|timesince }} atrás</span>
                             </div>
-                        </div>
+                        </a>
                         <form method="GET" action="{% url "verRepositorio" %}" id="form">
-                            <button type="submit" id="BotaoLink" class="GeralPrimario" name="repositorio" value="{{ repositorio.id }}">
-                                <p id="botaoP">Abrir</p>
-                            </button> 
+                        <button type="submit" id="BotaoLink" class="GeralPrimario" name="repositorio" value={{repositorio.id}}>
+                            <p id="botaoP">Abrir</p>
+                        </button> 
+                    </form>
+                    </div>
+                    <p class="tituloP">{{repositorio.titulo}}</p>
+                    <p class="descricaoP">{{repositorio.descricao}}</p>
+                    <div class="container">
+                        {% for categoria in repositorio.categorias.all %}
+                                    <div class="tag tag-rosa"><img src="/projeto_bizzu/app_bizzu/static/img/iconeTagRosa.svg" class="imgMenu">• {{ categoria.nome }}</div>
+                                {% empty %}
+                                <div class="tag tag-rosa"><img src="/projeto_bizzu/app_bizzu/static/img/iconeTagRosa.svg" class="imgMenu"></div>
+                                <div class="tag tag-azul"><img src="/projeto_bizzu/app_bizzu/static/img/iconeTagAzul.svg" class="imgMenu"> </div>
+                                <div class="tag tag-verde"><img src="/projeto_bizzu/app_bizzu/static/img/iconeTagVerde.svg" class="imgMenu"> </div>
+                        {% endfor %}
+                    </div>
+
+                    {% if repositorio.usuario.username == user.username %}
+                    <button class="mais" type="submit">...</button>
+                    <div class="dropRepositorio">
+                        <form method="GET" action="{% url 'editarRepositorio' repositorio.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="optionRepositorio"><img src="{% static 'img/documento.svg' %}" class="dropImg" name="editarRepositorio"> Editar</button>
+                        </form>
+                        <form method="POST" action="{% url 'excluirRepositorio' %}">
+                            {% csrf_token %}
+                            <button type="submit" class="optionRepositorio" name='excluir' value="{{repositorio.id}}"><img src="{% static 'img/documento.svg' %}" class="dropImg"> Excluir</button>
                         </form>
                     </div>
-                    <p class="tituloP">{{ repositorio.titulo }}</p>
-                    <p class="descricaoP">{{ repositorio.descricao }}</p>
+                {% endif %}
                 </div>
                 {% empty %}
                     <p>Nenhum repositório disponível no momento.</p>
@@ -118,6 +186,7 @@
     </section>
 
     <script src="{% static 'js/comentarios.js' %}"></script>
+    <script src="{% static 'js/filtro.js' %}"></script>
     <script>
         const userImage = "{% if user.is_authenticated and user.imagemPerfil %}{{ user.imagemPerfil.url }}{% else %}{% static 'img/default-profile.png' %}{% endif %}";
 
