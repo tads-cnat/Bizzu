@@ -37,8 +37,8 @@
 ### Fazer Login
 ![unnamed](https://github.com/user-attachments/assets/d23f8f5b-d50a-4680-819e-03b02992ae8c)
 
-**Implementado por: Mateus Vitor Cavalcanti Rodrigues**
 
 ## Diagrama de Classes de Projeto
 
-> Substituir pela imagem contendo as classes (modelo, visão e templates) que implementam o respectivo CDU...
+![image](https://github.com/user-attachments/assets/4972fe94-c083-48d9-ad67-40fe52c11106)
+
