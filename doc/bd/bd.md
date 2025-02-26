@@ -26,6 +26,12 @@
 | Email | Email do estudante| VARCHAR |  | &#9744;  | &#9744; | &#9744; | &#9744; | &#9744; |  |  |
 | Descrição | Descrição do estudante| TEXT |  | &#9745;  | &#9744; | &#9744; | &#9744; | &#9744; |  |  |
 | Informação educação | Informações sobre escolaridade| TEXT |  | &#9745;  | &#9744; | &#9744; | &#9744; | &#9744; |  |  |
+| Local Trabalho | Informações sobre local de trabalho | CHAR | 30 | &#9745;  | &#9744; | &#9744; | &#9744; | &#9744; |  |  |
+| Progresso Curso | Informações sobre progresso do curso | CHAR | 20 | &#9745;  | &#9744; | &#9744; | &#9744; | &#9744; |  |  |
+| Escola Formação | Informações sobre escola de formação | CHAR | 30 | &#9745;  | &#9744; | &#9744; | &#9744; | &#9744; |  |  |
+| Instituição Atual | Instituição atual | CHAR | 30 | &#9745;  | &#9744; | &#9744; | &#9744; | &#9744; |  |  |
+| Imagem Perfil | Imagem de perfil | IMAGE |  | &#9745;  | &#9744; | &#9744; | &#9744; | &#9744; |  |  |
+| Criado_em | Imagem de perfil | DATE |  | &#9745;  | &#9744; | &#9744; | &#9744; | &#9744; |  |  |
 
 
 --- 
@@ -58,6 +64,12 @@
 | Nome | Nome da comunidade | VARCHAR |  | &#9744;  | &#9744; | &#9744; | &#9744; | &#9744; |  |  |
 | Descrição | Descrição da comunidade | VARCHAR |  | &#9744;  | &#9744; | &#9744; | &#9744; | &#9744; |  |  |
 | Informações do curso | informações adicionais sobre o curso da comunidade | TEXT |  | &#9744;  | &#9744; | &#9744; | &#9744; | &#9744; |  |  |
+| Link PPC | link para o PPC | URL |  | &#9744;  | &#9744; | &#9744; | &#9744; | &#9744; |  |  |
+| Link horários | link para os horários | URL |  | &#9744;  | &#9744; | &#9744; | &#9744; | &#9744; |  |  |
+| Link Extra | link para os horários | URL |  | &#9744;  | &#9744; | &#9744; | &#9744; | &#9744; |  |  |
+| Ano Fundação | Data de fundação | DATE |  | &#9744;  | &#9744; | &#9744; | &#9744; | &#9744; |  |  |
+| Coordernação | Nome do coordenador| CHAR | 50 | &#9744;  | &#9744; | &#9744; | &#9744; | &#9744; |  |  |
+
 
 
 --- 
