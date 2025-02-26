@@ -7,11 +7,9 @@
     text-align: left;      
     margin: 0 auto;    
     width: 400px;
-    background-color: #100F0F;
     padding: 16px;
     margin-bottom: 3%;
     border-radius: 25px;
-    border: 1px solid #DCCEB1 ;
     
 }
 .reply-container {
@@ -24,7 +22,6 @@
     margin-bottom: 3%;
     border-radius: 25px;
     background-color: #100F0F;
-    border: 1px solid #DCCEB1 ;
     
 }
 .comment, .reply {
