@@ -14,7 +14,7 @@
 | 3. Ele clica no botão novo  | |  
 | | 4. Sistema mostra um pop-up na tela que dá a possibilidade do usuário escolher o que ele quer adicionar |  
 | 5. Ele escolhe a opção de novo repositório | | 
-|| 6. É retornado uma tela que possui informações necessária na criação de um repositório  | 
+|| 6. É retornado uma tela que possui informações necessária na criação de um repositório como comunidade, categorias que são opcionais, título, descrição e arquivos | 
 | 7.  Usuário preenche as informações e anexa materiais e faz o envio |  | 
 |  | 8.  O repositório aparecerá no perfil da pessoa, além de aparecer na aba repositórios na página principal de comunidades  | 
 
@@ -79,13 +79,19 @@
 
 ![PERFIL NA MINHA VISÂO - REPOSITÓRIO COMUNIDADE EXPANDIDA](https://github.com/user-attachments/assets/58d832c6-d659-4a50-ab38-7a955a493a7b)
 
+![POST](https://github.com/user-attachments/assets/d8d4e06e-107d-4e5c-98a8-368d6b394a2e)
 
-> Obs. as seções a seguir apenas serão utilizadas na segunda unidade do PDSWeb (segundo orientações do gerente do projeto).
+
+![PERFIL NA MINHA VISÂO - NOVO REPOSITÓRIO](https://github.com/user-attachments/assets/7c266d4f-d482-49a0-88fe-4d21f2909936)
+
 
 ## Diagrama de Interação (Sequência ou Comunicação)
+![Criar repositório diagrma de sequncia^](https://github.com/user-attachments/assets/3f4a4f01-ee4d-40c5-ab5e-7fa535bf0ddd)
 
-> Substituir pela imagem correspondente...
+
 
 ## Diagrama de Classes de Projeto
 
-> Substituir pela imagem contendo as classes (modelo, visão e templates) que implementam o respectivo CDU...
+![Repositrio classes relacioandas ](https://github.com/user-attachments/assets/48e20348-7a01-41c5-a53c-07893dc36b4e)
+
+
