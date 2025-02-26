@@ -258,13 +258,20 @@ class UsuarioView:
         query = request.GET.get('q', '')
 
         if query:
-            usuarios = Usuario.objects.filter(nome__icontains=query).values('id', 'nome', 'descricao', 'imagemPerfil', 'username')
-            postagens = Postagem.objects.filter(texto__icontains=query).values('id', 'texto', 'usuario__nome')
+            usuarios = Usuario.objects.filter(nome__icontains=query).values(
+                'id', 'nome', 'descricao', 'imagemPerfil', 'username'
+            )
+            postagens = Postagem.objects.filter(texto__icontains=query).values(
+                'id', 'texto', 'usuario__nome'
+            )
 
             usuarios_lista = list(usuarios)
             for usuario in usuarios_lista:
-                if usuario['imagemPerfil']:
-                    usuario['imagemPerfil'] = request.build_absolute_uri(settings.MEDIA_URL + usuario['imagemPerfil'])
+                if usuario['imagemPerfil']:  # Verifica se a imagem existe
+                    if usuario['imagemPerfil'].startswith('/media/'):
+                        usuario['imagemPerfil'] = request.build_absolute_uri(usuario['imagemPerfil'])
+                    else:
+                        usuario['imagemPerfil'] = request.build_absolute_uri(settings.MEDIA_URL + usuario['imagemPerfil'])
                 else:
                     usuario['imagemPerfil'] = request.build_absolute_uri(settings.STATIC_URL + 'img/default-profile.png')
 

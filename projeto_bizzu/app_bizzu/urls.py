@@ -30,7 +30,6 @@ urlpatterns=[
     path('editar-repositorio/<uuid:repositorio_id>/', repositorioView.RepositorioView.editarRepositorio, name="editarRepositorio"),
     path('comunidade/<uuid:comunidade_id>/seguir/', comunidadeView.ComunidadeView.seguir_comunidade,name='seguir_comunidade'),
     path('perfil/<int:user_id>/<str:tipo>/', usuarioView.UsuarioView.lista_seguidores_seguindo, name='lista_seguidores_seguindo'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
