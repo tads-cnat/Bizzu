@@ -97,5 +97,23 @@ button{
     width: 15%;
 }
 
+.botao-aplicar-filtro {
+    background-color: #058B92;
+    color: white;
+    height: 40px;
+    display: flex;
+    width: fit-content;
+    border-radius: 30px;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    padding: 3%;
+    text-decoration: none;
+    outline: none;
+    cursor: pointer;
+    outline: none;
+    border-radius: 30px;
+}
+
 
 

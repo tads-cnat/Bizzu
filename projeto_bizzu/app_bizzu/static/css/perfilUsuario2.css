@@ -464,15 +464,16 @@
 }
 
 .btn-seguir-seguidores-seguindo {
-    background: #007bff;
+    background: #058B92;
     color: white;
     border: none;
+    border-radius: 8px;
     padding: 5px 10px;
     cursor: pointer;
 }
 
 .btn-seguir-seguidores-seguindo:hover {
-    background: #0056b3;
+    background: #bdc4c1;
 }
 
 /* FINAL DESSA PARTE */
