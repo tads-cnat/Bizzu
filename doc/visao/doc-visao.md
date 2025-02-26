@@ -5,16 +5,17 @@
 | Data                |  Versão             |          Descrição  |  Autores            |
 | :-----------------: | :-----------------: | :-----------------: | :-----------------: |
 | - | - | Versão inicial |  - |
-| 07/11 | 1.0 | Mudança do documento do docs pro github | Luiz Fernando |
-| 11/12 | 2.0 | Atualização dos dados do documento de visão | Ana Maria |
-| 17/12 | 3.0 | Nova atualização dos dados do documento de visão | Gabrielly |
-| 19/12 | 4.0 | Atualização do histórico de revisões | Gabrielly |
+| 07/11/24 | 1.0 | Mudança do documento do docs pro github | Luiz Fernando |
+| 11/12/24 | 2.0 | Atualização dos dados do documento de visão | Ana Maria |
+| 17/12/24 | 3.0 | Nova atualização dos dados do documento de visão | Gabrielly |
+| 19/12/24 | 4.0 | Atualização do histórico de revisões | Gabrielly |
+| 26/02/25 | 4.0 | Atualização do documento de visão | Gabrielly |
 
 
 
 ## 1. Objetivo do projeto
 
-Quando estamos nos referindo à ambientes acadêmicos o contato com novas matérias, pessoas e atividades é um desafio que afeta muitos estudantes, pois quando falamos de problemas que esse tópico desencadeia podemos citar a dificuldade de desempenho nas matérias e socialização, que é impactado pela falta de interação entre aqueles que já “passaram” por aquela etapa e aqueles que estão vivenciando pela primeira vez.
+Em ambientes acadêmicos, o contato entre estudantes mais experientes e os novatos desempenha um papel fundamental. No entanto, para muitos desses estudantes, a integração com novas matérias, pessoas e atividades pode ser um grande desafio. Isso se deve, em parte, às dificuldades na socialização, que, por sua vez, impactam diretamente no desempenho acadêmico.
 
 Portanto, o objetivo do Bizzu é promover uma solução viável para este problema, por meio da criação de uma plataforma semelhante a uma rede social que internamente contará com a presença de comunidades referentes a cada curso de tecnologia da DIATINF. A plataforma incluirá fóruns onde os estudantes poderão interagir, além de permitir a criação de perfis individuais, nos quais poderão fazer postagens e armazenar materiais de estudo em repositórios próprios.
 
@@ -22,9 +23,9 @@ Portanto, o objetivo do Bizzu é promover uma solução viável para este proble
 
 |     |      |
 | --- | --- |
-| **Problema**            | Desafios na integração de estudantes novatos em ambientes acadêmicos, relacionados a primeiro contato principalmente com novas matérias, pessoas e atividades |
+| **Problema**            | Dificuldades na socialização e desafios na integração de estudantes novatos em ambientes acadêmicos, relacionados a primeiro contato principalmente com novas matérias, pessoas e atividades |
 | **Afeta**               | Os estudantes da instituição. |  
-| **Impacta**             | Impacta diretamente os estudantes, nas dificuldades de socialização e de desempenho acadêmico|
+| **Impacta**             | Impacta diretamente os estudantes, no desempenho acadêmico|
 | **Solução**             | Criação de uma espécie de rede social que internamente contaria com a presença de comunidades referentes a cada curso onde alunos, que teriam seus próprios perfis, fariam comentários. Por sua vez, os perfis dos alunos disporiam de repositórios próprios para a inserção de materiais individuais de estudos.| 
 
 ## 3. Descrição dos usuários 
@@ -107,14 +108,13 @@ Na tela inicial, os usuários terão um feed que exibirá atualizações das pes
 | F05 | Criar e personalizar perfil pessoal | Ao criar uma conta é possível colocar informações pessoais para efetivação desta criação. Como: Nome(obrigatório), foto(opcional), descrição(opcional), informações da área acadêmica, profissional(opcional)  e comunidade do curso que o mesmo faça parte ou deseja fazer parte futuramente(obrigatório)o perfil continua personalizável após o cadastro. |
 | F06 | Realizar publicação do post |Possibilidade do usuário criar uma nova postagem com texto ou imagens e publicá-lo para outras pessoas verem. Nessa postagem será possível ver informações como a data de postagem de um conteúdo, curtidas e comentários. Estas postagens aparecerão em uma espécie de feed. Ao postar, o usuário pode colocar as categorias em que a postagem faz parte. |
 | F07 | Realizar publicação de repositório | O usuário poderá realizar a publicação preenchendo informações como título, descrição e categoria de um repositório, subindo arquivos como documentação; códigos; fotos ou arquivos de texto. | 
-| F08 | Contato com o bizzu | Possibilidade de entrar em contato com os administradores do sistema para fins de tirar dúvidas. |
-| F09 | Favoritar repositório | É possível marcar um repositório como favorito que será armazenado e visualizado posteriormente no perfil pessoal . | 
-| F10 | Seguir perfis e comunidades | Possibilidade de filiação a alguma comunidade após a criação da conta e seguir perfis pessoais de outros usuários. No perfil pessoal e no perfil da comunidade é possível visualizar a quantidade de pessoas que seguem a conta, e se tratando apenas do perfil pessoal quantas pessoas aquele usuário segue | 
-| F11 | Curtir postagem | Tornar interação mais eficiente, permitindo curtir alguma postagem. | 
-| F12 | Pesquisar por categorias com filtro | O usuário poderá como forma de facilitar a pesquisa e o encontro de informações, filtrar por categoria o conteúdo que queira ver. |
-| F13 | Sair de uma conta | Possibilidade de se desconectar de uma conta |
-| F14 | Buscar por palavras chaves | O usuário poderá pesquisar por palavras chaves e conteúdos de seu interesse. |
-| F15 | Visualizar todas as comunidades  | Possibilidade de visualizar as comunidades que existem no sistema. |
+| F08 | Favoritar repositório | É possível marcar um repositório como favorito que será armazenado e visualizado posteriormente no perfil pessoal . | 
+| F09 | Seguir perfis e comunidades | Possibilidade de filiação a alguma comunidade após a criação da conta e seguir perfis pessoais de outros usuários. No perfil pessoal e no perfil da comunidade é possível visualizar a quantidade de pessoas que seguem a conta, e se tratando apenas do perfil pessoal quantas pessoas aquele usuário segue | 
+| F10 | Curtir postagem | Tornar interação mais eficiente, permitindo curtir alguma postagem. | 
+| F11 | Pesquisar por categorias com filtro | O usuário poderá como forma de facilitar a pesquisa e o encontro de informações, filtrar por categoria o conteúdo que queira ver. |
+| F12 | Sair de uma conta | Possibilidade de se desconectar de uma conta |
+| F13 | Buscar por palavras chaves | O usuário poderá pesquisar por palavras chaves e conteúdos de seu interesse. |
+| F14 | Visualizar todas as comunidades  | Possibilidade de visualizar as comunidades que existem no sistema. |
 
 ## 9. Requisitos não-funcionais
 
@@ -125,5 +125,5 @@ Na tela inicial, os usuários terão um feed que exibirá atualizações das pes
 | NF03 | Consistência  | Manter padrões dos seus similares e da própria interface | Usabilidade | Obrigatório |
 | NF04 | Compatibilidade  | O sistema terá compatibilidade com qualquer tipo de navegador | Portabilidade | Desejável |
 | NF05 | Autorização de acesso | Autenticação para conseguir adentrar em uma conta pessoal, com email  e senha | Segurança | Obrigatório |
-| NF06 | Acessibilidade | Fontes sem serifa, alinhamento do texto à esquerda, presença de ícones, descrição de imagens, títulos descritivos em hiperlinks | Usabilidade | Desejável |
+| NF06 | Acessibilidade | Fontes sem serifa, alinhamento do texto à esquerda, presença de ícones, descrição de imagens| Usabilidade | Desejável |
 | NF07 | Responsividade | O sistema deve ser responsivo, ou seja, a interface deve se adaptar a diferentes tamanhos de telas. | Usabilidade | Desejável |
