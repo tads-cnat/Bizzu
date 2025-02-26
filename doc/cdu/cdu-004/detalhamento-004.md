@@ -34,9 +34,10 @@
 
 > Obs. as seções a seguir apenas serão utilizadas na segunda unidade do PDSWeb (segundo orientações do gerente do projeto).
 
-## Diagrama de Interação (Sequência ou Comunicação)
+### Fazer Login
+![unnamed](https://github.com/user-attachments/assets/d23f8f5b-d50a-4680-819e-03b02992ae8c)
 
-> Substituir pela imagem correspondente...
+**Implementado por: Mateus Vitor Cavalcanti Rodrigues**
 
 ## Diagrama de Classes de Projeto
 
