@@ -11,6 +11,7 @@
     padding: 16px;
     margin-bottom: 3%;
     border-radius: 25px;
+    border: 1px solid #DCCEB1 ;
     
 }
 .reply-container {
@@ -22,6 +23,8 @@
     padding: 16px;
     margin-bottom: 3%;
     border-radius: 25px;
+    background-color: #100F0F;
+    border: 1px solid #DCCEB1 ;
     
 }
 .comment, .reply {
@@ -76,12 +79,6 @@
     background-color: #008FCC;
 }
 
-.reply-to {
-    font-size: 12px;
-    font-weight: bold;
-    color: #FFFFFF;
-    text-align: center;
-}
 .barraComentario{
     margin-left: 30%;
     width: 80px;
@@ -95,10 +92,12 @@
     width: 40px;
     height: 40px;
 }
-.reply-wrapper {
+
+.reply-to {
+    color: #FFFFFF;
+    font-size: 14px;
+    line-height: 24px; 
     display: flex;
-    align-items: center;
-    gap: 5px; /* Espaço entre a barra e o texto */
-    width: 100%; /* Mantém a barra ocupando toda a largura disponível */
-    margin-bottom: 10%;
+    text-align: center;
+    padding-left: 35%;
 }

@@ -220,12 +220,8 @@
                         {% endif %}
                     </div> <!-- Fechamento da div -> comment-container -->
                     
-                        <img class="barraComentario" src="{% static 'img/barraComentario.svg' %}" alt="Barra"> 
-                        <span class="reply-to">Resposta ao post de @{{ postagem.usuario.username }}</span>
+                    <span class="reply-to">Resposta ao post de @{{ postagem.usuario.username }}</span>
                   
-
-
-                
                     {% for comentario in comentarios %}
                         {% if comentario.postagem.id == postagem.id %}
                             <div class="reply-container">
@@ -239,7 +235,7 @@
                     {% endfor %}
                 
                 {% empty %}
-                    <p class="postagem-off">Nenhuma postagem disponível no momento.</p>
+                    <p class="postagem-off">Nenhuma comentário disponível no momento.</p>
                 {% endfor %}
                     </div> <!--Fechamento da div listar-categorias -->
             </div>
