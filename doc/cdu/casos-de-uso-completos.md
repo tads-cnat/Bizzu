@@ -32,7 +32,7 @@
 
 ## Tirar a curtida da postagem
 **Pré-condições:** A postagem precisa estar curtida.  
-**Resumo:** Ao visualizar uma postagem que o usuário havia curtido anteriormente, ele pode retirar a curtida ao clicar no mesmo botão (no caso do sistema Bizzu, a abelha que fica abaixo da postagem).  
+**Resumo:** Ao visualizar uma postagem que o usuário havia curtido anteriormente, ele pode retirar a curtida ao clicar no mesmo botão de curtir.
 **Observação:** Isso só será possível caso o usuário esteja logado; caso contrário, o sistema retornará um "Warning" informando que o mesmo não possui conta ou não está autenticado.  
 
 ---
