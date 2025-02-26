@@ -41,8 +41,10 @@
 
 ## Diagrama de Interação (Sequência ou Comunicação)
 
-> Substituir pela imagem correspondente...
+![Sequence Diagram - Jesrriel](https://github.com/user-attachments/assets/fa937c00-914c-472d-a7db-496c240b338d)
 
 ## Diagrama de Classes de Projeto
 
-> Substituir pela imagem contendo as classes (modelo, visão e templates) que implementam o respectivo CDU...
+![image](https://github.com/user-attachments/assets/5ac3e0b4-dc20-43ed-a194-4d9cea84c71f) ![image](https://github.com/user-attachments/assets/3eec79ce-bcdb-4464-8930-2a2b0b29402d)
+
+
