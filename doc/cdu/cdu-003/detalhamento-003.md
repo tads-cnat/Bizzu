@@ -31,7 +31,7 @@
 
 ## Diagrama de Interação (Sequência ou Comunicação)
 
-![diagramaSequencia](https://github.com/user-attachments/assets/56cbb25f-ae91-46e5-bc2c-762a2c8be61d)
+![5044434635727154993](https://github.com/user-attachments/assets/142fbeb3-4228-4687-82f9-f2d1fb1fc422)
 
 ## Diagrama de Classes de Projeto
 
