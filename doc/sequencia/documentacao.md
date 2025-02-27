@@ -5,7 +5,7 @@
 **Implementado por: Ana Maria Ferreira de Abreu Guedes**
 
 ### CDU Comentar
-![diag-sequencia-cdu-comentar](https://github.com/user-attachments/assets/15e29cec-cdd2-4d2f-8996-32aef549ead8)
+![Captura de tela 2025-02-26 212157](https://github.com/user-attachments/assets/7e5b3c5b-eb58-4864-b3a7-a439b42e7e6e)
 
 **Implementado por: Luiz Fernando Gama Nery**
 
