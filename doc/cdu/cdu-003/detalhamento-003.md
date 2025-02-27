@@ -3,7 +3,7 @@
 - **Ator principal**: Estudante e visitante
 - **Atores secundários**: ...	 
 - **Resumo**: O usuário pode pesquisar conteúdos disponíveis na rede social, por meio de categorias ou palavras-chaves inseridas no campo de busca.  
-- **Pré-condição**: Não há.
+- **Pré-condição**: O estudante deve possuir um perfil previamente logado.
 - **Pós-Condição**: Exibição do resultado da pesquisa ou mensagem de erro (feedback) caso não exista conteúdo correspondente
 
 
@@ -31,8 +31,10 @@
 
 ## Diagrama de Interação (Sequência ou Comunicação)
 
-> Substituir pela imagem correspondente...
+![diagramaSequencia](https://github.com/user-attachments/assets/56cbb25f-ae91-46e5-bc2c-762a2c8be61d)
 
 ## Diagrama de Classes de Projeto
 
-> Substituir pela imagem contendo as classes (modelo, visão e templates) que implementam o respectivo CDU...
+![diagramaProjeto](https://github.com/user-attachments/assets/e3241dd7-9735-49d6-9b10-e0274e441056)
+
+
