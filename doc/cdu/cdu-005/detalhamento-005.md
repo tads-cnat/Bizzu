@@ -72,7 +72,8 @@
 > **Obs.:** As seções a seguir apenas serão utilizadas na segunda unidade do PDSWeb (segundo orientações do gerente do projeto).
 
 ## Diagrama de Interação (Sequência ou Comunicação)
-> ![image](https://github.com/user-attachments/assets/b1845ca1-93ac-4d5c-b661-349a0fc6ef51)
+> ![image]![WhatsApp Image 2025-02-26 at 23 39 21](https://github.com/user-attachments/assets/01992257-7487-4ce1-ba78-25580395ce8a)
+()
 
 ## Diagrama de Classes de Projeto
 > ![image](https://github.com/user-attachments/assets/b22f1827-850d-416a-b753-f92183cc4464)
