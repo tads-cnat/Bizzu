@@ -45,6 +45,7 @@
 
 ## Diagrama de Classes de Projeto
 
-![image](https://github.com/user-attachments/assets/5ac3e0b4-dc20-43ed-a194-4d9cea84c71f) ![image](https://github.com/user-attachments/assets/3eec79ce-bcdb-4464-8930-2a2b0b29402d)
+![image](https://github.com/user-attachments/assets/475e88b7-fb39-4b2e-9967-fad610456c1f)
+![image](https://github.com/user-attachments/assets/3eec79ce-bcdb-4464-8930-2a2b0b29402d)
 
 
