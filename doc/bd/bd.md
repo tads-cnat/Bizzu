@@ -7,7 +7,8 @@
 
 ## Modelo Relacional
 
-![Diagrama relacional](https://github.com/user-attachments/assets/c91aadbf-803d-40e5-91ca-4000623c12f2)
+![DiagramaModeloRelacional](https://github.com/user-attachments/assets/dd147dc6-b58e-43a2-92fd-f61b94aa1159)
+
 
 
 ## Dicionário de Dados
