@@ -24,8 +24,8 @@
 
 **Implementado por: Jesrriel Moura Lopes**
 
-### Fazer cadastro
-![image](https://github.com/user-attachments/assets/cc936d90-7a20-4ba6-bf76-25a1518545b5)
+### Excluir Postagem
+![image](https://github.com/user-attachments/assets/c1b0231b-1d69-498d-9b4d-21a497741513)
 
 **Implementado por: Luiz Roberto da Silva Gonzaga**
 
