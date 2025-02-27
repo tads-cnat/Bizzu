@@ -34,8 +34,13 @@
 
 > Obs. as seções a seguir apenas serão utilizadas na segunda unidade do PDSWeb (segundo orientações do gerente do projeto).
 
-### Fazer Login
+### Fazer Login Versão Astah
+
 ![unnamed](https://github.com/user-attachments/assets/d23f8f5b-d50a-4680-819e-03b02992ae8c)
+
+### Fazer Login Versão Mermaid
+
+![image](https://github.com/user-attachments/assets/9cba43f3-4d79-4bf4-9324-b6bff37299b0)
 
 
 ## Diagrama de Classes de Projeto
