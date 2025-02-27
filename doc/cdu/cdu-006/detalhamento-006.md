@@ -41,7 +41,8 @@
 
 ## Diagrama de Interação (Sequência ou Comunicação)
 
-![Sequence Diagram - Jesrriel](https://github.com/user-attachments/assets/fa937c00-914c-472d-a7db-496c240b338d)
+![Sequence Diagramaaaa](https://github.com/user-attachments/assets/cd3da068-5b07-426f-a63b-2eec656c981d)
+
 
 ## Diagrama de Classes de Projeto
 
