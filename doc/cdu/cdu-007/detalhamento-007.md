@@ -2,7 +2,7 @@
 
 - **Ator principal**: Estudante
 - **Atores secundários**: ...	 
-- **Resumo**: O usuário, devidamente cadastrado e logado, pode comentar em uma postagem ao clicar no ícone de “balãozinho” associado à postagem. Ele pode responder a postagens com texto, imagens, ou ambos.
+- **Resumo**: O usuário, devidamente cadastrado e logado, pode comentar em uma postagem ao clicar no ícone de “balãozinho” associado à postagem. Ele pode responder a postagens com texto.
 - **Pré-condição**: 
 1.  O usuário deve estar logado na sua conta.
 
@@ -53,8 +53,10 @@
 
 ## Diagrama de Interação (Sequência ou Comunicação)
 
-> Substituir pela imagem correspondente...
+> ![Captura de tela 2025-02-26 212157](https://github.com/user-attachments/assets/15fba626-b9c6-45b4-b133-0dba3a547cc6)
+
 
 ## Diagrama de Classes de Projeto
 
-> Substituir pela imagem contendo as classes (modelo, visão e templates) que implementam o respectivo CDU...
+> ![Captura de tela 2025-02-26 212247](https://github.com/user-attachments/assets/dcc68364-7f20-4d0f-a3f2-26b2a5b2398e)
+
