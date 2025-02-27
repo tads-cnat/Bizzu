@@ -146,6 +146,30 @@
                                 <img src="{% static 'img/icone_comentar.png' %}" width="24px"> Comentar
                             </button>
                         </div>
+                        <div class="acoes-postagem">
+                            {% if request.user == postagem.usuario %}
+                                <!-- Botão de opções ⚙ -->
+                                <button class="btn-opcoes" onclick="abrirOpcoesModal('{{ postagem.id }}')">⚙️</button>
+                    
+                                <!-- Modal de Opções -->
+                                <div id="modal-opcoes-{{ postagem.id }}" class="modal-opcoes">
+                                    <div class="modal-content">
+                                        <button onclick="editarPostagem('{{ postagem.id }}')" class="btn-editar">✏ Editar</button>
+                                        <button onclick="abrirConfirmacaoExcluir('{{ postagem.id }}')" class="btn-excluir">🗑 Excluir</button>
+                                        <button onclick="fecharOpcoesModal('{{ postagem.id }}')" class="btn-cancelar">Cancelar</button>
+                                    </div>
+                                </div>
+                    
+                                <!-- Modal de Confirmação de Exclusão -->
+                                <div id="modal-excluir-{{ postagem.id }}" class="modal-excluir">
+                                    <div class="modal-content">
+                                        <p class="msg-excluir">Você tem certeza que deseja excluir esta publicação?</p>
+                                        <button onclick="excluirPostagem('{{ postagem.id }}')" class="btn-sim">Sim</button>
+                                        <button onclick="fecharConfirmacaoExcluir('{{ postagem.id }}')" class="btn-nao">Não</button>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
                 {% endfor %}
@@ -339,4 +363,5 @@
     <script src="{% static 'js/comentarios.js' %}"></script> 
     <script src="{% static 'js/modalRepositorio.js' %}?v=1.3"></script>
     <script src="{% static 'js/modalSeguidores.js' %}"></script>
+    <script src="{% static 'js/postagens.js' %}"></script>
 {% endblock %}
