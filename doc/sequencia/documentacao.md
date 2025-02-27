@@ -24,8 +24,8 @@
 
 **Implementado por: Jesrriel Moura Lopes**
 
-### Excluir Postagem
-![image](https://github.com/user-attachments/assets/c1b0231b-1d69-498d-9b4d-21a497741513)
+### Fazer Postagem
+![image](https://github.com/user-attachments/assets/ffa4a3b0-4a35-449c-bb8a-49f2f2cef34b)
 
 **Implementado por: Luiz Roberto da Silva Gonzaga**
 
