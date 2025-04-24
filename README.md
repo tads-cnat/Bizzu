@@ -13,25 +13,21 @@
 
 1. Ana Maria
 2. Fábio Alexandre
-3. Gabrielly Stéphany
 4. Jesrriel Moura
 5. Luiz Fernando
 6. Luiz Roberto
-7. Mateus Vitor
 
-<img src="https://github.com/user-attachments/assets/a54f1ab2-9a63-4b72-a1df-c754f119993d"/>
 
 
 > Formas de contato da equipe - WhatsApp
 
 1. Ana Maria (89 98814-4378)
 2. Fábio (84 99689-6874)
-3. Gabrielly (84 98879-0209)
 4. Jesrriel (84 98832-8917)
-5. Luiz Fernando (84 98169-5259)
+5. Luiz Fernando (84 98133-8932)
 6. Luiz Roberto (84 98829-4667)
-7. Mateus Vitor (84 98713-9671)
 
+![Slide de apresentação projeto](https://github.com/user-attachments/assets/7c56507c-7e57-453a-8388-f6fbfa63a8f8)
 
 # Horário de Reuniões
 
