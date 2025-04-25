@@ -31,14 +31,10 @@ Portanto, o objetivo do Bizzu é promover uma solução viável para este proble
 
 ## 3. Descrição dos usuários 
 
-**Usuário** / 
-
-
-
 | Nome                |  Descrição          |   Responsabilidade  |
 | -----------------   | -----------------   | -----------------   |
-| Internauta | Pessoa logada no sistema, independentemente da faixa etária ou vínculo acadêmico, que demonstra interesse nos conteúdos e funcionalidades da plataforma. Esses usuários podem incluir estudantes, profissionais, autodidatas ou qualquer internauta que deseje acessar materiais, interagir com outros usuários e contribuir com ideias, discussões e projetos colaborativos. | Acessar e consultar materiais disponíveis na plataforma. / Colaborar e trocar dúvidas com outros usuários em projetos, discussões ou atividades de interesse comum. / Utilizar a plataforma para fazer postagens, compartilhar ideias, levantar temas e desenvolver projetos em conjunto.|
-| Visitante do sistema| Um individuo que não é um usuário ainda mas consegue ver publicações feitas na plataforma mas não interagir com o sistema. | Navegar livremente por publicações abertas. / Visualizar ideias, temas e projetos compartilhados por usuários. / Não possui permissão para interagir, comentar ou publicar na plataforma.
+| Internauta | Pessoa logada no sistema, independentemente da faixa etária ou vínculo acadêmico, que demonstra interesse nos conteúdos e funcionalidades da plataforma. Esses usuários podem incluir estudantes, professores, servidores ou qualquer internauta que deseje acessar materiais, interagir com outros usuários e contribuir com ideias, discussões e projetos. | Acessar e consultar materiais disponíveis na plataforma. / Colaborar e trocar dúvidas com outros usuários em projetos, discussões ou atividades de interesse comum. / Utilizar a plataforma para fazer postagens, compartilhar ideias, levantar temas e desenvolver projetos em conjunto.|
+| Visitante do sistema| Um individuo que não é um usuário ainda mas consegue ver publicações feitas na plataforma mas não interagir com o sistema. | Navegar livremente por publicações abertas. / Visualizar ideias, temas e projetos compartilhados por usuários.|
 | Moderador da Plataforma | É um usuário com permissões avançadas, Seu principal papel é garantir que as interações entre estudantes ocorram de maneira segura, colaborativa e dentro das diretrizes estabelecidas pelo Bizzu. |Moderação da rede e discussões, garantindo um ambiente colaborativo e respeitoso.	/ Revisão e monitoramento de postagens para evitar conteúdo inapropriado, como agressões e spam./ Tem acesso completo às funcionalidades disponíveis para todos os usuários, além de contar com a funcionalidade adicional de moderador. |
 
 
