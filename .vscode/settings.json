@@ -1,3 +1,6 @@
 {
-    "livePreview.defaultPreviewPath": "/doc/prototipos/prototipos html e css/2. perfil do usuario/1. editar perfil/editar.html"
+  "editor.formatOnSave": true,
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter"
+  }
 }
