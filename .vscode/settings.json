@@ -4,3 +4,12 @@
     "editor.defaultFormatter": "ms-python.black-formatter"
   }
 }
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+}
+
+//Arquivo de confguração geral do vscode nesse projeto
