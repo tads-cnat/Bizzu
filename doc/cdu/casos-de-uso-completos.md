@@ -1,6 +1,6 @@
 # Especificações de Casos de Uso
 
-![UseCase Diagram0](IMG-20250428-WA0095.jpg)
+![UseCase Diagram0](Diagrama%20de%20caso%20de%20uso%20do%20bizzu.png)
 
 ## 001 - CRUD repositório
 **Pré-condições:** O usuário deve ter uma conta e um perfil autenticado.  
@@ -108,7 +108,7 @@
 
 ## 016 - Criar categoria (Moderador)
 **Pré-condições:** O moderador deve estar autenticado.  
-**Resumo:** Permite ao moderador criar ou alterar categorias, como disciplinas e tecnologias, acessando uma seção específica.  
+**Resumo:** Permite ao moderador criar categorias, como disciplinas e tecnologias, acessando uma seção específica.  
 **Observação:**
 
 ---
@@ -129,5 +129,5 @@
 
 ## 019 - Gerenciar denúncias (moderador)
 **Pré-condições:**  O usuário deve possuir permissões administrativas.<br>
-**Resumo:** Permite que os moderadores revisem denúncias feitas pelos usuários sobre postagens ou perfis que violem as regras da comunidade.<br>
+**Resumo:** Permite que os moderadores revisem e aprovem ou desaprovem denúncias feitas pelos usuários sobre postagens ou perfis que violem as regras da comunidade.<br>
 **Observação:** Cada denúncia deve ser analisada individualmente antes de qualquer ação corretiva.
