@@ -10,6 +10,8 @@ export default {
 			grey: "#B0B0B0",
 			backgroundOffWhite: "#F2F2F7",
 			backgroundBranco: "#FFFFFF",
+			textSimpleCinza: "#333333",
+			textSimpleBranco: "#F8F4E6",
 		},
 		extend: {
 			fontFamily: {
