@@ -1,5 +1,5 @@
 import "./App.css";
-import BeeTags from "./components/BeeTags";
+import BeeTags from "./components/BeeTags/BeeTags";
 
 function App() {
 	return (
