@@ -8,7 +8,12 @@
   },
   "[javascript]": {
       "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "css.validate": false, //Para o tailwind ser reconhecido 
+  "editor.quickSuggestions": {
+    "strings": true
   }
+  
 }
 
 //Arquivo de confguração geral do vscode nesse projeto
