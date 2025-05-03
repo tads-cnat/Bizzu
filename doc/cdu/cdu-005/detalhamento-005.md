@@ -1,6 +1,6 @@
 # CDU005. CRUD Postagem
 
-- **Ator principal**: Estudante
+- **Ator principal**: Internauta e moderador
 - **Atores secundários**: ...  
 - **Resumo**: Permite ao usuário criar, visualizar, editar e deletar postagens pessoais, bem como visualizar postagens de outros usuários na comunidade.  
 - **Pré-condição**: O usuário deve ter uma conta e estar autenticado no sistema.  
@@ -64,15 +64,15 @@
 |                                                | 2. Exibe aviso de confirmação para sair sem salvar alterações. |
 
 ## Protótipo
-![image](https://github.com/user-attachments/assets/073489ca-d550-4368-9158-af792f3de1c4)
-![image](https://github.com/user-attachments/assets/972535ad-2772-4a0c-8aa3-ceaa51f52582)
-
-
-
-> **Obs.:** As seções a seguir apenas serão utilizadas na segunda unidade do PDSWeb (segundo orientações do gerente do projeto).
+![image](CRIAR%20POSTAGEM.png)
+![image](EDITAR%20POSTAGEM%20(1).png)
+![image](EXCLUIR%20POSTAGEM.png)
+![image](FEED%20PRINCIPAL%20EXPANDIDO%20POSTAGEM.png)
+![image](PERFIL%20(visao%20do%20proprio%20perfil)%20(1).png)
+![image](PERFIL%20(visao%20do%20proprio%20perfil).png)
 
 ## Diagrama de Interação (Sequência ou Comunicação)
-> ![image]![WhatsApp Image 2025-02-26 at 23 39 21](https://github.com/user-attachments/assets/01992257-7487-4ce1-ba78-25580395ce8a)
+> ![image](https://github.com/user-attachments/assets/01992257-7487-4ce1-ba78-25580395ce8a)
 ()
 
 ## Diagrama de Classes de Projeto

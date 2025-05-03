@@ -104,7 +104,7 @@ Na tela inicial, os usuários terão um feed que exibirá atualizações das pes
 
 | Código              |  Nome               |          Descrição  |  
 | :-----------------: | :-----------------: | :-----------------: |
-| F01 | Upload de arquivos | Na área de repositórios o usuário do sistema  possa colocar arquivos |
+| F01 | Upload de arquivos | Na área de repositórios o usuário do sistema  pode colocar arquivos |
 | F02 | Categorias dos post | Através de classificação por nomes, é possível ver a seção do conteúdo postado naquele repositório específico ou naquele post específico.Essas categorias seriam a comunidade que o post seria direcionado(infoweb, tads ou redes), matéria, período do curso e tecnológica/linguagem. | 
 | F03 | Comentários em postagens | Nas postagens feitas tanto de conteúdos quanto de repositórios é possível que outros usuários comentem. | 
 | F04 | Cadastro do usuário | É necessário o fornecimento de um e-mail, senha e nome de usuário(singular) além do fornecimento de informações pessoais com a finalidade de criar seu perfil para a conclusão do seu cadastro. Ao criar uma conta é possível colocar informações pessoais para efetivação desta criação. Como: Nome(obrigatório), foto(opcional), descrição(opcional), informações da área acadêmica, profissional(opcional)  e comunidade do curso que o mesmo faça parte ou deseja fazer parte futuramente(obrigatório)o perfil continua personalizável após o cadastro.| 
@@ -115,13 +115,14 @@ Na tela inicial, os usuários terão um feed que exibirá atualizações das pes
 | F09 | Favorita repositório | É possível marcar um repositório como favorito que será armazenado e visualizado posteriormente no perfil pessoal. | 
 | F10 | Segue perfis e comunidades | Possibilidade de filiação a alguma comunidade após a criação da conta e seguir perfis pessoais de outros usuários. No perfil pessoal e no perfil da comunidade é possível visualizar a quantidade de pessoas que seguem a conta, e se tratando apenas do perfil pessoal quantas pessoas aquele usuário segue | 
 | F11 | Curte postagem | Tornar interação mais eficiente, permitindo curtir alguma postagem. | 
-| F12 | Pesquisar por categorias com filtro | O usuário poderá como forma de facilitar a pesquisa e o encontro de informações, filtrar por categoria o conteúdo que queira ver. |
+| F12 | Filtragem por categorias | O usuário poderá como forma de facilitar a pesquisa e o encontro de informações, filtrar por categoria o conteúdo que queira ver. |
 | F13 | Sai de uma conta | Possibilidade de se desconectar de uma conta |
 | F14 | Busca por palavras chaves | O usuário poderá pesquisar por palavras chaves e conteúdos de seu interesse. |
-| F15 | Visualiza todas as comunidades  | Possibilidade de visualizar as comunidades que existem no sistema. |
-| F16 | Monitora denúncia | O moderador poderá monitorar as denúncias feitas a um postagem.|
-| F17 | Realiza denúncia | O usuário tem a capacidade de realizar denúncias em uma postagem, caso acredite que o conteúdo da mesma seja imprópria para o site. |
-| F18 | Login na plataforma | É necessário o fornecimento de um e-mail/Nome de usuário e senha para que assim ele tenha acesso ao sistema.| 
+| F15 | Visualização das comunidades  | Possibilidade de visualizar as comunidades que existem no sistema. |
+| F16 | Monitoramento de denúncias | O moderador poderá monitorar as denúncias feitas a um postagem.|
+| F17 | Realização de denúncias | O usuário tem a capacidade de realizar denúncias em uma postagem e em um comentário, caso acredite que o conteúdo da mesma seja imprópria para o site. |
+| F18 | Login na plataforma | É necessário o fornecimento de um e-mail/Nome de usuário e senha para que assim ele tenha acesso a todas as funcionalidades do sistema.| 
+| F19 | Criação de categorias | Um moderador do sistema pode fazer a criação de categorias de postagens como adição de matérias, períodos e tecnologias que uma publicação pode ter.| 
 
 ## 9. Requisitos não-funcionais
 

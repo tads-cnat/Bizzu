@@ -1,6 +1,6 @@
 # CDU001. CRUD repositório 
 
-- **Ator principal**: Estudante
+- **Ator principal**: Internauta e moderador 
 - **Atores secundários**: ...	 
 - **Resumo**: O usuário pode fazer a criação, visualização, edição e deleção de um repositório pessoal, no qual a visualização de repositórios de outros usuários também é possível.
 - **Pré-condição**: O usuário deve ter uma conta e um perfil autenticado
@@ -30,7 +30,7 @@
 | Ações do ator | Ações do sistema |
 | :-----------------: | :-----------------: | 
 | 1.  Usuário clica no ícone de três pontos (°°°) |  |  
-| | 2. Um pop-up que dá a possibilidade de optar entre editar ou deletar repositório  |  
+| | 2. Um pop-up que dá a possibilidade de optar entre criar, editar ou deletar repositório  |  
 | 3. Ele opta por editar | |  
 | | 4. Sistema retorna tela de edição |  
 | 5. Ele faz as alterações que julgar necessárias e salva | |  
@@ -75,23 +75,27 @@
 | | 6. Se o usuário tentar sair da tela sem confirmar alterações aparece um aviso | 
 
 ## Protótipos
-![FEED PRINCIPAL - REPOSITÓRIO](https://github.com/user-attachments/assets/f038863b-83c1-4d5d-af49-854311529f68)
+![FEED PRINCIPAL - REPOSITÓRIO](FEED%20PRINCIPAL%20EXPANDIDO%20REPOSITÓRIO.png)
 
-![PERFIL NA MINHA VISÂO - REPOSITÓRIO COMUNIDADE EXPANDIDA](https://github.com/user-attachments/assets/58d832c6-d659-4a50-ab38-7a955a493a7b)
+![PERFIL USUÁRIO](PERFIL%20(visao%20do%20proprio%20perfil).png)
 
-![POST](https://github.com/user-attachments/assets/d8d4e06e-107d-4e5c-98a8-368d6b394a2e)
+![PERFIL NA MINHA VISÂO - NOVO REPOSITÓRIO](PERFIL%20(visao%20do%20proprio%20perfil)%20(1).png)
 
+![CRIAR REPOSITÓRIO](CRIAR%20REPOSITÓRIO.png)
 
-![PERFIL NA MINHA VISÂO - NOVO REPOSITÓRIO](https://github.com/user-attachments/assets/7c266d4f-d482-49a0-88fe-4d21f2909936)
+![EDITAR REPOSITÓRIO](EDITAR%20POSTAGEM.png)
+
+![EXCLUIR REPOSITÓRIO](EXCLUIR%20REPOSITÓRIO.png)
+
+![INTERNO REPOSITÓRIO](INTERNO%20REPOSITÓRIO.png)
 
 
 ## Diagrama de Interação (Sequência ou Comunicação)
 ![Criar repositório diagrma de sequncia^](https://github.com/user-attachments/assets/3f4a4f01-ee4d-40c5-ab5e-7fa535bf0ddd)
 
 
-
 ## Diagrama de Classes de Projeto
 
-![Repositrio classes relacioandas ](https://github.com/user-attachments/assets/48e20348-7a01-41c5-a53c-07893dc36b4e)
+![Repositrio classes relacionadas ](https://github.com/user-attachments/assets/48e20348-7a01-41c5-a53c-07893dc36b4e)
 
 
