@@ -1,6 +1,6 @@
 # Especificações de Casos de Uso
 
-![UseCase Diagram0](Diagrama%20de%20caso%20de%20uso%20do%20bizzu.png)
+![Diagrma de caso de uso](Diagrama%20de%20caso%20de%20uso%20do%20bizzu.png)
 
 ## 001 - CRUD repositório
 **Pré-condições:** O usuário deve ter uma conta e um perfil autenticado.  
