@@ -1,0 +1,9 @@
+export default interface IBeeInput {
+    label: string; // texto que vai ser exibido em cima do input
+    placeholder: string; // texto que vai ficar dentro do input
+    image?: HTMLImageElement; // imagens usadas no input
+    type?: string; // tipo de entrada do input
+}
+
+
+
