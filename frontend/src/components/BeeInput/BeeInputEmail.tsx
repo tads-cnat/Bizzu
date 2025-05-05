@@ -1,15 +1,17 @@
-// Input padrão sem ícones 
+// Input Email
 
 import {JSX} from "react";
 import IBeeInput from "./IBeeInput";
-import styles from './BeeInput.module.css'; // Caso queira mudar o tamanho do input basta ir nesse arquivo e em input mudar o height
+import styles from './BeeInputIcones.module.css'; // Caso queira mudar o tamanho do input basta ir nesse arquivo e em input mudar o height
+import email from "/Envelope.svg"
 
-export default function BeeInput(props: IBeeInput): JSX.Element{
+export default function BeeInputUsuario(props: IBeeInput): JSX.Element{
         const {label, placeholder,type} = props;
         return (
                 <>
                 <div className={styles.inputcontainer}>
                         <label  className={styles.label}>{label}</label> 
+                        <img src={email} className={styles.icones} alt="icone envelope"></img>
                         <input type={type} className={styles.input} placeholder={placeholder} />
                 </div>
                 </>

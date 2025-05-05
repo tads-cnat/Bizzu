@@ -1,0 +1,39 @@
+/* Css referente aos icones padrões do input*/
+
+.inputcontainer{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+.label{
+    text-align: left;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+.input{
+    border-color: #000000 ;
+    border-radius: 5px;
+    height: 25px;
+    padding-left: 9%;
+}
+.placeholder{
+    color: gray;
+}
+
+.icones{
+    width: 20px;
+    height: 20px;
+    pointer-events: none;
+    position: absolute;
+    top: 55%; 
+    left: 2%;
+}
+
+/* Css referente ao input senha */
+.iconeOlho{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 55%; 
+    left: 92%;
+}
