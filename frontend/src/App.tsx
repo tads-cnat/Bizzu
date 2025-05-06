@@ -1,12 +1,26 @@
+import {Hexagon} from "@phosphor-icons/react";
 import "./App.css";
-import BeeTags from "./components/BeeTags/BeeTags";
+import BeeSelect from "./components/BeeSelect/BeeSelect";
+
+const people = [
+	{
+		value: 1,
+		label: "Wade Cooper",
+	},
+	{
+		value: 2,
+		label: "Arlene Mccoy",
+	},
+];
+//Esse people tem propósito de teste pois ele na verdade vai ser o retorno JSON da API que vai ter exatamente isso
 
 function App() {
 	return (
 		<>
-			<BeeTags
-				label="INFOWEB"
-				color="#FCBD18"
+			<BeeSelect
+				placeholder="Selecione sua comunidade"
+				options={people}
+				icon={Hexagon}
 			/>
 		</>
 	);
