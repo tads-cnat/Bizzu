@@ -11,14 +11,24 @@ export type BeeButtonTamanhos = 'pequeno' | 'medio' | 'grande';
 // obrigatória em todos os)
 
 export interface BeeButtonProps {
+  // Texto do botão
   label?: string;
+  // Ícone do botão
   icone?: ReactNode;
+  // Função do botão
   onClick?: () => void;
+  // para botões carregando, a implementação está aqui mas não necessariamente precisa ser utilizado
   estaCarregando?: boolean;
+  // Variantes prontas
   variante?: BeeButtonVariantes;
+  // Tamanhos prontos do botão
   tamanho?: BeeButtonTamanhos;
+  // Classes tailwind
   className?: string;
+  // Href do botão
   href?: string;
+  // Se o botão vai estar desabilitado
   desabilitado?: boolean;
+  // Para botões sem classes
   classesDefault?: boolean;
 }
