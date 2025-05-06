@@ -4,12 +4,11 @@ import IBeeTags from "./components/BeeTags/IBeeTags";
 
 export interface CaixaRepositorioProps {
     // Tem que ter o export do usuário que postou o repositório
-    usuarioIconeUrl?: string;
-    usuarioNome?: string;
-    dataPostagem: Date;
-    tituloPostagem: string;
-    descricaoPostagem: string;
-    tags: IBeeTags[];
-    onClick?: () => void;
-
+    usuarioIconeUrl?: string;      // URL do avatar
+    usuarioNome: string;           // Nome do usuário
+    dataPostagem: Date;            // Data da postagem
+    tituloPostagem: string;        // Título da postagem
+    descricaoPostagem: string;     // Descrição da postagem
+    tags: IBeeTags[];              // Lista de tags
+    onClick?: () => void;          // Ação ao clicar (opcional)
 }
