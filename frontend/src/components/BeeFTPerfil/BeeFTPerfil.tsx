@@ -8,6 +8,7 @@ export default function BeeFTPerfil(props: IBeeFTPerfil): JSX.Element{
             <>
             <div className={styles.profileContainer}>
                 <div className={styles.hexagon}>
+                    <img src={image} alt="Imagem de usuário"></img>
                 </div>
                 <div className="user-info">
                     <span className={styles.name}>{name}</span>
