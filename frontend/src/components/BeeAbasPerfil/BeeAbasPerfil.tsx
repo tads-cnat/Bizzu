@@ -18,7 +18,7 @@ const BeeAbasPerfil: React.FC<IBeeAbasPerfil> = ({ abas, onAbaSelect }) => {
           className={`px-6 py-2 rounded-full font-medium transition-all duration-200
             ${abaAtiva === aba
               ? 'bg-[#FCBD18] text-white'
-              : 'bg-transparent text-black hover:text-gray-700'}`}
+              : 'bg-transparent text-[#333333] hover:text-gray-700'}`}
         >
           {aba}
         </button>
