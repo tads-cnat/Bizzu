@@ -22,7 +22,8 @@ function App() {
 				options={people}
 				icon={Hexagon}
 			/>
-		</>
+    </>
+		
 	);
 }
 
