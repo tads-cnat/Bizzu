@@ -1,4 +1,7 @@
 import React from "react";
+import BeeSearchBar from "../BeeSearchBar/BeeSearchBar";
+import BeeButton from "../BeeButtons/BeeButtons";
+import {SignOut} from "phosphor-react"; // Importa o ícone de logout
 
 const BeeHeader: React.FC = () => {
 	return (
@@ -10,6 +13,21 @@ const BeeHeader: React.FC = () => {
 					className="w-32"
 				/>
 			</div>
+			<BeeSearchBar
+				onSearch={(termo: string) => console.log("Search term:", termo)}
+			/>
+			<BeeButton
+				onClick={() => console.log("Logout clicked")}
+				icone={
+					<SignOut
+						size={20}
+						weight="bold"
+					/>
+				} // Ícone à esquerda do texto
+				label="Sair"
+				variante="negativo"
+				className="ml-4"
+			/>
 		</header>
 	);
 };
