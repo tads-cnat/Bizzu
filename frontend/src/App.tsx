@@ -1,11 +1,11 @@
 import "./App.css";
-import Header from "./components/Header/Header";
-import BeeTags from "./components/BeeTags/BeeTags";
+import BeeHeader from "./components/BeeHeader/BeeHeader";
 
 function App() {
 
 	return (
 		<>
+			<BeeHeader />
 		</>
 	);
 }
