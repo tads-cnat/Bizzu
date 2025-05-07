@@ -1,26 +1,27 @@
 import "./App.css";
-import Post from "./components/Post/Post";
+import BeePost from "./components/BeePost/BeePost";
 
 function App() {
 	const dummyPost = {
-		username: "joaosilva",
-		profilePicUrl: "https://via.placeholder.com/40",
-		timeAgo: "2 horas atrás",
-		content: "Esse é um post de teste com uma imagem e algumas tags.",
-		imageUrl: "https://i.imgur.com/1kLxFNS.png",
+		nome: "Luiz Fernando",
+		imagemPerfil: "https://via.placeholder.com/40",
+		tempoPostado: "• 4h atrás",
+		conteudo: "Esse é um post de teste com uma imagem e algumas tags.",
+		imagemPost: "https://i.imgur.com/1kLxFNS.png",
+		imagemUsuarioLogado: "https://via.placeholder.com/40",
 		tags: [
-			{label: "INFOWEB", color: "#FCBD18"},
-			{label: "REACT", color: "#61DBFB"},
-			{label: "TESTE", color: "#FF69B4"},
+			{label: "INFOWEB", color: "#F2F2F7"},
+			{label: "REACT", color: "#F2F2F7"},
+			{label: "TESTE", color: "#F2F2F7"},
 		],
-		likesCount: 23,
-		commentsCount: 5,
+		curtidas: 23,
+		comentarios: 5,
 	};
 
 	return (
 		<div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
 			<div className="w-[600px]">
-				<Post {...dummyPost} />
+				<BeePost {...dummyPost} />
 			</div>
 		</div>
 	);
