@@ -1,11 +1,15 @@
-import { Icon } from "phosphor-react";
+import { IconProps } from "@phosphor-icons/react";
 
-export default interface IBeeInput {
-    label: string; // texto que vai ser exibido em cima do input
-    placeholder: string; // texto que vai ficar dentro do input
-    image?: HTMLImageElement; // imagens usadas no input
-    type?: string; // tipo de entrada do input
-    icon?: Icon; // Ícone caso necessário para usar no input
+
+export  interface IBeeInput {
+    // texto que vai ser exibido em cima do input
+    label: string;
+    // texto que vai ficar dentro do input
+    placeholder: string; 
+    // tipo de entrada do input
+    type?: string; 
+    // Ícone caso necessário para usar no input
+    icon?: React.ElementType<IconProps>;
 }
 
 
