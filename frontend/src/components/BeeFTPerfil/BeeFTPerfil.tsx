@@ -1,21 +1,25 @@
 import {IBeeFTPerfil} from "./IBeeFTPerfil";
 
 function tempoDesde(data: Date): string {
-    const agora = new Date();
-    const diffMs = agora.getTime() - data.getTime();
-    const diffSegundos = Math.floor(diffMs / 1000);
-    const minutos = Math.floor(diffSegundos / 60);
-    const horas = Math.floor(minutos / 60);
-    const dias = Math.floor(horas / 24);
-  
-    if (dias > 0) return `há ${dias} dia${dias > 1 ? "s" : ""}`;
-    if (horas > 0) return `há ${horas} hora${horas > 1 ? "s" : ""}`;
-    if (minutos > 0) return `há ${minutos} minuto${minutos > 1 ? "s" : ""}`;
-    return "agora mesmo";
-  }
+	const agora = new Date();
+	const diffMs = agora.getTime() - data.getTime();
+	const diffSegundos = Math.floor(diffMs / 1000);
+	const minutos = Math.floor(diffSegundos / 60);
+	const horas = Math.floor(minutos / 60);
+	const dias = Math.floor(horas / 24);
 
-const BeeFTPerfil: React.FC<IBeeFTPerfil> = ({name,date,image}) =>{
-  return (
+	if (dias > 0) return `há ${dias} dia${dias > 1 ? "s" : ""}`;
+	if (horas > 0) return `há ${horas} hora${horas > 1 ? "s" : ""}`;
+	if (minutos > 0) return `há ${minutos} minuto${minutos > 1 ? "s" : ""}`;
+	return "agora mesmo";
+}
+
+const BeeFTPerfil: React.FC<IBeeFTPerfil> = ({name, date, image}) => {
+	if (!image) {
+		image =
+			"https://saae.lucasdorioverde.mt.gov.br/arquivos/setores/sem_imagem_avatar.png";
+	}
+	return (
 		<>
 			<div className="inline-flex items-center">
 				<div className="flex items-center mb-2">
@@ -40,6 +44,7 @@ const BeeFTPerfil: React.FC<IBeeFTPerfil> = ({name,date,image}) =>{
 				</div>
 			</div>
 		</>
-  );
-}
+	);
+};
+
 export default BeeFTPerfil;
