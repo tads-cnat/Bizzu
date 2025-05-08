@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 
 export interface BeeSidebarItem {
   label: string;
-  icon: ReactNode;
+  icon?: ReactNode;
   onClick?: () => void;
   image?: string;
   children?: BeeSidebarItem[];
