@@ -4,13 +4,17 @@ export interface Tag {
 }
 
 export interface BeePostProps {
-	nome: string;
-	imagemPerfil: string;
-	tempoPostado: string;
-	conteudo: string;
-	imagemPost?: string;
-	tags: Tag[];
-	curtidas: number;
-	comentarios: number;
-    imagemUsuarioLogado: string;
+  usuario: {
+    name: string;
+    date: Date;
+    image?: string;
+  };
+  conteudo: string;
+  imagemPost?: string;
+  tags: { label: string; color: string }[];
+  curtidas: number;
+  comentarios: number;
+  imagemUsuarioLogado: string;
+  onCurtir: () => void;
+  onAbrirComentarios: () => void;
 }
