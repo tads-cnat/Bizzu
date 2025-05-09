@@ -7,16 +7,16 @@ const BeeAnexos: React.FC<IBeeAnexos> = ({path}) => {
 		<>
 			{fecharAnexos == "visível" && (
 				<div className="w-auto h-6 inline-flex rounded-[8px] items-center p-3 bg-[#B0B0B0]">
-					<p className="text-[#F8F4E6] font-semibold text-[12px] pr-1.5">
+					<p className="text-[#F8F4E6] font-semibold text-[12px] pr-1.5 pb-1">
 						{path}
 					</p>
 					<button
+						className="cursor-pointer pt-0.5"
 						type="button"
 						onClick={() => setFecharAnexos("invisível")}
-						className="cursor-pointer"
 					>
 						<X
-							size={16}
+							size={14}
 							color="#F8F4E6"
 							weight="bold"
 						/>
