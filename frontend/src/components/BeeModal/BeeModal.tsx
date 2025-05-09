@@ -8,10 +8,11 @@ import {
 import {TrashSimple, File} from "@phosphor-icons/react";
 import {BeeButton} from "../BeeButtons/BeeButtons";
 import {IBeeModal} from "./IBeeModal";
+import {BeeButtonVariantes} from "../BeeButtons/IBeeButtons";
 
 const BeeModal = ({label, text, type}: IBeeModal) => {
 	const [open, setOpen] = useState(true);
-	const [buttonType, setbuttonType] = useState("negativo");
+	const [buttonType, setbuttonType] = useState<BeeButtonVariantes>("negativo");
 	const [stateIcon, setStateIcon] = useState(
 		<TrashSimple
 			aria-hidden="true"
@@ -55,7 +56,7 @@ const BeeModal = ({label, text, type}: IBeeModal) => {
 			>
 				<DialogBackdrop
 					transition
-					className="fixed inset-0 bg-gray-500/75 transition-opacity data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in"
+					className="fixed inset-0 bg-[#B0B0B0]/75 transition-opacity data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in"
 				/>
 
 				<div className="fixed inset-0 z-10 w-screen overflow-y-auto">
@@ -73,16 +74,18 @@ const BeeModal = ({label, text, type}: IBeeModal) => {
 								<div className="mt-4 text-center sm:mt-0 sm:ml-2 sm:text-center">
 									<DialogTitle
 										as="h3"
-										className="text-base font-semibold text-[#333333]"
+										className="text-base font-semibold text-[#333333] font-poppins"
 									>
 										{label}
 									</DialogTitle>
 									<div className="mt-1">
-										<p className="text-sm text-[#B0B0B0]">{text}</p>
+										<p className="text-sm text-[#B0B0B0] font-poppins">
+											{text}
+										</p>
 									</div>
 								</div>
 							</div>
-							<div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6 gap-4">
+							<div className="bg-white px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6 gap-4">
 								<BeeButton
 									label={labelButton}
 									variante={buttonType}
