@@ -7,7 +7,7 @@ const BeeAnexos: React.FC<IBeeAnexos> = ({path}) => {
 		<>
 			{fecharAnexos == "visível" && (
 				<div className="w-auto h-6 inline-flex rounded-[8px] items-center p-3 bg-[#B0B0B0]">
-					<p className="text-[#FFFFFF] font-semibold text-[12px] pr-1.5">
+					<p className="text-[#F8F4E6] font-semibold text-[12px] pr-1.5">
 						{path}
 					</p>
 					<button
@@ -17,7 +17,7 @@ const BeeAnexos: React.FC<IBeeAnexos> = ({path}) => {
 					>
 						<X
 							size={16}
-							color="#FFF"
+							color="#F8F4E6"
 							weight="bold"
 						/>
 					</button>
