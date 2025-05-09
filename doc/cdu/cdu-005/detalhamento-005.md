@@ -10,15 +10,14 @@
 
 | **Ações do ator**                                                          | **Ações do sistema**                        |
 | -------------------------------------------------------------------------- | ------------------------------------------- |
-| 1. Acessa a área de perfil pessoal.                                        |                                             |
-|                                                                            | 2. Exibe a tela de perfil do usuário.       |
-| 3. Clica no botão “Nova Postagem”.                                         |                                             |
-|                                                                            | 4. Exibe formulário de criação de postagem. |
-| <a href=""> 5. Preenche informações obrigatórias e clica em “Enviar”. </a> |                                             |
-|                                                                            | 6. Mostra mensagem de sucesso.              |
-| 7. Exibe perfil do usuário com a nova postagem sendo exibida               |                                             |
+| <a href="https://github.com/user-attachments/assets/9467cf41-03cc-4223-b03e-af6b274bb9d3"> 1. Usuário clica no botão “Novo” e seleciona opção "criar postagem" em seu perfil pessoal.</a>                                         |                                             |
+|                                                                            | 2. Sistema exibe formulário de criação de postagem. |
+| <a href="https://github.com/user-attachments/assets/21c7674e-4506-47c6-8c88-cd3b9eb8cd4c"> 3. Preenche informações obrigatórias e clica em “Enviar”. </a> |                                             |
+|                                                                            | 4. Mostra mensagem de sucesso.              |
+| 5. Exibe perfil do usuário com a nova postagem sendo exibida               |                                             |
 
-## Fluxo Alternativo - [Visualizar Postagem] <div id="visualizar">
+## Fluxo Alternativo - [Visualizar Postagem]
+
 
 | **Ações do ator**                | **Ações do sistema**                    |
 | -------------------------------- | --------------------------------------- |
@@ -29,10 +28,10 @@
 
 | **Ações do ator**                                                   | **Ações do sistema**                                           |
 | ------------------------------------------------------------------- | -------------------------------------------------------------- |
-| <a id="visualizar" > 1. Visualiza postagem feita por ele mesmo </a> |                                                                |
+| 1. Visualiza postagem feita por ele mesmo |                                                                 |
 |                                                                     | 2. Exibe opções ao clicar nos três pontos ao lado da postagem. |
 | 3. Seleciona “Editar postagem”.                                     |                                                                |
-|                                                                     | <a> 4. Exibe formulário de edição com campos preenchidos. </a> |
+|                                                                     | <a href="https://github.com/user-attachments/assets/b5cadf75-91b2-4dc9-978f-acb553ba7fe5"> 4. Exibe formulário de edição com campos preenchidos. </a> |
 | 5. Realiza alterações e salva.                                      |                                                                |
 |                                                                     | 6. Exibe uma mensagem de sucesso.                              |
 | 7. Atualiza a postagem e redireciona para o perfil pessoal.         |                                                                |
@@ -41,7 +40,7 @@
 
 | **Ações do ator**                                                          | **Ações do sistema**                                           |
 | -------------------------------------------------------------------------- | -------------------------------------------------------------- |
-| <a id="visualizar"> 1. Visualiza postagem própria que deseja deletar. </a> |                                                                |
+| 1. Visualiza postagem própria que deseja deletar.  |                                                                |
 |                                                                            | 2. Exibe opções ao clicar nos três pontos ao lado da postagem. |
 | 3. Seleciona “Deletar”.                                                    |                                                                |
 |                                                                            | 4. Exibe pop-up de confirmação de deleção.                     |
@@ -74,12 +73,18 @@
 
 ## Protótipo
 
-![image](CRIAR%20POSTAGEM.png)
-![image](<EDITAR%20POSTAGEM%20(1).png>)
-![image](EXCLUIR%20POSTAGEM.png)
-![image](FEED%20PRINCIPAL%20EXPANDIDO%20POSTAGEM.png)
-![image](<PERFIL%20(visao%20do%20proprio%20perfil)%20(1).png>)
-![image](<PERFIL%20(visao%20do%20proprio%20perfil).png>)
+![CRIAR POSTAGEM (1)](https://github.com/user-attachments/assets/21c7674e-4506-47c6-8c88-cd3b9eb8cd4c)
+![EDITAR POSTAGEM (1)](https://github.com/user-attachments/assets/b5cadf75-91b2-4dc9-978f-acb553ba7fe5)
+![EXCLUIR POSTAGEM (1)](https://github.com/user-attachments/assets/86b77132-6b6d-43c8-b493-d3ed333a537a)
+![FEED PRINCIPAL EXPANDIDO POSTAGEM](https://github.com/user-attachments/assets/986a7c91-f1e8-4197-b324-e0c99f220203)
+![PERFIL (visao do proprio perfil) (1)](https://github.com/user-attachments/assets/9467cf41-03cc-4223-b03e-af6b274bb9d3)
+![PERFIL (visao do proprio perfil)](https://github.com/user-attachments/assets/5802bfed-0a8d-485f-8b1c-efb2a1c995b0)
+
+## Diagrama de atividades 
+![Criar postagem](https://github.com/user-attachments/assets/f334429a-d537-4043-ad78-c6822df38f05)
+![Editar postagem](https://github.com/user-attachments/assets/1a71521d-6546-403b-8242-715edcfea56f)
+![Excluir postagem](https://github.com/user-attachments/assets/cfe11b15-4018-4986-be0f-a752bcf2dbcf)
+![Visualizar postagem](https://github.com/user-attachments/assets/05dfcc8d-f5a5-4220-9f33-75eb10dcac9b)
 
 ## Diagrama de Interação (Sequência ou Comunicação)
 
