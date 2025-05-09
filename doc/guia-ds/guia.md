@@ -127,7 +127,7 @@ pip install -r requirements.txt
 
 ### 4.1 Estrutura
 
-<tipo>: <mensagem> <br>
+< tipo >: < mensagem > <br>
 Exemplo:
 fix: Corrige alinhamento do footer
 
@@ -142,22 +142,11 @@ fix: Corrige alinhamento do footer
 | remove  |                                     Remoção de código                                     |
 |  chore  | Atualizações de configurações de administrador e pacotes (não inclui alteração no código) |
 
+**DICA**: Faça commits frequentes durante o desenvolvimento para facilitar o rastreamento.
+
 ## 5. CONFIGURAÇÕES RECOMENDADAS
 
-Docker Desktop
-
-Black Formatter (Python)
-
-Prettier (JavaScript/TypeScript)
-
-Crie arquivo .prettierrc na raiz:
-
-```json
-{
-  "semi": true,
-  "singleQuote": true,
-  "tabWidth": 2
-}
-```
-
-DICA: Faça commits frequentes durante o desenvolvimento para facilitar o rastreamento.
+- Black Formatter (Python)
+- Prettier (TypeScript)
+- EsLint
+- Tailwind/Postman
