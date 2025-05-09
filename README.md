@@ -103,7 +103,7 @@
 
 # Manual da Desenvolvedor
 
-<div align="center" style="
+<div style="
   margin: 0 auto;
   padding: 16px 20px;
   border-radius: 12px;
