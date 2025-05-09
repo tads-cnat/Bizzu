@@ -1,19 +1,28 @@
+import {X} from "@phosphor-icons/react";
 import {IBeeAnexos} from "./IBeeAnexos";
-const BeeAnexos: React.FC<IBeeAnexos> = ({path, icon: Icon}) => {
+import {useState} from "react";
+const BeeAnexos: React.FC<IBeeAnexos> = ({path}) => {
+	const [fecharAnexos, setFecharAnexos] = useState("visível");
 	return (
 		<>
-			<div className="w-auto h-6 inline-flex rounded-[8px] items-center p-3  bg-[#B0B0B0]">
-				<p className="text-[#FFFFFF] font-semibold text-[12px] pr-1.5">
-					{path}
-				</p>
-				{Icon && (
-					<Icon
-						size={16}
-						color="#FFF"
-						weight="bold"
-					/>
-				)}
-			</div>
+			{fecharAnexos == "visível" && (
+				<div className="w-auto h-6 inline-flex rounded-[8px] items-center p-3 bg-[#B0B0B0]">
+					<p className="text-[#FFFFFF] font-semibold text-[12px] pr-1.5">
+						{path}
+					</p>
+					<button
+						type="button"
+						onClick={() => setFecharAnexos("invisível")}
+						className="cursor-pointer"
+					>
+						<X
+							size={16}
+							color="#FFF"
+							weight="bold"
+						/>
+					</button>
+				</div>
+			)}
 		</>
 	);
 };
