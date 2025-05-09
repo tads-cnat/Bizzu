@@ -10,44 +10,38 @@
 
 # Nossa Equipe
 
-1. Ana Maria
-2. Fábio Alexandre
-3. Jesrriel Moura
-4. Luiz Fernando
-5. Luiz Roberto
+<table style>
+  <tr>
+    <td align="center"><a href="https://github.com/namariaa">
+        <img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/namariaa" width="100px;" alt="Bolsista 2"/>
+        <br />
+        <a href="https://github.com/namariaa"><b>Ana Maria</b></a>
+    </td>
+    <td align="center"><a href="">
+        <img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/163214715?v=4" width="100px;" alt="Fábio Alexandre"/>
+        <br />
+        <a href="https://github.com/Fabioasl"><b>Fábio Alexandre</b></a>
+    </td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/rielps">
+        <img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/170769111?v=4" width="100px;" alt="Jesrriel Moura"/>
+        <br />
+        <a href="https://github.com/rielps"><b>Jesrriel Moura</b></a>
+    </td>
+    <td align="center"><a href="https://github.com/luuiizf">
+        <img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/97256376?v=4" width="100px;" alt="Luiz Fernando"/>
+        <br />
+        <a href="https://github.com/luuiizf"><b>Luiz Fernando</b></a>
+    </td>
+    <td align="center"><a href="https://github.com/luiizr">
+        <img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/164033637?v=4" width="100px;" alt="Luiz Roberto"/>
+        <br />
+        <a href="https://github.com/luiizr"><b>Luiz Roberto</b></a>
+    </td>
+  </tr>
 
-<div align="center">
-  <div style="display: flex; justify-content: center; gap: 20px; margin-bottom: -30px;">
-    <a href="https://github.com/namariaa" target="_blank">
-      <img src="https://avatars.githubusercontent.com/u/144686482?v=4" width="100" 
-           style="clip-path: polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0% 50%);
-                  border: 2px solid #FCBD18;">
-    </a>
-    <a href="https://github.com/Fabioasl" target="_blank">
-      <img src="https://avatars.githubusercontent.com/u/163214715?v=4" width="100" 
-           style="clip-path: polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0% 50%);
-                  border: 2px solid #FCBD18;">
-    </a>
-  </div>
-
-  <div style="display: flex; justify-content: center; gap: 20px; margin-top: -30px;">
-    <a href="https://github.com/rielps" target="_blank">
-      <img src="https://avatars.githubusercontent.com/u/170769111?v=4" width="100" 
-           style="clip-path: polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0% 50%);
-                  border: 2px solid #FCBD18;">
-    </a>
-    <a href="https://github.com/luuiizf" target="_blank">
-      <img src="https://avatars.githubusercontent.com/u/97256376?v=4" width="100" 
-           style="clip-path: polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0% 50%);
-                  border: 2px solid #FCBD18;">
-    </a>
-    <a href="https://github.com/luiizr" target="_blank">
-      <img src="https://avatars.githubusercontent.com/u/164033637?v=4" width="100" 
-           style="clip-path: polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0% 50%);
-                  border: 2px solid #FCBD18;">
-    </a>
-  </div>
-</div>
+</table>
 
 # Horário de Reuniões
 
@@ -87,7 +81,6 @@
       onmouseout="this.style.transform='scale(1)'; this.style.filter='grayscale(100%)'; this.style.boxShadow='none'" />
   </a>
 
-  <!-- PostgreSQL -->
   <a href="https://www.postgresql.org/docs/" target="_blank" title="PostgreSQL">
     <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" width="40" height="40"
       style="transition: transform 0.2s ease, box-shadow 0.2s ease; filter: grayscale(100%);"
