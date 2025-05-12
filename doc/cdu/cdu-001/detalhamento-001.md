@@ -6,27 +6,36 @@
 - **Pré-condição**: O usuário deve ter uma conta e um perfil autenticado
 - **Pós-Condição**: Feedback de sucesso ou erro após cada ação
 
-## Fluxo Principal - [Criar repositório]
-| Ações do ator | Ações do sistema |
-| :-----------------: | :-----------------: | 
-| 1. Usuário se direciona ao seu perfil pessoal |  |  
-|  | 2. Aparece a tela do seu perfil | 
-| 3. Ele clica no botão novo  | |  
-| | 4. Sistema mostra um pop-up na tela que dá a possibilidade do usuário escolher o que ele quer adicionar |  
-| 5. Ele escolhe a opção de novo repositório | | 
-|| 6. É retornado uma tela que possui informações necessária na criação de um repositório como comunidade, categorias que são opcionais, título, descrição e arquivos | 
-| 7.  Usuário preenche as informações e anexa materiais e faz o envio |  | 
-|  | 8.  O repositório aparecerá no perfil da pessoa, além de aparecer na aba repositórios na página principal de comunidades  | 
+## Fluxo Principal - [Criar Repositório]
 
-## Fluxo Principal - [Visualizar repositório]
-| Ações do ator | Ações do sistema |
-| :-----------------: | :-----------------: | 
-| 1. Usuário se direciona ao seu perfil pessoal e clica na área “repositórios” |  |  
-|  | 2. Sistema retorna todos os repositórios criado por ele |  
+| **Ações do ator**                                                          | **Ações do sistema**                        |
+| -------------------------------------------------------------------------- | ------------------------------------------- |
+| <a href=""> 1. Usuário clica no botão “Novo” e seleciona opção "criar repositório" em seu perfil pessoal.</a>                                         |                                             |
+|                                                                            | 2. Sistema exibe formulário de criação de repositório. |
+| <a href=""> 3. Preenche informações obrigatórias e clica em “Enviar”. </a> |                                             |
+|                                                                            | 4. Mostra mensagem de sucesso.              |
+| 5. Exibe perfil do usuário com o novo repositório sendo exibido               |                                             |
+
+## Fluxo Alternativo - [Visualizar Repositório Perfil Pessoal]
+
+
+| **Ações do ator**                | **Ações do sistema**                    |
+| -------------------------------- | --------------------------------------- |
+| 1. Acessa a área de "Repositórios" no perfil pessoal. |                                         |
+|                                  | 2. Exibe lista de postagens do usuário. |
 | 3. Ao clicar no botão abrir ele consegue ver detalhadamente o conteúdo daquele repositório |  |  
 | | 4. É retornada uma tela que contém além de informações do repositório também contém os arquivos anexados a ele  |  
 
-## Fluxo Principal - [Edição repositório]
+## Fluxo Alternativo - [Visualizar Repositório Feed]
+
+| **Ações do ator**                | **Ações do sistema**                    |
+| -------------------------------- | --------------------------------------- |
+| 1. Abre página de feed(página inicial). |                       |
+|                                  | 2. Exibe lista de repositórios mais recentes dos usuários e comunidades que aquele perfil segue. |
+| 3. Ao clicar no botão "abrir" ele consegue ver detalhadamente o conteúdo daquele repositório |  |  
+| | 4. É retornada uma tela que contém além de informações do repositório também contém os arquivos anexados a ele  |  
+
+## Fluxo Alternativo - [Edição repositório]
 | Ações do ator | Ações do sistema |
 | :-----------------: | :-----------------: | 
 | 1.  Usuário clica no ícone de três pontos (°°°) |  |  
@@ -36,7 +45,7 @@
 | 5. Ele faz as alterações que julgar necessárias e salva | |  
 | | 6. Redireciona o usuário ao repositório novamente com as alterações feitas |  
 
-## Fluxo Principal - [Deleção repositório]
+## Fluxo Alternativo - [Deleção repositório]
 | Ações do ator | Ações do sistema |
 | :-----------------: | :-----------------: | 
 | 1.  Usuário clica no ícone de três pontos (°°°) | | 
@@ -45,12 +54,6 @@
 |  | 4. Sistema retorna um pop-up de deleção |  
 | 5. Usuário confirma que deseja deletar | |  
 | | 6. Deleta e retorna um feedback | 
-
-## Fluxo Alternativo - [Visualizar repositório]
-| Ações do ator | Ações do sistema |
-| :-----------------: |:-----------------: | 
-| 1. Ao entrar na aplicação é possível visualizar os repositórios de outros usuários e ao clicar no botão abrir ele consegue ver detalhadamente o conteúdo daquele repositório | |  
-| | 2. É retornada uma tela que contém além de informações do repositório também contém os arquivos anexados a ele |
 
 ## Fluxo exceção - [Criar repositório]
 | Ações do ator | Ações do sistema |
@@ -64,6 +67,14 @@
 | 7. Usuário não preenche todas as informações/anexações obrigatórias | | 
 | | 8. Retorna uma mensagem de requisição de preenchimento de campos | 
 
+## Fluxo Principal - [Criar Repositório]
+
+| **Ações do ator**                                                          | **Ações do sistema**                        |
+| -------------------------------------------------------------------------- | ------------------------------------------- |
+| <a href=""> 1. Usuário clica no botão “Novo” e seleciona opção "criar repositório" em seu perfil pessoal.</a>                                         |                                             |
+|                                                                            | 2. Sistema exibe formulário de criação de repositório. |
+| <a href=""> 3. Não preenche todas as informações/anexações obrigatórias e clica em “Enviar”. </a> |                                             |
+|                                                                            | 4. Mostra mensagem de requisição de preenchimento de campos obrigatórios             |
 ## Fluxo excecão - [Edição repositório]
 | Ações do ator | Ações do sistema |
 | :-----------------: | :-----------------: | 

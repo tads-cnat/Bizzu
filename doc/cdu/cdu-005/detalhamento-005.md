@@ -16,13 +16,20 @@
 |                                                                            | 4. Mostra mensagem de sucesso.              |
 | 5. Exibe perfil do usuário com a nova postagem sendo exibida               |                                             |
 
-## Fluxo Alternativo - [Visualizar Postagem]
+## Fluxo Alternativo - [Visualizar Postagem Perfil Pessoal]
 
 
 | **Ações do ator**                | **Ações do sistema**                    |
 | -------------------------------- | --------------------------------------- |
-| 1. Acessa a área de "Postagens". |                                         |
+| 1. Acessa a área de "Postagens" no perfil pessoal. |                       |
 |                                  | 2. Exibe lista de postagens do usuário. |
+
+## Fluxo Alternativo - [Visualizar Postagem Feed]
+
+| **Ações do ator**                | **Ações do sistema**                    |
+| -------------------------------- | --------------------------------------- |
+| 1. Abre página de feed(página inicial). |                       |
+|                                  | 2. Exibe lista de postagens mais recentes dos usuários e comunidades que aquele perfil segue. |
 
 ## Fluxo Alternativo - [Editar Postagem]
 
