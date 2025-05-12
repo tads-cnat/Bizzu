@@ -1,11 +1,9 @@
-import React from 'react';
 import {
   CaretDown,
-  House,
-  Users,
-  Globe,
 } from '@phosphor-icons/react';
-import { BeeSidebarProps } from './BeeSidebar';
+
+import { IBeeSidebarProps } from './IBeeSidebar';
+
 import {
   Menu,
   MenuButton,
@@ -13,14 +11,20 @@ import {
   MenuItems,
 } from '@headlessui/react';
 
-export const BeeSidebar = ({ userName, userRole = 'Ver Perfil', userImage, items }: BeeSidebarProps) => {
+const DEFAULT_IMAGE = ''; // ainda não existe imagem_default
+
+export const BeeSidebar = ({
+  userName,
+  userRole = 'Ver Perfil',
+  userImage,
+  items,
+}: IBeeSidebarProps) => {
   return (
-    // bg-transparent
     <aside className="w-56 min-h-screen shadow-md flex flex-col justify-start px-3 py-4 ml-4 mt-4 rounded-xl bg-[#F2F2F7]">
       {/* Topo - Perfil do usuário */}
       <div className="flex items-center gap-2 mb-4 bg-transparent">
         <img
-          src={userImage}
+          src={userImage || DEFAULT_IMAGE}
           alt={userName}
           className="w-8 h-8 object-cover"
           style={{
