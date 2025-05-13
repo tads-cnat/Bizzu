@@ -1,6 +1,8 @@
 import "./App.css";
 import BeePost from "./components/BeePost/BeePost";
 
+import BeeHeader from "./components/BeeHeader/BeeHeader";
+
 function App() {
 const dummyPost = {
 	usuario: {
@@ -20,24 +22,13 @@ const dummyPost = {
 	comentarios: 5,
 };
 
-const handleCurtir = () => {
-    console.log("Curtida clicada!");
-  };
 
-const handleComentarios = () => {
-    console.log("Abrir seção de comentários!");
-  };
-
-  return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
-      <div className="w-[600px]">
-        <BeePost {...dummyPost}
-		onCurtir={handleCurtir}
-		onAbrirComentarios={handleComentarios} 
-		/>
-      </div>
-    </div>
-  );
+	return (
+		<>
+			<BeeHeader />
+		</>
+	);
 }
 
 export default App;
+

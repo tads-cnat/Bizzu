@@ -47,3 +47,5 @@ export const BeeButton = ({
     </button>
   );
 };
+
+export default BeeButton;
