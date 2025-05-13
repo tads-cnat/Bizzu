@@ -1,13 +1,14 @@
 import "./App.css";
+import BeeHeader from "./components/BeeHeader/BeeHeader";
 
 function App() {
 
 	return (
 		<>
+			<BeeHeader />
 		</>
 	);
 }
 
 export default App;
 
-//Estou está página inicialmente para testes  altere para a maneira que deveria ser
