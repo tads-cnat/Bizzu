@@ -1,0 +1,4 @@
+export interface IBeeAnexos{
+    // String responsável por representar o nome e o tipo de arquivo exemplo: "arquivo.txt"
+    path: string;
+    }
