@@ -6,7 +6,7 @@ const BeeAnexos: React.FC<IBeeAnexos> = ({path}) => {
 	return (
 		<>
 			{fecharAnexos == "visível" && (
-				<div className="flex items-center justify-center w-16 h-9 rounded-md px-4 py-2 items-center p-3 bg-[#B0B0B0] ">
+				<div className="w-auto py-2 inline-flex rounded-[8px] items-center p-3 bg-[#B0B0B0] ">
 					<p className="text-[#F8F4E6] font-semibold text-[12px] pr-1.5 pb-1">
 						{path}
 					</p>
