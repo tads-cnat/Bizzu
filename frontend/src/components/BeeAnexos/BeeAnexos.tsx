@@ -1,8 +1,24 @@
 import {X} from "@phosphor-icons/react";
 import {IBeeAnexos} from "./IBeeAnexos";
 import {useState} from "react";
+import axios from "axios";
 const BeeAnexos: React.FC<IBeeAnexos> = ({path}) => {
 	const [fecharAnexos, setFecharAnexos] = useState("visível");
+	const [loading, setLoading] = useState(false);
+	const deletarAnexos = async () => {
+		setLoading(true);
+		try {
+			const resposta = await axios.delete(
+				`api/anexos/${encodeURIComponent(path)}`,
+			); // Esse vai ser o caminho do endpoint como não tem no backend ainda vai ser so um caminho simulado e por isso não funciona ainda
+			if (resposta.status === 204) setFecharAnexos("invisível");
+		} catch (err) {
+			console.error("Erro ao deletar:", err);
+			alert("Falha ao deletar anexo");
+		} finally {
+			setLoading(false);
+		}
+	};
 	return (
 		<>
 			{fecharAnexos == "visível" && (
@@ -13,7 +29,8 @@ const BeeAnexos: React.FC<IBeeAnexos> = ({path}) => {
 					<button
 						className="cursor-pointer"
 						type="button"
-						onClick={() => setFecharAnexos("invisível")}
+						onClick={deletarAnexos}
+						disabled={loading}
 					>
 						<X
 							size={14}
