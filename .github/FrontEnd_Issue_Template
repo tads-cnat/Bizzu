@@ -7,6 +7,16 @@ assignees: ''
 
 ---
 
+## :card_file_box: Título da Tarefa
+
+Descrever em linhas gerais a tarefa
+
+### Subtarefas
+- [ ] Subtarefa 01 - Prazo: dd/mm/yyyy
+- [ ] Subtarefa 02 - Prazo: dd/mm/yyyy
+
+### :open_file_folder: Informações Gerais 
+
 **Tempo previsto (em horas):**
 
 **Tempo gasto (em horas):**
