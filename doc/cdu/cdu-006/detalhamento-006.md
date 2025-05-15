@@ -1,6 +1,6 @@
 # CDU006. Fazer cadastro
 
-- **Ator principal**: Estudante
+- **Ator principal**: Internauta
 - **Atores secundários**: ...	 
 - **Resumo**: O caso de uso permite que o usuário possa fazer o cadastro no sistema, fornecendo dados como: nome de usuário, email, senha e escolhendo quais comunidades são de seu interesse, o sistema valida os dados e armazena as informações no banco de dados.
 - **Pré-condição**: O usuário não pode estar autenticado no sistema.
@@ -9,10 +9,10 @@
 ## Fluxo Basico - [ Fazer cadastro ]
 | Ações do ator (usuario) | Ações do sistema |
 | :-----------------: | :-----------------: | 
-| 1. O usuário acessa o pop up de fazer login e Clica no botão de fazer cadastro |  |  
-| | 2. O sistema exibe o formulário de cadastro solicitando: nome de usuário, email, senha e seleção de comunidades. |  
+| 1. O usuário acessa a página de fazer cadastro |  |  
+| | 2. O sistema exibe o formulário de cadastro solicitando: nome de usuário, email, senha, seleção de comunidades e personalização de perfil pessoal. |  
 | 3. O usuário preenche os campos solicitados e confirma o cadastro. | | 
-|| 4. O sistema valida os dados fornecidos, e os dados são armazenados no banco de dados e o sistema exibe uma mensagem confirmando o sucesso do cadastro..  | 
+|| 4. O sistema valida os dados fornecidos, e os dados são armazenados no banco de dados, após isso o sistema exibe uma mensagem confirmando o sucesso do cadastro..  | 
 
 
 ## Fluxo Alternativo I - [ E-mail já cadastrado ]
