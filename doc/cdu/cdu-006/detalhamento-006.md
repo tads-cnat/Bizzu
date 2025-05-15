@@ -2,7 +2,7 @@
 
 - **Ator principal**: Internauta
 - **Atores secundários**: ...	 
-- **Resumo**: O caso de uso permite que o usuário possa fazer o cadastro no sistema, fornecendo dados como: nome de usuário, email, senha e escolhendo quais comunidades são de seu interesse, o sistema valida os dados e armazena as informações no banco de dados.
+- **Resumo**: O caso de uso permite que o usuário possa fazer o cadastro no sistema, fornecendo dados como: nome de usuário, email, senha, escolhendo quais comunidades são de seu interesse e inserindo suas informações no seu perfil pessoal, o sistema valida os dados e armazena as informações no banco de dados.
 - **Pré-condição**: O usuário não pode estar autenticado no sistema.
 - **Pós-Condição**: O Cadastro estará concluído com sucesso e o usuário estará habilitado para acessar o conteúdo das comunidades selecionadas na etapa de cadastro.
 
@@ -10,7 +10,7 @@
 | Ações do ator (usuario) | Ações do sistema |
 | :-----------------: | :-----------------: | 
 | 1. O usuário acessa a página de fazer cadastro |  |  
-| | 2. O sistema exibe o formulário de cadastro solicitando: nome de usuário, email, senha, seleção de comunidades e personalização de perfil pessoal. |  
+| | 2. O sistema exibe o formulário de cadastro solicitando: nome de usuário, email, senha, seleção de comunidades e inserção de informações no perfil pessoal. |  
 | 3. O usuário preenche os campos solicitados e confirma o cadastro. | | 
 || 4. O sistema valida os dados fornecidos, e os dados são armazenados no banco de dados, após isso o sistema exibe uma mensagem confirmando o sucesso do cadastro..  | 
 
@@ -31,9 +31,14 @@
 | | 3. O sistema retorna ao fluxo básico no passo 4 |
 
 **Protótipos**
-![Feed principal - Pop-up de login](<LOGIN - DESLOGADO (COM ALTERAÇÕES.png>)
+![Tela de cadastro](https://github.com/user-attachments/assets/81dda9ec-2330-44c4-a392-d1bea406502e)
 
-![Tela de cadastro](<TELA DE CADASTRO.png>)
+![Tela de inserção de suas informações no perfil pessoal ](https://github.com/user-attachments/assets/6ce14b96-15f4-469e-a58b-94b7eccbc049)
+
+![Tela de escolha de comunidade](https://github.com/user-attachments/assets/f69bcde3-f4fa-4d6c-a6e9-5fb785943747)
+
+
+
 
 
 
