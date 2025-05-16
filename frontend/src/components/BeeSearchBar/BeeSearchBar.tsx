@@ -1,9 +1,8 @@
-import { useState } from "react";
-import { MagnifyingGlass } from "phosphor-react";
-import { IBeeSearchBar } from "./IBeeSearchBar";        
+import {useState} from "react";
+import {MagnifyingGlass} from "@phosphor-icons/react";
+import {IBeeSearchBar} from "./IBeeSearchBar";
 
-
-function BeeSearchBar({ onSearch }: IBeeSearchBar) {
+function BeeSearchBar({onSearch}: IBeeSearchBar) {
 	const [termo, setTermo] = useState("");
 	const [isFocused, setIsFocused] = useState(false);
 
@@ -29,7 +28,10 @@ function BeeSearchBar({ onSearch }: IBeeSearchBar) {
 					isFocused ? "w-12 h-12" : "w-10 h-10"
 				} rounded-full bg-[#FCBD18]`}
 			>
-				<MagnifyingGlass size={32} color="#faf6ef" />
+				<MagnifyingGlass
+					size={32}
+					color="#faf6ef"
+				/>
 			</button>
 		</div>
 	);

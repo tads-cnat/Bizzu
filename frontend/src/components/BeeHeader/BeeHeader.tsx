@@ -1,7 +1,7 @@
 import React from "react";
 import BeeSearchBar from "../BeeSearchBar/BeeSearchBar";
 import BeeButton from "../BeeButtons/BeeButtons";
-import {SignOut} from "phosphor-react"; // Importa o ícone de logout
+import {SignOut} from "@phosphor-icons/react"; // Importa o ícone de logout
 
 const BeeHeader: React.FC = () => {
 	return (
