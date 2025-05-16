@@ -35,7 +35,7 @@
 | 1. O usuário clica no ícone de “Balão de fala” para fazer um comentario na postagem. | ... | 
 | ... | 2. O sistema exibe o pop-up para que o usuário realize o comentario. |
 | 3. O usuário digita seu comentario e clica no botão “Enviar”. | ... |  
-| ... | 3. O sistema tenta salvar o comentário, mas ocorre uma falha (ex.: problemas de conexão ou erro no servidor) e exibe uma mensagem de erro ao usuário informando que o comentário não pôde ser salvo, o comentário é descartado. | 
+| ... | 4. O sistema tenta salvar o comentário, mas ocorre uma falha (ex.: problemas de conexão ou erro no servidor), é exibido uma mensagem de erro ao usuário informando que o comentário não pôde ser salvo, o comentário é descartado. | 
 
 
 ## Protótipo 
