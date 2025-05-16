@@ -1,4 +1,4 @@
-# CDU007. Comentar postagem //alterar titulo?
+# CDU007. Comentar postagem 
 
 - **Ator principal**: Internauta e moderador
 - **Atores secundários**: ...	 
