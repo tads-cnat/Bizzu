@@ -15,7 +15,7 @@
 | :-----------------: | :-----------------: | 
 | 1. O usuário clica no ícone de “Balão de fala” para fazer um comentario na postagem. | ... | 
 | ... | 2. O sistema exibe o pop-up para que o usuário realize o comentario. |
-| 3. O usuário digita sua mensagem no campo de texto fornecido e confirma o envio do comentário clicando no botão “Comentar”. | ... |
+| 3. O usuário digita sua mensagem no campo de texto fornecido e confirma o envio do comentário clicando no botão “Enviar”. | ... |
 | ... | 4. O sistema salva o comentário no banco de dados, associando-o ao post e ao usuário e atualiza a lista de comentários exibida, incluindo o novo comentário.|
 
 
@@ -35,8 +35,7 @@
 | 1. O usuário clica no ícone de “Balão de fala” para fazer um comentario na postagem. | ... | 
 | ... | 2. O sistema exibe o pop-up para que o usuário realize o comentario. |
 | 3. O usuário digita seu comentario e clica no botão “Enviar”. | ... |  
-| ... | 3. O sistema tenta salvar o comentário, mas ocorre uma falha (ex.: problemas de conexão ou erro no servidor). | 
-| ... | 4. O sistema exibe uma mensagem de erro ao usuário informando que o comentário não pôde ser salvo, o comentário é descartado. | 
+| ... | 3. O sistema tenta salvar o comentário, mas ocorre uma falha (ex.: problemas de conexão ou erro no servidor) e exibe uma mensagem de erro ao usuário informando que o comentário não pôde ser salvo, o comentário é descartado. | 
 
 
 ## Protótipo 
