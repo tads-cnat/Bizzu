@@ -1,10 +1,10 @@
 # CDU006. Fazer cadastro
 
-- **Ator principal**: Internauta
+- **Ator principal**: Visitante
 - **Atores secundários**: ...	 
-- **Resumo**: O caso de uso permite que o usuário possa fazer o cadastro no sistema, fornecendo dados como: nome de usuário, email, senha, escolhendo quais comunidades são de seu interesse e inserindo suas informações no seu perfil pessoal, o sistema valida os dados e armazena as informações no banco de dados.
+- **Resumo**: O caso de uso permite que o usuário possa fazer o cadastro no sistema, fornecendo dados como: nome de usuário, email, senha, escolhendo quais comunidades são de seu interesse e inserindo suas informações no seu perfil pessoal.
 - **Pré-condição**: O usuário não pode estar autenticado no sistema.
-- **Pós-Condição**: O Cadastro estará concluído com sucesso e o usuário estará habilitado para acessar o conteúdo das comunidades selecionadas na etapa de cadastro.
+- **Pós-Condição**: Após o cadastro o sistema valida os dados e armazena as informações no banco de dados, concluindo assim, com sucesso o cadastro e o usuário estará habilitado para acessar o conteúdo das comunidades selecionadas na etapa de cadastro.
 
 ## Fluxo Basico - [ Fazer cadastro ]
 | Ações do ator (usuario) | Ações do sistema |
@@ -18,17 +18,20 @@
 ## Fluxo Alternativo I - [ E-mail já cadastrado ]
 | Ações do ator | Ações do sistema |
 | :-----------------: | :-----------------: | 
-|  | 1. Após o passo 4 do fluxo básico, o sistema detecta que o e-mail já está registrado e exibe uma mensagem informando que o e-mail já está cadastrado. |  
-| 2. O usuário fornece um novo e-mail válido. | |  
-| | 3. O sistema valida os novos dados e retorna ao passo 4 do fluxo básico. | 
+| 1. O usuário acessa a página de fazer cadastro |  |  
+| | 2. O sistema exibe o formulário de cadastro solicitando: nome de usuário, email, senha, seleção de comunidades e inserção de informações no perfil pessoal. |  
+| 3. O usuário preenche os campos solicitados e confirma o cadastro. | | 
+|| 4. O sistema detecta que o e-mail já está registrado e exibe uma mensagem informando que o e-mail já está cadastrado.| 
 
 
 ## Fluxo de exceção - [ Senha inválida ]
 | Ações do ator | Ações do sistema |
 | :-----------------: | :-----------------: | 
-| | 1. Durante o passo 3 do fluxo básico, o sistema detecta que a senha não atende aos critérios mínimos, e exibe uma mensagem indicando os possíveis erros. |
-| 2. O usuario digita uma nova senha | |  
-| | 3. O sistema retorna ao fluxo básico no passo 4 |
+| 1. O usuário acessa a página de fazer cadastro |  |  
+| | 2. O sistema exibe o formulário de cadastro solicitando: nome de usuário, email, senha, seleção de comunidades e inserção de informações no perfil pessoal. |  
+| 3. O usuário preenche os campos solicitados e confirma o cadastro. | | 
+|| 4. O sistema detecta que a senha não atende aos critérios mínimos, e exibe uma mensagem indicando os possíveis erros (credenciais inválidas ou senha não corresponde).| 
+
 
 **Protótipos**
 ![Tela de cadastro](https://github.com/user-attachments/assets/81dda9ec-2330-44c4-a392-d1bea406502e)
