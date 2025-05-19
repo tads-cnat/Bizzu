@@ -1,3 +1,4 @@
+
 from django.db import models
 from .postagem import Postagem
 from .usuario import Usuario
@@ -8,3 +9,4 @@ class Curtida(models.Model):
 
     def __str__(self):
         return f"{self.usuario} curtiu {self.postagem}"
+

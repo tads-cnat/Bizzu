@@ -7,3 +7,5 @@ from .denuncia import *
 from .postagem import *
 from .repositorio import *
 from .usuario import *
+
+
