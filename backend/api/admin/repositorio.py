@@ -1,5 +1,6 @@
 from django.contrib import admin
-from ..models.repositorio import Repositorio
+from ..models.Repositorio import Repositorio
+
 
 
 class RepositorioAdmin(admin.ModelAdmin):

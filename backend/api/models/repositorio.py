@@ -1,21 +1,22 @@
-from django.db import models
+
 import uuid
-from .usuario import Usuario
-from .comunidade import Comunidade
-from .categoria import Categoria
+from django.db import models
+
 
 class Repositorio(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    dataPublicacao = models.DateTimeField(verbose_name="Data de publicação", auto_now_add=True)
-    titulo = models.CharField(verbose_name="Título", max_length=50)
-    descricao = models.CharField(verbose_name="Descrição", max_length=200)
-    usuario = models.ForeignKey(Usuario, verbose_name="Usuário", on_delete=models.CASCADE, related_name="repositorios")
-    comunidade = models.ForeignKey(Comunidade, verbose_name="Comunidade", on_delete=models.CASCADE, null=True, blank=True)
-    categorias = models.ManyToManyField(Categoria, verbose_name="Categorias", blank=True)
+    titulo = models.CharField(max_length=100)
+    descricao = models.TextField(blank=True)
+    dataPublicacao = models.DateTimeField(
+        auto_now_add=True, verbose_name="Data de publicação"
+    )
 
     def __str__(self):
-        return self.titulo
+        return f"{self.nome} - {self.descricao[:20]}"
 
     class Meta:
-        verbose_name = "Repositório"
-        verbose_name_plural = "Repositórios"
+        verbose_name = "Repositorio"
+        verbose_name_plural = "Repositorios"
+
+
+# Posteriormente é necessário adicionar os relacionamentos de usuário, categoria, comunidade, postagem, arquivos
