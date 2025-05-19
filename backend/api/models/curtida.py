@@ -1,18 +1,12 @@
-import uuid
-from django.db import models
-from django.contrib.auth import get_user_model
-from .postagem import Postagem
 
-User = get_user_model()
+from django.db import models
+from .postagem import Postagem
+from .usuario import Usuario
 
 class Curtida(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    usuario = models.ForeignKey(User, on_delete=models.CASCADE, related_name="curtidas")
-    postagem = models.ForeignKey(Postagem, on_delete=models.CASCADE, related_name="curtidas")
-    data = models.DateTimeField(auto_now_add=True)
-
-    class Meta:
-        unique_together = ('usuario', 'postagem')
+    usuario = models.ForeignKey(Usuario, verbose_name="Usuário", on_delete=models.CASCADE, related_name="usuario_curtida")
+    postagem = models.ForeignKey(Postagem, verbose_name="Postagem", on_delete=models.CASCADE, related_name="postagem_curtida")
 
     def __str__(self):
-        return f'{self.usuario} curtiu {self.postagem}'
+        return f"{self.usuario} curtiu {self.postagem}"
+
