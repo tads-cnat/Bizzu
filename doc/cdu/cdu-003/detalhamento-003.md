@@ -1,6 +1,6 @@
 # CDU003. Pesquisar Conteúdo
 
-- **Ator principal**: Estudantem, visitante e Moderador
+- **Ator principal**: Visitante, Internauta e Moderador
 - **Atores secundários**: ...	 
 - **Resumo**: O usuário pode pesquisar conteúdos disponíveis na rede social, por meio de palavras-chaves inseridas no campo de busca.  
 - **Pré-condição**: Não há.
@@ -15,12 +15,11 @@
 
 ## Fluxo Alternativo I - Não há
 
-## Fluxo de Exceção I - [Não existe conteúdo com a palavra-chave pesquisada]
+## Fluxo de Exceção I - [Quando não existe conteúdo com a palavra-chave pesquisada]
 | Ações do ator | Ações do sistema |
 | :-----------------: | :-----------------: | 
 | 1 - O usuário acessa o campo de pesquisa na interface e o preenche com uma palavra-chave, nome de usuário ou postagem que deseja achar e confirma a pesquisa|| 
-|| 2 - O sistema processa a solicitação de pesquisa e se nenhum resultado correspondente é encontrado, então o sistema exibe a mensagem: “Sem resultados para sua pesquisa”|  
-| 3 - O usuário refaz a busca modificando a palavra-chave colocada anteriormente |
+|| 2 - O sistema processa a solicitação de pesquisa e nenhum resultado correspondente é encontrado, então o sistema exibe a mensagem: “Sem resultados para sua pesquisa”|  
 
 ## Protótipo
 ![image](https://github.com/user-attachments/assets/d561949b-ee17-4e3d-9e3c-17769f074d0c)
