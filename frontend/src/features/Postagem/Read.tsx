@@ -40,7 +40,7 @@ const Read: React.FC = () => {
 						comentarios={post?.comentarios}
 						usuario={post?.usuario}
 						dataPublicacao={post.dataPublicacao}
-						imagemPost="https://pt.quizur.com/_image?href=https://dev-beta.quizur.com/storage/v1/object/public//imagens//20146321/a59600ff-f32e-40c9-b3c5-631c3a747d30.png&w=1024&h=1024&f=webp"
+						imagemPost={post?.imagemPost}
 						imagemUsuarioLogado={post?.imagemUsuarioLogado}
 						onCurtir={curtido}
 						onAbrirComentarios={comentado}
