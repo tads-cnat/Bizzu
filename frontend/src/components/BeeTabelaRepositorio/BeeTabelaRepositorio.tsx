@@ -10,7 +10,7 @@ const BeeTabelaRepositorio: React.FC<IBeeTabelaRepositorio> = ({
   files,
 }) => {
   return (
-    <div className="border-2 border-[#FCBD18] rounded-lg overflow-hidden">
+    <div className="border-2 border-[#FCBD18] rounded-[14px] overflow-hidden">
       <div className="flex items-center justify-between p-4 bg-[#DCCEB1]/30">
         <div className="flex items-center gap-3">
           <img
@@ -39,13 +39,13 @@ const BeeTabelaRepositorio: React.FC<IBeeTabelaRepositorio> = ({
         {files.map((file: FileItem) => (
           <div
             key={file.id}
-            className="flex items-center justify-between p-4 border-t"
+            className="flex items-center justify-between p-4 border-t border-[#FCBD18]"
           >
             <div className="flex items-center gap-2">
               <File size={20} weight="regular" className="text-[#FCBD18]" />
-              <span className="text-sm text-gray-800">{file.name}</span>
+              <span className="text-sm text-gray-800 font-light">{file.name}</span>
             </div>
-            <span className="text-sm text-gray-600">
+            <span className="text-sm text-gray-600 font-normal">
               {file.daysAgo} dias atrás
             </span>
           </div>
