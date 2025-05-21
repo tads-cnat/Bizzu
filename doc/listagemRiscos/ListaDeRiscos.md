@@ -1,43 +1,10 @@
-# Riscos Identificados - Projeto Bizzu
+## ✅ Tabela de Riscos – Projeto Bizzu
 
-## Risco R1 – Dificuldade com tecnologias novas (React, DjangoRest, Docker)
-- **Impacto Potencial:** Atraso no desenvolvimento e baixa qualidade de entrega
-- **Probabilidade:** Média
-- **Categoria:** Técnica
-- **Ação Preventiva:** Estudo direcionado, tutoriais, e ajuda entre os membros da equipe.
-- **Ação Corretiva:** Reduzir escopo.
-
----
-
-## Risco R2 – Instabilidade do ambiente de desenvolvimento (sem Docker)
-- **Impacto Potencial:** Falha de execução entre máquinas, bugs inesperados
-- **Probabilidade:** Alta
-- **Categoria:** Técnica
-- **Ação Preventiva:** Planejar o uso do Docker o quanto antes
-- **Ação Corretiva:** Criar documentação clara de setup.
-
----
-
-## Risco R3 – Falta de aprovação do orientador para decisões importantes
-- **Impacto Potencial:** Retrabalho e atrasos
-- **Probabilidade:** Baixa
-- **Categoria:** Gerencial
-- **Ação Preventiva:** Envolver o orientador desde o início nas decisões
-- **Ação Corretiva:** Registrar reuniões e justificativas.
-
----
-
-## Risco R4 – Infraestrutura limitada dos membros (computadores pessoais com restrições)
-- **Impacto Potencial:** Redução de produtividade
-- **Probabilidade:** Média
-- **Categoria:** Recursos
-- **Ação Preventiva:** Utilizar laboratório do IFRN sempre que possível
-
----
-
-## Risco R5 – Entregas semanais com prazos curtos
-- **Impacto Potencial:** Sobrecarga e stress
-- **Probabilidade:** Média
-- **Categoria:** Cronograma
-- **Ação Preventiva:** Planejar tarefas com antecedência e dividir em partes menores
-- **Ação Corretiva:** Negociar prazos com os professores, se necessário
+| Identificador | Título                                              | Descrição                                                                 | Indicador (Probabilidade) | Gravidade (Impacto)                                | Estratégia(s) de Mitigação                                                                      | Plano de Contingência                                          |
+|---------------|------------------------------------------------------|---------------------------------------------------------------------------|----------------------------|-----------------------------------------------------|--------------------------------------------------------------------------------------------------|----------------------------------------------------------------|
+| R1            | Dificuldade com tecnologias novas                   | Uso de tecnologias como React, DjangoRest e Docker pode gerar atrasos    | Média                      | Atraso no desenvolvimento e baixa qualidade de entrega | Estudo direcionado, tutoriais, ajuda entre os membros da equipe                              | Reduzir o escopo                                                |
+| R2            | Instabilidade do ambiente de desenvolvimento        | Ausência de Docker pode causar bugs e diferenças entre ambientes         | Alta                       | Falha de execução entre máquinas, bugs inesperados     | Planejar o uso do Docker o quanto antes                                                       | Criar documentação clara de setup                              |
+| R3            | Falta de aprovação do orientador em decisões        | Decisões sem validação podem gerar retrabalho e atrasos                  | Baixa                      | Retrabalho e atrasos                                   | Envolver o orientador desde o início nas decisões                                              | Registrar reuniões e justificativas                            |
+| R4            | Infraestrutura limitada dos membros                 | Uso de computadores pessoais pode reduzir a produtividade                | Média                      | Redução de produtividade                              | Utilizar laboratório do IFRN sempre que possível                                               | Não se aplica (não informado anteriormente)                     |
+| R5            | Entregas semanais com prazos curtos                 | Prazos apertados podem causar sobrecarga e stress                        | Média                      | Sobrecarga e stress                                   | Planejar tarefas com antecedência e dividir em partes menores                                | Negociar prazos com os professores, se necessário              |
+| R6            | Sobrecarga por múltiplas disciplinas simultâneas    | Acúmulo de tarefas de várias matérias pode impactar negativamente o projeto | Alta                       | Atrasos nas entregas, baixa qualidade na execução      | Planejamento semanal das atividades acadêmicas e do projeto, priorizando o essencial         | Replanejar o cronograma do projeto e renegociar entregas com os professores se necessário     |
