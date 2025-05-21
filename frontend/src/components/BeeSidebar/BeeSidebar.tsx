@@ -13,7 +13,7 @@ export const BeeSidebar = ({
 	items,
 }: IBeeSidebarProps) => {
 	return (
-		<aside className="w-66 min-h-screen shadow-md flex flex-col justify-start px-3 py-4 ml-4 mt-4 rounded-xl bg-[#F2F2F7]">
+		<aside className="fixed top-[80px] left-4 w-66 min-h-screen shadow-md flex flex-col justify-start px-3 py-4 rounded-xl bg-white z-40">
 			{/* Topo - Perfil do usuário */}
 			<div className="flex items-center gap-2 mb-4 bg-transparent">
 				<img

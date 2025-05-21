@@ -1,17 +1,16 @@
+import { IBeeUsuario } from "../BeeFTPerfil/IBeeUsuario";
+
 export interface Tag {
 	label: string;
 	color: string;
 }
 
 export interface BeePostProps {
-  usuario: {
-    name: string;
-    date: Date;
-    image?: string;
-  };
+  usuario: IBeeUsuario;
   conteudo: string;
   imagemPost?: string;
   tags: { label: string; color: string }[];
+  dataPublicacao: string;
   curtidas: number;
   comentarios: number;
   imagemUsuarioLogado: string;
