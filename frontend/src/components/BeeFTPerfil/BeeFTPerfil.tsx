@@ -1,8 +1,9 @@
 import {IBeeFTPerfil} from "./IBeeFTPerfil";
 
-function tempoDesde(data: Date): string {
+function tempoDesde(data: string): string {
+	const date = new Date(data);
 	const agora = new Date();
-	const diffMs = agora.getTime() - data.getTime();
+	const diffMs = agora.getTime() - date.getTime();
 	const diffSegundos = Math.floor(diffMs / 1000);
 	const minutos = Math.floor(diffSegundos / 60);
 	const horas = Math.floor(minutos / 60);
@@ -14,9 +15,9 @@ function tempoDesde(data: Date): string {
 	return "agora mesmo";
 }
 
-const BeeFTPerfil: React.FC<IBeeFTPerfil> = ({name, date, image}) => {
-	if (!image) {
-		image =
+const BeeFTPerfil: React.FC<IBeeFTPerfil> = ({usuario, dataPublicacao}) => {
+	if (!usuario.imagemPerfil) {
+		usuario.imagemPerfil =
 			"https://saae.lucasdorioverde.mt.gov.br/arquivos/setores/sem_imagem_avatar.png";
 	}
 	return (
@@ -24,7 +25,7 @@ const BeeFTPerfil: React.FC<IBeeFTPerfil> = ({name, date, image}) => {
 			<div className="inline-flex items-center">
 				<div className="flex items-center mb-2">
 					<img
-						src={image}
+						src={usuario.imagemPerfil}
 						alt="Imagem de usuário"
 						className="w-12 h-12 object-cover gap-2 mt-2"
 						style={{
@@ -35,11 +36,11 @@ const BeeFTPerfil: React.FC<IBeeFTPerfil> = ({name, date, image}) => {
 				</div>
 				<div className="p-2 ">
 					<span className="text-[#333333] font-poppins font-semibold">
-						{name}
+						{usuario.nome}
 					</span>
 					<span className="text-[#FCBD18] font-poppins font-semibold">
 						{" "}
-						• {tempoDesde(date)}{" "}
+						• {tempoDesde(dataPublicacao)}{" "}
 					</span>
 				</div>
 			</div>
