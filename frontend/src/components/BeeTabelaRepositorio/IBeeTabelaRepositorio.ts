@@ -1,3 +1,5 @@
+import { IBeeUsuario } from "../BeeFTPerfil/IBeeUsuario";
+
 export interface FileItem {
   id: string;
   name: string;
@@ -5,14 +7,12 @@ export interface FileItem {
 }
 
 export interface IBeeTabelaRepositorio {
-  /** Nome do usuário dono do repositório */
-  username: string;
-  /** URL da imagem de perfil do usuário */
-  userImage: string;
+  /** Objeto com informações do usuário dono do repositório */
+  usuario: IBeeUsuario;
   /** Texto informando quando o repositório foi atualizado pela última vez */
   lastUpdated: string;
   /** Lista de tags associadas ao repositório */
-  tags: string[];
+  tags: { label: string; color: string }[];
   /** Lista de arquivos anexados ao repositório */
   files: FileItem[];
 }
