@@ -1,9 +1,9 @@
 import React from 'react';
-import { File } from 'phosphor-react';
+import { File } from '@phosphor-icons/react';
 import { IBeeTabelaRepositorio, FileItem } from './IBeeTabelaRepositorio';
 
 const BeeTabelaRepositorio: React.FC<IBeeTabelaRepositorio> = ({
-  userName,
+  username,
   userImage,
   lastUpdated,
   tags,
@@ -15,11 +15,11 @@ const BeeTabelaRepositorio: React.FC<IBeeTabelaRepositorio> = ({
         <div className="flex items-center gap-3">
           <img
             src={userImage}
-            alt={userName}
+            alt={username}
             className="w-10 h-10 rounded-full object-cover"
           />
           <div>
-            <span className="font-semibold text-gray-800">{userName}</span>
+            <span className="font-semibold text-gray-800">{username}</span>
             <p className="text-sm text-gray-600">{lastUpdated}</p>
           </div>
         </div>

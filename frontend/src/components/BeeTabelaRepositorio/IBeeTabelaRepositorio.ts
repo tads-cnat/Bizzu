@@ -6,7 +6,7 @@ export interface FileItem {
 
 export interface IBeeTabelaRepositorio {
   /** Nome do usuário dono do repositório */
-  userName: string;
+  username: string;
   /** URL da imagem de perfil do usuário */
   userImage: string;
   /** Texto informando quando o repositório foi atualizado pela última vez */
