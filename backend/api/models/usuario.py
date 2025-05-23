@@ -31,15 +31,7 @@ class Usuario(AbstractUser):
         related_name="seguido_por",
         default=0,
         blank=True,
-    )  # quem eu sigo
-    seguidores = models.ManyToManyField(
-        "self",
-        symmetrical=False,
-        verbose_name="Seguidores",
-        related_name="seguindo",
-        default=0,
-        blank=True,
-    )  # quem me segue
+    )
     comunidades = models.ManyToManyField(
         "Comunidade", verbose_name="Comunidades", related_name="seguido_por", blank=True
     )
