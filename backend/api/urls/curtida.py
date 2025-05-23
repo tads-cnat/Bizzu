@@ -1,6 +1,6 @@
 from rest_framework import routers
-from api.views.postagem import CurtidaViewSet
+from api.views.curtida import CurtidaViewSet
 
 
-curtidaRouter = router.DefaultRouter()
+curtidaRouter = routers.DefaultRouter()
 curtidaRouter.register("curtida", CurtidaViewSet)
