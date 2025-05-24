@@ -1,5 +1,5 @@
 import {Menu, MenuButton, MenuItem, MenuItems} from "@headlessui/react";
-import {DotsThreeVertical} from "@phosphor-icons/react";
+import {DotsThreeVertical, PencilSimple, Trash} from "@phosphor-icons/react";
 
 const BeeDropPost: React.FC = () => {
 	return (
@@ -15,49 +15,37 @@ const BeeDropPost: React.FC = () => {
 					/>
 				</MenuButton>
 			</div>
-
 			<MenuItems
 				transition
-				className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 transition focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
+				className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-bl-lg rounded-tr-lg bg-[#333333] shadow-lg ring-1 ring-black/5 transition focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
 			>
 				<div className="py-1">
 					<MenuItem>
 						<a
 							href="#"
-							className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:text-gray-900 data-focus:outline-hidden"
+							className="flex items-center gap-2 block px-4 py-2 text-sm text-[#F8F4E6] data-focus:bg-zinc-600 data-focus:text-[#F8F4E6] data-focus:outline-hidden"
 						>
-							Account settings
+							<PencilSimple
+								size={24}
+								weight="bold"
+								className="text-inherit"
+							/>
+							Editar repositório
 						</a>
 					</MenuItem>
 					<MenuItem>
 						<a
 							href="#"
-							className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:text-gray-900 data-focus:outline-hidden"
+							className="flex items-center gap-2 block px-4 py-2 text-sm text-[#F8F4E6] data-focus:bg-zinc-600 data-focus:text[#F8F4E6] data-focus:outline-hidden"
 						>
-							Support
+							<Trash
+								size={24}
+								weight="bold"
+								className="text-inherit"
+							/>
+							Excluir repositório
 						</a>
 					</MenuItem>
-					<MenuItem>
-						<a
-							href="#"
-							className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:text-gray-900 data-focus:outline-hidden"
-						>
-							License
-						</a>
-					</MenuItem>
-					<form
-						action="#"
-						method="POST"
-					>
-						<MenuItem>
-							<button
-								type="submit"
-								className="block w-full px-4 py-2 text-left text-sm text-gray-700 data-focus:bg-gray-100 data-focus:text-gray-900 data-focus:outline-hidden"
-							>
-								Sign out
-							</button>
-						</MenuItem>
-					</form>
 				</div>
 			</MenuItems>
 		</Menu>
