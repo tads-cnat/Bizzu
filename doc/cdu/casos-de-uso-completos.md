@@ -1,8 +1,9 @@
 # Especificações de Casos de Uso
 
-![Diagrma de caso de uso](Diagrama%20de%20caso%20de%20uso%20do%20bizzu.png)
+![Diagrama de caso de uso bizzu](https://github.com/user-attachments/assets/8110546e-2792-4075-a25f-f0fe1e8b6fa2)
 
-## 001 - CRUD repositório
+
+## 001 - Manter repositório
 **Pré-condições:** O usuário deve ter uma conta e um perfil autenticado.  
 **Resumo:** Ao acessar seu perfil pessoal, o usuário pode criar um repositório ao interagir com o botão "novo" e selecionar a opção "criar novo repositório". Para efetivação, é necessário colocar os arquivos, um título e, opcionalmente, selecionar categorias. Alterações como edição de título, categorias e arquivos, além da exclusão do repositório, são possíveis. A exibição dos repositórios será feita no feed principal, no feed dos seguidores e na comunidade associada, além de estar visível no perfil pessoal do usuário.  
 **Observação:** Os fluxos principais incluem visualização, criação, edição e exclusão. Fluxos de exceção devem considerar falhas na busca, exclusão ou atualização do repositório. 
@@ -30,10 +31,11 @@
 
 ---
 
-## 005 - CRUD postagens
+## 005 - Manter postagens
 **Pré-condições:** O usuário deve possuir uma conta e um perfil autenticado.  
 **Resumo:** O usuário pode criar uma nova postagem no feed ou no perfil pessoal, interagindo com o botão "novo" e selecionando "nova postagem". É necessário incluir conteúdo principal (texto, imagem ou vídeo), escolher uma comunidade e uma categoria. É possível editar ou excluir as postagens. As postagens serão exibidas no feed principal, no feed dos seguidores e nas comunidades relacionadas, além do perfil pessoal.  
 **Observação:** Os fluxos principais incluem visualização, criação, edição e exclusão. Fluxos de exceção devem considerar falhas na busca, exclusão ou atualização da postagem.  
+
 ---
 
 ## 006 - Fazer cadastro
@@ -115,6 +117,19 @@
 ---
 
 ## 017 - Gerenciar denúncias (moderador)
-**Pré-condições:**  O usuário deve possuir permissões administrativas.<br>
+**Pré-condições:**  O usuário deve possuir permissões de moderadores.<br>
 **Resumo:** Permite que os moderadores revisem e aprovem ou desaprovem denúncias feitas pelos usuários sobre postagens ou perfis que violem as regras da comunidade.<br>
 **Observação:** Cada denúncia deve ser analisada individualmente antes de qualquer ação corretiva.
+
+---
+
+## 018 - Alterar papel (moderador)
+**Pré-condições:**  O usuário deve possuir permissões de moderadores.<br>
+**Resumo:** Permite que os moderadores revisem e aprovem ou desaprovem solicitações de mudança de papel feita por usuário comum que deseja se tornar um moderador.<br>
+
+---
+
+## 019 - Solicitar mudança de papel (internauta)
+**Pré-condições:** O usuário não deve possuir o papel de moderador<br>
+**Resumo:** Permite que os internautas possam solocitar o papel de moderador do sistema para que assim consigam as permissões para revisões de denúncias.<br>
+
