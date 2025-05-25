@@ -1,10 +1,10 @@
-# CDU001. CRUD repositório 
+# CDU001. Manter repositório 
 
 - **Ator principal**: Internauta e moderador 
 - **Atores secundários**: ...	 
 - **Resumo**: O usuário pode fazer a criação, visualização, edição e deleção de um repositório pessoal, no qual a visualização de repositórios de outros usuários também é possível.
-- **Pré-condição**: O usuário deve ter uma conta e um perfil autenticado
-- **Pós-Condição**: Feedback de sucesso ou erro após cada ação
+- **Pré-condição**: O usuário deve estar autenticado no sistema.
+- **Pós-Condição**: O sistema exibe feedback de sucesso ou erro além de resgistrar alterações no banco a cada mudança/ação do usuário.
 
 ## Fluxo Principal - [Criar Repositório]
 
