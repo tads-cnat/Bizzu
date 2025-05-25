@@ -1,6 +1,6 @@
 export interface IBeeTextArea {
     // ID e nome do campo (útil para formulários e acessibilidade)
-    id: string;
+    id?: string;
   
     // Texto que aparece dentro da área de texto quando está vazia
     placeholder?: string;
