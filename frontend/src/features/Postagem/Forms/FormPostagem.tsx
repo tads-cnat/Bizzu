@@ -1,54 +1,73 @@
-import {useForm} from "react-hook-form";
-import {BeeTextArea} from "../../../components/BeeTextArea/BeeTextArea";
-import * as yup from "yup";
-import {yupResolver} from "@hookform/resolvers/yup";
-import {IFormPostagem} from "./IFormPostagem";
-import BeeButton from "../../../components/BeeButtons/BeeButtons";
+import { useForm } from 'react-hook-form';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { BeeButton } from '../../../components/BeeButtons/IBeeButtons';
+import { BeeTextArea } from '../../../components/BeeTextArea/BeeTextArea';
+import { PaperPlaneRight } from '@phosphor-icons/react';
 
-const schema = yup.object().shape({
-	conteudo: yup.string().required(),
+interface FormValues {
+  conteudo: string;
+  titulo: string;
+}
+
+const schema = yup.object({
+  conteudo: yup.string().required('Conteúdo é obrigatório'),
+  titulo: yup.string().required('Título é obrigatório'),
 });
 
-const FormPostagem = ({
-	sendPostagem,
-	defaultValue,
-	defaultComunidade,
-}: IFormPostagem) => {
-	const {
-		register,
-		handleSubmit,
-		formState: {errors},
-	} = useForm({resolver: yupResolver(schema)});
+export const FormPostagem = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<FormValues>({
+    resolver: yupResolver(schema),
+    defaultValues: {
+      conteudo: '',
+      titulo: '',
+    },
+  });
 
-	{
-		defaultValue === undefined &&
-			(defaultValue = "Insira um texto para sua postagem...");
-	}
-	return (
-		<>
-			<form onSubmit={handleSubmit(sendPostagem)}>
-				<BeeTextArea
-					placeholder={defaultValue}
-					label="Conteúdo"
-					{...register("conteudo")}
-				/>
-				{errors.conteudo?.message !== undefined && (
-					<div>Preecha o campo ele é obrigatório</div>
-				)}
+  const onSubmit = (data: FormValues) => {
+    console.log(data);
+    reset();
+  };
 
-				<div className="px-4 py-3 sm:flex sm:flex-row-reverse gap-4">
-					<BeeButton
-						label="Salvar"
-						variante="primaria"
-					/>
-					<BeeButton
-						label="Cancelar"
-						variante="neutro"
-					/>
-				</div>
-			</form>
-		</>
-	);
+  return (
+    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+      <div>
+        <label className="font-medium">Título</label>
+        <input
+          {...register('titulo')}
+          placeholder="Digite o título..."
+          className={`w-full px-4 py-2 rounded-md border ${
+            errors.titulo ? 'border-red-500' : 'border-gray-300'
+          } focus:outline-none focus:ring-2 focus:ring-teal-500`}
+        />
+        {errors.titulo && (
+          <p className="text-red-500 text-sm mt-1">
+            {errors.titulo.message}
+          </p>
+        )}
+      </div>
+
+      <div>
+        <label className="font-medium">Conteúdo</label>
+        <BeeTextArea
+          {...register('conteudo')}
+          placeholder="Digite seu conteúdo..."
+        />
+      </div>
+
+      <BeeButton
+        label="Publicar"
+        variante="primaria"
+        icone={<PaperPlaneRight size={18} />}
+        type="submit"
+      />
+    </form>
+  );
 };
 
 export default FormPostagem;
