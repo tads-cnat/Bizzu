@@ -1,10 +1,10 @@
-# CDU005. Gerenciar Postagem
+# CDU005. Manter Postagem
 
 - **Ator principal**: Internauta e moderador
 - **Atores secundários**: ...
 - **Resumo**: Permite ao usuário criar, visualizar, editar e deletar postagens pessoais, bem como visualizar postagens de outros usuários na comunidade.
-- **Pré-condição**: O usuário deve ter uma conta e estar autenticado no sistema.
-- **Pós-condição**: Feedback de sucesso ou erro após cada ação executada.
+- **Pré-condição**: O usuário deve estar autenticado no sistema.
+- **Pós-condição**: O sistema exibe feedback de sucesso ou erro além de resgistrar alterações no banco a cada mudança/ação do usuário.
 
 ## Fluxo Principal - [Criar Postagem]
 
