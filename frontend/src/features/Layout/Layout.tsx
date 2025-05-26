@@ -1,6 +1,7 @@
 import BeeHeader from "../../components/BeeHeader/BeeHeader";
 import {Outlet} from "react-router";
 import {BeeSidebar} from "../../components/BeeSidebar/BeeSidebar";
+import BeeDropPost from "../../components/BeeDropPost/BeeDropPost";
 
 const Layout: React.FC = () => {
 	return (
@@ -19,6 +20,7 @@ const Layout: React.FC = () => {
 				</div>
 				<aside className="fixed top-[80px] right-4 w-100 min-h-screen shadow-md flex flex-col justify-start px-3 py-4 rounded-xl bg-white z-40">
 					<p>Adicionar posteriormente os repositórios</p>
+					<BeeDropPost />
 				</aside>
 			</div>
 		</>

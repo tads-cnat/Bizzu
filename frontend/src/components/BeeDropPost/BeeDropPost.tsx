@@ -1,5 +1,6 @@
 import {Menu, MenuButton, MenuItem, MenuItems} from "@headlessui/react";
 import {DotsThreeVertical, PencilSimple, Trash} from "@phosphor-icons/react";
+import {Link} from "react-router-dom";
 
 const BeeDropPost: React.FC = () => {
 	return (
@@ -21,30 +22,34 @@ const BeeDropPost: React.FC = () => {
 			>
 				<div className="py-1">
 					<MenuItem>
-						<a
-							href="#"
-							className="flex items-center gap-2 block px-4 py-2 text-sm text-[#F8F4E6] data-focus:bg-zinc-600 data-focus:text-[#F8F4E6] data-focus:outline-hidden"
+						<MenuItem
+							as={Link}
+							to="/bizzu/postagem/editar" // como aqui pode ser postagem ou repositório a pessoa tem que mudar manualmente
 						>
-							<PencilSimple
-								size={24}
-								weight="bold"
-								className="text-inherit"
-							/>
-							Editar repositório
-						</a>
+							<div className="flex items-center gap-2 px-4 py-2 text-sm text-[#F8F4E6] hover:bg-zinc-600 transition">
+								<PencilSimple
+									size={24}
+									weight="bold"
+									className="text-inherit"
+								/>
+								Editar repositório
+							</div>
+						</MenuItem>
 					</MenuItem>
 					<MenuItem>
-						<a
-							href="#"
-							className="flex items-center gap-2 block px-4 py-2 text-sm text-[#F8F4E6] data-focus:bg-zinc-600 data-focus:text[#F8F4E6] data-focus:outline-hidden"
+						<MenuItem
+							as={Link}
+							to="/bizzu/postagem/excluir" // como aqui pode ser postagem ou repositório tem que mudar manualmente
 						>
-							<Trash
-								size={24}
-								weight="bold"
-								className="text-inherit"
-							/>
-							Excluir repositório
-						</a>
+							<div className="flex items-center gap-2 px-4 py-2 text-sm text-[#F8F4E6] hover:bg-zinc-600 transition">
+								<Trash
+									size={24}
+									weight="bold"
+									className="text-inherit"
+								/>
+								Excluir repositório
+							</div>
+						</MenuItem>
 					</MenuItem>
 				</div>
 			</MenuItems>
@@ -53,12 +58,3 @@ const BeeDropPost: React.FC = () => {
 };
 
 export default BeeDropPost;
-
-{
-	/* <button className="absolute top-8 right-4 text-gray-600 hover:text-gray-800 cursor-pointer hover:bg-gray-100 rounded-full transition duration-200 ease-in-out">
-	<DotsThreeVertical
-		size={24}
-		weight="bold"
-	/>
-</button>; */
-}
