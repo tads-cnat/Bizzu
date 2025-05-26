@@ -1,5 +1,9 @@
 import {Menu, MenuButton, MenuItem, MenuItems} from "@headlessui/react";
-import {DotsThreeVertical, PencilSimple, Trash} from "@phosphor-icons/react";
+import {
+	DotsThreeVertical,
+	PencilSimple,
+	TrashSimple,
+} from "@phosphor-icons/react";
 import {Link} from "react-router-dom";
 import BeeModal from "../BeeModal/BeeModal";
 import {useState} from "react";
@@ -43,7 +47,7 @@ const BeeDropPost: React.FC = () => {
 							onClick={() => setModalType("descartar")}
 							className="flex items-center gap-2 px-4 py-2 text-sm text-[#F8F4E6] hover:bg-zinc-600 transition w-full text-left"
 						>
-							<Trash
+							<TrashSimple
 								size={24}
 								weight="bold"
 								className="text-inherit"
