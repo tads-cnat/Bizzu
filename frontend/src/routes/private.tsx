@@ -12,7 +12,7 @@ export const privatesRoutes = [
 				element: <Read />,
 			},
 			{
-				path: "postagem/editar",
+				path: `postagem/editar/:id`,
 				element: <EditPostagem />,
 			},
 		],

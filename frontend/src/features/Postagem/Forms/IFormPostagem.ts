@@ -1,8 +1,6 @@
-export type TipoForm = "postagem" | "repositorio" | "editar";
+export type TipoForm = "criar" | "editar";
 
 export interface IFormPostagem {
-    sendPostagem: (data: any) => void;
-    defaultValue?: string;
-    defaultComunidade?: string;
+    idPostagem: number;
     tipoForm: TipoForm;
 }

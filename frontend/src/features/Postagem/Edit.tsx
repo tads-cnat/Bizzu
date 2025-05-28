@@ -1,14 +1,15 @@
-import PostagemService from "../../services/models/PostagemService";
+import {useParams} from "react-router-dom";
 import FormPostagem from "./Forms/FormPostagem";
 
 const EditPostagem: React.FC = () => {
-	async function sendPostagem(): Promise<void> {
-		void PostagemService.put().then;
-	}
+	const idPostagem = useParams();
 
 	return (
 		<>
-			<FormPostagem sendPostagem={sendPostagem} />
+			<FormPostagem
+				idPostagem={Number(idPostagem)}
+				tipoForm="editar"
+			/>
 		</>
 	);
 };
