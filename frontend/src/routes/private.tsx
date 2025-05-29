@@ -15,6 +15,10 @@ export const privatesRoutes = [
 				path: `postagem/editar/:id`,
 				element: <EditPostagem />,
 			},
+			{
+				path: `forms`,
+				element: <EditPostagem />,
+			}
 		],
 	},
 ];

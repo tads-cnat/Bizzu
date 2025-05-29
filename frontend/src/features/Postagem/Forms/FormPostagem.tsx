@@ -1,55 +1,85 @@
-import {useForm} from "react-hook-form";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
 import * as yup from "yup";
-import {yupResolver} from "@hookform/resolvers/yup";
-import {BeeButton} from "../../../components/BeeButtons/BeeButtons";
-import {BeeTextArea} from "../../../components/BeeTextArea/BeeTextArea";
-import {PaperPlaneRight} from "@phosphor-icons/react";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+import { BeeButton } from "../../../components/BeeButtons/BeeButtons";
+import { BeeTextArea } from "../../../components/BeeTextArea/BeeTextArea";
+import { PaperPlaneRight } from "@phosphor-icons/react";
 import PostagemService from "../../../services/models/PostagemService";
-import {IFormPostagem} from "./IFormPostagem";
+import { IFormPostagem } from "./IFormPostagem";
 import BeeInput from "../../../components/BeeInput/BeeInput";
 
 interface FormValues {
-	conteudo: string;
 	titulo: string;
+	conteudo: string;
 }
 
 const schema = yup.object({
-	conteudo: yup.string().required("Conteúdo é obrigatório"),
 	titulo: yup.string().required("Título é obrigatório"),
+	conteudo: yup.string().required("Conteúdo é obrigatório"),
 });
 
-export const FormPostagem = ({idPostagem, tipoForm}: IFormPostagem) => {
+export const FormPostagem = ({
+	idPostagem,
+	tipoForm,
+	onSubmitCallback, // callback para quando o form for submetido resetar os campos para um novo forms
+}: IFormPostagem & { onSubmitCallback?: () => void }) => {
 	const {
 		register,
 		handleSubmit,
-		formState: {errors},
+		formState: { errors },
 		reset,
 	} = useForm<FormValues>({
 		resolver: yupResolver(schema),
 		defaultValues: {
-			conteudo: "",
 			titulo: "",
+			conteudo: "",
 		},
 	});
 
-	const onSubmit = (data: FormValues) => {
-		if (tipoForm == "editar") {
-			async function sendPostagem(): Promise<void> {
-				void PostagemService.put(idPostagem, data).then();
-			}
+	// Buscar dados para editar
+	useEffect(() => {
+		if (tipoForm === "editar" && idPostagem) {
+			PostagemService.get(idPostagem).then((response) => {
+				const data = response.data;
+				reset({
+					titulo: data.titulo,
+					conteudo: data.texto,
+				});
+			});
 		} else {
-			async function savePostagem(): Promise<void> {
-				void PostagemService.post(idPostagem, data).then();
-			}
+			reset({
+				titulo: "",
+				conteudo: "",
+			});
 		}
-		reset();
+	}, [idPostagem, tipoForm, reset]);
+
+	// Submit
+	const onSubmit = async (data: FormValues) => {
+		const formData = new FormData();
+		formData.append("titulo", data.titulo);
+		formData.append("texto", data.conteudo);
+
+		try {
+			if (tipoForm === "editar" && idPostagem) {
+				await PostagemService.put(idPostagem, formData);
+				alert("Postagem atualizada com sucesso!");
+			} else {
+				await PostagemService.criar(formData);
+				alert("Postagem criada com sucesso!");
+			}
+			reset();
+			onSubmitCallback?.(); // Chama callback
+		} catch (error) {
+			console.error(error);
+			alert("Erro ao salvar postagem.");
+		}
 	};
 
 	return (
-		<form
-			onSubmit={handleSubmit(onSubmit)}
-			className="flex flex-col gap-4"
-		>
+		<form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
 			<div>
 				<BeeInput
 					{...register("titulo")}
@@ -67,10 +97,13 @@ export const FormPostagem = ({idPostagem, tipoForm}: IFormPostagem) => {
 					placeholder="Digite seu conteúdo..."
 					label="Conteúdo"
 				/>
+				{errors.conteudo && (
+					<p className="text-red-500 text-sm mt-1">{errors.conteudo.message}</p>
+				)}
 			</div>
 
 			<BeeButton
-				label="Publicar"
+				label={tipoForm === "editar" ? "Atualizar" : "Publicar"}
 				variante="primaria"
 				icone={<PaperPlaneRight size={18} />}
 			/>

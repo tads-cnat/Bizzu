@@ -1,6 +1,6 @@
 export type TipoForm = "criar" | "editar";
 
 export interface IFormPostagem {
-    idPostagem: number;
+    idPostagem?: number;
     tipoForm: TipoForm;
 }
