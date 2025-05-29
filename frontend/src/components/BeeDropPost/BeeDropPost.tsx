@@ -4,11 +4,12 @@ import {
 	PencilSimple,
 	TrashSimple,
 } from "@phosphor-icons/react";
+import {IBeeDropPost} from "./IBeeDropPost";
 import {Link} from "react-router-dom";
 import BeeModal from "../BeeModal/BeeModal";
 import {useState} from "react";
 
-const BeeDropPost: React.FC = () => {
+const BeeDropPost = ({excluir, editar}: IBeeDropPost) => {
 	const [modalType, setModalType] = useState<null | "descartar">(null);
 	return (
 		<>
@@ -39,7 +40,7 @@ const BeeDropPost: React.FC = () => {
 									weight="bold"
 									className="text-inherit"
 								/>
-								Editar repositório
+								{editar}
 							</div>
 						</MenuItem>
 						<MenuItem
@@ -52,7 +53,7 @@ const BeeDropPost: React.FC = () => {
 								weight="bold"
 								className="text-inherit"
 							/>
-							Excluir repositório
+							{excluir}
 						</MenuItem>
 					</div>
 				</MenuItems>
