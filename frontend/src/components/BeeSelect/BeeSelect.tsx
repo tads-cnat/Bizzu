@@ -1,4 +1,3 @@
-import {JSX} from "react/jsx-runtime";
 import IBeeSelect from "./IBeeSelect";
 import {useEffect, useState} from "react";
 import {
@@ -9,8 +8,7 @@ import {
 } from "@headlessui/react";
 import {CaretUpDown, X} from "@phosphor-icons/react";
 
-export default function BeeSelect(props: IBeeSelect): JSX.Element {
-	const {icon: Icon, placeholder, options = []} = props;
+const BeeSelect = ({options, placeholder, icone: Icon}: IBeeSelect) => {
 	const [selected, setSelected] = useState(options);
 	const [iconSelect, setIconSelect] = useState(<CaretUpDown size={20} />);
 
@@ -30,11 +28,13 @@ export default function BeeSelect(props: IBeeSelect): JSX.Element {
 			<div className="relative mt-2 w-fit inderline-flex">
 				<ListboxButton className="grid cursor-default grid-cols-1 rounded-lg bg-[#FFFFFF] py-1.5 pr-2 pl-3 text-left text-[#333333] outline-1 -outline-offset-1 outline-[#B0B0B0] focus:outline-2 focus:-outline-offset-2 focus:outline-[#333333] sm:text-sm/6">
 					<span className="col-start-1 row-start-1 flex items-center gap-3 pr-6">
-						<Icon
-							size={20}
-							weight="bold"
-							style={{marginRight: 8}}
-						/>
+						{Icon && (
+							<Icon
+								size={20}
+								weight="bold"
+								style={{marginRight: 8}}
+							/>
+						)}
 						<span className="block truncate">
 							{selected.label || placeholder}
 						</span>
@@ -70,4 +70,6 @@ export default function BeeSelect(props: IBeeSelect): JSX.Element {
 			</div>
 		</Listbox>
 	);
-}
+};
+
+export default BeeSelect;

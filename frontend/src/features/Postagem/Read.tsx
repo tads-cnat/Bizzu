@@ -34,7 +34,7 @@ const Read: React.FC = () => {
 				postagens.map((post: BeePostProps, id: number) => (
 					<BeePost
 						key={id}
-						conteudo={post?.conteudo}
+						texto={post?.texto}
 						tags={post?.tags}
 						curtidas={post?.curtidas}
 						comentarios={post?.comentarios}

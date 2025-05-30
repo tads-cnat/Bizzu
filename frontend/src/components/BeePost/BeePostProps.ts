@@ -7,7 +7,7 @@ export interface Tag {
 
 export interface BeePostProps {
   usuario: IBeeUsuario;
-  conteudo: string;
+  texto: string;
   imagemPost?: string;
   tags: { label: string; color: string }[];
   dataPublicacao: string;

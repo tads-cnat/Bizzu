@@ -7,7 +7,7 @@ import "../../index.css";
 
 const BeePost: React.FC<BeePostProps> = ({
 	usuario,
-	conteudo,
+	texto,
 	imagemPost,
 	dataPublicacao,
 	tags,
@@ -30,7 +30,7 @@ const BeePost: React.FC<BeePostProps> = ({
 				dataPublicacao={dataPublicacao}
 			/>
 
-			<p className="mb-3 mt-2">{conteudo}</p>
+			<p className="mb-3 mt-2">{texto}</p>
 
 			{imagemPost && (
 				<img

@@ -9,7 +9,7 @@ interface Option{
 
 export default interface IBeeSelect{
     //Icone que aparecerá dentro do campo 
-    icon: React.ElementType<IconProps>;
+    icone: React.ElementType<IconProps>;
     //O que estará ecrito dentro do campo 
     placeholder: string
     // O que estará dentro do select

@@ -1,24 +1,26 @@
-import {use, useEffect, useState} from "react";
-import {set, useForm} from "react-hook-form";
+import {useEffect, useState} from "react";
+import {useForm} from "react-hook-form";
 import * as yup from "yup";
 import {yupResolver} from "@hookform/resolvers/yup";
-
 import {BeeButton} from "../../../components/BeeButtons/BeeButtons";
 import {BeeTextArea} from "../../../components/BeeTextArea/BeeTextArea";
-import {PaperPlaneRight} from "@phosphor-icons/react";
+import {PaperPlaneRight, Hexagon} from "@phosphor-icons/react";
 import PostagemService from "../../../services/models/PostagemService";
 import {IFormPostagem} from "./IFormPostagem";
-import BeeInput from "../../../components/BeeInput/BeeInput";
 import {BeePostProps} from "../../../components/BeePost/BeePostProps";
 import BeeAnexos from "../../../components/BeeAnexos/BeeAnexos";
-import BeePost from "../../../components/BeePost/BeePost";
+import BeeArquivo from "../../../components/BeeArquivo/BeeArquivo";
+import BeeSelect from "../../../components/BeeSelect/BeeSelect";
+import ComunidadeService from "../../../services/models/ComunidadeService";
 
 interface FormValues {
 	texto: string;
+	imagem: string;
 }
 
 const schema = yup.object({
 	texto: yup.string().required("Conteúdo é obrigatório"),
+	imagem: yup.string(),
 });
 
 export const FormPostagem = ({
@@ -27,6 +29,7 @@ export const FormPostagem = ({
 	onSubmitCallback, // callback para quando o form for submetido resetar os campos para um novo forms
 }: IFormPostagem & {onSubmitCallback?: () => void}) => {
 	const [postagens, setPostagens] = useState<BeePostProps>();
+	const [comunidades, setComunidades] = useState();
 	const {
 		register,
 		handleSubmit,
@@ -39,10 +42,20 @@ export const FormPostagem = ({
 		},
 	});
 
+	useEffect(() => {
+		void ComunidadeService.listAll()
+			.then((response) => {
+				setComunidades(response.data);
+			})
+			.catch(() => {
+				console.log("Não recebeu comunidades");
+			});
+		console.log(comunidades);
+	}, [tipoForm]);
+
 	// Buscar dados para editar
 	useEffect(() => {
 		if (tipoForm === "editar" && idPostagem) {
-			// console.log("", idPostagem)
 			PostagemService.get(idPostagem).then((response) => {
 				setPostagens(response.data);
 				reset({
@@ -54,16 +67,15 @@ export const FormPostagem = ({
 				texto: "",
 			});
 		}
+		console.log(idPostagem);
 	}, [idPostagem, tipoForm, reset]);
-	useEffect(() => {
-		console.log("Id da postagem", idPostagem);
-		console.log("postagens", postagens);
-	}, [postagens]);
+
 	// Submit
-	const onSubmit = async (data: FormValues) => {
+	const onSubmit = async (data: FormValues): Promise<void> => {
 		const formData = new FormData();
 		formData.append("texto", data.texto);
-		// console.log("tipo e id: ", tipoForm && idPostagem);
+		if (data.imagem !== undefined) formData.append("imagem", data.imagem);
+		console.log("Data: ", data);
 		try {
 			if (tipoForm === "editar" && idPostagem) {
 				await PostagemService.put(idPostagem, formData);
@@ -88,17 +100,27 @@ export const FormPostagem = ({
 			<div>
 				{postagens ? (
 					<div className="editando">
+						{comunidades !== undefined && (
+							<BeeSelect
+								options={comunidades}
+								placeholder="C"
+								icone={Hexagon}
+							/>
+						)}
+
 						<BeeTextArea
 							{...register("texto")}
 							defaultValue={postagens.texto}
 							label="Conteúdo"
 						/>
-						
-						<BeeAnexos
-							path="http://127.0.0.1:8000/imgPostagens/6c3dcc39c780ea9a175cb92c076f139e.jpg"/>
 
+						<BeeArquivo {...register("imagem")} />
+
+						<BeeAnexos
+							path={postagens.imagemPost}
+							{...register("imagem")}
+						/>
 					</div>
-						
 				) : (
 					<BeeTextArea
 						{...register("texto")}
@@ -107,9 +129,9 @@ export const FormPostagem = ({
 					/>
 				)}
 
-				{/* {errors.texto && (
+				{errors.texto && (
 					<p className="text-red-500 text-sm mt-1">{errors.texto.message}</p>
-				)} */}
+				)}
 			</div>
 
 			<BeeButton
