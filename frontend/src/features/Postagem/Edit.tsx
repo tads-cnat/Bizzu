@@ -7,7 +7,7 @@ const EditPostagem: React.FC = () => {
 	return (
 		<>
 			<FormPostagem
-				idPostagem={Number(idPostagem)}
+				idPostagem={idPostagem.id ? Number(idPostagem.id) : undefined}
 				tipoForm="editar"
 			/>
 		</>

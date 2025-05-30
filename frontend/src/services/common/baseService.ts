@@ -9,7 +9,9 @@ class BaseService{
 
     async get(id:number){
         const response = await axiosInstance.get(`${this.complementoURL}/${id}/`);
-
+        
+        console.log("Complemento e id", `${this.complementoURL}/${id}/`);
+        console.log("Complemento", this.complementoURL);
         return response;
     }
 
@@ -19,8 +21,8 @@ class BaseService{
         return response;
     }
 
-    async post(id:number, content:any){
-        const response = await axiosInstance.post(`${this.complementoURL}/${id}/`, content);
+    async post(content:any){
+        const response = await axiosInstance.post(`${this.complementoURL}/`, content);
 
         return response;
     }    
