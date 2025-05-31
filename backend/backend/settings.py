@@ -111,12 +111,12 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 CORS_ALLOW_CREDENTIALS = True
-CORS_ALLOW_ALL_ORIGINS = True 
+CORS_ALLOW_ALL_ORIGINS = True
 
 ALLOWED_HOSTS = [
-    'special-space-halibut-8000.app.github.dev',
-    'localhost',
-    '127.0.0.1',
+    "special-space-halibut-8000.app.github.dev",
+    "localhost",
+    "127.0.0.1",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
@@ -124,3 +124,6 @@ CSRF_TRUSTED_ORIGINS = [
     "http://127.0.0.1:8000",
     "http://localhost:5173",
 ]
+
+MEDIA_URL = "/imgPostagens/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "imgPostagens")

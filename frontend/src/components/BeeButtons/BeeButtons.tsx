@@ -41,7 +41,7 @@ export const BeeButton = ({
 
   return ( // Talvez o desabilitado esteja aparecendo com erro para algumas pessoas, mas ele está funcionando normalmente, não sei o porque 
            // ele aparece como erro
-    <button onClick={onClick} disabled={desabilitado} className={classes} classesDefault={classesDefault}>
+    <button onClick={onClick} disabled={desabilitado} className={classes}>
       {icone && <span>{icone}</span>}
       <span>{label}</span>
     </button>
