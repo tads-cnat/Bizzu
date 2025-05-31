@@ -4,6 +4,7 @@ from api.urls.repositorio import repositorioRouter
 from api.urls.usuario import usuarioRouter
 from api.urls.curtida import curtidaRouter
 from api.urls.comunidade import comunidadeRouter
+from api.urls.categoria import categoriaRouter
 
 urlpatterns = [
     path("", include(postagemRouter.urls)),
@@ -11,4 +12,5 @@ urlpatterns = [
     path("", include(usuarioRouter.urls)),
     path("", include(curtidaRouter.urls)),
     path("", include(comunidadeRouter.urls)),
+    path("", include(categoriaRouter.urls)),
 ]

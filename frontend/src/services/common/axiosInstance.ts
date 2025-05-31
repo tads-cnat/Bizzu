@@ -6,4 +6,3 @@ const axiosInstance = axios.create({
 
 //Posteriormente aqui será inserido o tratamento do token
 export default axiosInstance;
-
