@@ -5,7 +5,6 @@ from .categoria import Categoria
 
 
 class Postagem(models.Model):
-    # id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     id = models.AutoField(primary_key=True, editable=False)
     texto = models.CharField(verbose_name="Texto de descrição", max_length=200)
     imagem = models.ImageField(verbose_name="Imagem", upload_to="imgPostagens/")

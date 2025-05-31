@@ -1,5 +1,8 @@
 from django.urls import path, include
-from .urls.postagem import postagemRouter, comunidadeRouter, categoriaRouter  # importa seu router do postagem
+from .urls.postagem import postagemRouter
+from .urls.comunidade import comunidadeRouter
+from .urls.categoria import categoriaRouter
+
 
 urlpatterns = [
     path("", include(postagemRouter.urls)),
