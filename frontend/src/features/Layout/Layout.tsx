@@ -16,7 +16,7 @@ const Layout: React.FC = () => {
 				/>
 				<div className="fixed top-[80px] left-1/5 w-190 h-[calc(100vh-80px)] flex-1 flex flex-col px-3 py-4 rounded-xl z-40 overflow-y-auto justify-start items-center">
 					<div className="w-[500px] flex flex-col">
-						<BeeFormAuth />
+						<BeeHeaderProfile />
 						<Outlet />
 					</div>
 				</div>

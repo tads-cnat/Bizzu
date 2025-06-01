@@ -1,3 +1,5 @@
+//Usado para autenticação
+
 export interface IBeeUsuario{
     // texto referente ao nome da pessoa
     username: string;
