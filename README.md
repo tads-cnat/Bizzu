@@ -91,6 +91,10 @@
 </div>
 
 # Documentação
+Súmario de documentações:
+[Listagem de documentações](https://github.com/tads-cnat/Bizzu/blob/develop/doc/documentacao.md)
+
+Para ter acesso a todas nossas documentações:
 
 - [Documento de Visão](https://github.com/tads-cnat/Bizzu/blob/main/doc/visao/doc-visao.md)
 - [Protótipo - Figma](https://www.figma.com/design/UgFAxl67foAlG0ZSShDrab/PDS?node-id=0-1&t=IbbWAPlmOGhArKjJ-1)
@@ -117,7 +121,7 @@
     Guia do desenvolvedor para auxiliar os desenvolvedores.
   </p>
 
-<a href="https://github.com/seu-usuario/seu-repositorio/blob/main/DOCUMENTATION.md" target="_blank" 
+<a href="doc/guia-ds/guia.md" target="_blank" 
      style="
       display: inline-block;
       padding: 6px 16px;
