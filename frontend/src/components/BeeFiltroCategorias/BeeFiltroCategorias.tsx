@@ -16,8 +16,15 @@ const BeeFiltroCategorias: React.FC<IBeeFiltroCategorias> = ({
 		(cat) => cat.tipo === tipoAtivo,
 	);
 
+	const handleTipoChange = (tipo: "tec" | "mat" | "per") => {
+		setTipoAtivo(tipo);
+	};
+
+	const handleCategoriaClick = (categoriaId: number) => {
+		aoSelecionarCategoria(categoriaId);
+	};
+
 	React.useEffect(() => {
-		// Forçar re-render quando categoriasSelecionadas mudar
 		console.log("Categorias selecionadas atualizadas:", categoriasSelecionadas);
 	}, [categoriasSelecionadas]);
 
@@ -27,7 +34,8 @@ const BeeFiltroCategorias: React.FC<IBeeFiltroCategorias> = ({
 				{(["tec", "mat", "per"] as const).map((tipo) => (
 					<button
 						key={tipo}
-						onClick={() => setTipoAtivo(tipo)}
+						type="button"
+						onClick={() => handleTipoChange(tipo)}
 						className={`flex-1 px-3 py-1 rounded-[15px] font-semibold transition duration-200 flex justify-center items-center ${
 							tipoAtivo === tipo
 								? "bg-[#FCBD18] text-gray-900 shadow-md h-[27px]"
@@ -45,21 +53,19 @@ const BeeFiltroCategorias: React.FC<IBeeFiltroCategorias> = ({
 
 			<div className="mt-4 max-h-40 overflow-y-auto px-1">
 				{categoriasFiltradas.map((categoria) => (
-					<label
+					<div
 						key={categoria.id}
 						className="flex items-center gap-2 mb-2 cursor-pointer"
+						onClick={() => handleCategoriaClick(categoria.id)}
 					>
 						<input
 							type="checkbox"
 							checked={categoriasSelecionadas.includes(categoria.id)}
-							onChange={(e) => {
-								e.preventDefault();
-								aoSelecionarCategoria(categoria.id);
-							}}
-							className="accent-[#FCBD18] w-4 h-4"
+							onChange={() => {}} // Função vazia para evitar warnings
+							className="accent-[#FCBD18] w-4 h-4 pointer-events-none"
 						/>
-						<span className="text-gray-700">{categoria.nome}</span>
-					</label>
+						<span className="text-gray-700 select-none">{categoria.nome}</span>
+					</div>
 				))}
 			</div>
 		</div>

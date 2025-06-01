@@ -1,10 +1,9 @@
-"use client";
-
 import type React from "react";
-
 import {useEffect, useState} from "react";
 import BeePost from "../../components/BeePost/BeePost";
 import PostagemService from "../../services/models/PostagemService";
+import ComunidadeService from "../../services/models/ComunidadeService";
+import CategoriaService from "../../services/models/CategoriaService";
 
 // Usuário padrão para postagens sem usuário atribuído
 const DEFAULT_USER = {
@@ -18,28 +17,35 @@ const DEFAULT_USER_IMAGE =
 	"https://saae.lucasdorioverde.mt.gov.br/arquivos/setores/sem_imagem_avatar.png";
 
 interface PostagemBackend {
-	id?: number;
+	id: number;
 	texto: string;
 	imagem?: string;
-	dataPublicacao?: string;
+	dataPublicacao: string;
 	usuario?: {
 		nome: string;
 		imagemPerfil?: string;
-	};
-	comunidade?: {
-		nome: string;
-		id: number;
-	};
-	categorias?: Array<{
-		id: number;
-		nome: string;
-	}>;
+	} | null;
+	comunidade?: number | null;
+	categorias: number[];
 	curtidas?: number;
 	comentarios?: number;
 }
 
+interface Comunidade {
+	id: number;
+	nome: string;
+}
+
+interface Categoria {
+	id: number;
+	nome: string;
+	tipo: "tec" | "mat" | "per";
+}
+
 const Read: React.FC = () => {
 	const [postagens, setPostagens] = useState<PostagemBackend[]>([]);
+	const [comunidades, setComunidades] = useState<Comunidade[]>([]);
+	const [categorias, setCategorias] = useState<Categoria[]>([]);
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
 
@@ -53,19 +59,64 @@ const Read: React.FC = () => {
 		// Aqui será implementada a lógica de comentar
 	};
 
+	const handleExcluir = async (postagemId: number) => {
+		try {
+			await PostagemService.delete(postagemId, {});
+			// Remover a postagem da lista local
+			setPostagens((prev) => prev.filter((post) => post.id !== postagemId));
+			alert("Postagem excluída com sucesso!");
+		} catch (error) {
+			console.error("Erro ao excluir postagem:", error);
+			alert("Erro ao excluir postagem. Tente novamente.");
+		}
+	};
+
+	// Função para buscar nome da comunidade pelo ID
+	const getComunidadeNome = (comunidadeId: number | null): string | null => {
+		if (!comunidadeId) return null;
+		const comunidade = comunidades.find((c) => c.id === comunidadeId);
+		return comunidade?.nome || null;
+	};
+
 	// Função para converter categorias em tags para o componente BeePost
-	const categoriasParaTags = (
-		categorias?: Array<{id: number; nome: string}>,
-	) => {
-		if (!categorias || categorias.length === 0) return [];
+	const categoriasParaTags = (categoriasIds: number[]) => {
+		if (!categoriasIds || categoriasIds.length === 0) return [];
 
 		// Cores para alternar entre as tags
 		const cores = ["#FCBD18", "#058B92", "#F2C94C", "#6FCF97"];
 
-		return categorias.map((categoria, index) => ({
-			label: categoria.nome,
-			color: cores[index % cores.length],
-		}));
+		return categoriasIds
+			.map((categoriaId) => {
+				const categoria = categorias.find((c) => c.id === categoriaId);
+				return categoria ? categoria : null;
+			})
+			.filter((categoria) => categoria !== null)
+			.map((categoria, index) => ({
+				label: categoria!.nome,
+				color: cores[index % cores.length],
+			}));
+	};
+
+	const loadComunidades = async () => {
+		try {
+			const response = await ComunidadeService.listAll();
+			if (response.data && Array.isArray(response.data)) {
+				setComunidades(response.data);
+			}
+		} catch (error) {
+			console.error("Erro ao carregar comunidades:", error);
+		}
+	};
+
+	const loadCategorias = async () => {
+		try {
+			const response = await CategoriaService.listAll();
+			if (response.data && Array.isArray(response.data)) {
+				setCategorias(response.data);
+			}
+		} catch (error) {
+			console.error("Erro ao carregar categorias:", error);
+		}
 	};
 
 	const loadPostagens = async (): Promise<void> => {
@@ -96,6 +147,9 @@ const Read: React.FC = () => {
 	};
 
 	useEffect(() => {
+		// Carregar dados necessários
+		loadComunidades();
+		loadCategorias();
 		loadPostagens();
 	}, []);
 
@@ -144,26 +198,24 @@ const Read: React.FC = () => {
 
 	return (
 		<div className="space-y-4">
-			{postagens.map((post: PostagemBackend, index: number) => {
-				// Formatar a data de publicação
-				const dataFormatada = post.dataPublicacao
-					? new Date(post.dataPublicacao).toISOString()
-					: new Date().toISOString();
-
+			{postagens.map((post: PostagemBackend) => {
 				// Converter categorias em tags
 				const tags = categoriasParaTags(post.categorias);
 
+				// Buscar nome da comunidade
+				const comunidadeNome = getComunidadeNome(post.comunidade ?? null);
+
 				return (
 					<div
-						key={post.id || index}
+						key={post.id}
 						className="mb-6"
 					>
 						{/* Informações da comunidade se existir */}
-						{post.comunidade && (
+						{comunidadeNome && (
 							<div className="bg-white p-2 rounded-t-lg border-b border-gray-200">
 								<p className="text-sm text-gray-600">
 									<span className="font-medium">Comunidade:</span>{" "}
-									{post.comunidade.nome}
+									{comunidadeNome}
 								</p>
 							</div>
 						)}
@@ -179,11 +231,12 @@ const Read: React.FC = () => {
 								imagemPerfil:
 									post.usuario?.imagemPerfil ?? DEFAULT_USER.imagemPerfil,
 							}}
-							dataPublicacao={dataFormatada}
+							dataPublicacao={post.dataPublicacao}
 							imagemPost={post.imagem}
 							imagemUsuarioLogado={DEFAULT_USER_IMAGE}
 							onCurtir={() => handleCurtir(post.id)}
 							onAbrirComentarios={() => handleComentar(post.id)}
+							onExcluir={handleExcluir}
 						/>
 					</div>
 				);

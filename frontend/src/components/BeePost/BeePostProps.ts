@@ -17,4 +17,5 @@ export interface BeePostProps {
   imagemUsuarioLogado: string
   onCurtir: () => void
   onAbrirComentarios: () => void
+  onExcluir?: (id: number) => void
 }
