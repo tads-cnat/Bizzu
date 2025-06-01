@@ -15,12 +15,11 @@ const Layout: React.FC = () => {
 				/>
 				<div className="fixed top-[80px] left-1/5 w-190 h-[calc(100vh-80px)] flex-1 flex flex-col px-3 py-4 rounded-xl z-40 overflow-y-auto justify-start items-center">
 					<div className="w-[500px] flex flex-col">
-						<BeeHeaderProfile />
 						<Outlet />
 					</div>
 				</div>
 				<aside className="fixed top-[80px] right-4 w-100 min-h-screen shadow-md flex flex-col justify-start px-3 py-4 rounded-xl bg-white z-40">
-					<p>Adicionar informações do perfil aqui</p>
+					<p>Adicionar posteriormente os repositórios</p>
 				</aside>
 			</div>
 		</>

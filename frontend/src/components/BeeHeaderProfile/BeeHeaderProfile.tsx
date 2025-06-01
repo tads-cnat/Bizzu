@@ -5,7 +5,9 @@ import acessAuth from "../../utils/acessAuth";
 import {useEffect, useState} from "react";
 import UsuarioService from "../../services/models/UsuarioService";
 import {useParams} from "react-router-dom";
-import {Menu, MenuItem, MenuItems} from "@headlessui/react";
+import {Menu, MenuItem} from "@headlessui/react";
+import BeeAbasPerfil from "../BeeAbasPerfil/BeeAbasPerfil";
+import BeePost from "../BeePost/BeePost";
 
 const BeeHeaderProfile = () => {
 	const {username} = acessAuth();
@@ -61,50 +63,42 @@ const BeeHeaderProfile = () => {
 							>
 								{usuario.segue?.length} Seguidores
 							</a>
-							{visble ? (
-								<Menu
-									as="div"
-									className="relative inline-block text-left"
-								>
-									<BeeButton
-										variante="primaria"
-										label="Novo"
-										icone={<Plus />}
-										onClick={openOptions}
-									/>
-									<div className="py-1 inline-flex flex-col w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-xs ring-1 ring-gray-300 ring-inset hover:bg-gray-50">
-										<MenuItem>
-											<Newspaper />
-											<a
-												href="#"
-												className="block px-4 py-2 text-sm text-gray-700 focus:bg-gray-100 focus:text-gray-900 focus:outline-hidden"
-											>
-												Criar Postagem
-											</a>
-										</MenuItem>
-										<MenuItem>
-											<BoxArrowUp />
-											<a
-												href="#"
-												className="block px-4 py-2 text-sm text-gray-700 focus:bg-gray-100 focus:text-gray-900 focus:outline-hidden"
-											>
-												Criar Repositório
-											</a>
-										</MenuItem>
-									</div>
-								</Menu>
-							) : (
+							<Menu
+								as="div"
+								className="relative inline-block text-left"
+							>
 								<BeeButton
 									variante="primaria"
 									label="Novo"
 									icone={<Plus />}
 									onClick={openOptions}
 								/>
-							)}
+								{visble && (
+									<div className="absolute top-full left-0 z-50 w-48 bg-white shadow-lg rounded-md">
+										<MenuItem>
+											<a
+												href="#"
+												className="inline-flex items-center px-4 py-2 text-sm text-[#333333] space-x-2"
+											>
+												<Newspaper /> Criar Postagem
+											</a>
+										</MenuItem>
+										<MenuItem>
+											<a
+												href="#"
+												className="inline-flex items-center px-4 py-2 text-sm text-[#333333] space-x-2"
+											>
+												<BoxArrowUp /> Criar Repositório
+											</a>
+										</MenuItem>
+									</div>
+								)}
+							</Menu>
 						</div>
 					</div>
 				</div>
 			)}
+			<BeeAbasPerfil abas={["Postagens", "Repositórios", "Comentários"]} />
 		</>
 	);
 };

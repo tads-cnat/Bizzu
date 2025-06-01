@@ -6,7 +6,7 @@ function App() {
 		<>
 			<div className="min-h-screen flex flex-col">
 				<AuthProvider>
-					<AllRoutes />;
+					<AllRoutes />
 				</AuthProvider>
 			</div>
 		</>

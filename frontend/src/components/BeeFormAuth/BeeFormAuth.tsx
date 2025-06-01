@@ -12,7 +12,6 @@ const schema = yup.object().shape({
 
 const BeeFormAuth: React.FC = () => {
 	const {autenticar} = acessAuth();
-	console.log("Função autenticar obtida:", autenticar);
 
 	const {
 		handleSubmit,
@@ -25,7 +24,6 @@ const BeeFormAuth: React.FC = () => {
 		password: string;
 	}): Promise<void> {
 		try {
-			console.log("aquii");
 			await autenticar(data.username, data.password);
 		} catch (e) {
 			console.error("Deu erro", e);
@@ -34,7 +32,7 @@ const BeeFormAuth: React.FC = () => {
 
 	return (
 		<>
-			<div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+			<div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 w-[400px]">
 				<div className="sm:mx-auto sm:w-full sm:max-w-sm">
 					<h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
 						Bem-Vindo de volta

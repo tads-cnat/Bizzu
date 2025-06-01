@@ -4,21 +4,38 @@ import {IBeeSidebarProps} from "./IBeeSidebar";
 
 import {Menu, MenuButton, MenuItem, MenuItems} from "@headlessui/react";
 
+import acessAuth from "../../utils/acessAuth";
+import {useParams} from "react-router-dom";
+import {useEffect, useState} from "react";
+import {IBeeUser} from "../BeeHeaderProfile/IBeeUser";
+import UsuarioService from "../../services/models/UsuarioService";
+
 const DEFAULT_IMAGE = ""; // ainda não existe imagem_default
 
 export const BeeSidebar = ({
-	userName,
-	userRole = "Ver Perfil",
-	userImage,
 	items,
+	userRole = "Ver Perfil",
 }: IBeeSidebarProps) => {
+	const {username} = acessAuth();
+	const idUser = useParams().id;
+	const [usuario, setUsuario] = useState<IBeeUser>();
+	const [comunidade, setComunidade] = useState();
+	useEffect(() => {
+		void UsuarioService.get(Number(idUser))
+			.then((response) => {
+				setUsuario(response.data);
+			})
+			.catch(() => {
+				console.log("Não recebeu dados");
+			});
+	}, []);
 	return (
 		<aside className="fixed top-[80px] left-4 w-66 min-h-screen shadow-md flex flex-col justify-start px-3 py-4 rounded-xl bg-white z-40">
 			{/* Topo - Perfil do usuário */}
 			<div className="flex items-center gap-2 mb-4 bg-transparent">
 				<img
-					src={userImage || DEFAULT_IMAGE}
-					alt={userName}
+					src={usuario?.imagemPerfil || DEFAULT_IMAGE}
+					alt={username}
 					className="w-8 h-8 object-cover"
 					style={{
 						clipPath:
@@ -26,7 +43,7 @@ export const BeeSidebar = ({
 					}}
 				/>
 				<div className="leading-tight">
-					<p className="font-semibold text-sm text-black">{userName}</p>
+					<p className="font-semibold text-sm text-black">{username}</p>
 					<p className="text-xs text-zinc-500">{userRole}</p>
 				</div>
 			</div>
