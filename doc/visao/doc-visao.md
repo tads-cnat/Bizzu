@@ -123,6 +123,8 @@ Na tela inicial, os usuários terão um feed que exibirá atualizações das pes
 | F17 | Realização de denúncias | O usuário tem a capacidade de realizar denúncias em uma postagem e em um comentário, caso acredite que o conteúdo da mesma seja imprópria para o site. |
 | F18 | Login na plataforma | É necessário o fornecimento de um e-mail/Nome de usuário e senha para que assim ele tenha acesso a todas as funcionalidades do sistema.| 
 | F19 | Criação de categorias | Um moderador do sistema pode fazer a criação de categorias de postagens como adição de matérias, períodos e tecnologias que uma publicação pode ter.| 
+| F20 | Mudança de papel | Um internauta pode solicitar o cargo de moderador para que dessa forma ele possa gerenciar as denúncias e ter outras funcionalidades especiais no sistema|
+| F21 | Gerencia de papéis | Um moderador pode revisar solicitações de internautas que desejam ser moderadores e mudar o seu papel no sistema. |
 
 ## 9. Requisitos não-funcionais
 
