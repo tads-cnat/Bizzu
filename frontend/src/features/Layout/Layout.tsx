@@ -1,6 +1,8 @@
 import BeeHeader from "../../components/BeeHeader/BeeHeader";
 import {Outlet} from "react-router";
 import {BeeSidebar} from "../../components/BeeSidebar/BeeSidebar";
+import BeeHeaderProfile from "../../components/BeeHeaderProfile/BeeHeaderProfile";
+import BeeFormAuth from "../../components/BeeFormAuth/BeeFormAuth";
 
 const Layout: React.FC = () => {
 	return (
@@ -14,6 +16,7 @@ const Layout: React.FC = () => {
 				/>
 				<div className="fixed top-[80px] left-1/5 w-190 h-[calc(100vh-80px)] flex-1 flex flex-col px-3 py-4 rounded-xl z-40 overflow-y-auto justify-start items-center">
 					<div className="w-[500px] flex flex-col">
+						<BeeFormAuth />
 						<Outlet />
 					</div>
 				</div>
