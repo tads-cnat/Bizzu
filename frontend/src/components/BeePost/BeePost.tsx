@@ -4,6 +4,7 @@ import BeeTags from "../BeeTags/BeeTags";
 import BeeFTPerfil from "../BeeFTPerfil/BeeFTPerfil";
 import {BeePostProps} from "./BeePostProps";
 import "../../index.css";
+import BeeDropPost from "../BeeDropPost/BeeDropPost";
 
 const BeePost: React.FC<BeePostProps> = ({
 	usuario,
@@ -18,12 +19,7 @@ const BeePost: React.FC<BeePostProps> = ({
 }) => {
 	return (
 		<div className="bg-white shadow rounded-lg p-4 mb-4 relative w-full">
-			<button className="absolute top-8 right-4 text-gray-600 hover:text-gray-800 cursor-pointer hover:bg-gray-100 rounded-full transition duration-200 ease-in-out">
-				<DotsThreeVertical
-					size={24}
-					weight="bold"
-				/>
-			</button>
+			<BeeDropPost />
 
 			<BeeFTPerfil
 				usuario={usuario}
