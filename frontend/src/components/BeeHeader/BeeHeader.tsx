@@ -1,7 +1,8 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import BeeSearchBar from "../BeeSearchBar/BeeSearchBar";
 import BeeButton from "../BeeButtons/BeeButtons";
-import {SignOut} from "@phosphor-icons/react"; // Importa o ícone de logout
+import { SignOut, PlusCircle } from "@phosphor-icons/react";
 
 const BeeHeader: React.FC = () => {
 	return (
@@ -16,6 +17,9 @@ const BeeHeader: React.FC = () => {
 			<BeeSearchBar
 				onSearch={(termo: string) => console.log("Search term:", termo)}
 			/>
+			<Link to="/bizzu/postagem/criar">
+          		<BeeButton icone={<PlusCircle size={20} weight="bold" />} label="Nova Postagem" variante="primaria" />
+       		</Link>
 			<BeeButton
 				onClick={() => console.log("Logout clicked")}
 				icone={

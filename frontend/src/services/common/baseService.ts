@@ -1,52 +1,41 @@
-import axiosInstance from "./axiosInstance";
+import axiosInstance from "./axiosInstance"
 
-class BaseService{
-    complementoURL:string = "";
+class BaseService {
+  complementoURL = ""
 
-    constructor(complementoURL:string){
-        this.complementoURL = complementoURL;
-    }
+  constructor(complementoURL: string) {
+    this.complementoURL = complementoURL
+  }
 
-    async get(id:number){
-        const response = await axiosInstance.get(`${this.complementoURL}/${id}/`);
-        
-        console.log("Complemento e id", `${this.complementoURL}/${id}/`);
-        console.log("Complemento", this.complementoURL);
-        return response;
-    }
+  async get(id: number) {
+    const response = await axiosInstance.get(`${this.complementoURL}/${id}/`)
+    return response
+  }
 
-    async listAll(){
-        const response = await axiosInstance.get(`${this.complementoURL}/`);
+  async listAll() {
+    const response = await axiosInstance.get(`${this.complementoURL}/`)
+    return response
+  }
 
-        return response;
-    }
+  async post(content: any) {
+    const response = await axiosInstance.post(`${this.complementoURL}/`, content)
+    return response
+  }
 
-    async post(content:any){
-        const response = await axiosInstance.post(`${this.complementoURL}/`, content);
+  async put(id: number, content: any) {
+    const response = await axiosInstance.put(`${this.complementoURL}/${id}/`, content)
+    return response
+  }
 
-        return response;
-    }    
+  async patch(id: number, content: any) {
+    const response = await axiosInstance.patch(`${this.complementoURL}/${id}/`, content)
+    return response
+  }
 
-    async put(id:number, content:any){
-        const response = await axiosInstance.put(`${this.complementoURL}/${id}/`, content);
+  async delete(id: number, content: any) {
+    const response = await axiosInstance.delete(`${this.complementoURL}/${id}/`, content)
+    return response
+  }
+}
 
-        return response;
-    }
-
-    async patch(id:number, content:any){
-        const response = await axiosInstance.patch(`${this.complementoURL}/${id}/`, content);
-
-        return response;
-    }
-
-    async delete(id:number, content:any){
-        const response = await axiosInstance.delete(`${this.complementoURL}/${id}/`, content);
-
-        return response;
-    }
-
-
-};
-
-export default BaseService;
-
+export default BaseService

@@ -10,7 +10,7 @@ import {
 import {useNavigate} from "react-router-dom";
 import BeeTags from "../BeeTags/BeeTags";
 import BeeFTPerfil from "../BeeFTPerfil/BeeFTPerfil";
-import type {BeePostProps} from "./BeePostProps";
+import type {BeePostProps} from "./IBeePost";
 import "../../index.css";
 
 const BeePost: React.FC<BeePostProps> = ({

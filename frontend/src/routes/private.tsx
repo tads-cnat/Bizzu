@@ -1,5 +1,6 @@
 import Layout from "../features/Layout/Layout";
 import EditPostagem from "../features/Postagem/Edit";
+import CreatePostagem from "../features/Postagem/Create";
 import Read from "../features/Postagem/Read";
 
 export const privatesRoutes = [
@@ -12,13 +13,13 @@ export const privatesRoutes = [
 				element: <Read />,
 			},
 			{
-				path: `postagem/editar/:id`,
-				element: <EditPostagem />,
+				path: "postagem/criar",
+				element: <CreatePostagem />,
 			},
 			{
-				path: `forms`,
+				path: "postagem/editar/:id",
 				element: <EditPostagem />,
-			}
+			},
 		],
 	},
 ];

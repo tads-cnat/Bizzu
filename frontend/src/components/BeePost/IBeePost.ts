@@ -3,6 +3,7 @@ import type { IBeeUsuario } from "../BeeFTPerfil/IBeeUsuario"
 export interface Tag {
   label: string
   color: string
+  tipo: "tec" | "mat" | "per" // Mantendo consistência com a interface principal
 }
 
 export interface BeePostProps {
@@ -14,7 +15,7 @@ export interface BeePostProps {
   dataPublicacao: string
   curtidas?: number
   comentarios?: number
-  imagemUsuarioLogado: string
+  imagemUsuarioLogado?: string
   onCurtir: () => void
   onAbrirComentarios: () => void
   onExcluir?: (id: number) => void

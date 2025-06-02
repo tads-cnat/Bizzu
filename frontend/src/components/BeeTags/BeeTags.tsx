@@ -1,9 +1,12 @@
+"use client";
+
 import type React from "react";
 import type IBeeTags from "./IBeeTags";
 
 const BeeTags: React.FC<IBeeTags> = ({
 	label,
 	color,
+	tipo,
 	onClick,
 	isSelected = false,
 }) => {

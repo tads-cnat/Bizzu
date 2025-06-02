@@ -14,27 +14,9 @@ import BeeFiltroCategorias from "../../../components/BeeFiltroCategorias/BeeFilt
 import ComunidadeService from "../../../services/models/ComunidadeService";
 import CategoriaService from "../../../services/models/CategoriaService";
 import axios, {type AxiosError} from "axios";
-
-// Definição da interface para comunidade
-interface Comunidade {
-	label: string;
-	value: string | number;
-}
-
-// Definição da interface para categoria
-interface Categoria {
-	id: number;
-	nome: string;
-	tipo: "tec" | "mat" | "per";
-}
-
-// Interface para os valores do formulário
-interface FormValues {
-	texto: string;
-	imagem?: File | null;
-	comunidade?: Comunidade | undefined;
-	categorias: number[];
-}
+import type {Categoria} from "../../../interfaces/Categoria";
+import type {ComunidadeSelect} from "../../../interfaces/Comunidade";
+import type {PostagemFormValues} from "../../../interfaces/Postagem";
 
 // Schema de validação com Yup
 const schema = yup.object().shape({
@@ -64,11 +46,13 @@ export const FormPostagem = ({
 	onSubmitCallback,
 }: IFormPostagem & {onSubmitCallback?: () => void}) => {
 	const [loading, setLoading] = useState(false);
-	const [comunidades, setComunidades] = useState<Comunidade[]>([]);
+	const [comunidades, setComunidades] = useState<ComunidadeSelect[]>([]);
 	const [categorias, setCategorias] = useState<Categoria[]>([]);
 	const [loadingData, setLoadingData] = useState(false);
 	const [termoPesquisa, setTermoPesquisa] = useState("");
 	const [anexoPath, setAnexoPath] = useState<string | null>(null);
+	const [imagemOriginal, setImagemOriginal] = useState<string | null>(null);
+	const [imagemRemovida, setImagemRemovida] = useState(false);
 
 	const {
 		control,
@@ -78,7 +62,7 @@ export const FormPostagem = ({
 		setValue,
 		watch,
 		getValues,
-	} = useForm<FormValues>({
+	} = useForm<PostagemFormValues>({
 		resolver: yupResolver(schema) as any,
 		defaultValues: {
 			texto: "",
@@ -90,7 +74,6 @@ export const FormPostagem = ({
 
 	const categoriasSelecionadas = watch("categorias");
 
-	// Carregar comunidades do backend
 	useEffect(() => {
 		const loadComunidades = async () => {
 			try {
@@ -103,19 +86,10 @@ export const FormPostagem = ({
 						}),
 					);
 					setComunidades(comunidadesFormatadas);
-					console.log(
-						"Comunidades carregadas do backend:",
-						comunidadesFormatadas,
-					);
 				} else {
-					console.error(
-						"Formato de resposta inválido para comunidades:",
-						response.data,
-					);
 					setComunidades([]);
 				}
-			} catch (error) {
-				console.error("Erro ao carregar comunidades:", error);
+			} catch {
 				setComunidades([]);
 			}
 		};
@@ -123,25 +97,17 @@ export const FormPostagem = ({
 		loadComunidades();
 	}, []);
 
-	// Carregar categorias do backend
 	useEffect(() => {
 		const loadCategorias = async () => {
 			setLoading(true);
 			try {
 				const response = await CategoriaService.listAll();
-
 				if (response.data && Array.isArray(response.data)) {
 					setCategorias(response.data);
-					console.log("Categorias carregadas com sucesso:", response.data);
 				} else {
-					console.error(
-						"Formato de resposta inválido para categorias:",
-						response.data,
-					);
 					setCategorias([]);
 				}
-			} catch (error) {
-				console.error("Erro ao carregar categorias:", error);
+			} catch {
 				setCategorias([]);
 			} finally {
 				setLoading(false);
@@ -151,7 +117,6 @@ export const FormPostagem = ({
 		loadCategorias();
 	}, []);
 
-	// Carregar dados para edição
 	useEffect(() => {
 		const loadPostagem = async () => {
 			if (tipoForm === "editar" && idPostagem && comunidades.length > 0) {
@@ -162,12 +127,12 @@ export const FormPostagem = ({
 
 					setValue("texto", postagem.texto || "");
 
-					// Se houver imagem associada
 					if (postagem.imagem) {
 						setAnexoPath(postagem.imagem);
+						setImagemOriginal(postagem.imagem);
+						setImagemRemovida(false);
 					}
 
-					// Se houver comunidade associada (vem como ID do backend)
 					if (postagem.comunidade) {
 						const comunidadeEncontrada = comunidades.find(
 							(c) => c.value === postagem.comunidade,
@@ -177,16 +142,10 @@ export const FormPostagem = ({
 						}
 					}
 
-					// Se houver categorias associadas (vem como array de IDs)
 					if (postagem.categorias && postagem.categorias.length > 0) {
 						setValue("categorias", postagem.categorias);
-						console.log(
-							"Categorias carregadas para edição:",
-							postagem.categorias,
-						);
 					}
-				} catch (error) {
-					console.error("Erro ao carregar postagem:", error);
+				} catch {
 					alert("Erro ao carregar dados da postagem");
 				} finally {
 					setLoadingData(false);
@@ -197,12 +156,10 @@ export const FormPostagem = ({
 		loadPostagem();
 	}, [idPostagem, tipoForm, setValue, comunidades]);
 
-	// Função para filtrar categorias por termo de pesquisa
 	const categoriasFiltradas = categorias.filter((categoria) =>
 		categoria.nome.toLowerCase().includes(termoPesquisa.toLowerCase()),
 	);
 
-	// Função para selecionar/deselecionar categoria
 	const aoSelecionarCategoria = useCallback(
 		(categoriaId: number) => {
 			const categoriasAtuais = getValues("categorias") || [];
@@ -215,100 +172,110 @@ export const FormPostagem = ({
 			}
 
 			setValue("categorias", novasCategorias, {shouldValidate: true});
-			console.log("Categorias atualizadas:", novasCategorias);
 		},
 		[getValues, setValue],
 	);
 
-	// Função para lidar com a seleção de arquivo
 	const handleFileChange = useCallback(
 		(file: File | null) => {
 			setValue("imagem", file);
 			if (file) {
 				setAnexoPath(file.name);
+				setImagemRemovida(false);
 			} else {
-				setAnexoPath(null);
+				if (imagemOriginal && tipoForm === "editar") {
+					setAnexoPath(imagemOriginal);
+					setImagemRemovida(false);
+				} else {
+					setAnexoPath(null);
+					setImagemRemovida(false);
+				}
 			}
 		},
-		[setValue],
+		[setValue, imagemOriginal, tipoForm],
 	);
 
-	// Função para remover anexo
 	const handleRemoveAnexo = useCallback(() => {
 		setValue("imagem", null);
 		setAnexoPath(null);
+		setImagemOriginal(null);
+		setImagemRemovida(true);
 	}, [setValue]);
 
-	// Função para lidar com a seleção de comunidade
 	const handleComunidadeChange = useCallback(
-		(value: Comunidade) => {
-			// Só atualizar se o valor realmente mudou
+		(value: ComunidadeSelect) => {
 			const currentValue = getValues("comunidade");
 			if (currentValue?.value !== value.value) {
 				setValue("comunidade", value.value ? value : undefined, {
 					shouldValidate: true,
 				});
-				console.log("Comunidade selecionada:", value);
 			}
 		},
 		[setValue, getValues],
 	);
 
-	// Função para pesquisar categorias
 	const handlePesquisarCategorias = useCallback((termo: string) => {
 		setTermoPesquisa(termo);
 	}, []);
 
-	// Submit
-	const onSubmit: SubmitHandler<FormValues> = async (data) => {
+	const onSubmit: SubmitHandler<PostagemFormValues> = async (data) => {
 		setLoading(true);
 
 		try {
 			const formData = new FormData();
 			formData.append("texto", data.texto);
 
-			if (data.imagem) {
-				formData.append("imagem", data.imagem);
-			}
-
-			if (data.comunidade?.value) {
-				formData.append("comunidade", String(data.comunidade.value));
-			}
-
-			// Adicionar categorias
-			if (data.categorias && data.categorias.length > 0) {
-				data.categorias.forEach((categoriaId) => {
-					formData.append("categorias", String(categoriaId));
-				});
-			}
-
-			console.log("Dados do formulário:", {
-				texto: data.texto,
-				imagem: data.imagem,
-				comunidade: data.comunidade,
-				categorias: data.categorias,
-			});
-
 			if (tipoForm === "editar" && idPostagem) {
-				await PostagemService.put(idPostagem, formData);
+				if (data.imagem) {
+					formData.append("imagem", data.imagem);
+				} else if (imagemRemovida) {
+					formData.append("imagem", "");
+				}
+
+				if (data.comunidade?.value) {
+					formData.append("comunidade", String(data.comunidade.value));
+				}
+
+				if (data.categorias && data.categorias.length > 0) {
+					data.categorias.forEach((categoriaId) =>
+						formData.append("categorias", String(categoriaId)),
+					);
+				}
+
+				await PostagemService.patch(idPostagem, formData);
 				alert("Postagem atualizada com sucesso!");
 			} else {
+				if (data.imagem) {
+					formData.append("imagem", data.imagem);
+				}
+
+				if (data.comunidade?.value) {
+					formData.append("comunidade", String(data.comunidade.value));
+				}
+
+				if (data.categorias && data.categorias.length > 0) {
+					data.categorias.forEach((categoriaId) =>
+						formData.append("categorias", String(categoriaId)),
+					);
+				}
+
 				await PostagemService.post(formData);
 				alert("Postagem criada com sucesso!");
 			}
 
 			reset();
 			setAnexoPath(null);
+			setImagemOriginal(null);
+			setImagemRemovida(false);
 			onSubmitCallback?.();
 		} catch (error) {
-			console.error("Erro ao salvar postagem:", error);
-
 			if (axios.isAxiosError(error)) {
 				const axiosError = error as AxiosError;
-				console.error("Dados do erro:", axiosError.response?.data);
-				alert(
-					`Erro ao salvar postagem: ${JSON.stringify(axiosError.response?.data || "Erro desconhecido")}`,
-				);
+				const errorMessage = axiosError.response?.data
+					? JSON.stringify(axiosError.response.data, null, 2)
+					: "Erro desconhecido";
+
+				alert(`Erro ao salvar postagem:\n${errorMessage}`);
 			} else {
 				alert("Erro ao salvar postagem. Verifique sua conexão.");
 			}
@@ -365,13 +332,28 @@ export const FormPostagem = ({
 						)}
 					/>
 
-					{/* Mostrar anexo se existir */}
-					{anexoPath && (
+					{anexoPath && !imagemRemovida && (
 						<div className="mt-2">
 							<BeeAnexos
 								path={anexoPath}
 								onDelete={handleRemoveAnexo}
 							/>
+							{imagemOriginal && tipoForm === "editar" && !watch("imagem") && (
+								<div className="mt-2 p-3 bg-gray-50 rounded-md">
+									<p className="text-sm text-gray-600 mb-2">
+										Imagem atual da postagem:
+									</p>
+									<img
+										src={imagemOriginal || "/placeholder.svg"}
+										alt="Imagem da postagem"
+										className="max-h-40 rounded-md border"
+										style={{maxWidth: "100%"}}
+										onError={(e) => {
+											e.currentTarget.style.display = "none";
+										}}
+									/>
+								</div>
+							)}
 						</div>
 					)}
 				</div>

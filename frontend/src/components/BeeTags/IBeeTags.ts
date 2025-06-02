@@ -3,6 +3,8 @@ export default interface IBeeTags {
   label: string
   // Cor da tag que se altera dependendo de onde ela é inserida
   color: string
+  // Tipo da categoria (opcional)
+  tipo?: "tec" | "mat" | "per"
   // Função opcional para clique na tag
   onClick?: () => void
   // Se a tag está selecionada (para filtros)
