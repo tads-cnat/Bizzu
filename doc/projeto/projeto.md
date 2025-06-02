@@ -1,2 +1,2 @@
 # Diagrama de Classes de Projeto
-![Diagrama de classe de projeto](https://github.com/user-attachments/assets/14c304eb-9e84-464a-ae7c-b6355a3fdb23)
+![diagramaClasses](https://github.com/user-attachments/assets/f9af25e8-96b9-4a37-b5d2-b6bad2afc994)

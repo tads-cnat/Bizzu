@@ -32,10 +32,13 @@ class BaseService {
     return response
   }
 
-  async delete(id: number, content: any) {
-    const response = await axiosInstance.delete(`${this.complementoURL}/${id}/`, content)
-    return response
-  }
-}
+    async delete(id:number){
+        const response = await axiosInstance.delete(`${this.complementoURL}/${id}/`);
+
+        return response;
+    }
+
+
+};
 
 export default BaseService

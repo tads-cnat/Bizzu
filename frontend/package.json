@@ -19,7 +19,7 @@
     "axios": "^1.4.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-hook-form": "^7.45.0",
+    "react-hook-form": "^7.56.4",
     "react-outlet": "^1.0.9",
     "react-router-dom": "^6.11.2",
     "tailwindcss": "^4.1.5",

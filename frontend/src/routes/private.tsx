@@ -9,7 +9,7 @@ export const privatesRoutes = [
 		element: <Layout />,
 		children: [
 			{
-				path: "postagem/",
+				path: "postagem/:id",
 				element: <Read />,
 			},
 			{

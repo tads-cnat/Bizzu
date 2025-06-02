@@ -1,4 +1,5 @@
 import type { IBeeUsuario } from "../BeeFTPerfil/IBeeUsuario"
+import { IBeeUser } from "../BeeHeaderProfile/IBeeUser"
 
 export interface Tag {
   label: string
@@ -8,7 +9,7 @@ export interface Tag {
 
 export interface BeePostProps {
   id?: number
-  usuario: IBeeUsuario
+  usuario: IBeeUser
   texto: string
   imagemPost?: string
   tags?: Tag[]

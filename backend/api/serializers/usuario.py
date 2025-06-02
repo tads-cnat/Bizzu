@@ -5,4 +5,4 @@ from ..models import Usuario
 class UsuarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Usuario
-        fields = ["nome", "imagemPerfil"]
+        fields = ["nome", "imagemPerfil", "segue"]
