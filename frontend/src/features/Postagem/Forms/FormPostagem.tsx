@@ -13,10 +13,12 @@ import BeeSelect from "../../../components/BeeSelect/BeeSelect";
 import BeeFiltroCategorias from "../../../components/BeeFiltroCategorias/BeeFiltroCategorias";
 import ComunidadeService from "../../../services/models/ComunidadeService";
 import CategoriaService from "../../../services/models/CategoriaService";
-import axios, {type AxiosError} from "axios";
 import type {Categoria} from "../../../interfaces/Categoria";
 import type {ComunidadeSelect} from "../../../interfaces/Comunidade";
 import type {PostagemFormValues} from "../../../interfaces/Postagem";
+import {IBeeUser} from "../../../components/BeeHeaderProfile/IBeeUser";
+import UsuarioService from "../../../services/models/UsuarioService";
+import {Navigate, useNavigate} from "react-router-dom";
 
 // Schema de validação com Yup
 const schema = yup.object().shape({
@@ -43,7 +45,7 @@ const schema = yup.object().shape({
 export const FormPostagem = ({
 	idPostagem,
 	tipoForm,
-	onSubmitCallback,
+	idUser,
 }: IFormPostagem & {onSubmitCallback?: () => void}) => {
 	const [loading, setLoading] = useState(false);
 	const [comunidades, setComunidades] = useState<ComunidadeSelect[]>([]);
@@ -53,12 +55,12 @@ export const FormPostagem = ({
 	const [anexoPath, setAnexoPath] = useState<string | null>(null);
 	const [imagemOriginal, setImagemOriginal] = useState<string | null>(null);
 	const [imagemRemovida, setImagemRemovida] = useState(false);
+	const [usuario, setUsuario] = useState<IBeeUser>();
 
 	const {
 		control,
 		handleSubmit,
 		formState: {errors},
-		reset,
 		setValue,
 		watch,
 		getValues,
@@ -115,6 +117,17 @@ export const FormPostagem = ({
 		};
 
 		loadCategorias();
+
+		const loadUsuario = async () => {
+			try {
+				const response = await UsuarioService.get(idUser);
+				setUsuario(response.data);
+			} catch {
+				console.error("Não foi possível achar usuário");
+			}
+		};
+
+		loadUsuario();
 	}, []);
 
 	useEffect(() => {
@@ -218,69 +231,43 @@ export const FormPostagem = ({
 		setTermoPesquisa(termo);
 	}, []);
 
+	const convertToBase64 = (file: File | null): Promise<string | null> => {
+		if (!file || !(file instanceof Blob)) return Promise.resolve(null);
+
+		return new Promise((resolve) => {
+			const reader = new FileReader();
+			reader.readAsDataURL(file);
+			reader.onload = () => resolve(reader.result as string);
+			reader.onerror = () => resolve(null);
+		});
+	};
+
+	const caminho = useNavigate();
 	const onSubmit: SubmitHandler<PostagemFormValues> = async (data) => {
-		setLoading(true);
+		const [imagemBase64, imagemPerfilBase64] = await Promise.all([
+			convertToBase64(data.imagem as File | null),
+			convertToBase64(usuario?.imagemPerfil as File | null),
+		]);
 
-		try {
-			const formData = new FormData();
-			formData.append("texto", data.texto);
-
-			if (tipoForm === "editar" && idPostagem) {
-				if (data.imagem) {
-					formData.append("imagem", data.imagem);
-				} else if (imagemRemovida) {
-					formData.append("imagem", "");
-				}
-
-				if (data.comunidade?.value) {
-					formData.append("comunidade", String(data.comunidade.value));
-				}
-
-				if (data.categorias && data.categorias.length > 0) {
-					data.categorias.forEach((categoriaId) =>
-						formData.append("categorias", String(categoriaId)),
-					);
-				}
-
-				await PostagemService.patch(idPostagem, formData);
-				alert("Postagem atualizada com sucesso!");
-			} else {
-				if (data.imagem) {
-					formData.append("imagem", data.imagem);
-				}
-
-				if (data.comunidade?.value) {
-					formData.append("comunidade", String(data.comunidade.value));
-				}
-
-				if (data.categorias && data.categorias.length > 0) {
-					data.categorias.forEach((categoriaId) =>
-						formData.append("categorias", String(categoriaId)),
-					);
-				}
-
-				await PostagemService.post(formData);
-				alert("Postagem criada com sucesso!");
-			}
-
-			reset();
-			setAnexoPath(null);
-			setImagemOriginal(null);
-			setImagemRemovida(false);
-			onSubmitCallback?.();
-		} catch (error) {
-			if (axios.isAxiosError(error)) {
-				const axiosError = error as AxiosError;
-				const errorMessage = axiosError.response?.data
-					? JSON.stringify(axiosError.response.data, null, 2)
-					: "Erro desconhecido";
-
-				alert(`Erro ao salvar postagem:\n${errorMessage}`);
-			} else {
-				alert("Erro ao salvar postagem. Verifique sua conexão.");
-			}
-		} finally {
-			setLoading(false);
+		const dataSubmit = {
+			...data,
+			usuario: {
+				id: idUser,
+				nome: usuario?.nome,
+				imagemPerfil: imagemPerfilBase64,
+			},
+			imagem: imagemBase64,
+			comunidade: data.comunidade?.value,
+		};
+		console.log("dados ", dataSubmit);
+		if (tipoForm == "editar") {
+			await PostagemService.patch(idPostagem, dataSubmit);
+			caminho(-1);
+		} else {
+			await PostagemService.post(dataSubmit);
+			caminho(`/bizzu/${idUser}`, {
+				replace: true,
+			});
 		}
 	};
 

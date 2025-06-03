@@ -1,7 +1,7 @@
 import Layout from "../features/Layout/Layout";
 import EditPostagem from "../features/Postagem/Edit";
 import CreatePostagem from "../features/Postagem/Create";
-import Read from "../features/Postagem/Read";
+import Perfil from "../features/Perfil/Perfil";
 
 export const privatesRoutes = [
 	{
@@ -9,11 +9,11 @@ export const privatesRoutes = [
 		element: <Layout />,
 		children: [
 			{
-				path: "postagem/:id",
-				element: <Read />,
+				path: ":id",
+				element: <Perfil />,
 			},
 			{
-				path: "postagem/criar",
+				path: "postagem/criar/:id",
 				element: <CreatePostagem />,
 			},
 			{

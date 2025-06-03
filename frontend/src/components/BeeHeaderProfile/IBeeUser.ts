@@ -4,7 +4,7 @@ export interface IBeeUser{
     // Nome do usuário
     nome: string;
     //Foto de perfil
-    imagemPerfil?: string;
+    imagemPerfil?: File;
     //Quem são os seguidores de um usuário
     segue?: IBeeUser[];
 }

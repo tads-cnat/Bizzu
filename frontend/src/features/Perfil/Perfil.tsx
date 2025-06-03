@@ -1,5 +1,4 @@
-"use client";
-
+import BeeAbasPerfil from "../../components/BeeAbasPerfil/BeeAbasPerfil";
 import type React from "react";
 import {useEffect, useState} from "react";
 import BeePost from "../../components/BeePost/BeePost";
@@ -9,20 +8,15 @@ import CategoriaService from "../../services/models/CategoriaService";
 import type {Postagem, Tag} from "../../interfaces/Postagem";
 import type {Comunidade} from "../../interfaces/Comunidade";
 import type {Categoria} from "../../interfaces/Categoria";
+import {useParams} from "react-router-dom";
+import BeeHeaderProfile from "../../components/BeeHeaderProfile/BeeHeaderProfile";
 
-// Usuário padrão para postagens sem usuário atribuído
-const DEFAULT_USER = {
-	nome: "Usuário Bizzu",
-	imagemPerfil:
-		"https://saae.lucasdorioverde.mt.gov.br/arquivos/setores/sem_imagem_avatar.png",
-};
-
-const Read: React.FC = () => {
+const Perfil: React.FC = () => {
 	const [postagens, setPostagens] = useState<Postagem[]>([]);
 	const [comunidades, setComunidades] = useState<Comunidade[]>([]);
 	const [categorias, setCategorias] = useState<Categoria[]>([]);
-	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
+	const idUsuario = Number(useParams().id);
 
 	const handleCurtir = async (postagemId?: number) => {
 		console.log("Curtir postagem:", postagemId);
@@ -113,24 +107,14 @@ const Read: React.FC = () => {
 	};
 
 	const loadPostagens = async (): Promise<void> => {
-		setLoading(true);
 		setError(null);
 
 		try {
-			const response = await PostagemService.listAll();
-
-			if (response.data && Array.isArray(response.data)) {
-				setPostagens(response.data);
-			} else {
-				setPostagens([]);
-				setError("Formato de dados inválido recebido do servidor");
-			}
+			const response = await PostagemService.getPost(idUsuario);
+			setPostagens(response.data);
 		} catch (error) {
 			console.error("Erro ao carregar postagens:", error);
-			setPostagens([]);
 			setError("Erro ao carregar postagens. Verifique sua conexão.");
-		} finally {
-			setLoading(false);
 		}
 	};
 
@@ -141,95 +125,58 @@ const Read: React.FC = () => {
 		loadPostagens();
 	}, []);
 
-	if (loading) {
-		return (
-			<div className="flex justify-center items-center py-8">
-				<div className="text-center">
-					<div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#FCBD18] mx-auto mb-2"></div>
-					<p className="text-gray-600">Carregando postagens...</p>
-				</div>
-			</div>
-		);
-	}
-
-	if (error) {
-		return (
-			<div className="flex justify-center items-center py-8">
-				<div className="text-center">
-					<p className="text-red-500 mb-4">{error}</p>
-					<button
-						onClick={loadPostagens}
-						className="px-4 py-2 bg-[#FCBD18] text-gray-900 rounded-md hover:bg-yellow-500 transition-colors"
-					>
-						Tentar novamente
-					</button>
-				</div>
-			</div>
-		);
-	}
-
-	if (postagens.length === 0) {
-		return (
-			<div className="flex justify-center items-center py-8">
-				<div className="text-center">
-					<p className="text-gray-600 mb-4">Nenhuma postagem encontrada</p>
-					<button
-						onClick={loadPostagens}
-						className="px-4 py-2 bg-[#FCBD18] text-gray-900 rounded-md hover:bg-yellow-500 transition-colors"
-					>
-						Recarregar
-					</button>
-				</div>
-			</div>
-		);
-	}
-
 	return (
-		<div className="space-y-4">
-			{postagens.map((post: Postagem) => {
-				// Converter categorias em tags
-				const tags = categoriasParaTags(post.categorias);
+		<>
+			<BeeHeaderProfile />
+			<BeeAbasPerfil abas={["Postagens", "Repositórios", "Comentários"]} />
+			{postagens?.length ? (
+				<div className="space-y-4">
+					{postagens.map((post: Postagem) => {
+						// Converter categorias em tags
+						const tags = categoriasParaTags(post.categorias);
 
-				// Buscar nome da comunidade
-				const comunidadeNome = getComunidadeNome(post.comunidade ?? null);
+						// Buscar nome da comunidade
+						const comunidadeNome = getComunidadeNome(post.comunidade ?? null);
 
-				return (
-					<div
-						key={post.id}
-						className="mb-6"
-					>
-						{comunidadeNome && (
-							<div className="bg-white p-2 rounded-t-lg border-b border-gray-200">
-								<p className="text-sm text-gray-600">
-									<span className="font-medium">Comunidade:</span>{" "}
-									{comunidadeNome}
-								</p>
+						return (
+							<div
+								key={post.id}
+								className="mb-6"
+							>
+								{comunidadeNome && (
+									<div className="bg-white p-2 rounded-t-lg border-b border-gray-200">
+										<p className="text-sm text-gray-600">
+											<span className="font-medium">Comunidade:</span>{" "}
+											{comunidadeNome}
+										</p>
+									</div>
+								)}
+
+								<BeePost
+									id={post.id}
+									texto={post.texto}
+									tags={tags}
+									curtidas={post.curtidas || 0}
+									comentarios={post.comentarios || 0}
+									usuario={{
+										nome: post.usuario?.nome,
+										imagemPerfil: post.usuario?.imagemPerfil,
+									}}
+									dataPublicacao={post.dataPublicacao}
+									imagemPost={post.imagem}
+									onCurtir={() => handleCurtir(post.id)}
+									onAbrirComentarios={() => handleComentar(post.id)}
+									onExcluir={handleExcluir}
+								/>
 							</div>
-						)}
-
-						<BeePost
-							id={post.id}
-							texto={post.texto}
-							tags={tags}
-							curtidas={post.curtidas || 0}
-							comentarios={post.comentarios || 0}
-							usuario={{
-								nome: post.usuario?.nome ?? DEFAULT_USER.nome,
-								imagemPerfil:
-									post.usuario?.imagemPerfil ?? DEFAULT_USER.imagemPerfil,
-							}}
-							dataPublicacao={post.dataPublicacao}
-							imagemPost={post.imagem}
-							onCurtir={() => handleCurtir(post.id)}
-							onAbrirComentarios={() => handleComentar(post.id)}
-							onExcluir={handleExcluir}
-							imagemUsuarioLogado={DEFAULT_USER.imagemPerfil}
-						/>
-					</div>
-				);
-			})}
-		</div>
+						);
+					})}
+				</div>
+			) : (
+				<div>Nenhuma postagem encontrada</div>
+			)}
+		</>
 	);
 };
 
-export default Read;
+export default Perfil;

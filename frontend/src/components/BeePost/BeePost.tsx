@@ -51,7 +51,6 @@ const BeePost: React.FC<BeePostProps> = ({
 	const toggleMenu = () => {
 		setShowMenu(!showMenu);
 	};
-
 	return (
 		<div className="bg-white shadow rounded-lg p-4 mb-4 relative w-full">
 			{/* Menu de opções */}
@@ -114,6 +113,11 @@ const BeePost: React.FC<BeePostProps> = ({
 			<p className="mb-3 mt-2">{texto}</p>
 
 			{imagemPost && (
+				// <img
+				// 	src={`data:image/jpeg;base64,${imagemPost}`}
+				// 	alt="Postagem"
+				// />
+
 				<img
 					src={imagemPost || "/placeholder.svg"}
 					alt="Imagem do post"
