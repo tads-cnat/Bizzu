@@ -25,6 +25,7 @@ const BeeFormAuth: React.FC = () => {
 	}): Promise<void> {
 		try {
 			await autenticar(data.username, data.password);
+			console.log("Deu bom");
 		} catch (e) {
 			console.error("Deu erro", e);
 		}

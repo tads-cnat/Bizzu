@@ -47,8 +47,6 @@ export const BeeButton = ({
 			onClick={onClick}
 			disabled={desabilitado}
 			className={classes}
-			classesDefault={classesDefault}
-			type="submit"
 		>
 			{icone && <span>{icone}</span>}
 			<span>{label}</span>

@@ -1,4 +1,3 @@
-// BeeButton.props.ts
 import { ReactNode } from 'react';
 // Aqui é onde ficam as variantes, então se você precisar criar um novo botão ou a variante de um botão existente, crie uma tag/nome para esse botão aqui
 export type BeeButtonVariantes = 'primaria' | 'secundaria' | 'negativo' | 'aviso' | 'neutro';

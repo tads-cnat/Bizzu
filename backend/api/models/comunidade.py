@@ -1,9 +1,7 @@
 from django.db import models
-import uuid
-
 
 class Comunidade(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    id = models.AutoField(primary_key=True, editable=False)
     imagem = models.ImageField(
         upload_to="comunidade_imagens/", verbose_name="Imagem", blank=True, null=True
     )

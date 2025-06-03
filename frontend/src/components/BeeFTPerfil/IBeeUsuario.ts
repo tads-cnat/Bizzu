@@ -5,4 +5,6 @@ export interface IBeeUsuario{
     username: string;
     // Token de autenticação do usuŕio
     token: string;
+    //Id do usuario autenticado 
+    id: number;
 }

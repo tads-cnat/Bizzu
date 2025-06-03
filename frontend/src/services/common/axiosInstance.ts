@@ -2,8 +2,8 @@ import axios from "axios";
 import getLocalStorage from "../../utils/getLocalStorage";
 
 const axiosInstance = axios.create({
-    baseURL: "http://localhost:8000/api/"
-});
+  baseURL: "http://localhost:8000/api/",
+})
 
 
 axiosInstance.interceptors.request.use( ///token ser inserido na requisição automaticamente 
@@ -25,4 +25,3 @@ axiosInstance.interceptors.request.use( ///token ser inserido na requisição au
 
 
 export default axiosInstance;
-

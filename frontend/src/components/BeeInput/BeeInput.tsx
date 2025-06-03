@@ -1,4 +1,4 @@
-import {IBeeInput} from "./IBeeInput";
+import type {IBeeInput} from "./IBeeInput";
 
 const BeeInput: React.FC<IBeeInput> = ({
 	label,
@@ -10,10 +10,7 @@ const BeeInput: React.FC<IBeeInput> = ({
 	return (
 		<>
 			<div>
-				<label
-					htmlFor="price"
-					className="block text-sm/6 font-medium text-gray-900"
-				>
+				<label className="block text-sm/6 font-medium text-gray-900">
 					{label}
 				</label>
 				<div className="mt-2">
@@ -39,4 +36,5 @@ const BeeInput: React.FC<IBeeInput> = ({
 		</>
 	);
 };
+
 export default BeeInput;

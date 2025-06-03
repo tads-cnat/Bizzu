@@ -4,10 +4,8 @@ import {IBeeUser} from "./IBeeUser";
 import acessAuth from "../../utils/acessAuth";
 import {useEffect, useState} from "react";
 import UsuarioService from "../../services/models/UsuarioService";
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import {Menu, MenuItem} from "@headlessui/react";
-import BeeAbasPerfil from "../BeeAbasPerfil/BeeAbasPerfil";
-import BeePost from "../BeePost/BeePost";
 
 const BeeHeaderProfile = () => {
 	const {username} = acessAuth();
@@ -35,7 +33,11 @@ const BeeHeaderProfile = () => {
 			{usuario && (
 				<div className="flex min-w-0 gap-x-4">
 					<img
-						src={usuario.imagemPerfil}
+						src={
+							usuario.imagemPerfil
+								? usuario.imagemPerfil
+								: "https://saae.lucasdorioverde.mt.gov.br/arquivos/setores/sem_imagem_avatar.png"
+						}
 						alt="Imagem de usuário"
 						className="size-22 flex-none rounded-full bg-gray-50"
 						style={{
@@ -76,20 +78,15 @@ const BeeHeaderProfile = () => {
 								{visble && (
 									<div className="absolute top-full left-0 z-50 w-48 bg-white shadow-lg rounded-md">
 										<MenuItem>
-											<a
-												href="#"
-												className="inline-flex items-center px-4 py-2 text-sm text-[#333333] space-x-2"
-											>
+											<Link to={`/bizzu/postagem/criar/${idUser}`}>
 												<Newspaper /> Criar Postagem
-											</a>
+											</Link>
 										</MenuItem>
+
 										<MenuItem>
-											<a
-												href="#"
-												className="inline-flex items-center px-4 py-2 text-sm text-[#333333] space-x-2"
-											>
+											<Link to={`/bizzu/postagem/editar/${idUser}`}>
 												<BoxArrowUp /> Criar Repositório
-											</a>
+											</Link>
 										</MenuItem>
 									</div>
 								)}
@@ -98,7 +95,6 @@ const BeeHeaderProfile = () => {
 					</div>
 				</div>
 			)}
-			<BeeAbasPerfil abas={["Postagens", "Repositórios", "Comentários"]} />
 		</>
 	);
 };
