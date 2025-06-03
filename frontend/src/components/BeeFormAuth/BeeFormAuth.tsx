@@ -4,6 +4,8 @@ import BeeInput from "../BeeInput/BeeInput";
 import {useForm} from "react-hook-form";
 import * as yup from "yup";
 import {yupResolver} from "@hookform/resolvers/yup";
+import BeeAlert from "../BeeAlert/BeeAlert";
+import {useState} from "react";
 
 const schema = yup.object().shape({
 	username: yup.string().required("O usuário é obrigatório"),
@@ -11,6 +13,8 @@ const schema = yup.object().shape({
 });
 
 const BeeFormAuth: React.FC = () => {
+	const [status, setStatus] = useState<string>("error");
+	const [alert, setAlert] = useState<boolean>(false);
 	const {autenticar} = acessAuth();
 
 	const {
@@ -25,8 +29,11 @@ const BeeFormAuth: React.FC = () => {
 	}): Promise<void> {
 		try {
 			await autenticar(data.username, data.password);
-			console.log("Deu bom");
+			setStatus("success");
+			setAlert(true);
 		} catch (e) {
+			setStatus("error");
+			setAlert(true);
 			console.error("Deu erro", e);
 		}
 	}
@@ -34,6 +41,21 @@ const BeeFormAuth: React.FC = () => {
 	return (
 		<>
 			<div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 w-[400px]">
+				{alert ? (
+					status === "success" ? (
+						<BeeAlert
+							typeAlert="success"
+							messageAlert="Login realizado com sucesso"
+						/>
+					) : (
+						<BeeAlert
+							typeAlert="error"
+							messageAlert="Não foi possível fazer o login"
+						/>
+					)
+				) : (
+					<p></p>
+				)}
 				<div className="sm:mx-auto sm:w-full sm:max-w-sm">
 					<h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
 						Bem-Vindo de volta
