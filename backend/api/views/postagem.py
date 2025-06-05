@@ -17,29 +17,27 @@ import base64
 class PostagemViewSet(viewsets.ModelViewSet):
     queryset = Postagem.objects.all()
     serializer_class = PostagemSerializer
-    permission_classes = [AllowAny]
+    # @action(detail=True, methods=["GET"])
+    # def getPost(self, request, pk):
+    #     try:
+    #         postagens = Postagem.objects.filter(usuario__pk=pk)
 
-    @action(detail=True, methods=["GET"])
-    def getPost(self, request, pk):
-        try:
-            postagens = Postagem.objects.filter(usuario__pk=pk)
+    #         if not postagens.exists():
+    #             return Response({"message": "Não existem postagens para este usuário"})
 
-            if not postagens.exists():
-                return Response({"message": "Não existem postagens para este usuário"})
+    #         serializer = self.get_serializer(postagens, many=True)
+    #         return Response(serializer.data)
 
-            serializer = self.get_serializer(postagens, many=True)
-            return Response(serializer.data)
-
-        except Exception as e:
-            return Response({"error": str(e)}, status=400)
+    #     except Exception as e:
+    #         return Response({"error": str(e)}, status=400)
 
 
-@api_view(["GET"])
-@permission_classes([AllowAny])
-def health_check(request):
-    return Response({"status": "ok"})
+# @api_view(["GET"])
+# @permission_classes([AllowAny])
+# def health_check(request):
+#     return Response({"status": "ok"})
 
 
-@ensure_csrf_cookie
-def get_csrf_token(request):
-    return JsonResponse({"csrfToken": get_token(request)})
+# @ensure_csrf_cookie
+# def get_csrf_token(request):
+#     return JsonResponse({"csrfToken": get_token(request)})

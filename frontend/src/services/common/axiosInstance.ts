@@ -3,7 +3,10 @@ import getLocalStorage from "../../utils/getLocalStorage";
 
 const axiosInstance = axios.create({
   baseURL: "http://localhost:8000/api/",
-})
+//   headers: {
+//     "Content-Type": "multipart/form-data"; "boundary"="blob"
+//   }
+});
 
 
 axiosInstance.interceptors.request.use( ///token ser inserido na requisição automaticamente 

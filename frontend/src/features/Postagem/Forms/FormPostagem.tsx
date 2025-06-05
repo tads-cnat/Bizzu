@@ -225,6 +225,21 @@ export const FormPostagem = ({
 	const caminho = useNavigate();
 	const onSubmit: SubmitHandler<PostagemFormValues> = async (data) => {
 		const dataSubmit = new FormData();
+		console.log(idUser);
+
+		dataSubmit.append("usuario", String(idUser));
+		dataSubmit.append("texto", data.texto);
+		if (data.imagem !== null && data.imagem !== undefined)
+			dataSubmit.append("imagem", data.imagem);
+		dataSubmit.append("categorias", String(data.categorias));
+		dataSubmit.append("comunidade", data.comunidade?.value);
+
+		try {
+			await PostagemService.post(dataSubmit);
+			console.log("Deu certo");
+		} catch (e) {
+			console.error("Deu mal", e);
+		}
 	};
 
 	if (loadingData) {
@@ -271,7 +286,7 @@ export const FormPostagem = ({
 								value={field.value}
 								onChange={field.onChange}
 								error={errors.imagem?.message}
-								multiple={true}
+								multiple={false}
 							/>
 						)}
 					/>
