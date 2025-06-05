@@ -8,7 +8,6 @@ import {PaperPlaneRight, Hexagon} from "@phosphor-icons/react";
 import PostagemService from "../../../services/models/PostagemService";
 import type {IFormPostagem} from "./IFormPostagem";
 import BeeArquivo from "../../../components/BeeArquivo/BeeArquivo";
-import BeeAnexos from "../../../components/BeeAnexos/BeeAnexos";
 import BeeSelect from "../../../components/BeeSelect/BeeSelect";
 import BeeFiltroCategorias from "../../../components/BeeFiltroCategorias/BeeFiltroCategorias";
 import ComunidadeService from "../../../services/models/ComunidadeService";
@@ -52,9 +51,9 @@ export const FormPostagem = ({
 	const [categorias, setCategorias] = useState<Categoria[]>([]);
 	const [loadingData, setLoadingData] = useState(false);
 	const [termoPesquisa, setTermoPesquisa] = useState("");
-	const [anexoPath, setAnexoPath] = useState<string | null>(null);
-	const [imagemOriginal, setImagemOriginal] = useState<string | null>(null);
-	const [imagemRemovida, setImagemRemovida] = useState(false);
+	// const [anexoPath, setAnexoPath] = useState<string | null>(null);
+	// const [imagemOriginal, setImagemOriginal] = useState<string | null>(null);
+	// const [imagemRemovida, setImagemRemovida] = useState(false);
 	const [usuario, setUsuario] = useState<IBeeUser>();
 
 	const {
@@ -140,11 +139,11 @@ export const FormPostagem = ({
 
 					setValue("texto", postagem.texto || "");
 
-					if (postagem.imagem) {
-						setAnexoPath(postagem.imagem);
-						setImagemOriginal(postagem.imagem);
-						setImagemRemovida(false);
-					}
+					// if (postagem.imagem) {
+					// 	setAnexoPath(postagem.imagem);
+					// 	setImagemOriginal(postagem.imagem);
+					// 	setImagemRemovida(false);
+					// }
 
 					if (postagem.comunidade) {
 						const comunidadeEncontrada = comunidades.find(
@@ -189,32 +188,24 @@ export const FormPostagem = ({
 		[getValues, setValue],
 	);
 
-	const handleFileChange = useCallback(
-		(file: File | null) => {
-			setValue("imagem", file);
-			if (file) {
-				setAnexoPath(file.name);
-				setImagemRemovida(false);
-			} else {
-				if (imagemOriginal && tipoForm === "editar") {
-					setAnexoPath(imagemOriginal);
-					setImagemRemovida(false);
-				} else {
-					setAnexoPath(null);
-					setImagemRemovida(false);
-				}
-			}
-		},
-		[setValue, imagemOriginal, tipoForm],
-	);
-
-	const handleRemoveAnexo = useCallback(() => {
-		setValue("imagem", null);
-		setAnexoPath(null);
-		setImagemOriginal(null);
-		setImagemRemovida(true);
-	}, [setValue]);
-
+	// const handleFileChange = useCallback(
+	// 	(file: File | null) => {
+	// 		setValue("imagem", file);
+	// 		if (file) {
+	// 			setAnexoPath(file.name);
+	// 			setImagemRemovida(false);
+	// 		} else {
+	// 			if (imagemOriginal && tipoForm === "editar") {
+	// 				setAnexoPath(imagemOriginal);
+	// 				setImagemRemovida(false);
+	// 			} else {
+	// 				setAnexoPath(null);
+	// 				setImagemRemovida(false);
+	// 			}
+	// 		}
+	// 	},
+	// 	[setValue, imagemOriginal, tipoForm],
+	// );
 	const handleComunidadeChange = useCallback(
 		(value: ComunidadeSelect) => {
 			const currentValue = getValues("comunidade");
@@ -231,44 +222,9 @@ export const FormPostagem = ({
 		setTermoPesquisa(termo);
 	}, []);
 
-	const convertToBase64 = (file: File | null): Promise<string | null> => {
-		if (!file || !(file instanceof Blob)) return Promise.resolve(null);
-
-		return new Promise((resolve) => {
-			const reader = new FileReader();
-			reader.readAsDataURL(file);
-			reader.onload = () => resolve(reader.result as string);
-			reader.onerror = () => resolve(null);
-		});
-	};
-
 	const caminho = useNavigate();
 	const onSubmit: SubmitHandler<PostagemFormValues> = async (data) => {
-		const [imagemBase64, imagemPerfilBase64] = await Promise.all([
-			convertToBase64(data.imagem as File | null),
-			convertToBase64(usuario?.imagemPerfil as File | null),
-		]);
-
-		const dataSubmit = {
-			...data,
-			usuario: {
-				id: idUser,
-				nome: usuario?.nome,
-				imagemPerfil: imagemPerfilBase64,
-			},
-			imagem: imagemBase64,
-			comunidade: data.comunidade?.value,
-		};
-		console.log("dados ", dataSubmit);
-		if (tipoForm == "editar") {
-			await PostagemService.patch(idPostagem, dataSubmit);
-			caminho(-1);
-		} else {
-			await PostagemService.post(dataSubmit);
-			caminho(`/bizzu/${idUser}`, {
-				replace: true,
-			});
-		}
+		const dataSubmit = new FormData();
 	};
 
 	if (loadingData) {
@@ -313,36 +269,12 @@ export const FormPostagem = ({
 						render={({field}) => (
 							<BeeArquivo
 								value={field.value}
-								onChange={handleFileChange}
+								onChange={field.onChange}
 								error={errors.imagem?.message}
+								multiple={true}
 							/>
 						)}
 					/>
-
-					{anexoPath && !imagemRemovida && (
-						<div className="mt-2">
-							<BeeAnexos
-								path={anexoPath}
-								onDelete={handleRemoveAnexo}
-							/>
-							{imagemOriginal && tipoForm === "editar" && !watch("imagem") && (
-								<div className="mt-2 p-3 bg-gray-50 rounded-md">
-									<p className="text-sm text-gray-600 mb-2">
-										Imagem atual da postagem:
-									</p>
-									<img
-										src={imagemOriginal || "/placeholder.svg"}
-										alt="Imagem da postagem"
-										className="max-h-40 rounded-md border"
-										style={{maxWidth: "100%"}}
-										onError={(e) => {
-											e.currentTarget.style.display = "none";
-										}}
-									/>
-								</div>
-							)}
-						</div>
-					)}
 				</div>
 
 				{/* Select de Comunidade */}
