@@ -1,10 +1,12 @@
+"use client";
+
 import {createContext, useEffect, useState} from "react";
-import {IBeeProvider} from "./interfaces/IBeeProvider";
-import {IBeeUsuario} from "../../components/BeeFTPerfil/IBeeUsuario";
+import type {IBeeProvider} from "./interfaces/IBeeProvider";
+import type {IBeeUsuario} from "../../components/BeeFTPerfil/IBeeUsuario";
 import getLocalStorage from "../../utils/getLocalStorage";
 import UsuarioService from "../../services/models/UsuarioService";
 import setLocalStorage from "../../utils/setLocalStorage";
-import {IBeeContext} from "./interfaces/IBeeContext";
+import type {IBeeContext} from "./interfaces/IBeeContext";
 
 export const AutenticationContext = createContext<IBeeContext>(
 	{} as IBeeContext,
@@ -12,6 +14,7 @@ export const AutenticationContext = createContext<IBeeContext>(
 
 const AuthProvider = ({children}: IBeeProvider) => {
 	const [usuario, setUsuario] = useState<IBeeUsuario | null>(null);
+
 	useEffect(() => {
 		const user = getLocalStorage();
 		if (user) setUsuario(user);
@@ -21,10 +24,27 @@ const AuthProvider = ({children}: IBeeProvider) => {
 		username: string,
 		password: string,
 	): Promise<void> => {
-		const saveToken = await UsuarioService.postToken({username, password});
-		const tokens = {token: saveToken.access, username};
-		setUsuario(tokens);
-		setLocalStorage(tokens);
+		try {
+			// 1. Obter o token
+			const saveToken = await UsuarioService.postToken({username, password});
+
+			// 2. Buscar os dados completos do usuário usando o token recebido
+			const usuarioData = await UsuarioService.getUsuarioByToken(
+				saveToken.access,
+			);
+
+			const usuarioCompleto = {
+				id: usuarioData.id,
+				token: saveToken.access,
+				username: usuarioData.username,
+				// adicione outros campos conforme necessário
+			};
+
+			setUsuario(usuarioCompleto);
+			setLocalStorage(usuarioCompleto);
+		} catch (error) {
+			throw error;
+		}
 	};
 
 	const deslogar = async () => {
@@ -32,12 +52,19 @@ const AuthProvider = ({children}: IBeeProvider) => {
 		setLocalStorage(null);
 	};
 
+	// Garantir que sempre retornamos um objeto válido
+	const contextValue = {
+		autenticar,
+		deslogar,
+		id: usuario?.id,
+		username: usuario?.username,
+		token: usuario?.token,
+	};
+
 	return (
-		<>
-			<AutenticationContext.Provider value={{autenticar, deslogar, ...usuario}}>
-				{children}
-			</AutenticationContext.Provider>
-		</>
+		<AutenticationContext.Provider value={contextValue}>
+			{children}
+		</AutenticationContext.Provider>
 	);
 };
 

@@ -12,6 +12,8 @@ import BeeTags from "../BeeTags/BeeTags";
 import BeeFTPerfil from "../BeeFTPerfil/BeeFTPerfil";
 import type {BeePostProps} from "./IBeePost";
 import "../../index.css";
+import {useCurtida} from "../../hooks/useCurtida";
+import acessAuth from "../../utils/acessAuth";
 
 const BeePost: React.FC<BeePostProps> = ({
 	id,
@@ -22,12 +24,14 @@ const BeePost: React.FC<BeePostProps> = ({
 	tags = [],
 	curtidas = 0,
 	comentarios = 0,
-	onCurtir,
 	onAbrirComentarios,
 	onExcluir,
 }) => {
 	const [showMenu, setShowMenu] = useState(false);
 	const navigate = useNavigate();
+	const {id: usuarioLogadoId} = acessAuth();
+
+	const {curtido, contagem, alternarCurtida, carregando} = useCurtida(id);
 
 	const handleEditarClick = () => {
 		if (id) {
@@ -51,6 +55,20 @@ const BeePost: React.FC<BeePostProps> = ({
 	const toggleMenu = () => {
 		setShowMenu(!showMenu);
 	};
+
+	const isOwnPost = usuario?.id === usuarioLogadoId;
+
+	const handleCurtidaClick = () => {
+		if (isOwnPost) {
+			alert("Você não pode curtir sua própria postagem!");
+			return;
+		}
+
+		if (carregando) return;
+
+		alternarCurtida();
+	};
+
 	return (
 		<div className="bg-white shadow rounded-lg p-4 mb-4 relative w-full">
 			{/* Menu de opções */}
@@ -131,15 +149,28 @@ const BeePost: React.FC<BeePostProps> = ({
 					style={{color: "#333333"}}
 				>
 					<button
-						className="flex items-center gap-1 hover:text-gray-500 transition duration-200 ease-in-out hover:bg-gray-100 rounded-full p-2"
-						onClick={onCurtir}
+						className={`flex items-center gap-1 transition duration-200 ease-in-out rounded-full p-2 ${
+							isOwnPost
+								? "opacity-50 cursor-not-allowed"
+								: "hover:text-gray-500 hover:bg-gray-100 cursor-pointer"
+						} ${curtido ? "text-[#FCBD18]" : ""}`}
+						onClick={handleCurtidaClick}
+						disabled={carregando || isOwnPost}
 						type="button"
+						title={
+							isOwnPost
+								? "Você não pode curtir sua própria postagem"
+								: curtido
+									? "Descurtir"
+									: "Curtir"
+						}
 					>
 						<Heart
 							size={16}
-							weight="regular"
+							weight={curtido ? "fill" : "regular"}
+							className={curtido ? "text-[#FCBD18]" : ""}
 						/>
-						{curtidas} Curtidas
+						{carregando ? "..." : contagem || curtidas} Curtidas
 					</button>
 
 					<button

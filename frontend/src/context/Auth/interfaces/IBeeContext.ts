@@ -1,9 +1,12 @@
-import { IBeeUsuario } from "../../../components/BeeFTPerfil/IBeeUsuario";
-
-
-export interface IBeeContext extends IBeeUsuario{
-    //Função que vai autentica usuaŕio 
-    autenticar: (username:string, password:string) => Promise<void>;
-    //Funçãoque vai ser usada para deslogar usuário 
-    deslogar: () => void;
+export interface IBeeContext {
+  // Função que vai autenticar usuário
+  autenticar: (username: string, password: string) => Promise<void>
+  // Função que vai ser usada para deslogar usuário
+  deslogar: () => void
+  // ID do usuário (pode ser undefined se não estiver logado)
+  id?: number
+  // Username do usuário
+  username?: string
+  // Token de autenticação
+  token?: string
 }

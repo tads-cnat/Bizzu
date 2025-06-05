@@ -1,5 +1,6 @@
 // Interface para usuário
 export interface Usuario {
+  id?: number
   nome: string
   imagemPerfil?: string
 }
@@ -20,7 +21,7 @@ export interface Postagem {
 // Interface para valores do formulário de postagem
 export interface PostagemFormValues {
   texto: string
-  imagem?: String | null
+  imagem?: string | null
   comunidade?: { label: string; value: string | number } | undefined
   categorias: number[]
 }

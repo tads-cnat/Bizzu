@@ -24,11 +24,6 @@ const Read: React.FC = () => {
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
 
-	const handleCurtir = async (postagemId?: number) => {
-		console.log("Curtir postagem:", postagemId);
-		// Aqui será implementada a lógica de curtir
-	};
-
 	const handleComentar = async (postagemId?: number) => {
 		console.log("Comentar postagem:", postagemId);
 		// Aqui será implementada a lógica de comentar
@@ -215,12 +210,11 @@ const Read: React.FC = () => {
 							comentarios={post.comentarios || 0}
 							usuario={{
 								nome: post.usuario?.nome ?? DEFAULT_USER.nome,
-								imagemPerfil:
-									post.usuario?.imagemPerfil ?? DEFAULT_USER.imagemPerfil,
+								imagemPerfil: post.usuario?.imagemPerfil ?? DEFAULT_USER.imagemPerfil,
+								id: post.usuario?.id,
 							}}
 							dataPublicacao={post.dataPublicacao}
 							imagemPost={post.imagem}
-							onCurtir={() => handleCurtir(post.id)}
 							onAbrirComentarios={() => handleComentar(post.id)}
 							onExcluir={handleExcluir}
 							imagemUsuarioLogado={DEFAULT_USER.imagemPerfil}

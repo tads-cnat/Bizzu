@@ -18,13 +18,7 @@ const Perfil: React.FC = () => {
 	const [error, setError] = useState<string | null>(null);
 	const idUsuario = Number(useParams().id);
 
-	const handleCurtir = async (postagemId?: number) => {
-		console.log("Curtir postagem:", postagemId);
-		// Aqui será implementada a lógica de curtir
-	};
-
 	const handleComentar = async (postagemId?: number) => {
-		console.log("Comentar postagem:", postagemId);
 		// Aqui será implementada a lógica de comentar
 	};
 
@@ -161,10 +155,10 @@ const Perfil: React.FC = () => {
 									usuario={{
 										nome: post.usuario?.nome,
 										imagemPerfil: post.usuario?.imagemPerfil,
+										id: post.usuario?.id,
 									}}
 									dataPublicacao={post.dataPublicacao}
 									imagemPost={post.imagem}
-									onCurtir={() => handleCurtir(post.id)}
 									onAbrirComentarios={() => handleComentar(post.id)}
 									onExcluir={handleExcluir}
 								/>

@@ -1,5 +1,4 @@
-import type { IBeeUsuario } from "../BeeFTPerfil/IBeeUsuario"
-import { IBeeUser } from "../BeeHeaderProfile/IBeeUser"
+import type { IBeeUser } from "../BeeHeaderProfile/IBeeUser"
 
 export interface Tag {
   label: string
@@ -17,7 +16,6 @@ export interface BeePostProps {
   curtidas?: number
   comentarios?: number
   imagemUsuarioLogado?: string
-  onCurtir: () => void
   onAbrirComentarios: () => void
   onExcluir?: (id: number) => void
 }
