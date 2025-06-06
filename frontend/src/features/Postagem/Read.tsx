@@ -3,13 +3,13 @@
 import type React from "react";
 import {useEffect, useState} from "react";
 import BeePost from "../../components/BeePost/BeePost";
+import BeeModal from "../../components/BeeModal/BeeModal";
 import PostagemService from "../../services/models/PostagemService";
 import ComunidadeService from "../../services/models/ComunidadeService";
 import CategoriaService from "../../services/models/CategoriaService";
 import type {Postagem, Tag} from "../../interfaces/Postagem";
 import type {Comunidade} from "../../interfaces/Comunidade";
 import type {Categoria} from "../../interfaces/Categoria";
-
 // Usuário padrão para postagens sem usuário atribuído
 const DEFAULT_USER = {
 	nome: "Usuário Bizzu",
@@ -225,6 +225,7 @@ const Read: React.FC = () => {
 							onExcluir={handleExcluir}
 							imagemUsuarioLogado={DEFAULT_USER.imagemPerfil}
 						/>
+						<BeeModal onExcluir={handleExcluir} />
 					</div>
 				);
 			})}

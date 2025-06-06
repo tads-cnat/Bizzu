@@ -12,6 +12,7 @@ import BeeTags from "../BeeTags/BeeTags";
 import BeeFTPerfil from "../BeeFTPerfil/BeeFTPerfil";
 import type {BeePostProps} from "./IBeePost";
 import "../../index.css";
+import BeeModal from "../BeeModal/BeeModal";
 
 const BeePost: React.FC<BeePostProps> = ({
 	id,
@@ -26,6 +27,7 @@ const BeePost: React.FC<BeePostProps> = ({
 	onAbrirComentarios,
 	onExcluir,
 }) => {
+	const [modalType, setModalType] = useState<null | "descartar">(null);
 	const [showMenu, setShowMenu] = useState(false);
 	const navigate = useNavigate();
 
@@ -37,14 +39,7 @@ const BeePost: React.FC<BeePostProps> = ({
 	};
 
 	const handleExcluirClick = () => {
-		if (onExcluir && id) {
-			const confirmDelete = window.confirm(
-				"Tem certeza que deseja excluir esta postagem?",
-			);
-			if (confirmDelete) {
-				onExcluir(id);
-			}
-		}
+		setModalType("descartar");
 		setShowMenu(false);
 	};
 
@@ -96,6 +91,15 @@ const BeePost: React.FC<BeePostProps> = ({
 					</div>
 				)}
 			</div>
+			{modalType === "descartar" && (
+				<BeeModal
+					label="Excluir repositório"
+					text="Você tem certeza que deseja excluir esse repositório?"
+					type="descartar"
+					id={id}
+					onExcluir={onExcluir}
+				/>
+			)}
 
 			{/* Overlay para fechar o menu quando clicar fora */}
 			{showMenu && (
