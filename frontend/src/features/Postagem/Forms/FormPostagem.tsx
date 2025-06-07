@@ -80,7 +80,7 @@ export const FormPostagem = ({
 					setUsuario(response);
 				})
 				.catch(() => {
-					console.log("Não recebeu dados");
+					console.error("Não recebeu dados");
 				});
 		}
 	}, []);
@@ -238,7 +238,6 @@ export const FormPostagem = ({
 			for (let i = 0; i < getValues("categorias").length; i++) {
 				dataSubmit.append("categorias", String(getValues("categorias")[i]));
 			}
-			console.log(getValues("categorias"));
 			dataSubmit.append("comunidade", String(getValues("comunidade")?.value));
 
 			try {
