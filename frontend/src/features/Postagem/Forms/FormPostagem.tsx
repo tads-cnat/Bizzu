@@ -29,14 +29,7 @@ const schema = yup.object().shape({
 		.min(1, "Conteúdo não pode estar vazio")
 		.max(200, "Conteúdo não pode ter mais de 200 caracteres"),
 	imagem: yup.mixed().nullable().optional(),
-	comunidade: yup
-		.object()
-		.shape({
-			label: yup.string().required(),
-			value: yup.mixed().required(),
-		})
-		.nullable()
-		.optional(),
+	comunidade: yup.object().required("A comunidade é obrigatória"),
 	categorias: yup
 		.array()
 		.of(yup.number())
