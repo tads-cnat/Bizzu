@@ -7,7 +7,9 @@ from .categoria import Categoria
 class Postagem(models.Model):
     id = models.AutoField(primary_key=True, editable=False)
     texto = models.CharField(verbose_name="Texto de descrição", max_length=200)
-    imagem = models.ImageField(verbose_name="Imagem", upload_to="imgPostagens/")
+    imagem = models.ImageField(
+        verbose_name="Imagem", upload_to="imgPostagens/", null=True, blank=True
+    )
     dataPublicacao = models.DateTimeField(
         auto_now_add=True, verbose_name="Data de publicação"
     )

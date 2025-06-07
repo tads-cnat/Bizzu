@@ -1,25 +1,25 @@
-from ..models.usuario import Usuario
 from rest_framework import viewsets
-from rest_framework.permissions import AllowAny
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.response import Response
 from ..models import Postagem
-from api.serializers.postagem import PostagemSerializer
-from django.middleware.csrf import get_token
+from api.serializers.postagem import PostagemSerializer, PostagemUpdateSerializer
+from rest_framework.parsers import MultiPartParser
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from django.http import JsonResponse
-from django.views.decorators.csrf import ensure_csrf_cookie
-from django.db.models import Q
-import base64
 
 
 class PostagemViewSet(viewsets.ModelViewSet):
     queryset = Postagem.objects.all()
     serializer_class = PostagemSerializer
-    permission_classes = [AllowAny]
+    parser_classes = [MultiPartParser]
 
-    @action(detail=True, methods=["GET"])
+    def getSerializer(self):
+        if self.request.method == "GET" or self.request.method == "POST":
+            return PostagemSerializer
+        elif self.request.method == "PATCH" or self.request.method == "PUT":
+            return PostagemUpdateSerializer
+
+    @action(
+        detail=True, methods=["GET"]
+    )  # Para pegar todos os post de um usuário especifico
     def getPost(self, request, pk):
         try:
             postagens = Postagem.objects.filter(usuario__pk=pk)
@@ -32,14 +32,3 @@ class PostagemViewSet(viewsets.ModelViewSet):
 
         except Exception as e:
             return Response({"error": str(e)}, status=400)
-
-
-@api_view(["GET"])
-@permission_classes([AllowAny])
-def health_check(request):
-    return Response({"status": "ok"})
-
-
-@ensure_csrf_cookie
-def get_csrf_token(request):
-    return JsonResponse({"csrfToken": get_token(request)})

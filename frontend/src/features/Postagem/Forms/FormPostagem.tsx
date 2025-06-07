@@ -8,7 +8,6 @@ import {PaperPlaneRight, Hexagon} from "@phosphor-icons/react";
 import PostagemService from "../../../services/models/PostagemService";
 import type {IFormPostagem} from "./IFormPostagem";
 import BeeArquivo from "../../../components/BeeArquivo/BeeArquivo";
-import BeeAnexos from "../../../components/BeeAnexos/BeeAnexos";
 import BeeSelect from "../../../components/BeeSelect/BeeSelect";
 import BeeFiltroCategorias from "../../../components/BeeFiltroCategorias/BeeFiltroCategorias";
 import ComunidadeService from "../../../services/models/ComunidadeService";
@@ -16,9 +15,11 @@ import CategoriaService from "../../../services/models/CategoriaService";
 import type {Categoria} from "../../../interfaces/Categoria";
 import type {ComunidadeSelect} from "../../../interfaces/Comunidade";
 import type {PostagemFormValues} from "../../../interfaces/Postagem";
-import {IBeeUser} from "../../../components/BeeHeaderProfile/IBeeUser";
+import {useNavigate} from "react-router-dom";
+import acessAuth from "../../../utils/acessAuth";
 import UsuarioService from "../../../services/models/UsuarioService";
-import {Navigate, useNavigate} from "react-router-dom";
+import {IBeeUser} from "../../../components/BeeHeaderProfile/IBeeUser";
+import {BeePostProps} from "../../../components/BeePost/IBeePost";
 
 // Schema de validação com Yup
 const schema = yup.object().shape({
@@ -28,14 +29,7 @@ const schema = yup.object().shape({
 		.min(1, "Conteúdo não pode estar vazio")
 		.max(200, "Conteúdo não pode ter mais de 200 caracteres"),
 	imagem: yup.mixed().nullable().optional(),
-	comunidade: yup
-		.object()
-		.shape({
-			label: yup.string().optional(),
-			value: yup.mixed().optional(),
-		})
-		.nullable()
-		.optional(),
+	comunidade: yup.object().required("A comunidade é obrigatória"),
 	categorias: yup
 		.array()
 		.of(yup.number())
@@ -45,17 +39,12 @@ const schema = yup.object().shape({
 export const FormPostagem = ({
 	idPostagem,
 	tipoForm,
-	idUser,
 }: IFormPostagem & {onSubmitCallback?: () => void}) => {
 	const [loading, setLoading] = useState(false);
 	const [comunidades, setComunidades] = useState<ComunidadeSelect[]>([]);
 	const [categorias, setCategorias] = useState<Categoria[]>([]);
 	const [loadingData, setLoadingData] = useState(false);
 	const [termoPesquisa, setTermoPesquisa] = useState("");
-	const [anexoPath, setAnexoPath] = useState<string | null>(null);
-	const [imagemOriginal, setImagemOriginal] = useState<string | null>(null);
-	const [imagemRemovida, setImagemRemovida] = useState(false);
-	const [usuario, setUsuario] = useState<IBeeUser>();
 
 	const {
 		control,
@@ -73,6 +62,20 @@ export const FormPostagem = ({
 			categorias: [],
 		},
 	});
+	const [postagens, setPostagens] = useState<BeePostProps>();
+	const [usuario, setUsuario] = useState<IBeeUser>();
+	const {username} = acessAuth();
+	useEffect(() => {
+		if (usuario === undefined) {
+			void UsuarioService.getbyUsername(username)
+				.then((response) => {
+					setUsuario(response);
+				})
+				.catch(() => {
+					console.error("Não recebeu dados");
+				});
+		}
+	}, []);
 
 	const categoriasSelecionadas = watch("categorias");
 
@@ -117,17 +120,6 @@ export const FormPostagem = ({
 		};
 
 		loadCategorias();
-
-		const loadUsuario = async () => {
-			try {
-				const response = await UsuarioService.get(idUser);
-				setUsuario(response.data);
-			} catch {
-				console.error("Não foi possível achar usuário");
-			}
-		};
-
-		loadUsuario();
 	}, []);
 
 	useEffect(() => {
@@ -137,13 +129,12 @@ export const FormPostagem = ({
 				try {
 					const response = await PostagemService.get(idPostagem);
 					const postagem = response.data;
+					setPostagens(postagem);
 
 					setValue("texto", postagem.texto || "");
 
 					if (postagem.imagem) {
-						setAnexoPath(postagem.imagem);
-						setImagemOriginal(postagem.imagem);
-						setImagemRemovida(false);
+						setValue("imagem", postagem.imagem);
 					}
 
 					if (postagem.comunidade) {
@@ -157,6 +148,9 @@ export const FormPostagem = ({
 
 					if (postagem.categorias && postagem.categorias.length > 0) {
 						setValue("categorias", postagem.categorias);
+					}
+					if (postagem.usuario) {
+						setValue("usuario", postagem.usuario);
 					}
 				} catch {
 					alert("Erro ao carregar dados da postagem");
@@ -189,32 +183,6 @@ export const FormPostagem = ({
 		[getValues, setValue],
 	);
 
-	const handleFileChange = useCallback(
-		(file: File | null) => {
-			setValue("imagem", file);
-			if (file) {
-				setAnexoPath(file.name);
-				setImagemRemovida(false);
-			} else {
-				if (imagemOriginal && tipoForm === "editar") {
-					setAnexoPath(imagemOriginal);
-					setImagemRemovida(false);
-				} else {
-					setAnexoPath(null);
-					setImagemRemovida(false);
-				}
-			}
-		},
-		[setValue, imagemOriginal, tipoForm],
-	);
-
-	const handleRemoveAnexo = useCallback(() => {
-		setValue("imagem", null);
-		setAnexoPath(null);
-		setImagemOriginal(null);
-		setImagemRemovida(true);
-	}, [setValue]);
-
 	const handleComunidadeChange = useCallback(
 		(value: ComunidadeSelect) => {
 			const currentValue = getValues("comunidade");
@@ -231,43 +199,45 @@ export const FormPostagem = ({
 		setTermoPesquisa(termo);
 	}, []);
 
-	const convertToBase64 = (file: File | null): Promise<string | null> => {
-		if (!file || !(file instanceof Blob)) return Promise.resolve(null);
-
-		return new Promise((resolve) => {
-			const reader = new FileReader();
-			reader.readAsDataURL(file);
-			reader.onload = () => resolve(reader.result as string);
-			reader.onerror = () => resolve(null);
-		});
-	};
-
 	const caminho = useNavigate();
 	const onSubmit: SubmitHandler<PostagemFormValues> = async (data) => {
-		const [imagemBase64, imagemPerfilBase64] = await Promise.all([
-			convertToBase64(data.imagem as File | null),
-			convertToBase64(usuario?.imagemPerfil as File | null),
-		]);
-
-		const dataSubmit = {
-			...data,
-			usuario: {
-				id: idUser,
-				nome: usuario?.nome,
-				imagemPerfil: imagemPerfilBase64,
-			},
-			imagem: imagemBase64,
-			comunidade: data.comunidade?.value,
-		};
-		console.log("dados ", dataSubmit);
-		if (tipoForm == "editar") {
-			await PostagemService.patch(idPostagem, dataSubmit);
-			caminho(-1);
+		if (tipoForm == "criar") {
+			const dataSubmit = new FormData();
+			dataSubmit.append("usuario", String(usuario?.id));
+			dataSubmit.append("texto", data.texto);
+			if (data.imagem !== null && data.imagem !== undefined)
+				dataSubmit.append("imagem", data.imagem);
+			for (let i = 0; i < data.categorias.length; i++) {
+				dataSubmit.append("categorias", String(data.categorias[i]));
+			}
+			dataSubmit.append("comunidade", String(data.comunidade?.value));
+			try {
+				await PostagemService.post(dataSubmit);
+				caminho(-1);
+			} catch (e) {
+				console.error("Deu mal", e);
+			}
 		} else {
-			await PostagemService.post(dataSubmit);
-			caminho(`/bizzu/${idUser}`, {
-				replace: true,
-			});
+			const dataSubmit = new FormData();
+			dataSubmit.append("texto", getValues("texto"));
+			if (
+				getValues("imagem") !== null &&
+				getValues("imagem") &&
+				postagens?.imagem != getValues("imagem")
+			) {
+				dataSubmit.append("imagem", getValues("imagem"));
+			}
+			for (let i = 0; i < getValues("categorias").length; i++) {
+				dataSubmit.append("categorias", String(getValues("categorias")[i]));
+			}
+			dataSubmit.append("comunidade", String(getValues("comunidade")?.value));
+
+			try {
+				await PostagemService.patch(idPostagem, dataSubmit);
+				caminho(-1);
+			} catch (e) {
+				console.error("Deu mal editar", e);
+			}
 		}
 	};
 
@@ -297,7 +267,7 @@ export const FormPostagem = ({
 							/>
 						)}
 					/>
-					{errors.texto && (
+					{errors.texto?.message !== undefined && (
 						<p className="text-red-500 text-sm mt-1">{errors.texto.message}</p>
 					)}
 					<p className="text-gray-500 text-xs mt-1">
@@ -313,36 +283,12 @@ export const FormPostagem = ({
 						render={({field}) => (
 							<BeeArquivo
 								value={field.value}
-								onChange={handleFileChange}
+								onChange={field.onChange}
 								error={errors.imagem?.message}
+								multiple={false}
 							/>
 						)}
 					/>
-
-					{anexoPath && !imagemRemovida && (
-						<div className="mt-2">
-							<BeeAnexos
-								path={anexoPath}
-								onDelete={handleRemoveAnexo}
-							/>
-							{imagemOriginal && tipoForm === "editar" && !watch("imagem") && (
-								<div className="mt-2 p-3 bg-gray-50 rounded-md">
-									<p className="text-sm text-gray-600 mb-2">
-										Imagem atual da postagem:
-									</p>
-									<img
-										src={imagemOriginal || "/placeholder.svg"}
-										alt="Imagem da postagem"
-										className="max-h-40 rounded-md border"
-										style={{maxWidth: "100%"}}
-										onError={(e) => {
-											e.currentTarget.style.display = "none";
-										}}
-									/>
-								</div>
-							)}
-						</div>
-					)}
 				</div>
 
 				{/* Select de Comunidade */}

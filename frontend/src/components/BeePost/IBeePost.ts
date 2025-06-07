@@ -1,6 +1,3 @@
-import type { IBeeUsuario } from "../BeeFTPerfil/IBeeUsuario"
-import { IBeeUser } from "../BeeHeaderProfile/IBeeUser"
-
 export interface Tag {
   label: string
   color: string
@@ -9,7 +6,7 @@ export interface Tag {
 
 export interface BeePostProps {
   id?: number
-  usuario: IBeeUser
+  usuario: String;
   texto: string
   imagemPost?: string
   tags?: Tag[]

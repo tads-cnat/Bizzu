@@ -20,9 +20,10 @@ export interface Postagem {
 // Interface para valores do formulário de postagem
 export interface PostagemFormValues {
   texto: string
-  imagem?: String | null
+  imagem?: File | null
   comunidade?: { label: string; value: string | number } | undefined
   categorias: number[]
+  usuario: Number;
 }
 
 // Interface para tag - corrigida para ser mais específica
