@@ -32,8 +32,8 @@ const schema = yup.object().shape({
 	comunidade: yup
 		.object()
 		.shape({
-			label: yup.string().optional(),
-			value: yup.mixed().optional(),
+			label: yup.string().required(),
+			value: yup.mixed().required(),
 		})
 		.nullable()
 		.optional(),
@@ -46,7 +46,6 @@ const schema = yup.object().shape({
 export const FormPostagem = ({
 	idPostagem,
 	tipoForm,
-	idUser,
 }: IFormPostagem & {onSubmitCallback?: () => void}) => {
 	const [loading, setLoading] = useState(false);
 	const [comunidades, setComunidades] = useState<ComunidadeSelect[]>([]);
@@ -275,7 +274,7 @@ export const FormPostagem = ({
 							/>
 						)}
 					/>
-					{errors.texto && (
+					{errors.texto?.message !== undefined && (
 						<p className="text-red-500 text-sm mt-1">{errors.texto.message}</p>
 					)}
 					<p className="text-gray-500 text-xs mt-1">

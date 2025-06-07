@@ -105,9 +105,14 @@ const BeeArquivo: React.FC<IBeeArquivo> = ({
 		>
 			<Button
 				type="primary"
+				style={{
+					backgroundColor: "#FCBD18",
+				}}
 				icon={<UploadSimple />}
 				className="mb-2"
-			/>
+			>
+				Selecione os anexos
+			</Button>
 		</Upload>
 	);
 };
