@@ -9,11 +9,11 @@ export const privatesRoutes = [
 		element: <Layout />,
 		children: [
 			{
-				path: ":id",
+				path: ":username",
 				element: <Perfil />,
 			},
 			{
-				path: "postagem/criar/:id",
+				path: "postagem/criar/",
 				element: <CreatePostagem />,
 			},
 			{

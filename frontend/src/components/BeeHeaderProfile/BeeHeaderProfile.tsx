@@ -9,14 +9,14 @@ import {Menu, MenuItem} from "@headlessui/react";
 
 const BeeHeaderProfile = () => {
 	const {username} = acessAuth();
-	const idUser = useParams().id;
+	const identificator = useParams().username;
 	const [usuario, setUsuario] = useState<IBeeUser>();
 	const [visble, setVisible] = useState<Boolean>(false);
 
 	useEffect(() => {
-		void UsuarioService.get(Number(idUser))
+		void UsuarioService.getbyUsername(String(identificator))
 			.then((response) => {
-				setUsuario(response.data);
+				setUsuario(response);
 			})
 			.catch(() => {
 				console.log("Não recebeu dados");
@@ -33,11 +33,7 @@ const BeeHeaderProfile = () => {
 			{usuario && (
 				<div className="flex min-w-0 gap-x-4">
 					<img
-						src={
-							usuario.imagemPerfil
-								? usuario.imagemPerfil
-								: "https://saae.lucasdorioverde.mt.gov.br/arquivos/setores/sem_imagem_avatar.png"
-						}
+						src={`http://localhost:8000${usuario.imagemPerfil}`}
 						alt="Imagem de usuário"
 						className="size-22 flex-none rounded-full bg-gray-50"
 						style={{
@@ -50,7 +46,7 @@ const BeeHeaderProfile = () => {
 							{usuario.nome}
 						</p>
 						<p className="mt-1 truncate text-xs/5 text-[#333333]">
-							@{username}
+							@{usuario.nome}
 						</p>
 						<div className="mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-6">
 							<a
@@ -65,32 +61,39 @@ const BeeHeaderProfile = () => {
 							>
 								{usuario.segue?.length} Seguidores
 							</a>
-							<Menu
-								as="div"
-								className="relative inline-block text-left"
-							>
+							{usuario.username == username ? (
+								<Menu
+									as="div"
+									className="relative inline-block text-left"
+								>
+									<BeeButton
+										variante="primaria"
+										label="Novo"
+										icone={<Plus />}
+										onClick={openOptions}
+									/>
+									{visble && (
+										<div className="absolute top-full left-0 z-50 w-48 bg-white shadow-lg rounded-md">
+											<MenuItem>
+												<Link to={`/bizzu/postagem/criar/`}>
+													<Newspaper /> Criar Postagem
+												</Link>
+											</MenuItem>
+
+											<MenuItem>
+												<Link to={`/bizzu/postagem/editar/${usuario.username}`}>
+													<BoxArrowUp /> Criar Repositório
+												</Link>
+											</MenuItem>
+										</div>
+									)}
+								</Menu>
+							) : (
 								<BeeButton
 									variante="primaria"
-									label="Novo"
-									icone={<Plus />}
-									onClick={openOptions}
+									label="Seguir"
 								/>
-								{visble && (
-									<div className="absolute top-full left-0 z-50 w-48 bg-white shadow-lg rounded-md">
-										<MenuItem>
-											<Link to={`/bizzu/postagem/criar/${idUser}`}>
-												<Newspaper /> Criar Postagem
-											</Link>
-										</MenuItem>
-
-										<MenuItem>
-											<Link to={`/bizzu/postagem/editar/${idUser}`}>
-												<BoxArrowUp /> Criar Repositório
-											</Link>
-										</MenuItem>
-									</div>
-								)}
-							</Menu>
+							)}
 						</div>
 					</div>
 				</div>

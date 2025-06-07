@@ -10,11 +10,11 @@ import {Globe, House, User} from "@phosphor-icons/react";
 
 export const BeeSidebar = () => {
 	const {username} = acessAuth();
-	const idUser = useParams().id;
+	const identificador = useParams().username;
 	const [usuario, setUsuario] = useState<IBeeUser>();
 	const [comunidade, setComunidade] = useState();
 	useEffect(() => {
-		void UsuarioService.get(Number(idUser))
+		void UsuarioService.getbyUsername(String(identificador))
 			.then((response) => {
 				setUsuario(response.data);
 			})

@@ -106,7 +106,7 @@ const BeePost: React.FC<BeePostProps> = ({
 			)}
 
 			<BeeFTPerfil
-				usuario={usuario}
+				usuarioId={usuario}
 				dataPublicacao={dataPublicacao}
 			/>
 

@@ -6,6 +6,7 @@ import * as yup from "yup";
 import {yupResolver} from "@hookform/resolvers/yup";
 import BeeAlert from "../BeeAlert/BeeAlert";
 import {useState} from "react";
+import {useNavigate} from "react-router-dom";
 
 const schema = yup.object().shape({
 	username: yup.string().required("O usuário é obrigatório"),
@@ -23,6 +24,8 @@ const BeeFormAuth: React.FC = () => {
 		formState: {errors},
 	} = useForm({resolver: yupResolver(schema)});
 
+	const redirecionar = useNavigate();
+
 	async function saveUser(data: {
 		username: string;
 		password: string;
@@ -31,6 +34,7 @@ const BeeFormAuth: React.FC = () => {
 			await autenticar(data.username, data.password);
 			setStatus("success");
 			setAlert(true);
+			redirecionar(`bizzu/${data.username}/`);
 		} catch (e) {
 			setStatus("error");
 			setAlert(true);

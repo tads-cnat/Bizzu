@@ -16,6 +16,10 @@ import type {Categoria} from "../../../interfaces/Categoria";
 import type {ComunidadeSelect} from "../../../interfaces/Comunidade";
 import type {PostagemFormValues} from "../../../interfaces/Postagem";
 import {useNavigate} from "react-router-dom";
+import acessAuth from "../../../utils/acessAuth";
+import UsuarioService from "../../../services/models/UsuarioService";
+import {IBeeUser} from "../../../components/BeeHeaderProfile/IBeeUser";
+import {BeePostProps} from "../../../components/BeePost/IBeePost";
 
 // Schema de validação com Yup
 const schema = yup.object().shape({
@@ -49,9 +53,6 @@ export const FormPostagem = ({
 	const [categorias, setCategorias] = useState<Categoria[]>([]);
 	const [loadingData, setLoadingData] = useState(false);
 	const [termoPesquisa, setTermoPesquisa] = useState("");
-	// const [anexoPath, setAnexoPath] = useState<string | null>(null);
-	// const [imagemOriginal, setImagemOriginal] = useState<string | null>(null);
-	// const [imagemRemovida, setImagemRemovida] = useState(false);
 
 	const {
 		control,
@@ -69,6 +70,20 @@ export const FormPostagem = ({
 			categorias: [],
 		},
 	});
+	const [postagens, setPostagens] = useState<BeePostProps>();
+	const [usuario, setUsuario] = useState<IBeeUser>();
+	const {username} = acessAuth();
+	useEffect(() => {
+		if (usuario === undefined) {
+			void UsuarioService.getbyUsername(username)
+				.then((response) => {
+					setUsuario(response);
+				})
+				.catch(() => {
+					console.log("Não recebeu dados");
+				});
+		}
+	}, []);
 
 	const categoriasSelecionadas = watch("categorias");
 
@@ -122,14 +137,13 @@ export const FormPostagem = ({
 				try {
 					const response = await PostagemService.get(idPostagem);
 					const postagem = response.data;
+					setPostagens(postagem);
 
 					setValue("texto", postagem.texto || "");
 
-					// if (postagem.imagem) {
-					// 	setAnexoPath(postagem.imagem);
-					// 	setImagemOriginal(postagem.imagem);
-					// 	setImagemRemovida(false);
-					// }
+					if (postagem.imagem) {
+						setValue("imagem", postagem.imagem);
+					}
 
 					if (postagem.comunidade) {
 						const comunidadeEncontrada = comunidades.find(
@@ -142,6 +156,9 @@ export const FormPostagem = ({
 
 					if (postagem.categorias && postagem.categorias.length > 0) {
 						setValue("categorias", postagem.categorias);
+					}
+					if (postagem.usuario) {
+						setValue("usuario", postagem.usuario);
 					}
 				} catch {
 					alert("Erro ao carregar dados da postagem");
@@ -174,24 +191,6 @@ export const FormPostagem = ({
 		[getValues, setValue],
 	);
 
-	// const handleFileChange = useCallback(
-	// 	(file: File | null) => {
-	// 		setValue("imagem", file);
-	// 		if (file) {
-	// 			setAnexoPath(file.name);
-	// 			setImagemRemovida(false);
-	// 		} else {
-	// 			if (imagemOriginal && tipoForm === "editar") {
-	// 				setAnexoPath(imagemOriginal);
-	// 				setImagemRemovida(false);
-	// 			} else {
-	// 				setAnexoPath(null);
-	// 				setImagemRemovida(false);
-	// 			}
-	// 		}
-	// 	},
-	// 	[setValue, imagemOriginal, tipoForm],
-	// );
 	const handleComunidadeChange = useCallback(
 		(value: ComunidadeSelect) => {
 			const currentValue = getValues("comunidade");
@@ -210,21 +209,44 @@ export const FormPostagem = ({
 
 	const caminho = useNavigate();
 	const onSubmit: SubmitHandler<PostagemFormValues> = async (data) => {
-		const dataSubmit = new FormData();
-		console.log(idUser);
+		if (tipoForm == "criar") {
+			const dataSubmit = new FormData();
+			dataSubmit.append("usuario", String(usuario?.id));
+			dataSubmit.append("texto", data.texto);
+			if (data.imagem !== null && data.imagem !== undefined)
+				dataSubmit.append("imagem", data.imagem);
+			for (let i = 0; i < data.categorias.length; i++) {
+				dataSubmit.append("categorias", String(data.categorias[i]));
+			}
+			dataSubmit.append("comunidade", String(data.comunidade?.value));
+			try {
+				await PostagemService.post(dataSubmit);
+				caminho(-1);
+			} catch (e) {
+				console.error("Deu mal", e);
+			}
+		} else {
+			const dataSubmit = new FormData();
+			dataSubmit.append("texto", getValues("texto"));
+			if (
+				getValues("imagem") !== null &&
+				getValues("imagem") &&
+				postagens?.imagem != getValues("imagem")
+			) {
+				dataSubmit.append("imagem", getValues("imagem"));
+			}
+			for (let i = 0; i < getValues("categorias").length; i++) {
+				dataSubmit.append("categorias", String(getValues("categorias")[i]));
+			}
+			console.log(getValues("categorias"));
+			dataSubmit.append("comunidade", String(getValues("comunidade")?.value));
 
-		dataSubmit.append("usuario", String(idUser));
-		dataSubmit.append("texto", data.texto);
-		if (data.imagem !== null && data.imagem !== undefined)
-			dataSubmit.append("imagem", data.imagem[0]);
-		dataSubmit.append("categorias", String(data.categorias));
-		dataSubmit.append("comunidade", data.comunidade?.value);
-
-		try {
-			await PostagemService.post(dataSubmit);
-			console.log("Deu certo");
-		} catch (e) {
-			console.error("Deu mal", e);
+			try {
+				await PostagemService.patch(idPostagem, dataSubmit);
+				caminho(-1);
+			} catch (e) {
+				console.error("Deu mal editar", e);
+			}
 		}
 	};
 

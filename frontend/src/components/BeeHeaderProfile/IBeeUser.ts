@@ -4,7 +4,11 @@ export interface IBeeUser{
     // Nome do usuário
     nome: string;
     //Foto de perfil
-    imagemPerfil?: File;
+    imagemPerfil?: File | Blob;
     //Quem são os seguidores de um usuário
     segue?: IBeeUser[];
+    // Nome de usuário 
+    username: string;
+    // Id do usuário
+    id: Number;
 }

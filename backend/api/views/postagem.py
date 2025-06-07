@@ -1,20 +1,34 @@
-from ..models.usuario import Usuario
 from rest_framework import viewsets
-from rest_framework.permissions import AllowAny
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.response import Response
 from ..models import Postagem
-from api.serializers.postagem import PostagemSerializer
-from django.middleware.csrf import get_token
+from api.serializers.postagem import PostagemSerializer, PostagemUpdateSerializer
+from rest_framework.parsers import MultiPartParser
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from django.http import JsonResponse
-from django.views.decorators.csrf import ensure_csrf_cookie
-from django.db.models import Q
-from rest_framework.parsers import MultiPartParser
 
 
 class PostagemViewSet(viewsets.ModelViewSet):
     queryset = Postagem.objects.all()
     serializer_class = PostagemSerializer
     parser_classes = [MultiPartParser]
+
+    def getSerializer(self):
+        if self.request.method == "GET" or self.request.method == "POST":
+            return PostagemSerializer
+        elif self.request.method == "PATCH" or self.request.method == "PUT":
+            return PostagemUpdateSerializer
+
+    @action(
+        detail=True, methods=["GET"]
+    )  # Para pegar todos os post de um usuário especifico
+    def getPost(self, request, pk):
+        try:
+            postagens = Postagem.objects.filter(usuario__pk=pk)
+
+            if not postagens.exists():
+                return Response({"message": "Não existem postagens para este usuário"})
+
+            serializer = self.get_serializer(postagens, many=True)
+            return Response(serializer.data)
+
+        except Exception as e:
+            return Response({"error": str(e)}, status=400)

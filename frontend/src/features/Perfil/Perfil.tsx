@@ -10,13 +10,36 @@ import type {Comunidade} from "../../interfaces/Comunidade";
 import type {Categoria} from "../../interfaces/Categoria";
 import {useParams} from "react-router-dom";
 import BeeHeaderProfile from "../../components/BeeHeaderProfile/BeeHeaderProfile";
+import {IBeeUser} from "../../components/BeeHeaderProfile/IBeeUser";
+import UsuarioService from "../../services/models/UsuarioService";
 
 const Perfil: React.FC = () => {
 	const [postagens, setPostagens] = useState<Postagem[]>([]);
 	const [comunidades, setComunidades] = useState<Comunidade[]>([]);
 	const [categorias, setCategorias] = useState<Categoria[]>([]);
 	const [error, setError] = useState<string | null>(null);
-	const idUsuario = Number(useParams().id);
+	const identificator = useParams().username;
+	const [usuario, setUsuario] = useState<IBeeUser>();
+
+	useEffect(() => {
+		if (usuario === undefined) {
+			void UsuarioService.getbyUsername(String(identificator))
+				.then((response) => {
+					setUsuario(response);
+				})
+				.catch(() => {
+					console.log("Não recebeu dados");
+				});
+		}
+	}, []);
+
+	useEffect(() => {
+		if (usuario !== undefined) {
+			loadComunidades();
+			loadCategorias();
+			loadPostagens();
+		}
+	}, [usuario]);
 
 	const handleCurtir = async (postagemId?: number) => {
 		console.log("Curtir postagem:", postagemId);
@@ -108,27 +131,19 @@ const Perfil: React.FC = () => {
 
 	const loadPostagens = async (): Promise<void> => {
 		setError(null);
-
 		try {
-			const response = await PostagemService.getPost(idUsuario);
+			const response = await PostagemService.getPost(usuario.id);
 			setPostagens(response.data);
+			console.log(response.data);
 		} catch (error) {
 			console.error("Erro ao carregar postagens:", error);
 			setError("Erro ao carregar postagens. Verifique sua conexão.");
 		}
 	};
-
-	useEffect(() => {
-		// Carregar dados necessários
-		loadComunidades();
-		loadCategorias();
-		loadPostagens();
-	}, []);
-
 	return (
 		<>
 			<BeeHeaderProfile />
-			<BeeAbasPerfil abas={["Postagens", "Repositórios", "Comentários"]} />
+			<BeeAbasPerfil abas={["Postagens", "Repositórios"]} />
 			{postagens?.length ? (
 				<div className="space-y-4">
 					{postagens.map((post: Postagem) => {
@@ -158,10 +173,7 @@ const Perfil: React.FC = () => {
 									tags={tags}
 									curtidas={post.curtidas || 0}
 									comentarios={post.comentarios || 0}
-									usuario={{
-										nome: post.usuario?.nome,
-										imagemPerfil: post.usuario?.imagemPerfil,
-									}}
+									usuario={post.usuario}
 									dataPublicacao={post.dataPublicacao}
 									imagemPost={post.imagem}
 									onCurtir={() => handleCurtir(post.id)}
