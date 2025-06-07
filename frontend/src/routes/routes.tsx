@@ -4,8 +4,8 @@ import {publicRoutes} from "./public";
 import {useRoutes} from "react-router-dom";
 
 export const AllRoutes = () => {
-	const {username} = acessAuth();
-	if (username !== undefined)
+	const {token} = acessAuth();
+	if (token !== undefined)
 		return useRoutes([...privatesRoutes, ...publicRoutes]);
-	else useRoutes([...publicRoutes]);
+	else return useRoutes([...publicRoutes]);
 };
