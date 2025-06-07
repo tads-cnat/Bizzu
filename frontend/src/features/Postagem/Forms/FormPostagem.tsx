@@ -15,9 +15,7 @@ import CategoriaService from "../../../services/models/CategoriaService";
 import type {Categoria} from "../../../interfaces/Categoria";
 import type {ComunidadeSelect} from "../../../interfaces/Comunidade";
 import type {PostagemFormValues} from "../../../interfaces/Postagem";
-import {IBeeUser} from "../../../components/BeeHeaderProfile/IBeeUser";
-import UsuarioService from "../../../services/models/UsuarioService";
-import {Navigate, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 // Schema de validação com Yup
 const schema = yup.object().shape({
@@ -54,7 +52,6 @@ export const FormPostagem = ({
 	// const [anexoPath, setAnexoPath] = useState<string | null>(null);
 	// const [imagemOriginal, setImagemOriginal] = useState<string | null>(null);
 	// const [imagemRemovida, setImagemRemovida] = useState(false);
-	const [usuario, setUsuario] = useState<IBeeUser>();
 
 	const {
 		control,
@@ -116,17 +113,6 @@ export const FormPostagem = ({
 		};
 
 		loadCategorias();
-
-		const loadUsuario = async () => {
-			try {
-				const response = await UsuarioService.get(idUser);
-				setUsuario(response.data);
-			} catch {
-				console.error("Não foi possível achar usuário");
-			}
-		};
-
-		loadUsuario();
 	}, []);
 
 	useEffect(() => {
@@ -230,7 +216,7 @@ export const FormPostagem = ({
 		dataSubmit.append("usuario", String(idUser));
 		dataSubmit.append("texto", data.texto);
 		if (data.imagem !== null && data.imagem !== undefined)
-			dataSubmit.append("imagem", data.imagem);
+			dataSubmit.append("imagem", data.imagem[0]);
 		dataSubmit.append("categorias", String(data.categorias));
 		dataSubmit.append("comunidade", data.comunidade?.value);
 

@@ -5,4 +5,8 @@ export const publicRoutes = [
 		path: "bizzu/login/",
 		element: <Login />,
 	},
+	{
+		path: "bizzu/",
+		element: <Login />,
+	},
 ];
