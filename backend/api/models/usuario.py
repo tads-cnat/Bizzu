@@ -29,7 +29,6 @@ class Usuario(AbstractUser):
         symmetrical=False,
         verbose_name="Segue",
         related_name="seguido_por",
-        default=0,
         blank=True,
     )
     comunidades = models.ManyToManyField(

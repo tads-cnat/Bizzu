@@ -1,14 +1,14 @@
 //Interface de retorno da API a outra interface de usuário é para token 
 
-export interface IBeeUser{
-    // Nome do usuário
-    nome: string;
-    //Foto de perfil
-    imagemPerfil?: File | Blob;
-    //Quem são os seguidores de um usuário
-    segue?: IBeeUser[];
-    // Nome de usuário 
+export interface IBeeUser {
+    id: number;
     username: string;
-    // Id do usuário
-    id: Number;
+    nome: string;
+    descricao: string;
+    imagemPerfil: string;
+    escolaFormacao: string;
+    instituicaoAtual: string;
+    criado_em: string;
+    segue: number[];
+    seguido_por: number[];
 }
