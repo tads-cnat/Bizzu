@@ -19,6 +19,7 @@ const Layout: React.FC = () => {
 					</div>
 				</div>
 				<aside className="fixed top-[80px] right-4 w-100 min-h-screen shadow-md flex flex-col justify-start px-3 py-4 rounded-xl bg-white z-40">
+					
 					<p>Adicionar posteriormente os repositórios</p>
 				</aside>
 			</div>
