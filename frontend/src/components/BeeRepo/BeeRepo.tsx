@@ -6,7 +6,6 @@ import {
 	Trash,
 } from "@phosphor-icons/react";
 import {useNavigate} from "react-router-dom";
-import BeeTags from "../BeeTags/BeeTags";
 import BeeFTPerfil from "../BeeFTPerfil/BeeFTPerfil";
 import type {BeeRepoProps} from "./IBeeRepo";
 import "../../index.css";
@@ -65,7 +64,7 @@ const BeeRepo: React.FC<BeeRepoProps> = ({
 						<div className="py-1">
 							<button
 								onClick={handleEditarClick}
-								className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition duration-200"
+								className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition cursor-pointer duration-200"
 								type="button"
 							>
 								<PencilSimple
@@ -76,7 +75,7 @@ const BeeRepo: React.FC<BeeRepoProps> = ({
 							</button>
 							<button
 								onClick={handleExcluirClick}
-								className="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition duration-200"
+								className="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition cursor-pointer duration-200"
 								type="button"
 							>
 								<Trash
