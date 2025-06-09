@@ -1,3 +1,5 @@
+import type { Usuario } from "../../interfaces/Repositorio";
+
 export interface Tag {
   label: string
   color: string
@@ -6,7 +8,7 @@ export interface Tag {
 
 export interface BeeRepoProps {
   id?: number
-  usuario: String;
+  usuario: Usuario | null | undefined;
   descricao: string
   imagemRepo?: string
   tags?: Tag[]
