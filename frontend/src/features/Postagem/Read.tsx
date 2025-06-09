@@ -225,7 +225,6 @@ const Read: React.FC = () => {
 							onExcluir={handleExcluir}
 							imagemUsuarioLogado={DEFAULT_USER.imagemPerfil}
 						/>
-						<BeeModal onExcluir={handleExcluir} />
 					</div>
 				);
 			})}

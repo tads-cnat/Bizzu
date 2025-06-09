@@ -28,6 +28,7 @@ const BeePost: React.FC<BeePostProps> = ({
 	onExcluir,
 }) => {
 	const [modalType, setModalType] = useState<null | "descartar">(null);
+	const [modalKey, setModalKey] = useState<number | null>(null);
 	const [showMenu, setShowMenu] = useState(false);
 	const navigate = useNavigate();
 
@@ -40,6 +41,7 @@ const BeePost: React.FC<BeePostProps> = ({
 
 	const handleExcluirClick = () => {
 		setModalType("descartar");
+		setModalKey(Date.now());
 		setShowMenu(false);
 	};
 
@@ -93,6 +95,7 @@ const BeePost: React.FC<BeePostProps> = ({
 			</div>
 			{modalType === "descartar" && (
 				<BeeModal
+					key={modalKey}
 					label="Excluir repositório"
 					text="Você tem certeza que deseja excluir esse repositório?"
 					type="descartar"
