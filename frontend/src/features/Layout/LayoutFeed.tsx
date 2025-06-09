@@ -1,6 +1,26 @@
-"use client"
+import BeeHeader from "../../components/BeeHeader/BeeHeader";
+import {Outlet} from "react-router";
+import {BeeSidebar} from "../../components/BeeSidebar/BeeSidebar";
+import BeeHeaderProfile from "../../components/BeeHeaderProfile/BeeHeaderProfile";
+import {useEffect, useState} from "react";
+import RepositorioService from "../../services/models/RepositorioService";
+import CaixaRepositorio from "../../components/BeeCaixaRepositorio/BeeCaixaRepositorio";
+import type {Repositorio} from "../../interfaces/Repositorio";
+import type {Tag} from "../../interfaces/Repositorio";
+import BeeRepo from "../../components/BeeRepo/BeeRepo";
 
 const Layout: React.FC = () => {
+	const [repositorios, setRepositorios] = useState<Repositorio[]>([]);
+
+	useEffect(() => {
+		// Busca os repositórios ao montar
+		RepositorioService.listAll()
+			.then((res: any) => {
+				setRepositorios(res.data || []);
+			})
+			.catch(() => setRepositorios([]));
+	}, []);
+
 	return (
 		<>
 			<BeeHeader />
@@ -15,9 +35,22 @@ const Layout: React.FC = () => {
 						<Outlet />
 					</div>
 				</div>
-				<aside className="fixed top-[80px] right-4 w-100 min-h-screen shadow-md flex flex-col justify-start px-3 py-4 rounded-xl bg-white z-40">
-					
-					<p>Adicionar posteriormente os repositórios</p>
+				<aside className="fixed top-[80px] right-4 w-100 min-h-screen shadow-md flex flex-col justify-start px-3 py-4 rounded-xl bg-white z-40 overflow-y-auto gap-4">
+					<h2 className="text-lg font-bold mb-2">Repositórios</h2>
+					{repositorios.length === 0 && (
+						<p className="text-gray-500">Nenhum repositório encontrado.</p>
+					)}
+					{repositorios.map((repo) => (
+						<BeeRepo
+							key={repo.id}
+							id={repo.id}
+							usuario={repo.usuario}
+							descricao={repo.descricao}
+							imagemRepo={repo.imagem}
+							dataPublicacao={repo.dataPublicacao}
+							tags={[]}
+						/>
+					))}
 				</aside>
 			</div>
 		</>
