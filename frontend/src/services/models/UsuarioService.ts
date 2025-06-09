@@ -12,6 +12,21 @@ class UsuarioService extends BaseService{
 
         return response.data;
     }  
+
+    async seguirUsuario(id: number) {
+        const response = await axiosInstance.post(`usuario/${id}/seguir/`);
+        return response.data;
+    }
+
+    async deixarDeSeguir(id: number) {
+        const response = await axiosInstance.delete(`usuario/${id}/deixar_de_seguir/`);
+        return response.data;
+    }
+
+    async verificarSeguimento(id: number) {
+        const response = await axiosInstance.get(`usuario/${id}/verificar_seguimento/`);
+        return response.data;
+    }
 }
 
 export default new UsuarioService("usuario");

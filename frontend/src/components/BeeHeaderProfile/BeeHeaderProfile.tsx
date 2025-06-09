@@ -12,16 +12,55 @@ const BeeHeaderProfile = () => {
 	const identificator = useParams().username;
 	const [usuario, setUsuario] = useState<IBeeUser>();
 	const [visble, setVisible] = useState<Boolean>(false);
+	const [estaSeguindo, setEstaSeguindo] = useState(false);
+	const [seguidores, setSeguidores] = useState(0);
+	const [seguindo, setSeguindo] = useState(0);
 
 	useEffect(() => {
 		void UsuarioService.getbyUsername(String(identificator))
 			.then((response) => {
 				setUsuario(response);
+				if (response.id) {
+					verificarStatusSeguimento(response.id);
+				}
 			})
 			.catch(() => {
 				console.log("Não recebeu dados");
 			});
-	}, []);
+	}, [identificator]);
+
+	const verificarStatusSeguimento = async (id: number) => {
+		try {
+			const response = await UsuarioService.verificarSeguimento(id);
+			setEstaSeguindo(response.esta_seguindo);
+			setSeguidores(response.seguidores);
+			setSeguindo(response.seguindo);
+		} catch (error) {
+			console.error("Erro ao verificar status de seguimento:", error);
+		}
+	};
+
+	const handleSeguir = async () => {
+		if (!usuario?.id) return;
+		try {
+			await UsuarioService.seguirUsuario(usuario.id);
+			setEstaSeguindo(true);
+			setSeguidores(prev => prev + 1);
+		} catch (error) {
+			console.error("Erro ao seguir usuário:", error);
+		}
+	};
+
+	const handleDeixarDeSeguir = async () => {
+		if (!usuario?.id) return;
+		try {
+			await UsuarioService.deixarDeSeguir(usuario.id);
+			setEstaSeguindo(false);
+			setSeguidores(prev => prev - 1);
+		} catch (error) {
+			console.error("Erro ao deixar de seguir usuário:", error);
+		}
+	};
 
 	const openOptions = () => {
 		if (visble) setVisible(false);
@@ -53,13 +92,13 @@ const BeeHeaderProfile = () => {
 								href="#"
 								className="mt-2 flex font-semibold items-center text-sm text-[#333333]"
 							>
-								{usuario.segue?.length} Segue
+								{seguindo} Segue
 							</a>
 							<a
 								href="#"
 								className="mt-2 flex font-semibold items-center text-sm text-[#333333]"
 							>
-								{usuario.segue?.length} Seguidores
+								{seguidores} Seguidores
 							</a>
 							{usuario.username == username ? (
 								<Menu
@@ -90,8 +129,9 @@ const BeeHeaderProfile = () => {
 								</Menu>
 							) : (
 								<BeeButton
-									variante="primaria"
-									label="Seguir"
+									variante={estaSeguindo ? "secundaria" : "primaria"}
+									label={estaSeguindo ? "Seguindo" : "Seguir"}
+									onClick={estaSeguindo ? handleDeixarDeSeguir : handleSeguir}
 								/>
 							)}
 						</div>
