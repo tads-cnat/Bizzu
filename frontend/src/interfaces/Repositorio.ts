@@ -7,6 +7,7 @@ export interface Usuario {
 // Interface para repositorio conforme retornada pelo backend
 export interface Repositorio {
 	id: number;
+	titulo?: string;
 	descricao: string;
 	imagem?: string;
 	dataPublicacao: string;
