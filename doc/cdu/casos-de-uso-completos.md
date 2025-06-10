@@ -1,6 +1,8 @@
 # Casos de Uso
 
-![Diagrama de caso de uso bizzu](https://github.com/user-attachments/assets/8110546e-2792-4075-a25f-f0fe1e8b6fa2)
+
+![Diagrama de caso de uso bizzu](https://github.com/user-attachments/assets/4a043a91-e4ff-4352-8c30-d1e1a9699ec2)
+
 
 ## Listagem das prioridades
 
