@@ -9,6 +9,7 @@ export interface Tag {
 export interface BeeRepoProps {
   id?: number
   usuario: Usuario | null | undefined;
+  titulo?: string
   descricao: string
   imagemRepo?: string
   tags?: Tag[]
