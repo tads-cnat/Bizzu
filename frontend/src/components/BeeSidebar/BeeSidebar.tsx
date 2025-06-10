@@ -16,7 +16,7 @@ export const BeeSidebar = () => {
 	useEffect(() => {
 		void UsuarioService.getbyUsername(String(identificador))
 			.then((response) => {
-				setUsuario(response.data);
+				setUsuario(response);
 			})
 			.catch(() => {
 				console.log("Não recebeu dados");
@@ -46,14 +46,16 @@ export const BeeSidebar = () => {
 			],
 		},
 	];
+	console.log(usuario);
 
 	return (
 		<>
 			<div className="flex items-center gap-2 mt-4 ml-4 bg-transparent">
 				<img
 					src={
-						usuario?.imagemPerfil ||
-						"https://saae.lucasdorioverde.mt.gov.br/arquivos/setores/sem_imagem_avatar.png"
+						usuario?.imagemPerfil !== undefined
+							? `http://localhost:8000${usuario.imagemPerfil}`
+							: "https://defc.ulpgc.es/wp-content/themes/defc-child/images/avatar.jpg"
 					}
 					alt={username}
 					className="w-8 h-8 object-cover"
