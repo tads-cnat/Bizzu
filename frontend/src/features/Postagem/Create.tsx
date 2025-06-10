@@ -1,9 +1,5 @@
 import type React from "react";
 import FormPostagem from "./Forms/FormPostagem";
-import {useParams} from "react-router-dom";
-import UsuarioService from "../../services/models/UsuarioService";
-import {useEffect, useState} from "react";
-import {IBeeUser} from "../../components/BeeHeaderProfile/IBeeUser";
 
 const CreatePostagem: React.FC = () => {
 	return (
