@@ -12,6 +12,7 @@ import {useParams} from "react-router-dom";
 import BeeHeaderProfile from "../../components/BeeHeaderProfile/BeeHeaderProfile";
 import {IBeeUser} from "../../components/BeeHeaderProfile/IBeeUser";
 import UsuarioService from "../../services/models/UsuarioService";
+import BeeAlert from "../../components/BeeAlert/BeeAlert";
 
 const Perfil: React.FC = () => {
 	const [postagens, setPostagens] = useState<Postagem[]>([]);
@@ -20,6 +21,7 @@ const Perfil: React.FC = () => {
 	const [error, setError] = useState<string | null>(null);
 	const identificator = useParams().username;
 	const [usuario, setUsuario] = useState<IBeeUser>();
+	const [alertActivate, setAlertActivate] = useState<Boolean>(false);
 
 	useEffect(() => {
 		if (usuario === undefined) {
@@ -56,7 +58,10 @@ const Perfil: React.FC = () => {
 			await PostagemService.delete(postagemId);
 			// Remover a postagem da lista local
 			setPostagens((prev) => prev.filter((post) => post.id !== postagemId));
-			alert("Postagem excluída com sucesso!");
+			setAlertActivate(true);
+			setTimeout(() => {
+				setAlertActivate(false);
+			}, 3000);
 		} catch (error) {
 			console.error("Erro ao excluir postagem:", error);
 			alert("Erro ao excluir postagem. Tente novamente.");
@@ -142,6 +147,12 @@ const Perfil: React.FC = () => {
 	};
 	return (
 		<>
+			{alertActivate && (
+				<BeeAlert
+					typeAlert="success"
+					messageAlert="Postagem excluída com sucesso!"
+				/>
+			)}
 			<BeeHeaderProfile />
 			<BeeAbasPerfil initialActiveKey="1">
 				{postagens?.length ? (

@@ -12,6 +12,7 @@ import BeeTags from "../BeeTags/BeeTags";
 import BeeFTPerfil from "../BeeFTPerfil/BeeFTPerfil";
 import type {BeePostProps} from "./IBeePost";
 import "../../index.css";
+import BeeModal from "../BeeModal/BeeModal";
 
 const BeePost: React.FC<BeePostProps> = ({
 	id,
@@ -27,6 +28,7 @@ const BeePost: React.FC<BeePostProps> = ({
 	onExcluir,
 }) => {
 	const [showMenu, setShowMenu] = useState(false);
+	const [deleteConfimation, setDeleteConfimation] = useState<Boolean>(false);
 	const navigate = useNavigate();
 
 	const handleEditarClick = () => {
@@ -37,14 +39,7 @@ const BeePost: React.FC<BeePostProps> = ({
 	};
 
 	const handleExcluirClick = () => {
-		if (onExcluir && id) {
-			const confirmDelete = window.confirm(
-				"Tem certeza que deseja excluir esta postagem?",
-			);
-			if (confirmDelete) {
-				onExcluir(id);
-			}
-		}
+		setDeleteConfimation(true);
 		setShowMenu(false);
 	};
 
@@ -53,6 +48,14 @@ const BeePost: React.FC<BeePostProps> = ({
 	};
 	return (
 		<div className="bg-white shadow rounded-lg p-4 mb-4 relative w-full">
+			{deleteConfimation && (
+				<BeeModal
+					onExcluir={onExcluir}
+					label="Excluir postagem"
+					text="Você deseja excluir essa postagem?"
+					id={id}
+				/>
+			)}
 			{/* Menu de opções */}
 			<div className="absolute top-4 right-4">
 				<button
