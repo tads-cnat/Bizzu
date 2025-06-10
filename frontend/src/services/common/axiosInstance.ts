@@ -16,9 +16,6 @@ axiosInstance.interceptors.request.use( ///token ser inserido na requisição au
             const token = user.token;
             config.headers['Authorization'] =  `Bearer ${token}`;
         }
-        else { 
-            console.warn('Não tem token porque não foi realizado o cadastro');
-        }
         return config;
     },
     async (error) => {

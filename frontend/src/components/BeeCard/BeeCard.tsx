@@ -9,9 +9,12 @@ const BeeCard = ({title, description}: IBeeCard) => {
 		<>
 			<Card
 				title={title}
-				style={{width: 300}}
+				style={{width: 300, marginBottom: "10px", justifySelf: "center"}}
 			>
-				<Meta description={description} />
+				<Meta
+					description={description}
+					style={{marginBottom: "10px"}}
+				/>
 				<BeeButton
 					variante="primaria"
 					label="Seguir"

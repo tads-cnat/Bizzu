@@ -13,7 +13,7 @@ const Cadastro: React.FC = () => {
 				}}
 			>
 				<div className="absolute inset-y-0 right-0 flex items-center justify-center w-1/2">
-					<div className="bg-white p-8 rounded-md shadow-lg">
+					<div className="bg-white p-8 rounded-md shadow-lg w-[450px]">
 						<FormSig />
 					</div>
 				</div>

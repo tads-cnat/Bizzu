@@ -45,7 +45,7 @@ const BeeHeaderProfile = () => {
 		try {
 			await UsuarioService.seguirUsuario(usuario.id);
 			setEstaSeguindo(true);
-			setSeguidores(prev => prev + 1);
+			setSeguidores((prev) => prev + 1);
 		} catch (error) {
 			console.error("Erro ao seguir usuário:", error);
 		}
@@ -56,7 +56,7 @@ const BeeHeaderProfile = () => {
 		try {
 			await UsuarioService.deixarDeSeguir(usuario.id);
 			setEstaSeguindo(false);
-			setSeguidores(prev => prev - 1);
+			setSeguidores((prev) => prev - 1);
 		} catch (error) {
 			console.error("Erro ao deixar de seguir usuário:", error);
 		}
@@ -70,7 +70,7 @@ const BeeHeaderProfile = () => {
 	return (
 		<>
 			{usuario && (
-				<div className="flex min-w-0 gap-x-4">
+				<div className="flex min-w-0 gap-x-4 mb-7">
 					<img
 						src={`http://localhost:8000${usuario.imagemPerfil}`}
 						alt="Imagem de usuário"
@@ -85,7 +85,7 @@ const BeeHeaderProfile = () => {
 							{usuario.nome}
 						</p>
 						<p className="mt-1 truncate text-xs/5 text-[#333333]">
-							@{usuario.nome}
+							@{usuario.username}
 						</p>
 						<div className="mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-6">
 							<a
@@ -112,16 +112,24 @@ const BeeHeaderProfile = () => {
 										onClick={openOptions}
 									/>
 									{visble && (
-										<div className="absolute top-full left-0 z-50 w-48 bg-white shadow-lg rounded-md">
+										<div className="absolute top-full left-0 z-50 w-56 mt-2 bg-white shadow-xl rounded-xl border border-gray-200 py-2">
 											<MenuItem>
-												<Link to={`/bizzu/postagem/criar/`}>
-													<Newspaper /> Criar Postagem
+												<Link
+													to={`/bizzu/postagem/criar/`}
+													className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
+												>
+													<Newspaper className="w-5 h-5 text-cyan-500" /> Criar
+													Postagem
 												</Link>
 											</MenuItem>
 
 											<MenuItem>
-												<Link to={`/bizzu/postagem/editar/${usuario.username}`}>
-													<BoxArrowUp /> Criar Repositório
+												<Link
+													to={`/bizzu/postagem/editar/${usuario.username}`}
+													className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
+												>
+													<BoxArrowUp className="w-5 h-5 text-cyan-500" /> Criar
+													Repositório
 												</Link>
 											</MenuItem>
 										</div>

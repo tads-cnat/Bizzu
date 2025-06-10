@@ -27,6 +27,11 @@ class UsuarioService extends BaseService{
         const response = await axiosInstance.get(`usuario/${id}/verificar_seguimento/`);
         return response.data;
     }
+
+    async usernameExists(username: string) {
+        const response = await axiosInstance.get(`/usuario/usernameExits/${username}`);
+        return response.data;
+    }
 }
 
 export default new UsuarioService("usuario");

@@ -1,4 +1,4 @@
-import BeeAbasPerfil from "../../components/BeeAbasPerfil/BeeAbasPerfil";
+import BeeAbasPerfil from "./components/BeeAbasPerfil/BeeAbasPerfil";
 import type React from "react";
 import {useEffect, useState} from "react";
 import BeePost from "../../components/BeePost/BeePost";
@@ -143,50 +143,52 @@ const Perfil: React.FC = () => {
 	return (
 		<>
 			<BeeHeaderProfile />
-			<BeeAbasPerfil abas={["Postagens", "Repositórios"]} />
-			{postagens?.length ? (
-				<div className="space-y-4">
-					{postagens.map((post: Postagem) => {
-						// Converter categorias em tags
-						const tags = categoriasParaTags(post.categorias);
+			<BeeAbasPerfil initialActiveKey="1">
+				{postagens?.length ? (
+					<div className="space-y-4">
+						{postagens.map((post: Postagem) => {
+							// Converter categorias em tags
+							const tags = categoriasParaTags(post.categorias);
 
-						// Buscar nome da comunidade
-						const comunidadeNome = getComunidadeNome(post.comunidade ?? null);
+							// Buscar nome da comunidade
+							const comunidadeNome = getComunidadeNome(post.comunidade ?? null);
 
-						return (
-							<div
-								key={post.id}
-								className="mb-6"
-							>
-								{comunidadeNome && (
-									<div className="bg-white p-2 rounded-t-lg border-b border-gray-200">
-										<p className="text-sm text-gray-600">
-											<span className="font-medium">Comunidade:</span>{" "}
-											{comunidadeNome}
-										</p>
-									</div>
-								)}
+							return (
+								<div
+									key={post.id}
+									className="mb-6"
+								>
+									{comunidadeNome && (
+										<div className="bg-white p-2 rounded-t-lg border-b border-gray-200">
+											<p className="text-sm text-gray-600">
+												<span className="font-medium">Comunidade:</span>{" "}
+												{comunidadeNome}
+											</p>
+										</div>
+									)}
 
-								<BeePost
-									id={post.id}
-									texto={post.texto}
-									tags={tags}
-									curtidas={post.curtidas || 0}
-									comentarios={post.comentarios || 0}
-									usuario={post.usuario}
-									dataPublicacao={post.dataPublicacao}
-									imagemPost={post.imagem}
-									onCurtir={() => handleCurtir(post.id)}
-									onAbrirComentarios={() => handleComentar(post.id)}
-									onExcluir={handleExcluir}
-								/>
-							</div>
-						);
-					})}
-				</div>
-			) : (
-				<div>Nenhuma postagem encontrada</div>
-			)}
+									<BeePost
+										id={post.id}
+										texto={post.texto}
+										tags={tags}
+										curtidas={post.curtidas || 0}
+										comentarios={post.comentarios || 0}
+										usuario={post.usuario}
+										dataPublicacao={post.dataPublicacao}
+										imagemPost={post.imagem}
+										onCurtir={() => handleCurtir(post.id)}
+										onAbrirComentarios={() => handleComentar(post.id)}
+										onExcluir={handleExcluir}
+									/>
+								</div>
+							);
+						})}
+					</div>
+				) : (
+					<div>Nenhuma postagem encontrada</div>
+				)}
+				<div>Parte dos repositórios</div>
+			</BeeAbasPerfil>
 		</>
 	);
 };
