@@ -4,6 +4,7 @@ import CreatePostagem from "../features/Postagem/Create";
 import Perfil from "../features/Perfil/Perfil";
 import EditRepositorio from "../features/Repositorio/Edit";
 import CreateRepositorio from "../features/Repositorio/Create";
+import Repositorio from "../features/Repositorio/Repositorio";
 
 export const privatesRoutes = [
 	{
@@ -29,6 +30,10 @@ export const privatesRoutes = [
 			{
 				path: "repositorio/editar/:id",
 				element: <EditRepositorio />,
+			},
+			{
+				path: "repositorio",
+				element: <Repositorio />,
 			},
 		],
 	},

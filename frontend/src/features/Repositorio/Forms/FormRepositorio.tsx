@@ -23,6 +23,11 @@ import RepositorioService from "../../../services/models/RepositorioService";
 
 // Schema de validação com Yup
 const schema = yup.object().shape({
+	titulo: yup
+		.string()
+		.required("Título é obrigatório")
+		.min(1, "Título não pode estar vazio")
+		.max(50, "Título não pode ter mais de 50 caracteres"),
 	descricao: yup
 		.string()
 		.required("Conteúdo é obrigatório")
@@ -56,6 +61,7 @@ export const FormRepositorio = ({
 	} = useForm<RepositorioFormValues>({
 		resolver: yupResolver(schema) as any,
 		defaultValues: {
+			titulo: "",
 			descricao: "",
 			imagem: null,
 			comunidade: undefined,
@@ -131,6 +137,7 @@ export const FormRepositorio = ({
 					const repositorio = response.data;
 					setRepositorios(repositorio);
 
+					setValue("titulo", repositorio.titulo || "");
 					setValue("descricao", repositorio.descricao || "");
 
 					if (repositorio.imagem) {
@@ -203,6 +210,7 @@ export const FormRepositorio = ({
 	const onSubmit: SubmitHandler<RepositorioFormValues> = async (data) => {
 		if (tipoForm == "criar") {
 			const dataSubmit = new FormData();
+			dataSubmit.append("titulo", data.titulo);
 			dataSubmit.append("usuario", String(usuario?.id));
 			dataSubmit.append("descricao", data.descricao);
 			if (data.imagem !== null && data.imagem !== undefined)
@@ -219,6 +227,7 @@ export const FormRepositorio = ({
 			}
 		} else {
 			const dataSubmit = new FormData();
+			dataSubmit.append("titulo", getValues("titulo"));
 			dataSubmit.append("descricao", getValues("descricao"));
 			if (
 				getValues("imagem") !== null &&
@@ -251,6 +260,30 @@ export const FormRepositorio = ({
 				onSubmit={handleSubmit(onSubmit)}
 				className="flex flex-col gap-6"
 			>
+				{/* Área de título */}
+				<div>
+					<Controller
+						name="titulo"
+						control={control}
+						render={({field}) => (
+							<BeeTextArea
+								id="titulo"
+								label="Título do Repositorio"
+								placeholder="Digite o título do seu Repositorio..."
+								defaultValue={field.value}
+								onChange={(e) => field.onChange(e.target.value)}
+								rows={1}
+							/>
+						)}
+					/>
+					{errors.titulo?.message !== undefined && (
+						<p className="text-red-500 text-sm mt-1">{errors.titulo.message}</p>
+					)}
+					<p className="text-gray-500 text-xs mt-1">
+						{watch("titulo")?.length || 0}/50 caracteres
+					</p>
+				</div>
+
 				{/* Área de descricao */}
 				<div>
 					<Controller
