@@ -1,5 +1,6 @@
 import {Steps} from "antd";
 import {IBeeSteps} from "./IBeeSteps";
+import "./styles.css";
 
 const BeeSteps = ({current}: IBeeSteps) => (
 	<Steps

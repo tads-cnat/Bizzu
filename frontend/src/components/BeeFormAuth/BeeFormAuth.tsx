@@ -6,7 +6,7 @@ import * as yup from "yup";
 import {yupResolver} from "@hookform/resolvers/yup";
 import BeeAlert from "../BeeAlert/BeeAlert";
 import {useState} from "react";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 const schema = yup.object().shape({
 	username: yup.string().required("O usuário é obrigatório"),
@@ -101,12 +101,12 @@ const BeeFormAuth: React.FC = () => {
 						<div>
 							<p className="text-right text-sm/6 text-gray-500">
 								Não tem conta?{" "}
-								<a
-									href="#"
+								<Link
+									to={`/cadastro`}
 									className="font-semibold text-[#FCBD18] hover:text-indigo-500"
 								>
 									Cadastre-se
-								</a>
+								</Link>
 							</p>
 						</div>
 						<BeeButton

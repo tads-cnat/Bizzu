@@ -7,7 +7,7 @@ import BeeButton from "../../../components/BeeButtons/BeeButtons";
 import BeeSteps from "../componentes/BeeSteps/BeeSteps";
 import BeeArquivo from "../../../components/BeeArquivo/BeeArquivo";
 import UsuarioService from "../../../services/models/UsuarioService";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 const schema = yup.object().shape({
 	nome: yup.string().required("O nome é obrigatório"),
@@ -184,15 +184,15 @@ const FormSig: React.FC = () => {
 								</div>
 							</div>
 
-							<div>
+							<div className="mt-2">
 								<p className="text-right text-sm/6 text-gray-500">
 									Já tem uma conta?{" "}
-									<a
-										href="#"
+									<Link
+										to={`/`}
 										className="font-semibold text-[#FCBD18] hover:text-indigo-500"
 									>
 										Faça Login
-									</a>
+									</Link>
 								</p>
 							</div>
 							<BeeButton
@@ -263,28 +263,11 @@ const FormSig: React.FC = () => {
 
 							<BeeButton
 								variante="aviso"
-								label="Próximo Passo"
+								label="Cadastrar"
 								tamanho="grande"
 							/>
 						</div>
 					)}
-
-					{/* {current == 2 && (
-						<div>
-							{comunidade?.map((com) => (
-								<BeeCard
-									title={com.nome}
-									description={com.descricao}
-								/>
-							))}
-
-							<BeeButton
-								variante="aviso"
-								label="Criar conta"
-								tamanho="grande"
-							/>
-						</div>
-					)} */}
 				</form>
 			</div>
 		</>
