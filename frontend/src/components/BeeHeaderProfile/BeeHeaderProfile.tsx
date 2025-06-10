@@ -81,7 +81,7 @@ const BeeHeaderProfile = () => {
 											</MenuItem>
 
 											<MenuItem>
-												<Link to={`/bizzu/postagem/editar/${usuario.username}`}>
+												<Link to={`/bizzu/repositorio/criar/`}>
 													<BoxArrowUp /> Criar Repositório
 												</Link>
 											</MenuItem>
