@@ -19,10 +19,10 @@ class UsuarioViewSet(viewsets.ModelViewSet):
         elif self.request.method == "POST":
             return UsuarioProfileSerializer
 
-    @action(detail=False, methods=["get"], url_path="userByusername/(?P<username>.*)")
-    def profileUsername(self, request, username):
-        user = Usuario.objects.filter(username=username).first()
-        serializador = UsuarioProfileSerializer(user)
+    @action(detail=False, methods=["get"], url_path="buscar_usuario/(?P<username>.*)")
+    def buscar_usuario(self, request, username):
+        user = Usuario.objects.filter(username__contains=username)
+        serializador = UsuarioProfileSerializer(user, many=True)
         if serializador:
             return Response(serializador.data)
         else:
