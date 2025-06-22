@@ -72,7 +72,11 @@ const BeeHeaderProfile = () => {
 			{usuario && (
 				<div className="flex min-w-0 gap-x-4 mb-7">
 					<img
-						src={`http://localhost:8000${usuario.imagemPerfil}`}
+						src={
+							usuario.imagemPerfil
+								? `http://localhost:8000${usuario.imagemPerfil}`
+								: "http://localhost:8000/imgPostagens/usuarios/2025/06/10/sem_imagem_avatar.png"
+						}
 						alt="Imagem de usuário"
 						className="size-22 flex-none rounded-full bg-gray-50"
 						style={{
