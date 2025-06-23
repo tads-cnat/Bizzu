@@ -9,10 +9,10 @@ import type {Postagem, Tag} from "../../interfaces/Postagem";
 import type {Comunidade} from "../../interfaces/Comunidade";
 import type {Categoria} from "../../interfaces/Categoria";
 import {useParams} from "react-router-dom";
-import BeeHeaderProfile from "../../components/BeeHeaderProfile/BeeHeaderProfile";
-import {IBeeUser} from "../../components/BeeHeaderProfile/IBeeUser";
 import UsuarioService from "../../services/models/UsuarioService";
 import BeeAlert from "../../components/BeeAlert/BeeAlert";
+import {IBeeUser} from "./components/BeeHeaderProfile/IBeeUser";
+import BeeHeaderProfile from "./components/BeeHeaderProfile/BeeHeaderProfile";
 
 const Perfil: React.FC = () => {
 	const [postagens, setPostagens] = useState<Postagem[]>([]);

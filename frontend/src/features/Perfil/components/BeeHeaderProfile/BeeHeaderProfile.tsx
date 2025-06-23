@@ -1,11 +1,11 @@
 import {BoxArrowUp, Newspaper, Plus} from "@phosphor-icons/react";
-import BeeButton from "../BeeButtons/BeeButtons";
 import {IBeeUser} from "./IBeeUser";
-import acessAuth from "../../utils/acessAuth";
 import {useEffect, useState} from "react";
-import UsuarioService from "../../services/models/UsuarioService";
 import {Link, useParams} from "react-router-dom";
 import {Menu, MenuItem} from "@headlessui/react";
+import acessAuth from "../../../../utils/acessAuth";
+import UsuarioService from "../../../../services/models/UsuarioService";
+import BeeButton from "../../../../components/BeeButtons/BeeButtons";
 
 const BeeHeaderProfile = () => {
 	const {username} = acessAuth();
