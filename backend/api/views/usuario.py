@@ -9,7 +9,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
-
+from api.serializers.pesquisa import PesquisaSerializer
 
 class UsuarioViewSet(viewsets.ModelViewSet):
     queryset = Usuario.objects.all()
@@ -36,10 +36,19 @@ class UsuarioViewSet(viewsets.ModelViewSet):
             return UsuarioProfileSerializer
         return self.serializer_class
 
+    @action(detail=False, methods=["get"], url_path="userByusername/(?P<username>.*)")
+    def profileUsername(self, request, username):
+        user = Usuario.objects.filter(username=username).first()
+        serializador = UsuarioProfileSerializer(user)
+        if serializador:
+            return Response(serializador.data)
+        else:
+            return Response({"Algo deu errado": "serializador.errors"})
+
     @action(detail=False, methods=["get"], url_path="buscar_usuario/(?P<username>.*)")
     def buscar_usuario(self, request, username):
         user = Usuario.objects.filter(username__contains=username)
-        serializador = UsuarioProfileSerializer(user, many=True)
+        serializador = PesquisaSerializer(user, many=True)
         if serializador:
             return Response(serializador.data)
         else:
