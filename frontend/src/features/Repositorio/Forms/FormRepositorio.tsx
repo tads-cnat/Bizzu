@@ -221,7 +221,7 @@ export const FormRepositorio = ({
 			dataSubmit.append("comunidade", String(data.comunidade?.value));
 			try {
 				await RepositorioService.post(dataSubmit);
-				caminho("/bizzu");
+				caminho(`/bizzu/${username}/`);
 			} catch (e) {
 				console.error("Deu mal", e);
 			}

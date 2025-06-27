@@ -12,7 +12,7 @@ const BeeHeader: React.FC = () => {
 
 	const sair = () => {
 		deslogar();
-		mudar("/", {replace: true});
+		mudar("/login", {replace: true});
 	};
 
 	return (

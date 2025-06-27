@@ -6,6 +6,16 @@ class PostagemService extends BaseService{
     const response = await axiosInstance.get(`${this.complementoURL}/${id}/getPost`)
     return response
   }
+
+  async getPostByCommunity(username: string) {
+    const response = await axiosInstance.get(`${this.complementoURL}/postCommunity/${username}`)
+    return response
+  }
+
+  async getPostByFollowers(username: string) {
+    const response = await axiosInstance.get(`${this.complementoURL}/postFollowers/${username}`)
+    return response
+  }
 }
 
 export default new PostagemService("postagem");
