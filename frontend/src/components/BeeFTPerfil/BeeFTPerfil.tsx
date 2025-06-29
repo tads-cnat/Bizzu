@@ -39,7 +39,11 @@ const BeeFTPerfil: React.FC<IBeeFTPerfil> = ({dataPublicacao}) => {
 				<div className="flex items-center mb-2">
 					{usuario?.imagemPerfil !== undefined ? (
 						<img
-							src={`http://localhost:8000${usuario.imagemPerfil}` || ""}
+							src={
+								usuario.imagemPerfil
+									? `http://localhost:8000${usuario.imagemPerfil}`
+									: "http://localhost:8000/imgPostagens/usuarios/2025/06/10/sem_imagem_avatar.png"
+							}
 							alt="Imagem de usuário"
 							className="w-12 h-12 object-cover gap-2 mt-2"
 							style={{
