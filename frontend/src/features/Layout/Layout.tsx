@@ -1,4 +1,4 @@
-import type React from "react";
+import React from "react";
 import BeeHeader from "../../components/BeeHeader/BeeHeader";
 import {Outlet} from "react-router";
 import {BeeSidebar} from "../../components/BeeSidebar/BeeSidebar";

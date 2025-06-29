@@ -43,3 +43,4 @@ export const privatesRoutes = [
 		element: <LayoutFeed />,
 	},
 ];
+

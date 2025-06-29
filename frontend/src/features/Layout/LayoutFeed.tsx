@@ -1,6 +1,3 @@
-import type React from "react";
-
-import {useEffect, useState} from "react";
 import BeeHeader from "../../components/BeeHeader/BeeHeader";
 import {BeeSidebar} from "../../components/BeeSidebar/BeeSidebar";
 import BeeRepo from "../../components/BeeRepo/BeeRepo";
@@ -12,7 +9,6 @@ import acessAuth from "../../utils/acessAuth";
 import PostagemService from "../../services/models/PostagemService";
 import BeePost from "../../components/BeePost/BeePost";
 import {BeePostProps} from "../../components/BeePost/IBeePost";
-
 const LayoutFeed: React.FC = () => {
 	const [repositorios, setRepositorios] = useState<Repositorio[]>([]);
 	const [categorias, setCategorias] = useState<Categoria[]>([]);
