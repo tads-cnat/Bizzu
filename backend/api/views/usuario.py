@@ -5,7 +5,6 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.parsers import MultiPartParser
 from ..models import Usuario
 from api.serializers.usuario import UsuarioProfileSerializer, UsuarioSerializer
-from api.serializers.pesquisa import PesquisaSerializer
 
 
 class UsuarioViewSet(viewsets.ModelViewSet):
@@ -32,7 +31,7 @@ class UsuarioViewSet(viewsets.ModelViewSet):
     @action(detail=False, methods=["get"], url_path="buscar_usuario/(?P<username>.*)")
     def buscar_usuario(self, request, username):
         user = Usuario.objects.filter(username__contains=username)
-        serializador = PesquisaSerializer(user, many=True)
+        serializador = UsuarioProfileSerializer(user, many=True)
         if serializador:
             return Response(serializador.data)
         else:
