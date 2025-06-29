@@ -8,6 +8,8 @@ export interface IBeeUser {
     imagemPerfil: string;
     escolaFormacao: string;
     instituicaoAtual: string;
+    linkedinUrl?: string
+    banner?: string
     criado_em: string;
     segue: number[];
     seguido_por: number[];
