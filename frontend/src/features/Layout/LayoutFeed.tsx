@@ -9,6 +9,7 @@ import acessAuth from "../../utils/acessAuth";
 import PostagemService from "../../services/models/PostagemService";
 import BeePost from "../../components/BeePost/BeePost";
 import {BeePostProps} from "../../components/BeePost/IBeePost";
+import {useEffect, useState} from "react";
 const LayoutFeed: React.FC = () => {
 	const [repositorios, setRepositorios] = useState<Repositorio[]>([]);
 	const [categorias, setCategorias] = useState<Categoria[]>([]);
@@ -116,6 +117,8 @@ const LayoutFeed: React.FC = () => {
 		console.log(secao);
 	};
 
+	console.log(postagensComunidade);
+
 	return (
 		<>
 			<BeeHeader />
@@ -136,7 +139,7 @@ const LayoutFeed: React.FC = () => {
 											comentarios={post.comentarios || 0}
 											usuario={post.usuario}
 											dataPublicacao={post.dataPublicacao}
-											imagemPost={post.imagemPost}
+											imagemPost={post.imagem}
 											onCurtir={() => post.id}
 											onAbrirComentarios={() => post.id}
 											onExcluir={() => {}}

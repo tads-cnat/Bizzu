@@ -1,15 +1,14 @@
 import "./style.css";
 import acessAuth from "../../utils/acessAuth";
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
-import type {IBeeUser} from "../BeeHeaderProfile/IBeeUser";
 import ComunidadeService from "../../services/models/ComunidadeService";
 import UsuarioService from "../../services/models/UsuarioService";
-
 import {Divider, Menu} from "antd";
 import type {GetProp, MenuProps} from "antd";
 import {Globe, House, User} from "@phosphor-icons/react";
 import {IBeeSidebarProps} from "./IBeeSidebar";
+import {IBeeUser} from "../../features/Perfil/components/BeeHeaderProfile/IBeeUser";
 
 export const BeeSidebar = ({onSelecionarSecao}: IBeeSidebarProps) => {
 	const {username} = acessAuth();
@@ -84,7 +83,9 @@ export const BeeSidebar = ({onSelecionarSecao}: IBeeSidebarProps) => {
 				)}
 				<div className="leading-tight">
 					<p className="font-semibold text-sm text-black ">{username}</p>
-					<p className="text-xs text-zinc-500">Ver perfil</p>
+					<p className="text-xs text-zinc-500">
+						<Link to={`/bizzu/${username}`}>Ver perfil</Link>
+					</p>
 				</div>
 			</div>
 			<Divider />

@@ -6,7 +6,7 @@ from ..models import Usuario
 class UsuarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Usuario
-        fields = ["id"]
+        fields = ["id", "username", "imagemPerfil"]
         extra_kwargs = {"id": {"read_only": False}}
 
 

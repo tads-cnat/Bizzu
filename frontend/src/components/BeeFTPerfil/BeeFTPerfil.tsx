@@ -1,8 +1,8 @@
 import {useEffect, useState} from "react";
 import UsuarioService from "../../services/models/UsuarioService";
 import {IBeeFTPerfil} from "./IBeeFTPerfil";
-import {IBeeUser} from "../BeeHeaderProfile/IBeeUser";
 import {useParams} from "react-router-dom";
+import {IBeeUser} from "../../features/Perfil/components/BeeHeaderProfile/IBeeUser";
 
 function tempoDesde(data: string): string {
 	const date = new Date(data);
@@ -19,17 +19,16 @@ function tempoDesde(data: string): string {
 	return "agora mesmo";
 }
 
-const BeeFTPerfil: React.FC<IBeeFTPerfil> = ({dataPublicacao}) => {
-	const identificator = useParams().username;
-	const [usuario, setUsuario] = useState<IBeeUser>();
+const BeeFTPerfil: React.FC<IBeeFTPerfil> = ({usuarioId, dataPublicacao}) => {
+	const [usuario, setUsuario] = useState<any>();
 
 	useEffect(() => {
-		void UsuarioService.getbyUsername(String(identificator))
+		void UsuarioService.get(usuarioId)
 			.then((response) => {
-				setUsuario(response);
+				setUsuario(response.data);
 			})
-			.catch(() => {
-				console.log("Não recebeu dados");
+			.catch((e) => {
+				console.log("Não recebeu dados", e);
 			});
 	}, []);
 
@@ -64,9 +63,11 @@ const BeeFTPerfil: React.FC<IBeeFTPerfil> = ({dataPublicacao}) => {
 					)}
 				</div>
 				<div className="p-2 ">
-					<span className="text-[#333333] font-poppins font-semibold">
-						{usuario?.nome}
-					</span>
+					{usuario?.username !== undefined && (
+						<span className="text-[#333333] font-poppins font-semibold">
+							{usuario?.username}
+						</span>
+					)}
 					<span className="text-[#FCBD18] font-poppins font-semibold">
 						{" "}
 						• {tempoDesde(dataPublicacao)}{" "}
