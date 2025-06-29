@@ -2,6 +2,7 @@ import React from "react";
 import BeeHeader from "../../components/BeeHeader/BeeHeader";
 import {Outlet} from "react-router";
 import {BeeSidebar} from "../../components/BeeSidebar/BeeSidebar";
+import BeePerfilSidebar from "../../components/BeePerfilSidebar/BeePerfilSidebar";
 
 const Layout: React.FC = () => {
 	return (
@@ -15,7 +16,7 @@ const Layout: React.FC = () => {
 					</div>
 				</div>
 				<aside className="fixed top-[80px] right-4 w-1/4 min-h-screen shadow-md flex flex-col justify-start px-3 py-4 rounded-xl bg-white z-40 overflow-y-auto gap-4">
-					<p>Sidebar direito</p>
+					<BeePerfilSidebar />
 				</aside>
 			</div>
 		</>
