@@ -1,18 +1,26 @@
-import type React from "react";
-
-import {useEffect, useState} from "react";
 import BeeHeader from "../../components/BeeHeader/BeeHeader";
-import {Outlet} from "react-router";
 import {BeeSidebar} from "../../components/BeeSidebar/BeeSidebar";
 import BeeRepo from "../../components/BeeRepo/BeeRepo";
 import type {Repositorio, Tag} from "../../interfaces/Repositorio";
 import RepositorioService from "../../services/models/RepositorioService";
 import CategoriaService from "../../services/models/CategoriaService";
 import type {Categoria} from "../../interfaces/Categoria";
-
+import acessAuth from "../../utils/acessAuth";
+import PostagemService from "../../services/models/PostagemService";
+import BeePost from "../../components/BeePost/BeePost";
+import {BeePostProps} from "../../components/BeePost/IBeePost";
+import {useEffect, useState} from "react";
 const LayoutFeed: React.FC = () => {
 	const [repositorios, setRepositorios] = useState<Repositorio[]>([]);
 	const [categorias, setCategorias] = useState<Categoria[]>([]);
+	const [postagensComunidade, setPostagensComunidade] = useState<
+		BeePostProps[]
+	>([]);
+	const [postagensSeguidores, setPostagensSeguidores] = useState<
+		BeePostProps[]
+	>([]);
+	const {username} = acessAuth();
+	const [secaoAtual, setSecaoAtual] = useState("1");
 
 	const carregarRepositorios = async () => {
 		try {
@@ -21,6 +29,24 @@ const LayoutFeed: React.FC = () => {
 		} catch (error) {
 			console.error("Erro ao carregar repositórios:", error);
 			setRepositorios([]);
+		}
+	};
+
+	const carregarPostagem = async () => {
+		try {
+			const response = await PostagemService.getPostByCommunity(username);
+			setPostagensComunidade(response.data);
+		} catch (error) {
+			console.error("Erro ao carregar usuario:", error);
+		}
+	};
+
+	const carregarPostagemSeguidores = async () => {
+		try {
+			const response = await PostagemService.getPostByFollowers(username);
+			setPostagensSeguidores(response.data);
+		} catch (error) {
+			console.error("Erro ao carregar usuario:", error);
 		}
 	};
 
@@ -80,18 +106,70 @@ const LayoutFeed: React.FC = () => {
 	};
 
 	useEffect(() => {
+		carregarPostagem();
 		carregarRepositorios();
 		carregarCategorias();
+		carregarPostagemSeguidores();
 	}, []);
+
+	const handleSelecionarSecao = (secao: string) => {
+		setSecaoAtual(secao);
+		console.log(secao);
+	};
+
+	console.log(postagensComunidade);
 
 	return (
 		<>
 			<BeeHeader />
 			<div className="flex flex-col flex-1 items-start w-200 mt-20 ">
-				<BeeSidebar />
+				<BeeSidebar onSelecionarSecao={handleSelecionarSecao} />
 				<div className="fixed top-[80px] left-1/5 w-200 h-[calc(100vh-80px)] flex-1 flex flex-col px-3 py-4 rounded-xl z-40 overflow-y-auto justify-start items-center">
 					<div className="w-full max-w-[500px] px-4 flex flex-col">
-						<Outlet context={{recarregarRepositorios: carregarRepositorios}} />
+						{secaoAtual === "1" ? (
+							<div>
+								{postagensComunidade.map((post) => {
+									const tags: any = categoriasParaTags(post.categorias);
+									return (
+										<BeePost
+											id={post.id}
+											texto={post.texto}
+											tags={tags}
+											curtidas={post.curtidas || 0}
+											comentarios={post.comentarios || 0}
+											usuario={post.usuario}
+											dataPublicacao={post.dataPublicacao}
+											imagemPost={post.imagem}
+											onCurtir={() => post.id}
+											onAbrirComentarios={() => post.id}
+											onExcluir={() => {}}
+										/>
+									);
+								})}
+							</div>
+						) : (
+							<div>
+								{postagensSeguidores.map((post) => {
+									const tags: any = categoriasParaTags(post.categorias);
+									return (
+										<BeePost
+											id={post.id}
+											texto={post.texto}
+											tags={tags}
+											curtidas={post.curtidas || 0}
+											comentarios={post.comentarios || 0}
+											usuario={post.usuario}
+											dataPublicacao={post.dataPublicacao}
+											imagemPost={post.imagemPost}
+											onCurtir={() => post.id}
+											onAbrirComentarios={() => post.id}
+											onExcluir={() => {}}
+										/>
+									);
+								})}
+							</div>
+						)}
+						{/* <Outlet context={{recarregarRepositorios: carregarRepositorios}} /> */}
 					</div>
 				</div>
 				<aside className="fixed top-[80px] right-4 w-1/4 min-h-screen shadow-md flex flex-col justify-start px-3 py-4 rounded-xl bg-white z-40 overflow-y-auto gap-4">

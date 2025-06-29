@@ -4,7 +4,9 @@ from django.db import models
 
 class Usuario(AbstractUser):
     nome = models.CharField(verbose_name="Nome", max_length=50)
-    descricao = models.CharField(verbose_name="Descrição", max_length=200)
+    descricao = models.CharField(
+        verbose_name="Descrição", max_length=200, blank=True, null=True
+    )
     imagemPerfil = models.ImageField(
         verbose_name="Imagem de perfil", upload_to="usuarios/%Y/%m/%d/", null=True
     )

@@ -34,7 +34,7 @@ const BeeFormAuth: React.FC = () => {
 			await autenticar(data.username, data.password);
 			setStatus("success");
 			setAlert(true);
-			redirecionar(`bizzu/${data.username}/`);
+			redirecionar(`/bizzu/${data.username}/`);
 		} catch (e) {
 			setStatus("error");
 			setAlert(true);

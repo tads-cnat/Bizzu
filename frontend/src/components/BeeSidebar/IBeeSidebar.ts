@@ -17,5 +17,8 @@ export interface IBeeSidebarProps {
   // Cargo ou função do usuário (opcional, padrão: "Ver Perfil")
   userRole?: string;
   // Lista de itens do menu lateral
-  items: BeeSidebarItem[];
+  items?: BeeSidebarItem[];
+
+	onSelecionarSecao?: (secao: string) => void; 
+
 }
