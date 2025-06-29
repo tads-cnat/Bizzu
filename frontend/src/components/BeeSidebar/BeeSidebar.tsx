@@ -1,5 +1,4 @@
-"use client";
-
+import "./style.css";
 import acessAuth from "../../utils/acessAuth";
 import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
@@ -63,10 +62,9 @@ export const BeeSidebar = () => {
 			children: comunidades,
 		},
 	];
-
 	return (
-		<div className="h-full">
-			<div className="flex items-center gap-2 mt-4 ml-4 bg-transparent ">
+		<div className="h-full w-1/3">
+			<div className="flex items-center gap-2 mt-4 ml-5 bg-transparent ">
 				{usuario ? (
 					<img
 						src={
@@ -90,41 +88,6 @@ export const BeeSidebar = () => {
 				</div>
 			</div>
 			<Divider />
-
-			<style>
-				{`
-    .ant-menu-item-selected {
-    background-color: #FCBD18 !important;
-    color: white !important;
-    }
-    .ant-menu-item {
-    color: #555;
-    }
-    .ant-menu-item:hover {
-    background-color:#B0B0B0 !important;
-    color:rgb(232, 230, 230) !important;
-    }
-	.ant-menu-submenu-selected > .ant-menu-submenu-title {
-	color: #333 !important;
-	}
-
-	.ant-menu-submenu-arrow {
-	color: #333 !important;
-	}
-
-	.ant-menu-submenu-title {
-	color: #333 !important;
-	}
-
-	.ant-menu-submenu-title:hover {
-			background-color:#B0B0B0 !important;
-			color:rgb(232, 230, 230) !important;
-	}
-	.ant-menu-sub {
-	background-color: white !important; /* ou qualquer cor que você quiser */
-	}
-    `}
-			</style>
 			<Menu
 				className="border-none "
 				defaultSelectedKeys={["1"]}
