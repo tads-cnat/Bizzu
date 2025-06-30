@@ -1,8 +1,9 @@
 import { Types } from "../permissions/types"
 import { Permissions } from "../permissions/permissions";
 import { isUsername } from "./path";
+import { Roles } from "../permissions/roles";
 
-export const getPermissions = (path: string,role: string, username:string): Record<Types, boolean> => {
+export const getPermissions = (path: string,role: Roles, username:string): Record<Types, boolean> => {
 
     const permissions: Record<Types, boolean> = {
 		[Types.READ]: false,

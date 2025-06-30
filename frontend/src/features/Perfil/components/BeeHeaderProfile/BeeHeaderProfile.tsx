@@ -6,6 +6,7 @@ import {Menu, MenuItem} from "@headlessui/react";
 import acessAuth from "../../../../utils/acessAuth";
 import UsuarioService from "../../../../services/models/UsuarioService";
 import BeeButton from "../../../../components/BeeButtons/BeeButtons";
+import acessPermissions from "../../../../utils/acessPermissions";
 
 const BeeHeaderProfile = () => {
 	const {username} = acessAuth();
@@ -15,6 +16,7 @@ const BeeHeaderProfile = () => {
 	const [estaSeguindo, setEstaSeguindo] = useState(false);
 	const [seguidores, setSeguidores] = useState(0);
 	const [seguindo, setSeguindo] = useState(0);
+	const {permissions} = acessPermissions();
 
 	useEffect(() => {
 		void UsuarioService.getbyUsername(String(identificator))
@@ -104,7 +106,7 @@ const BeeHeaderProfile = () => {
 							>
 								{seguidores} Seguidores
 							</a>
-							{usuario.username == username ? (
+							{permissions.create ? (
 								<Menu
 									as="div"
 									className="relative inline-block text-left"
