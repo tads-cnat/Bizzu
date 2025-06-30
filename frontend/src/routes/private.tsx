@@ -9,7 +9,7 @@ import LayoutFeed from "../features/Layout/LayoutFeed";
 
 export const privatesRoutes = [
 	{
-		path: "bizzu/",
+		path: "",
 		element: <Layout />,
 		children: [
 			{
@@ -21,7 +21,7 @@ export const privatesRoutes = [
 				element: <CreatePostagem />,
 			},
 			{
-				path: "postagem/editar/:id",
+				path: "postagem/editar/:username",
 				element: <EditPostagem />,
 			},
 			{
@@ -43,4 +43,3 @@ export const privatesRoutes = [
 		element: <LayoutFeed />,
 	},
 ];
-

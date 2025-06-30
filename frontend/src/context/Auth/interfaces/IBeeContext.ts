@@ -3,7 +3,7 @@ import { IBeeUsuario } from "../../../components/BeeFTPerfil/IBeeUsuario";
 
 export interface IBeeContext extends IBeeUsuario{
     //Função que vai autentica usuaŕio 
-    autenticar: (username:string, password:string) => Promise<void>;
+    autenticar: (username:string, password:string, role:string) => Promise<void>;
     //Funçãoque vai ser usada para deslogar usuário 
     deslogar: () => void;
 }

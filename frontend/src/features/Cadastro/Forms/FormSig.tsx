@@ -96,6 +96,7 @@ const FormSig: React.FC = () => {
 					dataSubmit.append("escolaFormacao", data.escolaFormacao);
 				if (data.instituicaoAtual !== null)
 					dataSubmit.append("instituicaoAtual", data.instituicaoAtual);
+				dataSubmit.append("papel", "int");
 				await UsuarioService.post(dataSubmit);
 				redirecionar(-1);
 			} catch (e) {
