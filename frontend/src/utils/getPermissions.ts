@@ -14,6 +14,7 @@ export const getPermissions = (path: string,role: string, username:string): Reco
 	for (const permission in permissions) {
         let atribuiPermissao; 
         
+        console.log("Entrou: ", path);
         if (user){
             atribuiPermissao = Permissions['/:username/'][permission as Types]
         }

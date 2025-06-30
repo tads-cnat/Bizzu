@@ -84,7 +84,7 @@ export const BeeSidebar = ({onSelecionarSecao}: IBeeSidebarProps) => {
 				<div className="leading-tight">
 					<p className="font-semibold text-sm text-black ">{username}</p>
 					<p className="text-xs text-zinc-500">
-						<Link to={`/bizzu/${username}`}>Ver perfil</Link>
+						<Link to={`${username}`}>Ver perfil</Link>
 					</p>
 				</div>
 			</div>

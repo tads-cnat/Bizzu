@@ -128,45 +128,57 @@ const LayoutFeed: React.FC = () => {
 					<div className="w-full max-w-[500px] px-4 flex flex-col">
 						{secaoAtual === "1" ? (
 							<div>
-								{postagensComunidade.map((post) => {
-									const tags: any = categoriasParaTags(post.categorias);
-									return (
-										<BeePost
-											id={post.id}
-											texto={post.texto}
-											tags={tags}
-											curtidas={post.curtidas || 0}
-											comentarios={post.comentarios || 0}
-											usuario={post.usuario}
-											dataPublicacao={post.dataPublicacao}
-											imagemPost={post.imagem}
-											onCurtir={() => post.id}
-											onAbrirComentarios={() => post.id}
-											onExcluir={() => {}}
-										/>
-									);
-								})}
+								{postagensComunidade.length > 0 ? (
+									<div>
+										{postagensComunidade.map((post) => {
+											const tags: any = categoriasParaTags(post.categorias);
+											return (
+												<BeePost
+													id={post.id}
+													texto={post.texto}
+													tags={tags}
+													curtidas={post.curtidas || 0}
+													comentarios={post.comentarios || 0}
+													usuario={post.usuario}
+													dataPublicacao={post.dataPublicacao}
+													imagemPost={post.imagem}
+													onCurtir={() => post.id}
+													onAbrirComentarios={() => post.id}
+													onExcluir={() => {}}
+												/>
+											);
+										})}
+									</div>
+								) : (
+									<p>Não há publicações nas comunidades que você faz parte</p>
+								)}
 							</div>
 						) : (
 							<div>
-								{postagensSeguidores.map((post) => {
-									const tags: any = categoriasParaTags(post.categorias);
-									return (
-										<BeePost
-											id={post.id}
-											texto={post.texto}
-											tags={tags}
-											curtidas={post.curtidas || 0}
-											comentarios={post.comentarios || 0}
-											usuario={post.usuario}
-											dataPublicacao={post.dataPublicacao}
-											imagemPost={post.imagemPost}
-											onCurtir={() => post.id}
-											onAbrirComentarios={() => post.id}
-											onExcluir={() => {}}
-										/>
-									);
-								})}
+								{postagensSeguidores.length > 0 ? (
+									<div>
+										{postagensSeguidores.map((post) => {
+											const tags: any = categoriasParaTags(post.categorias);
+											return (
+												<BeePost
+													id={post.id}
+													texto={post.texto}
+													tags={tags}
+													curtidas={post.curtidas || 0}
+													comentarios={post.comentarios || 0}
+													usuario={post.usuario}
+													dataPublicacao={post.dataPublicacao}
+													imagemPost={post.imagemPost}
+													onCurtir={() => post.id}
+													onAbrirComentarios={() => post.id}
+													onExcluir={() => {}}
+												/>
+											);
+										})}
+									</div>
+								) : (
+									<p>Não há publicações das pessoas que você segue</p>
+								)}
 							</div>
 						)}
 						{/* <Outlet context={{recarregarRepositorios: carregarRepositorios}} /> */}

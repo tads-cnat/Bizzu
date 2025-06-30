@@ -39,7 +39,7 @@ export const privatesRoutes = [
 		],
 	},
 	{
-		path: "/",
+		path: "/feed",
 		element: <LayoutFeed />,
 	},
 ];
