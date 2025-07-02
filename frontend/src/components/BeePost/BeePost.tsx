@@ -1,5 +1,5 @@
-import type React from "react";
-import {useState} from "react";
+import React from "react";
+import {useState, useEffect} from "react";
 import {
 	Heart,
 	ChatCircle,
@@ -10,9 +10,11 @@ import {
 import {useNavigate} from "react-router-dom";
 import BeeTags from "../BeeTags/BeeTags";
 import BeeFTPerfil from "../BeeFTPerfil/BeeFTPerfil";
-import type {BeePostProps} from "./IBeePost";
+import {BeePostProps} from "./IBeePost";
 import "../../index.css";
 import BeeModal from "../BeeModal/BeeModal";
+import CurtidaService from "../../services/models/CurtidaService";
+import acessAuth from "../../utils/acessAuth";
 
 const BeePost: React.FC<BeePostProps> = ({
 	id,
@@ -27,9 +29,53 @@ const BeePost: React.FC<BeePostProps> = ({
 	onAbrirComentarios,
 	onExcluir,
 }) => {
-	const [showMenu, setShowMenu] = useState(false);
-	const [deleteConfimation, setDeleteConfimation] = useState<Boolean>(false);
-	const navigate = useNavigate();
+	const [showMenu, setShowMenu] = useState(false)
+	const [deleteConfimation, setDeleteConfimation] = useState<boolean>(false)
+	const [curtido, setCurtido] = useState(false)
+	const [totalCurtidas, setTotalCurtidas] = useState(curtidas)
+	const [loadingCurtida, setLoadingCurtida] = useState(false)
+	const navigate = useNavigate()
+	const { username } = acessAuth()
+
+	// Verificar se o usuário já curtiu a postagem ao montar o componente
+	useEffect(() => {
+		const verificarCurtida = async () => {
+		  if (!id || !username) return
+	
+		  try {
+			const response = await CurtidaService.verificarCurtida(id)
+			setCurtido(response.curtido)
+			setTotalCurtidas(response.total_curtidas)
+		  } catch (error) {
+			console.error("Erro ao verificar curtida:", error)
+			// Se houver erro, usar os valores iniciais
+			setTotalCurtidas(curtidas)
+		  }
+		}
+	
+		verificarCurtida()
+	  }, [id, username, curtidas])
+	
+	const handleCurtir = async () => {
+		if (!id || loadingCurtida) return
+	
+		setLoadingCurtida(true)
+		try {
+		  const response = await CurtidaService.alternarCurtida(id)
+		  setCurtido(response.curtido)
+		  setTotalCurtidas(response.total_curtidas)
+	
+		  // Chamar callback se fornecido
+		  if (onCurtir) {
+			onCurtir()
+		  }
+		} catch (error) {
+		  console.error("Erro ao curtir/descurtir:", error)
+		  // Você pode adicionar uma notificação de erro aqui
+		} finally {
+		  setLoadingCurtida(false)
+		}
+	  }
 
 	const handleEditarClick = () => {
 		if (id) {
@@ -116,11 +162,6 @@ const BeePost: React.FC<BeePostProps> = ({
 			<p className="mb-3 mt-2">{texto}</p>
 
 			{imagemPost && (
-				// <img
-				// 	src={`data:image/jpeg;base64,${imagemPost}`}
-				// 	alt="Postagem"
-				// />
-
 				<img
 					src={imagemPost || "/placeholder.svg"}
 					alt="Imagem do post"
@@ -128,48 +169,38 @@ const BeePost: React.FC<BeePostProps> = ({
 				/>
 			)}
 
-			<div className="flex items-center justify-between text-sm mb-2">
-				<div
-					className="flex items-center gap-4"
-					style={{color: "#333333"}}
+		<div className="flex items-center justify-between text-sm mb-2">
+				<div className="flex items-center gap-4" style={{ color: "#333333" }}>
+				<button
+					className={`flex items-center gap-1 transition duration-200 ease-in-out hover:bg-gray-100 rounded-full p-2 ${
+					curtido ? "text-red-500" : "hover:text-gray-500"
+					} ${loadingCurtida ? "opacity-50 cursor-not-allowed" : ""}`}
+					onClick={handleCurtir}
+					type="button"
+					disabled={loadingCurtida}
 				>
-					<button
-						className="flex items-center gap-1 hover:text-gray-500 transition duration-200 ease-in-out hover:bg-gray-100 rounded-full p-2"
-						onClick={onCurtir}
-						type="button"
-					>
-						<Heart
-							size={16}
-							weight="regular"
-						/>
-						{curtidas} Curtidas
-					</button>
+					<Heart size={16} weight={curtido ? "fill" : "regular"} className={curtido ? "text-red-500" : ""} />
+					{totalCurtidas} {totalCurtidas === 1 ? "Curtida" : "Curtidas"}
+				</button>
 
-					<button
-						className="flex items-center gap-1 hover:text-gray-500 transition duration-200 ease-in-out hover:bg-gray-100 rounded-full p-2"
-						onClick={onAbrirComentarios}
-						type="button"
-					>
-						<ChatCircle
-							size={16}
-							weight="bold"
-						/>
-						{comentarios} Comentários
-					</button>
+				<button
+					className="flex items-center gap-1 hover:text-gray-500 transition duration-200 ease-in-out hover:bg-gray-100 rounded-full p-2"
+					onClick={onAbrirComentarios}
+					type="button"
+				>
+					<ChatCircle size={16} weight="bold" />
+					{comentarios} {comentarios === 1 ? "Comentário" : "Comentários"}
+				</button>
 				</div>
 				{tags && tags.length > 0 && (
-					<div className="flex gap-1 flex-wrap">
-						{tags.map((tag, index) => (
-							<BeeTags
-								key={index}
-								label={tag.label}
-								color={tag.color}
-							/>
-						))}
-					</div>
+				<div className="flex gap-1 flex-wrap">
+					{tags.map((tag, index) => (
+					<BeeTags key={index} label={tag.label} color={tag.color} />
+					))}
+				</div>
 				)}
 			</div>
-		</div>
+			</div>
 	);
 };
 
