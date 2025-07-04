@@ -3,14 +3,13 @@ from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.parsers import MultiPartParser
 from ..models import Usuario
-from api.serializers.usuario import UsuarioProfileSerializer, UsuarioSerializer
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import AllowAny
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
-from api.serializers.pesquisa import PesquisaSerializer
-
+from api.serializers.usuario import UsuarioProfileSerializer, UsuarioSerializer, PesquisaSerializer
+from api.filters.usuario import UsuarioFilter
 class UsuarioViewSet(viewsets.ModelViewSet):
     queryset = Usuario.objects.all()
     serializer_class = UsuarioSerializer
@@ -45,14 +44,6 @@ class UsuarioViewSet(viewsets.ModelViewSet):
         else:
             return Response({"Algo deu errado": "serializador.errors"})
 
-    @action(detail=False, methods=["get"], url_path="buscar_usuario/(?P<username>.*)")
-    def buscar_usuario(self, request, username):
-        user = Usuario.objects.filter(username__contains=username)
-        serializador = UsuarioProfileSerializer(user, many=True)
-        if serializador:
-            return Response(serializador.data)
-        else:
-            return Response({"Algo deu errado": "serializador.errors"})
 
     @action(detail=True, methods=["post"])
     def seguir(self, request, pk=None):
@@ -119,3 +110,9 @@ class LogoutUsuarioView(APIView):
             return Response({"detail": "Usuário deslogado com sucesso."})
         except Exception as error:
             return Response({"error": str(error)})
+
+class PesquisaViewSet(viewsets.ModelViewSet):
+    queryset = Usuario.objects.all()
+    serializer_class = PesquisaSerializer
+    filterset_class = UsuarioFilter
+    search_fields = ["nome"]

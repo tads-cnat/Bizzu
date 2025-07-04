@@ -27,3 +27,8 @@ class UsuarioProfileSerializer(serializers.ModelSerializer):
         usuario.is_active = True
         usuario.save()
         return usuario
+
+class PesquisaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Usuario
+        fields = ["imagemPerfil", "nome"]
