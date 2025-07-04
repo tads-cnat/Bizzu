@@ -4,7 +4,8 @@ from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.parsers import MultiPartParser
 from ..models import Usuario
-from api.serializers.usuario import UsuarioProfileSerializer, UsuarioSerializer
+from api.serializers.usuario import UsuarioProfileSerializer, UsuarioSerializer, PesquisaSerializer
+from api.filters.usuario import UsuarioFilter
 
 
 class UsuarioViewSet(viewsets.ModelViewSet):
@@ -28,14 +29,6 @@ class UsuarioViewSet(viewsets.ModelViewSet):
         else:
             return Response({"Algo deu errado": "serializador.errors"})
 
-    @action(detail=False, methods=["get"], url_path="buscar_usuario/(?P<username>.*)")
-    def buscar_usuario(self, request, username):
-        user = Usuario.objects.filter(username__contains=username)
-        serializador = UsuarioProfileSerializer(user, many=True)
-        if serializador:
-            return Response(serializador.data)
-        else:
-            return Response({"Algo deu errado": "serializador.errors"})
 
     @action(detail=True, methods=["post"], permission_classes=[IsAuthenticated])
     def seguir(self, request, pk=None):
@@ -87,3 +80,9 @@ class UsuarioViewSet(viewsets.ModelViewSet):
             return Response({"data": "Um usuário com esse username já existe"})
         else:
             return Response({"data": "Um usuário com esse username não existe"})
+
+class PesquisaViewSet(viewsets.ModelViewSet):
+    queryset = Usuario.objects.all()
+    serializer_class = PesquisaSerializer
+    filterset_class = UsuarioFilter
+    search_fields = ["nome"]
