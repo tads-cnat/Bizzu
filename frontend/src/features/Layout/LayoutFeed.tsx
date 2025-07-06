@@ -115,10 +115,7 @@ const LayoutFeed: React.FC = () => {
 
 	const handleSelecionarSecao = (secao: string) => {
 		setSecaoAtual(secao);
-		console.log(secao);
 	};
-
-	console.log(postagensSeguidores);
 
 	return (
 		<>

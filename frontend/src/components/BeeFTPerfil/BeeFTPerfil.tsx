@@ -28,7 +28,7 @@ const BeeFTPerfil: React.FC<IBeeFTPerfil> = ({usuarioId, dataPublicacao}) => {
 				setUsuario(response.data);
 			})
 			.catch((e) => {
-				console.log("Não recebeu dados", e);
+				console.error("Não recebeu dados", e);
 			});
 	}, []);
 

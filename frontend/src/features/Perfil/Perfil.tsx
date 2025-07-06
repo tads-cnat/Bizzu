@@ -13,8 +13,6 @@ import UsuarioService from "../../services/models/UsuarioService";
 import BeeAlert from "../../components/BeeAlert/BeeAlert";
 import {IBeeUser} from "./components/BeeHeaderProfile/IBeeUser";
 import BeeHeaderProfile from "./components/BeeHeaderProfile/BeeHeaderProfile";
-
-// === LINHA ADICIONADA: import do componente de sidebar ===
 import BeePerfilSidebar from "../../components/BeePerfilSidebar/BeePerfilSidebar";
 import acessPermissions from "../../utils/acessPermissions";
 
@@ -26,7 +24,8 @@ const Perfil: React.FC = () => {
 	const identificator = useParams().username;
 	const [usuario, setUsuario] = useState<IBeeUser>();
 	const [alertActivate, setAlertActivate] = useState<Boolean>(false);
-	const {permissions} = acessPermissions();
+	let {permissions} = acessPermissions();
+	const [permissoes, setPermissoes] = useState(permissions);
 
 	useEffect(() => {
 		if (usuario === undefined) {
@@ -35,10 +34,16 @@ const Perfil: React.FC = () => {
 					setUsuario(response);
 				})
 				.catch(() => {
-					console.log("Não recebeu dados");
+					console.error("Não recebeu dados");
 				});
 		}
 	}, []);
+
+	useEffect(() => {
+		if (permissions) {
+			setPermissoes(permissions);
+		}
+	}, [permissions]);
 
 	useEffect(() => {
 		if (usuario !== undefined) {
@@ -144,14 +149,11 @@ const Perfil: React.FC = () => {
 		try {
 			const response = await PostagemService.getPost(usuario.id);
 			setPostagens(response.data);
-			console.log(response.data);
 		} catch (error) {
 			console.error("Erro ao carregar postagens:", error);
 			setError("Erro ao carregar postagens. Verifique sua conexão.");
 		}
 	};
-
-	console.log("Permissões: ", permissions);
 
 	return (
 		<>

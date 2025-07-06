@@ -5,17 +5,14 @@ import {Types} from "../../permissions/types";
 import {getPermissions} from "../../utils/getPermissions";
 import {useLocation} from "react-router-dom";
 import acessAuth from "../../utils/acessAuth";
-import getLocalStorage from "../../utils/getLocalStorage";
 
 export const PermissionContext = createContext<IContextPermission>(
 	{} as IContextPermission,
 );
 
 const PermissionProvider = ({children}: IProviderPermission) => {
-	const [path, setPath] = useState<string>(useLocation().pathname);
-	const {papel} = acessAuth();
-
-	const [role, setRole] = useState(papel);
+	const {papel, username} = acessAuth();
+	const location = useLocation();
 	const [permissions, setPermissions] = useState<Record<Types, boolean>>({
 		[Types.READ]: false,
 		[Types.CREATE]: false,
@@ -23,9 +20,6 @@ const PermissionProvider = ({children}: IProviderPermission) => {
 		[Types.DELETE]: false,
 	});
 
-	const {username} = acessAuth();
-
-	const location = useLocation();
 	useEffect(() => {
 		if (papel) {
 			const userPermissions = getPermissions(
@@ -34,16 +28,8 @@ const PermissionProvider = ({children}: IProviderPermission) => {
 				username,
 			);
 			setPermissions(userPermissions);
-		} else {
-			if (username != undefined) {
-				setRole(getLocalStorage().papel);
-			}
 		}
-	}, [path, role]);
-
-	useEffect(() => {
-		setPath(location.pathname);
-	}, [location]);
+	}, [location.pathname, papel, username]);
 
 	return (
 		<>
