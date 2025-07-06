@@ -1,15 +1,11 @@
-export interface Tag {
-  label: string
-  color: string
-  tipo: "tec" | "mat" | "per" // Mantendo consistência com a interface principal
-}
+import IBeeTags from "../BeeTags/IBeeTags";
 
 export interface BeePostProps {
   id?: number
   usuario: String;
   texto: string
   imagemPost?: string
-  tags?: Tag[]
+  tags?: IBeeTags[]
   dataPublicacao: string
   curtidas?: number
   comentarios?: number

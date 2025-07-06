@@ -67,7 +67,8 @@ const BeeFTPerfil: React.FC<IBeeFTPerfil> = ({usuarioId, dataPublicacao}) => {
 						<span>
 							<Link
 								to={`/${usuario?.username}/`}
-								className="text-[#333333] font-poppins font-semibold"
+								style={{color: "#333333"}}
+								className="text-[#333333] font-poppins font-semibold outline-none"
 							>
 								{usuario?.username}
 							</Link>

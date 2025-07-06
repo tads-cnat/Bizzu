@@ -86,9 +86,9 @@ const Perfil: React.FC = () => {
 
 		// Cores por tipo de categoria
 		const coresPorTipo: Record<"tec" | "mat" | "per", string> = {
-			tec: "#FCBD18",
-			mat: "#058B92",
-			per: "#F2C94C",
+			tec: "magenta",
+			mat: "orange",
+			per: "cyan",
 		};
 
 		const defaultColor = "#6FCF97";

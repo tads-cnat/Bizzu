@@ -9,6 +9,7 @@ import type {GetProp, MenuProps} from "antd";
 import {Globe, House, User} from "@phosphor-icons/react";
 import {IBeeSidebarProps} from "./IBeeSidebar";
 import {IBeeUser} from "../../features/Perfil/components/BeeHeaderProfile/IBeeUser";
+import BeeNotification from "../BeeNotification/BeeNotification";
 
 export const BeeSidebar = ({onSelecionarSecao}: IBeeSidebarProps) => {
 	const {username} = acessAuth();
@@ -102,16 +103,34 @@ export const BeeSidebar = ({onSelecionarSecao}: IBeeSidebarProps) => {
 				)}
 			</div>
 			<Divider />
-			<Menu
-				className="border-none "
-				defaultSelectedKeys={["1"]}
-				defaultOpenKeys={["3"]}
-				mode="inline"
-				items={items}
-				onSelect={(e) => {
-					onSelecionarSecao(e.key);
-				}}
-			/>
+			{username === undefined ? (
+				<BeeNotification
+					type="warning"
+					title="Você não está conectado"
+					message="Faça o login e aproveite integralmente o bizzu"
+					content={
+						<Menu
+							className="border-none "
+							defaultSelectedKeys={["1"]}
+							defaultOpenKeys={["3"]}
+							mode="inline"
+							items={items}
+							selectable={false}
+						/>
+					}
+				/>
+			) : (
+				<Menu
+					className="border-none "
+					defaultSelectedKeys={["1"]}
+					defaultOpenKeys={["3"]}
+					mode="inline"
+					items={items}
+					onSelect={(e) => {
+						onSelecionarSecao(e.key);
+					}}
+				/>
+			)}
 		</div>
 	);
 };

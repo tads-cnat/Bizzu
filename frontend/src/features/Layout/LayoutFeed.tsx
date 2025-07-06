@@ -10,7 +10,7 @@ import PostagemService from "../../services/models/PostagemService";
 import BeePost from "../../components/BeePost/BeePost";
 import {BeePostProps} from "../../components/BeePost/IBeePost";
 import {useEffect, useState} from "react";
-import BeeNotification from "../../components/BeeNotification/BeeNotification";
+import {Empty} from "antd";
 const LayoutFeed: React.FC = () => {
 	const [repositorios, setRepositorios] = useState<Repositorio[]>([]);
 	const [categorias, setCategorias] = useState<Categoria[]>([]);
@@ -76,9 +76,9 @@ const LayoutFeed: React.FC = () => {
 		if (!categoriasIds || categoriasIds.length === 0) return [];
 
 		const coresPorTipo: Record<"tec" | "mat" | "per", string> = {
-			tec: "#FCBD18",
-			mat: "#058B92",
-			per: "#F2C94C",
+			tec: "magenta",
+			mat: "orange",
+			per: "cyan",
 		};
 
 		const defaultColor = "#6FCF97";
@@ -151,7 +151,10 @@ const LayoutFeed: React.FC = () => {
 										})}
 									</div>
 								) : (
-									<p>Não há publicações nas comunidades que você faz parte</p>
+									<Empty
+										image={Empty.PRESENTED_IMAGE_SIMPLE}
+										description="Sem publicações das comunidades que você segue"
+									/>
 								)}
 							</div>
 						) : (
@@ -178,17 +181,22 @@ const LayoutFeed: React.FC = () => {
 										})}
 									</div>
 								) : (
-									<p>Não há publicações das pessoas que você segue</p>
+									<Empty
+										image={Empty.PRESENTED_IMAGE_SIMPLE}
+										description="Sem publicações das pessoas que você segue"
+									/>
 								)}
 							</div>
 						)}
-						{/* <Outlet context={{recarregarRepositorios: carregarRepositorios}} /> */}
 					</div>
 				</div>
 				<aside className="fixed top-[80px] right-4 w-1/4 min-h-screen shadow-md flex flex-col justify-start px-3 py-4 rounded-xl bg-white z-40 overflow-y-auto gap-4">
 					<h2 className="text-lg font-bold mb-2">Repositórios</h2>
 					{repositorios.length === 0 && (
-						<p className="text-gray-500">Nenhum repositório encontrado.</p>
+						<Empty
+							image={Empty.PRESENTED_IMAGE_SIMPLE}
+							description="Nenhum repositório encontrado"
+						/>
 					)}
 					{repositorios.map((repo) => {
 						const tags = categoriasParaTags(repo.categorias);
