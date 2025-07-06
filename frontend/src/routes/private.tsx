@@ -5,6 +5,7 @@ import Perfil from "../features/Perfil/Perfil";
 import EditRepositorio from "../features/Repositorio/Edit";
 import CreateRepositorio from "../features/Repositorio/Create";
 import Repositorio from "../features/Repositorio/Repositorio";
+import {Empty} from "antd";
 
 export const privatesRoutes = [
 	{
