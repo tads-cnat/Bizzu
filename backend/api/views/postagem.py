@@ -4,18 +4,29 @@ from api.serializers.postagem import PostagemSerializer, PostagemUpdateSerialize
 from rest_framework.parsers import MultiPartParser
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.permissions import IsAuthenticated
+from ..permissions.basePermission import IsOwnerOrReadOnly
+from rest_framework.permissions import AllowAny
 
 
 class PostagemViewSet(viewsets.ModelViewSet):
     queryset = Postagem.objects.all()
     serializer_class = PostagemSerializer
     parser_classes = [MultiPartParser]
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
 
     def getSerializer(self):
         if self.request.method == "GET" or self.request.method == "POST":
             return PostagemSerializer
         elif self.request.method == "PATCH" or self.request.method == "PUT":
             return PostagemUpdateSerializer
+
+    def get_permissions(self):
+        if self.action == "getPost":
+            return [AllowAny()]
+        return super().get_permissions()
 
     @action(
         detail=True, methods=["GET"]

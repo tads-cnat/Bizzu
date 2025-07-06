@@ -1,14 +1,17 @@
-from rest_framework import viewsets, permissions, status
+from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from api.models import Curtida, Postagem
 from api.serializers.curtida import CurtidaSerializer
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 
 class CurtidaViewSet(viewsets.ModelViewSet):
     queryset = Curtida.objects.all()
     serializer_class = CurtidaSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
         serializer.save(usuario=self.request.user)

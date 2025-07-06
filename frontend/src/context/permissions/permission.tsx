@@ -35,7 +35,9 @@ const PermissionProvider = ({children}: IProviderPermission) => {
 			);
 			setPermissions(userPermissions);
 		} else {
-			setRole(getLocalStorage().papel);
+			if (username != undefined) {
+				setRole(getLocalStorage().papel);
+			}
 		}
 	}, [path, role]);
 

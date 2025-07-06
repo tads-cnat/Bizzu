@@ -206,7 +206,6 @@ const Perfil: React.FC = () => {
 				<div>Parte dos repositórios</div>
 			</BeeAbasPerfil>
 
-			{/* === BLOCO ADICIONADO: Sidebar fixa à direita === */}
 			<aside className="fixed top-[80px] right-4 w-1/4 min-h-screen shadow-md flex flex-col justify-start px-3 py-4 rounded-xl bg-white z-40 overflow-y-auto gap-4">
 				<BeePerfilSidebar />
 			</aside>

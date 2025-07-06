@@ -8,6 +8,15 @@ class PermissionList(permissions.BasePermission):
         usuario = request.user
         if not usuario.is_authenticated:
             return False
-        elif usuario.papel == self.papel:
+        if usuario.papel == self.papel:
             return True
+        print("USUARIO: ", self.papel)
         return False
+
+
+class IsOwnerOrReadOnly(permissions.BasePermission):
+    def has_object_permission(self, request, view, obj):
+        print(obj)
+        if request.method in permissions.SAFE_METHODS:
+            return True
+        return obj == request.user

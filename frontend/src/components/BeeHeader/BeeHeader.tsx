@@ -4,6 +4,7 @@ import BeeButton from "../BeeButtons/BeeButtons";
 import {SignOut} from "@phosphor-icons/react";
 import acessAuth from "../../utils/acessAuth";
 import {Link, useNavigate} from "react-router-dom";
+import UsuarioService from "../../services/models/UsuarioService";
 
 const BeeHeader: React.FC = () => {
 	const {deslogar} = acessAuth();
@@ -11,6 +12,13 @@ const BeeHeader: React.FC = () => {
 	const mudar = useNavigate();
 
 	const sair = () => {
+		UsuarioService.logout()
+			.then((response) => {
+				console.log("Logout realizado com sucesso ", response);
+			})
+			.catch((e) => {
+				console.log("Ainda está logado", e);
+			});
 		deslogar();
 		mudar("/login", {replace: true});
 	};

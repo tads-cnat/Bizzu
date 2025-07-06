@@ -1,5 +1,5 @@
-from basePermission import PermissionList
+from .basePermission import PermissionList
 
 
 class Internauta(PermissionList):
-    papel = "internauta"
+    papel = "int"

@@ -13,7 +13,7 @@ export const privatesRoutes = [
 		element: <Layout />,
 		children: [
 			{
-				path: ":username",
+				path: "/:username",
 				element: <Perfil />,
 			},
 			{
