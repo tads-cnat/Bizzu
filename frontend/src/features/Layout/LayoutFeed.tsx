@@ -117,7 +117,7 @@ const LayoutFeed: React.FC = () => {
 		console.log(secao);
 	};
 
-	console.log(postagensComunidade);
+	console.log(postagensSeguidores);
 
 	return (
 		<>
@@ -168,7 +168,7 @@ const LayoutFeed: React.FC = () => {
 													comentarios={post.comentarios || 0}
 													usuario={post.usuario}
 													dataPublicacao={post.dataPublicacao}
-													imagemPost={post.imagemPost}
+													imagemPost={post.imagem}
 													onCurtir={() => post.id}
 													onAbrirComentarios={() => post.id}
 													onExcluir={() => {}}
