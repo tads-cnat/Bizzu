@@ -1,4 +1,5 @@
 import Cadastro from "../features/Cadastro/Cadastro";
+import LayoutFeed from "../features/Layout/LayoutFeed";
 import Login from "../features/Login/Login";
 
 export const publicRoutes = [
@@ -9,5 +10,9 @@ export const publicRoutes = [
 	{
 		path: "/cadastro/",
 		element: <Cadastro />,
+	},
+	{
+		path: "/feed",
+		element: <LayoutFeed />,
 	},
 ];

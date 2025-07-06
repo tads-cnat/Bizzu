@@ -10,6 +10,7 @@ import PostagemService from "../../services/models/PostagemService";
 import BeePost from "../../components/BeePost/BeePost";
 import {BeePostProps} from "../../components/BeePost/IBeePost";
 import {useEffect, useState} from "react";
+import BeeNotification from "../../components/BeeNotification/BeeNotification";
 const LayoutFeed: React.FC = () => {
 	const [repositorios, setRepositorios] = useState<Repositorio[]>([]);
 	const [categorias, setCategorias] = useState<Categoria[]>([]);

@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import UsuarioService from "../../services/models/UsuarioService";
 import {IBeeFTPerfil} from "./IBeeFTPerfil";
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import {IBeeUser} from "../../features/Perfil/components/BeeHeaderProfile/IBeeUser";
 
 function tempoDesde(data: string): string {
@@ -64,8 +64,13 @@ const BeeFTPerfil: React.FC<IBeeFTPerfil> = ({usuarioId, dataPublicacao}) => {
 				</div>
 				<div className="p-2 ">
 					{usuario?.username !== undefined && (
-						<span className="text-[#333333] font-poppins font-semibold">
-							{usuario?.username}
+						<span>
+							<Link
+								to={`/${usuario?.username}/`}
+								className="text-[#333333] font-poppins font-semibold"
+							>
+								{usuario?.username}
+							</Link>
 						</span>
 					)}
 					<span className="text-[#FCBD18] font-poppins font-semibold">
