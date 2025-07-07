@@ -32,6 +32,10 @@ class UsuarioService extends BaseService{
         const response = await axiosInstance.get(`/usuario/usernameExits/${username}`);
         return response.data;
     }
+    async editarPerfil(dados: any){
+        const response = await axiosInstance.patch(`/usuario/editarPerfil/`, dados);
+        return response.data
+    }
 }
 
 export default new UsuarioService("usuario");
