@@ -2,15 +2,21 @@
 
 import type React from "react";
 import {useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
+import {useParams, useNavigate} from "react-router-dom";
 import {PencilSimple, GraduationCap, Gear} from "@phosphor-icons/react";
 import UsuarioService from "../../services/models/UsuarioService";
 import type {IBeeUser} from "../BeeHeaderProfile/IBeeUser";
-
+import FormEditarPerfil from "../../features/Perfil/forms/FormEditarPerfil";
 const BeePerfilSidebar: React.FC = () => {
 	const {username} = useParams();
 	const [usuario, setUsuario] = useState<IBeeUser | null>(null);
 	const [loading, setLoading] = useState(true);
+	const navigate = useNavigate();
+	const [mostrarFormulario, setMostrarFormulario] = useState(false);
+	const handleClick = (onClickOriginal: () => void) => {
+		onClickOriginal();
+		setMostrarFormulario(true);
+	};
 
 	useEffect(() => {
 		const carregarUsuario = async () => {
@@ -211,7 +217,7 @@ const BeePerfilSidebar: React.FC = () => {
 							</div>
 
 							<button
-								onClick={config.onClick}
+								onClick={() => navigate("/bizzu/perfil/editar/")}
 								className="flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-[#058B92] hover:bg-gray-50 rounded-md transition-colors"
 							>
 								<PencilSimple
@@ -222,6 +228,11 @@ const BeePerfilSidebar: React.FC = () => {
 							</button>
 						</div>
 					))}
+					{mostrarFormulario && (
+						<div className="mt-3 border p-4 rounded bg-gray-50">
+							<FormEditarPerfil onClose={() => setMostrarFormulario(false)} />
+						</div>
+					)}
 				</div>
 			</div>
 		</div>

@@ -2,6 +2,8 @@ import React from "react";
 import {IFormEditarPerfil} from "./IFormEditarPerfil";
 import axios from "axios";
 import {useState, useEffect, ChangeEvent, FormEvent} from "react";
+import {useParams, useNavigate} from "react-router-dom";
+import getLocalStorage from "../../../utils/getLocalStorage";
 
 const FormEditarPerfil: React.FC<IFormEditarPerfil> = ({
 	nome,
@@ -10,6 +12,7 @@ const FormEditarPerfil: React.FC<IFormEditarPerfil> = ({
 	linkedinUrl,
 	escolaFormacao,
 	instituicaoAtual,
+	onClose,
 }) => {
 	const [form, setForm] = useState<IFormEditarPerfil>({
 		nome: "",
@@ -18,9 +21,11 @@ const FormEditarPerfil: React.FC<IFormEditarPerfil> = ({
 		escolaFormacao: "",
 		instituicaoAtual: "",
 	});
+	const navigate = useNavigate();
 	const [imagem, setImagem] = useState<File | null>(null);
 	const [mensagem, setMensagem] = useState("");
-	const token = localStorage.getItem("token");
+	const usuarioLocal = getLocalStorage();
+	const token = usuarioLocal?.token;
 	const handleChange = (
 		usuario: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
 	) => {
@@ -47,13 +52,18 @@ const FormEditarPerfil: React.FC<IFormEditarPerfil> = ({
 		}
 
 		try {
-			await axios.patch("/api/usuario/editarPerfil/", formData, {
-				headers: {
-					Authorization: `Bearer ${token}`,
-					"Content-Type": "multipart/form-data",
+			await axios.patch(
+				"http://localhost:8000/api/usuario/editarPerfil/",
+				formData,
+				{
+					headers: {
+						Authorization: `Bearer ${token}`,
+						"Content-Type": "multipart/form-data",
+					},
 				},
-			});
+			);
 			setMensagem("Perfil atualizado com sucesso!");
+			onClose?.();
 		} catch (error: any) {
 			console.error(error.response?.data || error.message);
 			setMensagem("Erro ao atualizar perfil.");
@@ -61,30 +71,61 @@ const FormEditarPerfil: React.FC<IFormEditarPerfil> = ({
 	};
 
 	useEffect(() => {
-		axios
-			.get("/api/usuario/perfil/", {
-				headers: {Authorization: `Bearer ${token}`},
-			})
-			.then((res) => {
-				setForm(res.data);
-			})
-			.catch((err) => {
-				console.error("Erro ao carregar perfil", err);
-			});
+		const dadosUsuario = async () => {
+			try {
+				const response = await axios.get(
+					"http://localhost:8000/api/usuario/editarPerfil/",
+					{
+						headers: {
+							Authorization: `Bearer ${token}`,
+						},
+					},
+				);
+
+				setForm({
+					nome: response.data.nome || "",
+					descricao: response.data.descricao || "",
+					imagemPerfil: response.data.imagemPerfil || "",
+					linkedinUrl: response.data.linkedinUrl || "",
+					escolaFormacao: response.data.escolaFormacao || "",
+					instituicaoAtual: response.data.instituicaoAtual || "",
+				});
+			} catch (error) {
+				console.error("Erro ao buscar dados do usuário:", error);
+				console.log(token);
+			}
+		};
+
+		dadosUsuario();
 	}, []);
 
 	return (
-		<form onSubmit={handleSubmit}>
+		<form
+			className="rounded-xl border border-gray-400 p-6 bg-white"
+			onSubmit={handleSubmit}
+		>
 			<div className="space-y-12">
 				<div className="border-b border-gray-900/10 pb-12">
-					<h2 className="text-base font-semibold text-gray-900">Profile</h2>
-					<p className="mt-1 text-sm text-gray-600">
-						This information will be displayed publicly so be careful what you
-						share.
-					</p>
-
 					<div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 						<div className="sm:col-span-4">
+							<div className="sm:col-span-3">
+								<label
+									htmlFor="nome"
+									className="block text-sm font-medium text-gray-900"
+								>
+									Nome
+								</label>
+								<div className="mt-2">
+									<input
+										id="nome"
+										name="nome"
+										type="text"
+										value={form.nome}
+										onChange={handleChange}
+										className="block w-full rounded-md px-3 py-1.5 text-base text-gray-900 border outline-gray-300 focus:outline-indigo-600 sm:text-sm"
+									/>
+								</div>
+							</div>
 							<label
 								htmlFor="linkedinUrl"
 								className="block text-sm font-medium text-gray-900"
@@ -109,7 +150,7 @@ const FormEditarPerfil: React.FC<IFormEditarPerfil> = ({
 								htmlFor="descricao"
 								className="block text-sm font-medium text-gray-900"
 							>
-								About
+								Descrição
 							</label>
 							<div className="mt-2">
 								<textarea
@@ -137,25 +178,6 @@ const FormEditarPerfil: React.FC<IFormEditarPerfil> = ({
 								onChange={handleImagemChange}
 								className="mt-2"
 							/>
-						</div>
-
-						<div className="sm:col-span-3">
-							<label
-								htmlFor="nome"
-								className="block text-sm font-medium text-gray-900"
-							>
-								Nome
-							</label>
-							<div className="mt-2">
-								<input
-									id="nome"
-									name="nome"
-									type="text"
-									value={form.nome}
-									onChange={handleChange}
-									className="block w-full rounded-md px-3 py-1.5 text-base text-gray-900 border outline-gray-300 focus:outline-indigo-600 sm:text-sm"
-								/>
-							</div>
 						</div>
 
 						<div className="sm:col-span-3">
@@ -199,6 +221,13 @@ const FormEditarPerfil: React.FC<IFormEditarPerfil> = ({
 				</div>
 
 				<div className="mt-6 flex items-center justify-end gap-x-6">
+					<button
+						type="button"
+						className="text-sm/6 font-semibold text-gray-900"
+						onClick={() => navigate("/bizzu/perfil/editar/")}
+					>
+						Cancelar
+					</button>
 					<button
 						type="submit"
 						className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500"
