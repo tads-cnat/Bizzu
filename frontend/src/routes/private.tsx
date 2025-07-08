@@ -33,6 +33,10 @@ export const privatesRoutes = [
 				path: "repositorio/criar",
 				element: <CreateRepositorio />,
 			},
+			{
+				path: "repositorio/criar/",
+				element: <CreateRepositorio />,
+			},
 			// {
 			// 	path: "repositorio/criar/",
 			// 	element: (
