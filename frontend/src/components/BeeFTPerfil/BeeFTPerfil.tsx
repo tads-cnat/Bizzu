@@ -1,8 +1,9 @@
 import {useEffect, useState} from "react";
 import UsuarioService from "../../services/models/UsuarioService";
 import {IBeeFTPerfil} from "./IBeeFTPerfil";
-import {useParams} from "react-router-dom";
-import {IBeeUser} from "../../features/Perfil/components/BeeHeaderProfile/IBeeUser";
+import {Link} from "react-router-dom";
+import acessAuth from "../../utils/acessAuth";
+import BeeNotification from "../BeeNotification/BeeNotification";
 
 function tempoDesde(data: string): string {
 	const date = new Date(data);
@@ -21,6 +22,7 @@ function tempoDesde(data: string): string {
 
 const BeeFTPerfil: React.FC<IBeeFTPerfil> = ({usuarioId, dataPublicacao}) => {
 	const [usuario, setUsuario] = useState<any>();
+	const {username} = acessAuth();
 
 	useEffect(() => {
 		void UsuarioService.get(usuarioId)
@@ -28,7 +30,7 @@ const BeeFTPerfil: React.FC<IBeeFTPerfil> = ({usuarioId, dataPublicacao}) => {
 				setUsuario(response.data);
 			})
 			.catch((e) => {
-				console.log("Não recebeu dados", e);
+				console.error("Não recebeu dados", e);
 			});
 	}, []);
 
@@ -40,7 +42,7 @@ const BeeFTPerfil: React.FC<IBeeFTPerfil> = ({usuarioId, dataPublicacao}) => {
 						<img
 							src={
 								usuario.imagemPerfil
-									? `http://localhost:8000${usuario.imagemPerfil}`
+									? `${usuario.imagemPerfil}`
 									: "http://localhost:8000/imgPostagens/usuarios/2025/06/10/sem_imagem_avatar.png"
 							}
 							alt="Imagem de usuário"
@@ -64,14 +66,42 @@ const BeeFTPerfil: React.FC<IBeeFTPerfil> = ({usuarioId, dataPublicacao}) => {
 				</div>
 				<div className="p-2 ">
 					{usuario?.username !== undefined && (
-						<span className="text-[#333333] font-poppins font-semibold">
-							{usuario?.username}
+						<span>
+							{username !== undefined ? (
+								<Link
+									to={`/${usuario?.username}/`}
+									style={{color: "#333333"}}
+									className="text-[#333333] font-poppins font-semibold outline-none"
+								>
+									{usuario?.username}
+									<span className="text-[#FCBD18] font-poppins font-semibold">
+										{" "}
+										• {tempoDesde(dataPublicacao)}{" "}
+									</span>
+								</Link>
+							) : (
+								<a>
+									<BeeNotification
+										type="warning"
+										title="Você não está conectado"
+										message="Faça o login e aproveite integralmente o bizzu"
+										content={
+											<div
+												style={{color: "#333333"}}
+												className="text-[#333333] font-poppins font-semibold outline-none"
+											>
+												{usuario?.username}{" "}
+												<span className="text-[#FCBD18] font-poppins font-semibold">
+													{" "}
+													• {tempoDesde(dataPublicacao)}{" "}
+												</span>{" "}
+											</div>
+										}
+									/>
+								</a>
+							)}
 						</span>
 					)}
-					<span className="text-[#FCBD18] font-poppins font-semibold">
-						{" "}
-						• {tempoDesde(dataPublicacao)}{" "}
-					</span>
 				</div>
 			</div>
 		</>
