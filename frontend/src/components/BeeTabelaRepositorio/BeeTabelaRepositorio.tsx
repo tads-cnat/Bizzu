@@ -44,6 +44,29 @@ function getFileColor(extension: string): string {
   return colorMap[extension] || colorMap.default
 }
 
+// Função para processar tags do backend
+function processarTags(tags: string[]): { label: string; color: string; tipo: "tec" | "mat" | "per" }[] {
+  return tags.map((tag) => {
+    // Lógica simples para determinar tipo e cor baseado no conteúdo da tag
+    let tipo: "tec" | "mat" | "per" = "tec"
+    let color = "#4ECDC4"
+
+    if (tag.toLowerCase().includes("matemática") || tag.toLowerCase().includes("cálculo")) {
+      tipo = "mat"
+      color = "#FF6B6B"
+    } else if (tag.toLowerCase().includes("pesquisa") || tag.toLowerCase().includes("projeto")) {
+      tipo = "per"
+      color = "#95E1D3"
+    }
+
+    return {
+      label: tag,
+      color,
+      tipo,
+    }
+  })
+}
+
 const BeeTabelaRepositorio: React.FC<IBeeTabelaRepositorio> = ({
   id,
   titulo,
@@ -51,19 +74,21 @@ const BeeTabelaRepositorio: React.FC<IBeeTabelaRepositorio> = ({
   usuario,
   dataPublicacao,
   tags,
-  files,
+  arquivos,
   imagem,
 }) => {
-  const handleDownload = (file: FileItem) => {
-    // Criar link para download
+  const handleDownload = (arquivo: FileItem) => {
+    // Criar link para download usando o campo arquivo do modelo
     const link = document.createElement("a")
-    link.href = `http://localhost:8000${file.arquivo}`
-    link.download = file.name
+    link.href = `http://localhost:8000${arquivo.arquivo}`
+    link.download = arquivo.nome
     link.target = "_blank"
     document.body.appendChild(link)
     link.click()
     document.body.removeChild(link)
   }
+
+  const tagsProcessadas = processarTags(tags)
 
   return (
     <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
@@ -104,7 +129,7 @@ const BeeTabelaRepositorio: React.FC<IBeeTabelaRepositorio> = ({
               <span className="text-sm font-medium text-gray-700">Tags:</span>
             </div>
             <div className="flex flex-wrap gap-2">
-              {tags.map((tag, index) => (
+              {tagsProcessadas.map((tag, index) => (
                 <BeeTags key={index} label={tag.label} color={tag.color} />
               ))}
             </div>
@@ -116,23 +141,23 @@ const BeeTabelaRepositorio: React.FC<IBeeTabelaRepositorio> = ({
       <div className="p-6">
         <div className="flex items-center gap-2 mb-4">
           <File size={20} className="text-[#FCBD18]" />
-          <h2 className="text-lg font-semibold text-[#333333]">Arquivos ({files.length})</h2>
+          <h2 className="text-lg font-semibold text-[#333333]">Arquivos ({arquivos.length})</h2>
         </div>
 
-        {files.length === 0 ? (
+        {arquivos.length === 0 ? (
           <div className="text-center py-8 text-gray-500">
             <File size={48} className="mx-auto mb-2 opacity-50" />
             <p>Nenhum arquivo anexado a este repositório</p>
           </div>
         ) : (
           <div className="space-y-2">
-            {files.map((file: FileItem) => {
-              const extension = getFileExtension(file.name)
+            {arquivos.map((arquivo: FileItem) => {
+              const extension = getFileExtension(arquivo.nome)
               const fileColor = getFileColor(extension)
 
               return (
                 <div
-                  key={file.id}
+                  key={arquivo.id}
                   className="flex items-center justify-between p-4 rounded-lg border border-gray-100 hover:border-[#FCBD18]/30 hover:bg-gray-50/50 transition-all duration-200"
                 >
                   <div className="flex items-center gap-3 flex-1 min-w-0">
@@ -144,13 +169,13 @@ const BeeTabelaRepositorio: React.FC<IBeeTabelaRepositorio> = ({
                     </div>
 
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-[#333333] truncate">{file.name}</p>
-                      <p className="text-xs text-gray-500">Enviado {tempoDesde(file.uploadedAt)}</p>
+                      <p className="text-sm font-medium text-[#333333] truncate">{arquivo.nome}</p>
+                      <p className="text-xs text-gray-500">Arquivo #{arquivo.id}</p>
                     </div>
                   </div>
 
                   <button
-                    onClick={() => handleDownload(file)}
+                    onClick={() => handleDownload(arquivo)}
                     className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-[#FCBD18] hover:text-[#E6A815] hover:bg-[#FCBD18]/10 rounded-lg transition-colors"
                   >
                     <Download size={16} />
@@ -169,7 +194,7 @@ const BeeTabelaRepositorio: React.FC<IBeeTabelaRepositorio> = ({
           <div className="flex items-center gap-4">
             <span className="flex items-center gap-1">
               <File size={14} />
-              {files.length} {files.length === 1 ? "arquivo" : "arquivos"}
+              {arquivos.length} {arquivos.length === 1 ? "arquivo" : "arquivos"}
             </span>
             <span className="flex items-center gap-1">
               <TagIcon size={14} />

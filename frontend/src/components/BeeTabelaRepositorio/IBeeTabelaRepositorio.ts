@@ -2,9 +2,9 @@ import type { Usuario } from "../../interfaces/Repositorio"
 
 export interface FileItem {
   id: number
-  name: string
+  nome: string
   arquivo: string
-  uploadedAt: string
+  repositorio: number
 }
 
 export interface IBeeTabelaRepositorio {
@@ -19,9 +19,9 @@ export interface IBeeTabelaRepositorio {
   /** Data de criação/atualização do repositório */
   dataPublicacao: string
   /** Lista de tags associadas ao repositório */
-  tags: { label: string; color: string; tipo: "tec" | "mat" | "per" }[]
+  tags: string[]
   /** Lista de arquivos anexados ao repositório */
-  files: FileItem[]
+  arquivos: FileItem[]
   /** Imagem do repositório (opcional) */
   imagem?: string
 }
