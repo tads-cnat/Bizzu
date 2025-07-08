@@ -17,16 +17,16 @@ class PostagemViewSet(viewsets.ModelViewSet):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
 
+    def get_permissions(self):
+        if self.action == "getPost" or self.action == "list":
+            return [AllowAny()]
+        return super().get_permissions()
+
     def getSerializer(self):
         if self.request.method == "GET" or self.request.method == "POST":
             return PostagemSerializer
         elif self.request.method == "PATCH" or self.request.method == "PUT":
             return PostagemUpdateSerializer
-
-    def get_permissions(self):
-        if self.action == "getPost":
-            return [AllowAny()]
-        return super().get_permissions()
 
     @action(
         detail=True, methods=["GET"]

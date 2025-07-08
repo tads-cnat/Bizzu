@@ -12,6 +12,7 @@ import {useEffect, useState} from "react";
 import {Empty} from "antd";
 import getLocalStorage from "../../utils/getLocalStorage";
 const LayoutFeed: React.FC = () => {
+	const [usuario, setUsuario] = useState<any>();
 	const [repositorios, setRepositorios] = useState<Repositorio[]>([]);
 	const [categorias, setCategorias] = useState<Categoria[]>([]);
 	const [postagensComunidade, setPostagensComunidade] = useState<
@@ -21,7 +22,10 @@ const LayoutFeed: React.FC = () => {
 		BeePostProps[]
 	>([]);
 	const [allPost, setAllPost] = useState<BeePostProps[]>([]);
-	const username = getLocalStorage().username;
+
+	if (getLocalStorage() !== null && usuario === undefined) {
+		setUsuario(getLocalStorage().username);
+	}
 
 	const [secaoAtual, setSecaoAtual] = useState("1");
 
@@ -37,7 +41,7 @@ const LayoutFeed: React.FC = () => {
 
 	const carregarPostagem = async () => {
 		try {
-			const response = await PostagemService.getPostByCommunity(username);
+			const response = await PostagemService.getPostByCommunity(usuario);
 			setPostagensComunidade(response.data);
 		} catch (error) {
 			console.error("Erro ao carregar usuario:", error);
@@ -46,7 +50,7 @@ const LayoutFeed: React.FC = () => {
 
 	const carregarPostagemSeguidores = async () => {
 		try {
-			const response = await PostagemService.getPostByFollowers(username);
+			const response = await PostagemService.getPostByFollowers(usuario);
 			setPostagensSeguidores(response.data);
 		} catch (error) {
 			console.error("Erro ao carregar usuario:", error);
@@ -66,6 +70,8 @@ const LayoutFeed: React.FC = () => {
 	const carregarPostDefault = async () => {
 		try {
 			const response = await PostagemService.listAll();
+			console.log(response);
+
 			setAllPost(response.data || []);
 		} catch (error) {
 			console.error("Erro ao carregar todas as postagens:", error);
@@ -118,12 +124,15 @@ const LayoutFeed: React.FC = () => {
 	};
 
 	useEffect(() => {
-		carregarPostagem();
-		carregarRepositorios();
-		carregarCategorias();
-		carregarPostagemSeguidores();
-		if (username === undefined) carregarPostDefault();
-	}, [username]);
+		if (usuario === undefined) carregarPostDefault();
+		else {
+			carregarPostagem();
+			carregarRepositorios();
+			carregarCategorias();
+			carregarPostagemSeguidores();
+		}
+		console.log(categorias);
+	}, []);
 
 	const handleSelecionarSecao = (secao: string) => {
 		setSecaoAtual(secao);
@@ -136,7 +145,7 @@ const LayoutFeed: React.FC = () => {
 				<BeeSidebar onSelecionarSecao={handleSelecionarSecao} />
 				<div className="fixed top-[80px] left-1/5 w-200 h-[calc(100vh-80px)] flex-1 flex flex-col px-3 py-4 rounded-xl z-40 overflow-y-auto justify-start items-center">
 					<div className="w-full max-w-[500px] px-4 flex flex-col">
-						{username !== undefined ? (
+						{usuario !== undefined ? (
 							<div>
 								{secaoAtual === "1" ? (
 									<div>

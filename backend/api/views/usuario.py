@@ -23,6 +23,7 @@ class UsuarioViewSet(viewsets.ModelViewSet):
             self.action == "create"
             or self.action == "usernameExits"
             or self.action == "profileUsername"
+            or self.action == "retrieve"
         ):
             return [AllowAny()]
         return super().get_permissions()

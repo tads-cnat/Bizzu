@@ -1,8 +1,9 @@
 .ant-btn-variant-outlined{
     border: none !important;
-    width: 100%;
+    width: 100% !important;
     box-shadow: none !important;
     color: #333333 !important;
+   padding: 0 !important;
 }
 
 .css-dev-only-do-not-override-ut69n1{

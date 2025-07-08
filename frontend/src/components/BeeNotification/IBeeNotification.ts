@@ -6,5 +6,5 @@ export interface IBeeNotification{
     type: NotificationType;
     title: string;
     message: string;
-    content: ReactElement;
+    content?: ReactElement;
 }

@@ -2,6 +2,8 @@ import {useEffect, useState} from "react";
 import UsuarioService from "../../services/models/UsuarioService";
 import {IBeeFTPerfil} from "./IBeeFTPerfil";
 import {Link} from "react-router-dom";
+import acessAuth from "../../utils/acessAuth";
+import BeeNotification from "../BeeNotification/BeeNotification";
 
 function tempoDesde(data: string): string {
 	const date = new Date(data);
@@ -20,6 +22,7 @@ function tempoDesde(data: string): string {
 
 const BeeFTPerfil: React.FC<IBeeFTPerfil> = ({usuarioId, dataPublicacao}) => {
 	const [usuario, setUsuario] = useState<any>();
+	const {username} = acessAuth();
 
 	useEffect(() => {
 		void UsuarioService.get(usuarioId)
@@ -64,19 +67,41 @@ const BeeFTPerfil: React.FC<IBeeFTPerfil> = ({usuarioId, dataPublicacao}) => {
 				<div className="p-2 ">
 					{usuario?.username !== undefined && (
 						<span>
-							<Link
-								to={`/${usuario?.username}/`}
-								style={{color: "#333333"}}
-								className="text-[#333333] font-poppins font-semibold outline-none"
-							>
-								{usuario?.username}
-							</Link>
+							{username !== undefined ? (
+								<Link
+									to={`/${usuario?.username}/`}
+									style={{color: "#333333"}}
+									className="text-[#333333] font-poppins font-semibold outline-none"
+								>
+									{usuario?.username}
+									<span className="text-[#FCBD18] font-poppins font-semibold">
+										{" "}
+										• {tempoDesde(dataPublicacao)}{" "}
+									</span>
+								</Link>
+							) : (
+								<a>
+									<BeeNotification
+										type="warning"
+										title="Você não está conectado"
+										message="Faça o login e aproveite integralmente o bizzu"
+										content={
+											<div
+												style={{color: "#333333"}}
+												className="text-[#333333] font-poppins font-semibold outline-none"
+											>
+												{usuario?.username}{" "}
+												<span className="text-[#FCBD18] font-poppins font-semibold">
+													{" "}
+													• {tempoDesde(dataPublicacao)}{" "}
+												</span>{" "}
+											</div>
+										}
+									/>
+								</a>
+							)}
 						</span>
 					)}
-					<span className="text-[#FCBD18] font-poppins font-semibold">
-						{" "}
-						• {tempoDesde(dataPublicacao)}{" "}
-					</span>
 				</div>
 			</div>
 		</>
