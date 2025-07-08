@@ -20,7 +20,7 @@ export interface Repositorio {
 export interface RepositorioFormValues {
 	titulo: string;
 	descricao: string;
-	imagem?: File | null;
+	imagem?: File[] | File | null;
 	comunidade?: {label: string; value: string | number} | undefined;
 	categorias: number[];
 	usuario: Number;

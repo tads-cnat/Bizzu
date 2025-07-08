@@ -29,6 +29,10 @@ export const privatesRoutes = [
 				element: <EditPostagem />,
 			},
 			{
+				path: "repositorio/criar",
+				element: <CreateRepositorio />,
+			},
+			{
 				path: "repositorio/criar/",
 				element: <CreateRepositorio />,
 			},
