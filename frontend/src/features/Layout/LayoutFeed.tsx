@@ -1,122 +1,126 @@
-"use client"
+import React from "react";
 
-import React from "react"
-
-import BeeHeader from "../../components/BeeHeader/BeeHeader"
-import { BeeSidebar } from "../../components/BeeSidebar/BeeSidebar"
-import BeeRepo from "../../components/BeeRepo/BeeRepo"
-import { Repositorio, Tag } from "../../interfaces/Repositorio"
-import RepositorioService from "../../services/models/RepositorioService"
-import CategoriaService from "../../services/models/CategoriaService"
-import { Categoria } from "../../interfaces/Categoria"
-import acessAuth from "../../utils/acessAuth"
-import PostagemService from "../../services/models/PostagemService"
-import BeePost from "../../components/BeePost/BeePost"
-import { BeePostProps } from "../../components/BeePost/IBeePost"
-import { useEffect, useState } from "react"
+import BeeHeader from "../../components/BeeHeader/BeeHeader";
+import {BeeSidebar} from "../../components/BeeSidebar/BeeSidebar";
+import BeeRepo from "../../components/BeeRepo/BeeRepo";
+import {Repositorio, Tag} from "../../interfaces/Repositorio";
+import RepositorioService from "../../services/models/RepositorioService";
+import CategoriaService from "../../services/models/CategoriaService";
+import {Categoria} from "../../interfaces/Categoria";
+import acessAuth from "../../utils/acessAuth";
+import PostagemService from "../../services/models/PostagemService";
+import BeePost from "../../components/BeePost/BeePost";
+import {BeePostProps} from "../../components/BeePost/IBeePost";
+import {useEffect, useState} from "react";
 
 const LayoutFeed: React.FC = () => {
-	const [repositorios, setRepositorios] = useState<Repositorio[]>([])
-	const [categorias, setCategorias] = useState<Categoria[]>([])
-	const [postagensComunidade, setPostagensComunidade] = useState<BeePostProps[]>([])
-	const [postagensSeguidores, setPostagensSeguidores] = useState<BeePostProps[]>([])
-	const { username } = acessAuth()
-	const [secaoAtual, setSecaoAtual] = useState("1")
+	const [repositorios, setRepositorios] = useState<Repositorio[]>([]);
+	const [categorias, setCategorias] = useState<Categoria[]>([]);
+	const [postagensComunidade, setPostagensComunidade] = useState<
+		BeePostProps[]
+	>([]);
+	const [postagensSeguidores, setPostagensSeguidores] = useState<
+		BeePostProps[]
+	>([]);
+	const {username} = acessAuth();
+	const [secaoAtual, setSecaoAtual] = useState("1");
 
 	const carregarRepositorios = async () => {
 		try {
-			const response = await RepositorioService.listAll()
-			setRepositorios(response.data || [])
+			const response = await RepositorioService.listAll();
+			setRepositorios(response.data || []);
 		} catch (error) {
-			console.error("Erro ao carregar repositórios:", error)
-			setRepositorios([])
+			console.error("Erro ao carregar repositórios:", error);
+			setRepositorios([]);
 		}
-	}
+	};
 
 	const carregarPostagem = async () => {
 		try {
-			const response = await PostagemService.getPostByCommunity(username)
-			setPostagensComunidade(response.data)
+			const response = await PostagemService.getPostByCommunity(username);
+			setPostagensComunidade(response.data);
 		} catch (error) {
-			console.error("Erro ao carregar usuario:", error)
+			console.error("Erro ao carregar usuario:", error);
 		}
-	}
+	};
 
 	const carregarPostagemSeguidores = async () => {
 		try {
-			const response = await PostagemService.getPostByFollowers(username)
-			setPostagensSeguidores(response.data)
+			const response = await PostagemService.getPostByFollowers(username);
+			setPostagensSeguidores(response.data);
 		} catch (error) {
-			console.error("Erro ao carregar usuario:", error)
+			console.error("Erro ao carregar usuario:", error);
 		}
-	}
+	};
 
 	const carregarCategorias = async () => {
 		try {
-			const response = await CategoriaService.listAll()
-			setCategorias(response.data || [])
+			const response = await CategoriaService.listAll();
+			setCategorias(response.data || []);
 		} catch (error) {
-			console.error("Erro ao carregar categorias:", error)
-			setCategorias([])
+			console.error("Erro ao carregar categorias:", error);
+			setCategorias([]);
 		}
-	}
+	};
 
 	const handleExcluirRepositorio = async (id: number) => {
 		try {
-			await RepositorioService.delete(id)
-			setRepositorios((prev) => prev.filter((repo) => repo.id !== id))
+			await RepositorioService.delete(id);
+			setRepositorios((prev) => prev.filter((repo) => repo.id !== id));
 		} catch (error) {
-			console.error("Erro ao excluir repositório:", error)
-			alert("Erro ao excluir repositório. Tente novamente.")
+			console.error("Erro ao excluir repositório:", error);
+			alert("Erro ao excluir repositório. Tente novamente.");
 		}
-	}
+	};
 
 	// Função para converter categorias em tags
 	const categoriasParaTags = (categoriasIds: number[]): Tag[] => {
-		if (!categoriasIds || categoriasIds.length === 0) return []
+		if (!categoriasIds || categoriasIds.length === 0) return [];
 
 		const coresPorTipo: Record<"tec" | "mat" | "per", string> = {
 			tec: "#FCBD18",
 			mat: "#058B92",
 			per: "#F2C94C",
-		}
+		};
 
-		const defaultColor = "#6FCF97"
+		const defaultColor = "#6FCF97";
 
-		const tagsValidas: Tag[] = []
+		const tagsValidas: Tag[] = [];
 
 		for (const categoriaId of categoriasIds) {
-			const categoria = categorias.find((c) => c.id === categoriaId)
+			const categoria = categorias.find((c) => c.id === categoriaId);
 
 			if (
 				categoria &&
 				categoria.tipo &&
-				(categoria.tipo === "tec" || categoria.tipo === "mat" || categoria.tipo === "per")
+				(categoria.tipo === "tec" ||
+					categoria.tipo === "mat" ||
+					categoria.tipo === "per")
 			) {
 				tagsValidas.push({
 					label: categoria.nome,
 					color: coresPorTipo[categoria.tipo] || defaultColor,
 					tipo: categoria.tipo,
-				})
+				});
 			}
 		}
 
-		return tagsValidas
-	}
+		return tagsValidas;
+	};
 
 	useEffect(() => {
-		carregarPostagem()
-		carregarRepositorios()
-		carregarCategorias()
-		carregarPostagemSeguidores()
-	}, [])
+		carregarPostagem();
+		carregarRepositorios();
+		carregarCategorias();
+		carregarPostagemSeguidores();
+	}, []);
 
 	const handleSelecionarSecao = (secao: string) => {
-		setSecaoAtual(secao)
-		console.log(secao)
-	}
+		setSecaoAtual(secao);
+		console.log(secao);
+	};
 
-	console.log(postagensComunidade)
+	console.log(postagensComunidade);
 
 	return (
 		<>
@@ -128,7 +132,7 @@ const LayoutFeed: React.FC = () => {
 						{secaoAtual === "1" ? (
 							<div>
 								{postagensComunidade.map((post) => {
-									const tags: any = categoriasParaTags(post.categorias)
+									const tags: any = categoriasParaTags(post.categorias);
 									return (
 										<BeePost
 											key={post.id}
@@ -141,49 +145,51 @@ const LayoutFeed: React.FC = () => {
 											dataPublicacao={post.dataPublicacao}
 											imagemPost={post.imagem}
 											onCurtir={() => {
-												console.log("Post curtido:", post.id)
+												console.log("Post curtido:", post.id);
 												// Callback opcional para ações adicionais
 											}}
 											onAbrirComentarios={() => post.id}
-											onExcluir={() => { }}
+											onExcluir={() => {}}
 										/>
-									)
+									);
 								})}
 							</div>
 						) : (
-								<div>
-									{postagensSeguidores.map((post) => {
-										const tags: any = categoriasParaTags(post.categorias)
-										return (
-											<BeePost
-												key={post.id}
-												id={post.id}
-												texto={post.texto}
-												tags={tags}
-												curtidas={post.curtidas || 0}
-												comentarios={post.comentarios || 0}
-												usuario={post.usuario}
-												dataPublicacao={post.dataPublicacao}
-												imagemPost={post.imagemPost}
-												onCurtir={() => {
-													console.log("Post curtido:", post.id)
-													// Callback opcional para ações adicionais
-												}}
-												onAbrirComentarios={() => post.id}
-												onExcluir={() => { }}
-											/>
-										)
-									})}
-								</div>
-							)}
+							<div>
+								{postagensSeguidores.map((post) => {
+									const tags: any = categoriasParaTags(post.categorias);
+									return (
+										<BeePost
+											key={post.id}
+											id={post.id}
+											texto={post.texto}
+											tags={tags}
+											curtidas={post.curtidas || 0}
+											comentarios={post.comentarios || 0}
+											usuario={post.usuario}
+											dataPublicacao={post.dataPublicacao}
+											imagemPost={post.imagemPost}
+											onCurtir={() => {
+												console.log("Post curtido:", post.id);
+												// Callback opcional para ações adicionais
+											}}
+											onAbrirComentarios={() => post.id}
+											onExcluir={() => {}}
+										/>
+									);
+								})}
+							</div>
+						)}
 						{/* <Outlet context={{ recarregarRepositorios: carregarRepositorios }} /> */}
 					</div>
 				</div>
 				<aside className="fixed top-[80px] right-4 w-1/4 min-h-screen shadow-md flex flex-col justify-start px-3 py-4 rounded-xl bg-white z-40 overflow-y-auto gap-4">
 					<h2 className="text-lg font-bold mb-2">Repositórios</h2>
-					{repositorios.length === 0 && <p className="text-gray-500">Nenhum repositório encontrado.</p>}
+					{repositorios.length === 0 && (
+						<p className="text-gray-500">Nenhum repositório encontrado.</p>
+					)}
 					{repositorios.map((repo) => {
-						const tags = categoriasParaTags(repo.categorias)
+						const tags = categoriasParaTags(repo.categorias);
 						return (
 							<BeeRepo
 								key={repo.id}
@@ -196,12 +202,12 @@ const LayoutFeed: React.FC = () => {
 								tags={tags}
 								onExcluir={handleExcluirRepositorio}
 							/>
-						)
+						);
 					})}
 				</aside>
 			</div>
 		</>
-	)
-}
+	);
+};
 
-export default LayoutFeed
+export default LayoutFeed;
