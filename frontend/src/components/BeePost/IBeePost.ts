@@ -6,7 +6,7 @@ export interface Tag {
 
 export interface BeePostProps {
   id?: number
-  usuario: String;
+  usuario: string;
   texto: string
   imagemPost?: string
   tags?: Tag[]

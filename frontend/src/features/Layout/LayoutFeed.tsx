@@ -1,15 +1,18 @@
+import React from "react";
+
 import BeeHeader from "../../components/BeeHeader/BeeHeader";
 import {BeeSidebar} from "../../components/BeeSidebar/BeeSidebar";
 import BeeRepo from "../../components/BeeRepo/BeeRepo";
-import type {Repositorio, Tag} from "../../interfaces/Repositorio";
+import {Repositorio, Tag} from "../../interfaces/Repositorio";
 import RepositorioService from "../../services/models/RepositorioService";
 import CategoriaService from "../../services/models/CategoriaService";
-import type {Categoria} from "../../interfaces/Categoria";
+import {Categoria} from "../../interfaces/Categoria";
 import acessAuth from "../../utils/acessAuth";
 import PostagemService from "../../services/models/PostagemService";
 import BeePost from "../../components/BeePost/BeePost";
 import {BeePostProps} from "../../components/BeePost/IBeePost";
 import {useEffect, useState} from "react";
+
 const LayoutFeed: React.FC = () => {
 	const [repositorios, setRepositorios] = useState<Repositorio[]>([]);
 	const [categorias, setCategorias] = useState<Categoria[]>([]);
@@ -122,7 +125,7 @@ const LayoutFeed: React.FC = () => {
 	return (
 		<>
 			<BeeHeader />
-			<div className="flex flex-col flex-1 items-start w-200 mt-20 ">
+			<div className="flex flex-col flex-1 items-start w-200 mt-20">
 				<BeeSidebar onSelecionarSecao={handleSelecionarSecao} />
 				<div className="fixed top-[80px] left-1/5 w-200 h-[calc(100vh-80px)] flex-1 flex flex-col px-3 py-4 rounded-xl z-40 overflow-y-auto justify-start items-center">
 					<div className="w-full max-w-[500px] px-4 flex flex-col">
@@ -132,6 +135,7 @@ const LayoutFeed: React.FC = () => {
 									const tags: any = categoriasParaTags(post.categorias);
 									return (
 										<BeePost
+											key={post.id}
 											id={post.id}
 											texto={post.texto}
 											tags={tags}
@@ -140,7 +144,10 @@ const LayoutFeed: React.FC = () => {
 											usuario={post.usuario}
 											dataPublicacao={post.dataPublicacao}
 											imagemPost={post.imagem}
-											onCurtir={() => post.id}
+											onCurtir={() => {
+												console.log("Post curtido:", post.id);
+												// Callback opcional para ações adicionais
+											}}
 											onAbrirComentarios={() => post.id}
 											onExcluir={() => {}}
 										/>
@@ -153,6 +160,7 @@ const LayoutFeed: React.FC = () => {
 									const tags: any = categoriasParaTags(post.categorias);
 									return (
 										<BeePost
+											key={post.id}
 											id={post.id}
 											texto={post.texto}
 											tags={tags}
@@ -161,7 +169,10 @@ const LayoutFeed: React.FC = () => {
 											usuario={post.usuario}
 											dataPublicacao={post.dataPublicacao}
 											imagemPost={post.imagemPost}
-											onCurtir={() => post.id}
+											onCurtir={() => {
+												console.log("Post curtido:", post.id);
+												// Callback opcional para ações adicionais
+											}}
 											onAbrirComentarios={() => post.id}
 											onExcluir={() => {}}
 										/>
@@ -169,7 +180,7 @@ const LayoutFeed: React.FC = () => {
 								})}
 							</div>
 						)}
-						{/* <Outlet context={{recarregarRepositorios: carregarRepositorios}} /> */}
+						{/* <Outlet context={{ recarregarRepositorios: carregarRepositorios }} /> */}
 					</div>
 				</div>
 				<aside className="fixed top-[80px] right-4 w-1/4 min-h-screen shadow-md flex flex-col justify-start px-3 py-4 rounded-xl bg-white z-40 overflow-y-auto gap-4">

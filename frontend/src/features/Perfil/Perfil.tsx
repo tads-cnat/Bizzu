@@ -1,177 +1,176 @@
-import BeeAbasPerfil from "./components/BeeAbasPerfil/BeeAbasPerfil";
-import type React from "react";
-import {useEffect, useState} from "react";
-import BeePost from "../../components/BeePost/BeePost";
-import PostagemService from "../../services/models/PostagemService";
-import ComunidadeService from "../../services/models/ComunidadeService";
-import CategoriaService from "../../services/models/CategoriaService";
-import type {Postagem, Tag} from "../../interfaces/Postagem";
-import type {Comunidade} from "../../interfaces/Comunidade";
-import type {Categoria} from "../../interfaces/Categoria";
-import {useParams} from "react-router-dom";
-import UsuarioService from "../../services/models/UsuarioService";
-import BeeAlert from "../../components/BeeAlert/BeeAlert";
-import {IBeeUser} from "./components/BeeHeaderProfile/IBeeUser";
-import BeeHeaderProfile from "./components/BeeHeaderProfile/BeeHeaderProfile";
+"use client"
+
+import BeeAbasPerfil from "./components/BeeAbasPerfil/BeeAbasPerfil"
+import React from "react"
+import { useEffect, useState } from "react"
+import BeePost from "../../components/BeePost/BeePost"
+import PostagemService from "../../services/models/PostagemService"
+import ComunidadeService from "../../services/models/ComunidadeService"
+import CategoriaService from "../../services/models/CategoriaService"
+import { Postagem, Tag } from "../../interfaces/Postagem"
+import { Comunidade } from "../../interfaces/Comunidade"
+import { Categoria } from "../../interfaces/Categoria"
+import { useParams } from "react-router-dom"
+import UsuarioService from "../../services/models/UsuarioService"
+import BeeAlert from "../../components/BeeAlert/BeeAlert"
+import { IBeeUser } from "./components/BeeHeaderProfile/IBeeUser"
+import BeeHeaderProfile from "./components/BeeHeaderProfile/BeeHeaderProfile"
 
 // === LINHA ADICIONADA: import do componente de sidebar ===
-import BeePerfilSidebar from "../../components/BeePerfilSidebar/BeePerfilSidebar";
+import BeePerfilSidebar from "../../components/BeePerfilSidebar/BeePerfilSidebar"
 
 const Perfil: React.FC = () => {
-  const [postagens, setPostagens] = useState<Postagem[]>([]);
-  const [comunidades, setComunidades] = useState<Comunidade[]>([]);
-  const [categorias, setCategorias] = useState<Categoria[]>([]);
-  const [error, setError] = useState<string | null>(null);
-  const identificator = useParams().username;
-  const [usuario, setUsuario] = useState<IBeeUser>();
-  const [alertActivate, setAlertActivate] = useState<Boolean>(false);
+  const [postagens, setPostagens] = useState<Postagem[]>([])
+  const [comunidades, setComunidades] = useState<Comunidade[]>([])
+  const [categorias, setCategorias] = useState<Categoria[]>([])
+  const [error, setError] = useState<string | null>(null)
+  const identificator = useParams().username
+  const [usuario, setUsuario] = useState<IBeeUser>()
+  const [alertActivate, setAlertActivate] = useState<boolean>(false)
 
   useEffect(() => {
     if (usuario === undefined) {
       void UsuarioService.getbyUsername(String(identificator))
         .then((response) => {
-          setUsuario(response);
+          setUsuario(response)
         })
         .catch(() => {
-          console.log("Não recebeu dados");
-        });
+          console.log("Não recebeu dados")
+        })
     }
-  }, []);
+  }, [])
 
   useEffect(() => {
     if (usuario !== undefined) {
-      loadComunidades();
-      loadCategorias();
-      loadPostagens();
+      loadComunidades()
+      loadCategorias()
+      loadPostagens()
     }
-  }, [usuario]);
+  }, [usuario])
 
   const handleCurtir = async (postagemId?: number) => {
-    console.log("Curtir postagem:", postagemId);
-    // Aqui será implementada a lógica de curtir
-  };
+    console.log("Curtir postagem:", postagemId)
+    // A lógica de curtir agora é gerenciada pelo próprio componente BeePost
+    // Este callback pode ser usado para outras ações se necessário
+  }
 
   const handleComentar = async (postagemId?: number) => {
-    console.log("Comentar postagem:", postagemId);
+    console.log("Comentar postagem:", postagemId)
     // Aqui será implementada a lógica de comentar
-  };
+  }
 
   const handleExcluir = async (postagemId: number) => {
     try {
-      await PostagemService.delete(postagemId);
+      await PostagemService.delete(postagemId)
       // Remover a postagem da lista local
-      setPostagens((prev) => prev.filter((post) => post.id !== postagemId));
-      setAlertActivate(true);
+      setPostagens((prev) => prev.filter((post) => post.id !== postagemId))
+      setAlertActivate(true)
       setTimeout(() => {
-        setAlertActivate(false);
-      }, 3000);
+        setAlertActivate(false)
+      }, 3000)
     } catch (error) {
-      console.error("Erro ao excluir postagem:", error);
-      alert("Erro ao excluir postagem. Tente novamente.");
+      console.error("Erro ao excluir postagem:", error)
+      alert("Erro ao excluir postagem. Tente novamente.")
     }
-  };
+  }
 
   // Função para buscar nome da comunidade pelo ID
   const getComunidadeNome = (comunidadeId: number | null): string | null => {
-    if (!comunidadeId) return null;
-    const comunidade = comunidades.find((c) => c.id === comunidadeId);
-    return comunidade?.nome || null;
-  };
+    if (!comunidadeId) return null
+    const comunidade = comunidades.find((c) => c.id === comunidadeId)
+    return comunidade ?.nome || null
+  }
 
   // Função para converter categorias em tags para o componente BeePost
   const categoriasParaTags = (categoriasIds: number[]): Tag[] => {
-    if (!categoriasIds || categoriasIds.length === 0) return [];
+    if (!categoriasIds || categoriasIds.length === 0) return []
 
     // Cores por tipo de categoria
     const coresPorTipo: Record<"tec" | "mat" | "per", string> = {
       tec: "#FCBD18",
       mat: "#058B92",
       per: "#F2C94C",
-    };
+    }
 
-    const defaultColor = "#6FCF97";
+    const defaultColor = "#6FCF97"
 
     // Filtrar e mapear categorias válidas
-    const tagsValidas: Tag[] = [];
+    const tagsValidas: Tag[] = []
 
     for (const categoriaId of categoriasIds) {
-      const categoria = categorias.find((c) => c.id === categoriaId);
+      const categoria = categorias.find((c) => c.id === categoriaId)
 
       if (
         categoria &&
         categoria.tipo &&
-        (categoria.tipo === "tec" ||
-          categoria.tipo === "mat" ||
-          categoria.tipo === "per")
+        (categoria.tipo === "tec" || categoria.tipo === "mat" || categoria.tipo === "per")
       ) {
         tagsValidas.push({
           label: categoria.nome,
           color: coresPorTipo[categoria.tipo] || defaultColor,
           tipo: categoria.tipo,
-        });
+        })
       }
     }
 
-    return tagsValidas;
-  };
+    return tagsValidas
+  }
 
   const loadComunidades = async () => {
     try {
-      const response = await ComunidadeService.listAll();
+      const response = await ComunidadeService.listAll()
       if (response.data && Array.isArray(response.data)) {
-        setComunidades(response.data);
+        setComunidades(response.data)
       }
     } catch (error) {
-      console.error("Erro ao carregar comunidades:", error);
+      console.error("Erro ao carregar comunidades:", error)
     }
-  };
+  }
 
   const loadCategorias = async () => {
     try {
-      const response = await CategoriaService.listAll();
+      const response = await CategoriaService.listAll()
       if (response.data && Array.isArray(response.data)) {
-        setCategorias(response.data);
+        setCategorias(response.data)
       }
     } catch (error) {
-      console.error("Erro ao carregar categorias:", error);
+      console.error("Erro ao carregar categorias:", error)
     }
-  };
+  }
 
   const loadPostagens = async (): Promise<void> => {
-    setError(null);
-    try {
-      const response = await PostagemService.getPost(usuario.id);
-      setPostagens(response.data);
-      console.log(response.data);
-    } catch (error) {
-      console.error("Erro ao carregar postagens:", error);
-      setError("Erro ao carregar postagens. Verifique sua conexão.");
+    setError(null)
+    if (!usuario) {
+      setError("Usuário não encontrado.")
+      return
     }
-  };
+    try {
+      const response = await PostagemService.getPost(usuario.id)
+      setPostagens(response.data)
+      console.log(response.data)
+    } catch (error) {
+      console.error("Erro ao carregar postagens:", error)
+      setError("Erro ao carregar postagens. Verifique sua conexão.")
+    }
+  }
 
   return (
     <>
-      {alertActivate && (
-        <BeeAlert
-          typeAlert="success"
-          messageAlert="Postagem excluída com sucesso!"
-        />
-      )}
+      {alertActivate && <BeeAlert typeAlert="success" messageAlert="Postagem excluída com sucesso!" />}
       <BeeHeaderProfile />
       <BeeAbasPerfil initialActiveKey="1">
-        {postagens?.length ? (
+        {postagens ?.length ? (
           <div className="space-y-4">
             {postagens.map((post: Postagem) => {
-              const tags = categoriasParaTags(post.categorias);
-              const comunidadeNome = getComunidadeNome(post.comunidade ?? null);
+              const tags = categoriasParaTags(post.categorias)
+              const comunidadeNome = getComunidadeNome(post.comunidade ?? null)
 
               return (
                 <div key={post.id} className="mb-6">
                   {comunidadeNome && (
                     <div className="bg-white p-2 rounded-t-lg border-b border-gray-200">
                       <p className="text-sm text-gray-600">
-                        <span className="font-medium">Comunidade:</span>{" "}
-                        {comunidadeNome}
+                        <span className="font-medium">Comunidade:</span> {comunidadeNome}
                       </p>
                     </div>
                   )}
@@ -190,12 +189,12 @@ const Perfil: React.FC = () => {
                     onExcluir={handleExcluir}
                   />
                 </div>
-              );
+              )
             })}
           </div>
         ) : (
-          <div>Nenhuma postagem encontrada</div>
-        )}
+            <div>Nenhuma postagem encontrada</div>
+          )}
         <div>Parte dos repositórios</div>
       </BeeAbasPerfil>
 
@@ -204,7 +203,7 @@ const Perfil: React.FC = () => {
         <BeePerfilSidebar />
       </aside>
     </>
-  );
-};
+  )
+}
 
-export default Perfil;
+export default Perfil
