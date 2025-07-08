@@ -65,6 +65,7 @@ export const FormPostagem = ({
 	const [postagens, setPostagens] = useState<BeePostProps>();
 	const [usuario, setUsuario] = useState<IBeeUser>();
 	const {username} = acessAuth();
+
 	useEffect(() => {
 		if (usuario === undefined) {
 			void UsuarioService.getbyUsername(username)

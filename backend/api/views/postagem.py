@@ -29,7 +29,7 @@ class PostagemViewSet(viewsets.ModelViewSet):
             return PostagemUpdateSerializer
 
     @action(
-        detail=True, methods=["GET"], permission_classes=[permissions.AllowAny]
+        detail=True, methods=["GET"]
     )  # Para pegar todos os post de um usuário especifico
     def getPost(self, request, pk):
         try:
@@ -48,7 +48,6 @@ class PostagemViewSet(viewsets.ModelViewSet):
         detail=False,
         methods=["GET"],
         url_path="postCommunity/(?P<username>.*)",
-        permission_classes=[permissions.AllowAny],
     )  # Para pegar todos os post de comunidade que um usuário segue
     def getPostComunidade(self, request, username):
         try:
@@ -76,7 +75,6 @@ class PostagemViewSet(viewsets.ModelViewSet):
         detail=False,
         methods=["GET"],
         url_path="postFollowers/(?P<username>.*)",
-        permission_classes=[permissions.AllowAny],
     )  # Para pegar todos os post de seguidores que um usuário segue
     def getPostSeguidores(self, request, username):
         try:

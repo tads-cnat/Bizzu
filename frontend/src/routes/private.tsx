@@ -25,7 +25,7 @@ export const privatesRoutes = [
 				element: <CreatePostagem />,
 			},
 			{
-				path: "postagem/editar/:username",
+				path: "postagem/editar/:id",
 				element: <EditPostagem />,
 			},
 			{
@@ -33,7 +33,7 @@ export const privatesRoutes = [
 				element: <CreateRepositorio />,
 			},
 			{
-				path: "repositorio/editar/:id",
+				path: "repositorio/editar/",
 				element: <EditRepositorio />,
 			},
 			{

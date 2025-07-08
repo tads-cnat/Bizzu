@@ -11,7 +11,7 @@ export const Permissions: Record<string, Partial<Record<Types, Roles[]>>> = {
     '/postagem/criar/' : {
         [Types.CREATE]: [Roles.MODERADOR, Roles.INTERNAUTA],
     },
-    '/editar/:username/' : {
+    '/postagem/editar/:id' : {
         [Types.UPDATE]: [Roles.MODERADOR, Roles.INTERNAUTA],
     },
     '/' : {

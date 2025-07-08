@@ -13,9 +13,13 @@ export const getPermissions = (path: string,role: Roles, username:string): Recor
 	};
     const user = isUsername(path);
 	for (const permission in permissions) {
+        console.log(path, path.includes("editar"));
         
         let atribuiPermissao; 
-        if (user){
+        if (path.includes("editar")){
+            atribuiPermissao = Permissions['/postagem/editar/:id'][permission as Types]
+        }
+        else if (user){
             atribuiPermissao = Permissions['/:username/'][permission as Types]
         }
         else atribuiPermissao = Permissions[path][permission as Types];

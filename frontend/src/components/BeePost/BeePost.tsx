@@ -79,7 +79,7 @@ const BeePost: React.FC<BeePostProps> = ({
 
 	const handleEditarClick = () => {
 		if (id) {
-			navigate(`/bizzu/postagem/editar/${id}`);
+			navigate(`/postagem/editar/${id}`);
 		}
 		setShowMenu(false);
 	};
