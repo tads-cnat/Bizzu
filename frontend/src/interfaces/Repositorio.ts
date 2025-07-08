@@ -1,6 +1,7 @@
 // Interface para usuário
 export interface Usuario {
 	nome: string;
+	username: string;
 	imagemPerfil?: string;
 }
 
