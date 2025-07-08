@@ -153,8 +153,12 @@ export const FormRepositorio = ({
 						}
 					}
 
-					if (repositorio.categorias && repositorio.categorias.length > 0) {
-						setValue("categorias", repositorio.categorias);
+					if (
+						repositorios &&
+						Array.isArray(repositorios.categorias) &&
+						repositorios.categorias.length > 0
+					) {
+						setValue("categorias", repositorios.categorias);
 					}
 					if (repositorio.usuario) {
 						setValue("usuario", repositorio.usuario);
@@ -211,14 +215,22 @@ export const FormRepositorio = ({
 		if (tipoForm == "criar") {
 			const dataSubmit = new FormData();
 			dataSubmit.append("titulo", data.titulo);
-			dataSubmit.append("usuario", String(usuario?.id));
+			if (usuario?.id !== undefined)
+				dataSubmit.append("usuario", String(usuario.id));
 			dataSubmit.append("descricao", data.descricao);
-			if (data.imagem !== null && data.imagem !== undefined)
-				dataSubmit.append("imagem", data.imagem);
+			// Enviar todos os arquivos anexados
+			if (data.imagem && Array.isArray(data.imagem)) {
+				data.imagem.forEach((file: File) => {
+					dataSubmit.append("arquivos[]", file);
+				});
+			} else if (data.imagem) {
+				dataSubmit.append("arquivos[]", data.imagem);
+			}
 			for (let i = 0; i < data.categorias.length; i++) {
 				dataSubmit.append("categorias", String(data.categorias[i]));
 			}
-			dataSubmit.append("comunidade", String(data.comunidade?.value));
+			if (data.comunidade?.value !== undefined)
+				dataSubmit.append("comunidade", String(data.comunidade.value));
 			try {
 				await RepositorioService.post(dataSubmit);
 				caminho(`/${username}/`);
@@ -229,18 +241,21 @@ export const FormRepositorio = ({
 			const dataSubmit = new FormData();
 			dataSubmit.append("titulo", getValues("titulo"));
 			dataSubmit.append("descricao", getValues("descricao"));
-			if (
-				getValues("imagem") !== null &&
-				getValues("imagem") &&
-				repositorios?.imagem != getValues("imagem")
-			) {
-				dataSubmit.append("imagem", getValues("imagem"));
+			// Enviar todos os arquivos anexados (modo edição)
+			const imagemValue = getValues("imagem");
+			if (imagemValue && Array.isArray(imagemValue)) {
+				imagemValue.forEach((file: File) => {
+					dataSubmit.append("arquivos[]", file);
+				});
+			} else if (imagemValue) {
+				dataSubmit.append("arquivos[]", imagemValue);
 			}
 			for (let i = 0; i < getValues("categorias").length; i++) {
 				dataSubmit.append("categorias", String(getValues("categorias")[i]));
 			}
-			dataSubmit.append("comunidade", String(getValues("comunidade")?.value));
-
+			const comunidadeValue = getValues("comunidade");
+			if (comunidadeValue?.value !== undefined)
+				dataSubmit.append("comunidade", String(comunidadeValue.value));
 			try {
 				await RepositorioService.patch(idRepositorio, dataSubmit);
 				caminho(-1);
@@ -320,7 +335,7 @@ export const FormRepositorio = ({
 								value={field.value}
 								onChange={field.onChange}
 								error={errors.imagem?.message}
-								multiple={false}
+								multiple={true}
 							/>
 						)}
 					/>
