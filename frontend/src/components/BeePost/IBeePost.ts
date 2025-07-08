@@ -2,7 +2,7 @@ import IBeeTags from "../BeeTags/IBeeTags";
 
 export interface BeePostProps {
   id?: number
-  usuario: String;
+  usuario: string;
   texto: string
   imagemPost?: string
   tags?: IBeeTags[]

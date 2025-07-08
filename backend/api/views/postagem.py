@@ -1,4 +1,4 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, permissions
 from ..models import Postagem, Usuario
 from api.serializers.postagem import PostagemSerializer, PostagemUpdateSerializer
 from rest_framework.parsers import MultiPartParser
@@ -29,7 +29,7 @@ class PostagemViewSet(viewsets.ModelViewSet):
             return PostagemUpdateSerializer
 
     @action(
-        detail=True, methods=["GET"]
+        detail=True, methods=["GET"], permission_classes=[permissions.AllowAny]
     )  # Para pegar todos os post de um usuário especifico
     def getPost(self, request, pk):
         try:
@@ -45,11 +45,17 @@ class PostagemViewSet(viewsets.ModelViewSet):
             return Response({"error": str(e)}, status=400)
 
     @action(
-        detail=False, methods=["GET"], url_path="postCommunity/(?P<username>.*)"
+        detail=False,
+        methods=["GET"],
+        url_path="postCommunity/(?P<username>.*)",
+        permission_classes=[permissions.AllowAny],
     )  # Para pegar todos os post de comunidade que um usuário segue
     def getPostComunidade(self, request, username):
         try:
             usuario = Usuario.objects.filter(username=username).first()
+            if not usuario:
+                return Response({"message": "Usuário não encontrado"})
+
             comunidades = usuario.comunidades.all()
             postagens = Postagem.objects.filter(comunidade__in=comunidades).order_by(
                 "-dataPublicacao"
@@ -67,11 +73,17 @@ class PostagemViewSet(viewsets.ModelViewSet):
             return Response({"error": str(e)}, status=400)
 
     @action(
-        detail=False, methods=["GET"], url_path="postFollowers/(?P<username>.*)"
+        detail=False,
+        methods=["GET"],
+        url_path="postFollowers/(?P<username>.*)",
+        permission_classes=[permissions.AllowAny],
     )  # Para pegar todos os post de seguidores que um usuário segue
     def getPostSeguidores(self, request, username):
         try:
             usuario = Usuario.objects.filter(username=username).first()
+            if not usuario:
+                return Response({"message": "Usuário não encontrado"})
+
             seguidores = usuario.segue.all()
             postagens = Postagem.objects.filter(usuario__in=seguidores).order_by(
                 "-dataPublicacao"
