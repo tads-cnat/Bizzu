@@ -5,12 +5,12 @@ import type {Repositorio, Tag} from "../../interfaces/Repositorio";
 import RepositorioService from "../../services/models/RepositorioService";
 import CategoriaService from "../../services/models/CategoriaService";
 import type {Categoria} from "../../interfaces/Categoria";
-import acessAuth from "../../utils/acessAuth";
 import PostagemService from "../../services/models/PostagemService";
 import BeePost from "../../components/BeePost/BeePost";
 import {BeePostProps} from "../../components/BeePost/IBeePost";
 import {useEffect, useState} from "react";
 import {Empty} from "antd";
+import getLocalStorage from "../../utils/getLocalStorage";
 const LayoutFeed: React.FC = () => {
 	const [repositorios, setRepositorios] = useState<Repositorio[]>([]);
 	const [categorias, setCategorias] = useState<Categoria[]>([]);
@@ -20,7 +20,9 @@ const LayoutFeed: React.FC = () => {
 	const [postagensSeguidores, setPostagensSeguidores] = useState<
 		BeePostProps[]
 	>([]);
-	const {username} = acessAuth();
+	const [allPost, setAllPost] = useState<BeePostProps[]>([]);
+	const username = getLocalStorage().username;
+
 	const [secaoAtual, setSecaoAtual] = useState("1");
 
 	const carregarRepositorios = async () => {
@@ -58,6 +60,15 @@ const LayoutFeed: React.FC = () => {
 		} catch (error) {
 			console.error("Erro ao carregar categorias:", error);
 			setCategorias([]);
+		}
+	};
+
+	const carregarPostDefault = async () => {
+		try {
+			const response = await PostagemService.listAll();
+			setAllPost(response.data || []);
+		} catch (error) {
+			console.error("Erro ao carregar todas as postagens:", error);
 		}
 	};
 
@@ -111,7 +122,8 @@ const LayoutFeed: React.FC = () => {
 		carregarRepositorios();
 		carregarCategorias();
 		carregarPostagemSeguidores();
-	}, []);
+		if (username === undefined) carregarPostDefault();
+	}, [username]);
 
 	const handleSelecionarSecao = (secao: string) => {
 		setSecaoAtual(secao);
@@ -124,41 +136,75 @@ const LayoutFeed: React.FC = () => {
 				<BeeSidebar onSelecionarSecao={handleSelecionarSecao} />
 				<div className="fixed top-[80px] left-1/5 w-200 h-[calc(100vh-80px)] flex-1 flex flex-col px-3 py-4 rounded-xl z-40 overflow-y-auto justify-start items-center">
 					<div className="w-full max-w-[500px] px-4 flex flex-col">
-						{secaoAtual === "1" ? (
+						{username !== undefined ? (
 							<div>
-								{postagensComunidade.length > 0 ? (
+								{secaoAtual === "1" ? (
 									<div>
-										{postagensComunidade.map((post) => {
-											const tags: any = categoriasParaTags(post.categorias);
-											return (
-												<BeePost
-													id={post.id}
-													texto={post.texto}
-													tags={tags}
-													curtidas={post.curtidas || 0}
-													comentarios={post.comentarios || 0}
-													usuario={post.usuario}
-													dataPublicacao={post.dataPublicacao}
-													imagemPost={post.imagem}
-													onCurtir={() => post.id}
-													onAbrirComentarios={() => post.id}
-													onExcluir={() => {}}
-												/>
-											);
-										})}
+										{postagensComunidade.length > 0 ? (
+											<div>
+												{postagensComunidade.map((post) => {
+													const tags: any = categoriasParaTags(post.categorias);
+													return (
+														<BeePost
+															id={post.id}
+															texto={post.texto}
+															tags={tags}
+															curtidas={post.curtidas || 0}
+															comentarios={post.comentarios || 0}
+															usuario={post.usuario}
+															dataPublicacao={post.dataPublicacao}
+															imagemPost={post.imagem}
+															onCurtir={() => post.id}
+															onAbrirComentarios={() => post.id}
+															onExcluir={() => {}}
+														/>
+													);
+												})}
+											</div>
+										) : (
+											<Empty
+												image={Empty.PRESENTED_IMAGE_SIMPLE}
+												description="Sem publicações das comunidades que você segue"
+											/>
+										)}
 									</div>
 								) : (
-									<Empty
-										image={Empty.PRESENTED_IMAGE_SIMPLE}
-										description="Sem publicações das comunidades que você segue"
-									/>
+									<div>
+										{postagensSeguidores.length > 0 ? (
+											<div>
+												{postagensSeguidores.map((post) => {
+													const tags: any = categoriasParaTags(post.categorias);
+													return (
+														<BeePost
+															id={post.id}
+															texto={post.texto}
+															tags={tags}
+															curtidas={post.curtidas || 0}
+															comentarios={post.comentarios || 0}
+															usuario={post.usuario}
+															dataPublicacao={post.dataPublicacao}
+															imagemPost={post.imagem}
+															onCurtir={() => post.id}
+															onAbrirComentarios={() => post.id}
+															onExcluir={() => {}}
+														/>
+													);
+												})}
+											</div>
+										) : (
+											<Empty
+												image={Empty.PRESENTED_IMAGE_SIMPLE}
+												description="Sem publicações das pessoas que você segue"
+											/>
+										)}
+									</div>
 								)}
 							</div>
 						) : (
 							<div>
-								{postagensSeguidores.length > 0 ? (
+								{allPost.length > 0 ? (
 									<div>
-										{postagensSeguidores.map((post) => {
+										{allPost.map((post) => {
 											const tags: any = categoriasParaTags(post.categorias);
 											return (
 												<BeePost
@@ -180,7 +226,7 @@ const LayoutFeed: React.FC = () => {
 								) : (
 									<Empty
 										image={Empty.PRESENTED_IMAGE_SIMPLE}
-										description="Sem publicações das pessoas que você segue"
+										description="Sem publicações no bizzu"
 									/>
 								)}
 							</div>

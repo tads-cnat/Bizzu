@@ -1,8 +1,7 @@
 import {useEffect, useState} from "react";
 import UsuarioService from "../../services/models/UsuarioService";
 import {IBeeFTPerfil} from "./IBeeFTPerfil";
-import {Link, useParams} from "react-router-dom";
-import {IBeeUser} from "../../features/Perfil/components/BeeHeaderProfile/IBeeUser";
+import {Link} from "react-router-dom";
 
 function tempoDesde(data: string): string {
 	const date = new Date(data);
@@ -40,7 +39,7 @@ const BeeFTPerfil: React.FC<IBeeFTPerfil> = ({usuarioId, dataPublicacao}) => {
 						<img
 							src={
 								usuario.imagemPerfil
-									? `http://localhost:8000${usuario.imagemPerfil}`
+									? `${usuario.imagemPerfil}`
 									: "http://localhost:8000/imgPostagens/usuarios/2025/06/10/sem_imagem_avatar.png"
 							}
 							alt="Imagem de usuário"

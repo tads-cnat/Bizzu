@@ -81,13 +81,13 @@ const BeePerfilSidebar: React.FC = () => {
 
 	// Preparar dados de formação acadêmica
 	const formacoes = [];
-	if (usuario.escolaFormacao) {
+	if (usuario.escolaFormacao != "undefined") {
 		formacoes.push({
 			instituicao: usuario.escolaFormacao,
 			curso: "Formação anterior",
 		});
 	}
-	if (usuario.instituicaoAtual) {
+	if (usuario.instituicaoAtual != "undefined") {
 		formacoes.push({
 			instituicao: usuario.instituicaoAtual,
 			curso: "Instituição atual",

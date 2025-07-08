@@ -13,6 +13,7 @@ export const getPermissions = (path: string,role: Roles, username:string): Recor
 	};
     const user = isUsername(path);
 	for (const permission in permissions) {
+        
         let atribuiPermissao; 
         if (user){
             atribuiPermissao = Permissions['/:username/'][permission as Types]

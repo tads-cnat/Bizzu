@@ -18,7 +18,7 @@ export const BeeSidebar = ({onSelecionarSecao}: IBeeSidebarProps) => {
 	const [comunidades, setComunidades] = useState<MenuItem[]>([]);
 
 	useEffect(() => {
-		void UsuarioService.getbyUsername(String(identificador))
+		void UsuarioService.getbyUsername(username)
 			.then((response) => {
 				setUsuario(response);
 			})

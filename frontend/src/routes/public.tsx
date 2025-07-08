@@ -13,7 +13,7 @@ export const publicRoutes = [
 		element: <Cadastro />,
 	},
 	{
-		path: "/feed",
+		path: "/",
 		element: <LayoutFeed />,
 	},
 ];

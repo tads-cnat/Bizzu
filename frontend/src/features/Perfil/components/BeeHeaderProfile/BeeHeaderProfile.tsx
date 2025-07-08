@@ -106,7 +106,7 @@ const BeeHeaderProfile = () => {
 							>
 								{seguidores} Seguidores
 							</a>
-							{permissions.create ? (
+							{permissions.create && username !== undefined ? (
 								<Menu
 									as="div"
 									className="relative inline-block text-left"
