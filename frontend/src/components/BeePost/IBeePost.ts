@@ -13,4 +13,5 @@ export interface BeePostProps {
   onCurtir: () => void
   onAbrirComentarios: () => void
   onExcluir?: (id: number) => void
+  disableInteractions?: boolean
 }
