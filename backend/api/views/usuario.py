@@ -4,7 +4,11 @@ from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.parsers import MultiPartParser
 from ..models import Usuario
-from api.serializers.usuario import UsuarioProfileSerializer, UsuarioSerializer
+from api.serializers.usuario import (
+    UsuarioProfileSerializer,
+    UsuarioSerializer,
+    UsuarioPatchSerializer,
+)
 
 
 class UsuarioViewSet(viewsets.ModelViewSet):
@@ -18,6 +22,9 @@ class UsuarioViewSet(viewsets.ModelViewSet):
 
         elif self.request.method == "POST":
             return UsuarioProfileSerializer
+
+        elif self.request.method == "PATCH":
+            return UsuarioPatchSerializer
 
     @action(detail=False, methods=["get"], url_path="userByusername/(?P<username>.*)")
     def profileUsername(self, request, username):
@@ -78,3 +85,19 @@ class UsuarioViewSet(viewsets.ModelViewSet):
             return Response({"data": "Um usuário com esse username já existe"})
         else:
             return Response({"data": "Um usuário com esse username não existe"})
+
+    @action(
+        detail=False,
+        methods=["patch"],
+        permission_classes=[IsAuthenticated],
+        parser_classes=[MultiPartParser],
+    )
+    def editarPerfil(self, request):
+        user = request.user
+        serializer = UsuarioPatchSerializer(user, data=request.data, partial=True)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
