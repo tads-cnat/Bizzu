@@ -86,7 +86,7 @@ const RepoList: React.FC = () => {
 	return (
 		<div className="w-full bg-[#F2F2F7] min-h-screen p-4">
 			<h1 className="text-2xl font-bold mb-4 text-[#333333]">Repositórios</h1>
-			<div className="flex flex-col gap-4">
+			<div className="flex flex-col gap-2 max-h-[70vh] overflow-y-auto pr-2">
 				{repositorios.map((repositorio) => {
 					const tags = categoriasParaTags(repositorio.categorias);
 					return (
