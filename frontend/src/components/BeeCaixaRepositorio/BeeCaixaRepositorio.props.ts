@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import IBeeTags from "./components/BeeTags/IBeeTags";
+import { Tag } from "../../interfaces/Repositorio";
 // Para importar um componente ja existente em outro, se exporta o props do componente, referenciando o mesmo no props do seu componente
 
 export interface CaixaRepositorioProps {
@@ -9,6 +9,7 @@ export interface CaixaRepositorioProps {
     dataPostagem: Date;            // Data da postagem
     tituloPostagem: string;        // Título da postagem
     descricaoPostagem: string;     // Descrição da postagem
-    tags: IBeeTags[];              // Lista de tags
+    tags: Tag[];                  // Lista de tags
     onClick?: () => void;          // Ação ao clicar (opcional)
+    isOwner?: boolean;            // Indica se o usuário é o proprietário do repositório
 }

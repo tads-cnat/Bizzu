@@ -14,12 +14,11 @@ interface BeeSidebarItem {
 }
 
 export interface IBeeSidebarProps {
-  // Nome do usuário exibido na sidebar
-  userName: string;
   // Cargo ou função do usuário (opcional, padrão: "Ver Perfil")
   userRole?: string;
-  // URL da imagem de perfil do usuário
-  userImage: string;
   // Lista de itens do menu lateral
-  items: BeeSidebarItem[];
+  items?: BeeSidebarItem[];
+
+	onSelecionarSecao?: (secao: string) => void; 
+
 }

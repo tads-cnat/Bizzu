@@ -4,9 +4,18 @@ from django.db import models
 
 class Usuario(AbstractUser):
     nome = models.CharField(verbose_name="Nome", max_length=50)
-    descricao = models.CharField(verbose_name="Descrição", max_length=200)
+    descricao = models.CharField(
+        verbose_name="Descrição", max_length=200, blank=True, null=True
+    )
     imagemPerfil = models.ImageField(
         verbose_name="Imagem de perfil", upload_to="usuarios/%Y/%m/%d/", null=True
+    )
+    banner = models.ImageField(
+        verbose_name="Banner", upload_to="banners/%Y/%m/%d/", blank=True, null=True
+    )
+    
+    linkedinUrl = models.URLField(
+        verbose_name="LinkedIn URL", blank=True, null=True
     )
     escolaFormacao = models.CharField(
         verbose_name="Escola de formação", max_length=30, blank=True, null=True
@@ -29,7 +38,6 @@ class Usuario(AbstractUser):
         symmetrical=False,
         verbose_name="Segue",
         related_name="seguido_por",
-        default=0,
         blank=True,
     )
     comunidades = models.ManyToManyField(

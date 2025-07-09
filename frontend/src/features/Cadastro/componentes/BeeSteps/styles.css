@@ -1,0 +1,10 @@
+.ant-steps-item-process .ant-steps-item-icon {
+  background-color: #FCBD18 !important;
+  border-color: #FCBD18 !important;
+  color: white !important;
+}
+
+.ant-steps-item-title::after{
+    background-color: #FCBD18 !important;
+    border-color: #FCBD18 !important;
+}

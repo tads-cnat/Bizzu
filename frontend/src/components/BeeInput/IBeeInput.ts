@@ -1,4 +1,5 @@
 import { IconProps } from "@phosphor-icons/react";
+import { UseFormRegisterReturn } from "react-hook-form";
  
  
  export  interface IBeeInput {
@@ -10,4 +11,6 @@ import { IconProps } from "@phosphor-icons/react";
      type?: string; 
      // Ícone caso necessário para usar no input
      icon?: React.ElementType<IconProps>;
+    // Para registrar formulário
+    register?: UseFormRegisterReturn;
  }

@@ -1,9 +1,27 @@
 import axios from "axios";
+import getLocalStorage from "../../utils/getLocalStorage";
 
 const axiosInstance = axios.create({
-    baseURL: "http://localhost:8000/api/"
+  baseURL: "http://localhost:8000/api/",
+//   headers: {
+//     "Content-Type": "multipart/form-data"; "boundary"="blob"
+//   }
 });
 
-//Posteriormente aqui será inserido o tratamento do token
-export default axiosInstance;
 
+axiosInstance.interceptors.request.use( ///token ser inserido na requisição automaticamente 
+    (config) => {
+        const user = getLocalStorage();
+        if (user  && user.token){
+            const token = user.token;
+            config.headers['Authorization'] =  `Bearer ${token}`;
+        }
+        return config;
+    },
+    async (error) => {
+		await Promise.reject(error);
+	}
+)
+
+
+export default axiosInstance;

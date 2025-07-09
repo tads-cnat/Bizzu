@@ -1,103 +1,104 @@
-import {CaretDown} from "@phosphor-icons/react";
-
+import "./style.css";
+import acessAuth from "../../utils/acessAuth";
+import {Link, useParams} from "react-router-dom";
+import {useEffect, useState} from "react";
+import ComunidadeService from "../../services/models/ComunidadeService";
+import UsuarioService from "../../services/models/UsuarioService";
+import {Divider, Menu} from "antd";
+import type {GetProp, MenuProps} from "antd";
+import {Globe, House, User} from "@phosphor-icons/react";
 import {IBeeSidebarProps} from "./IBeeSidebar";
+import {IBeeUser} from "../../features/Perfil/components/BeeHeaderProfile/IBeeUser";
 
-import {Menu, MenuButton, MenuItem, MenuItems} from "@headlessui/react";
+export const BeeSidebar = ({onSelecionarSecao}: IBeeSidebarProps) => {
+	const {username} = acessAuth();
+	const identificador = useParams().username;
+	const [usuario, setUsuario] = useState<IBeeUser>();
+	const [comunidades, setComunidades] = useState<MenuItem[]>([]);
 
-const DEFAULT_IMAGE = ""; // ainda não existe imagem_default
+	useEffect(() => {
+		void UsuarioService.getbyUsername(String(identificador))
+			.then((response) => {
+				setUsuario(response);
+			})
+			.catch(() => {
+				console.log("Não recebeu dados");
+			});
+	}, [identificador]);
 
-export const BeeSidebar = ({
-	userName,
-	userRole = "Ver Perfil",
-	userImage,
-	items,
-}: IBeeSidebarProps) => {
+	useEffect(() => {
+		void ComunidadeService.listAll()
+			.then((response) => {
+				const listarComunidades: MenuItem[] = response.data.map(
+					(comunidade: any) => ({
+						key: `comunidade-${comunidade.id}`,
+						label: comunidade.nome,
+					}),
+				);
+				setComunidades(listarComunidades);
+			})
+			.catch(() => {
+				console.log("Erro ao buscar comunidades");
+			});
+	}, []);
+
+	type MenuItem = GetProp<MenuProps, "items">[number];
+	const items: MenuItem[] = [
+		{
+			key: "1",
+			icon: <House />,
+			label: "Página inicial",
+		},
+		{
+			key: "2",
+			icon: <User />,
+			label: "Você segue",
+		},
+		{
+			key: "3",
+			label: "Comunidades",
+			icon: <Globe />,
+			children: comunidades,
+		},
+	];
 	return (
-		<aside className="fixed top-[80px] left-4 w-66 min-h-screen shadow-md flex flex-col justify-start px-3 py-4 rounded-xl bg-white z-40">
-			{/* Topo - Perfil do usuário */}
-			<div className="flex items-center gap-2 mb-4 bg-transparent">
-				<img
-					src={userImage || DEFAULT_IMAGE}
-					alt={userName}
-					className="w-8 h-8 object-cover"
-					style={{
-						clipPath:
-							"polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0% 50%)",
-					}}
-				/>
+		<div className="h-full w-1/3">
+			<div className="flex items-center gap-2 mt-4 ml-5 bg-transparent ">
+				{usuario ? (
+					<img
+						src={
+							usuario.imagemPerfil
+								? `http://localhost:8000${usuario.imagemPerfil}`
+								: "http://localhost:8000/imgPostagens/usuarios/2025/06/10/sem_imagem_avatar.png"
+						}
+						alt={username}
+						className="w-8 h-8 object-cover"
+						style={{
+							clipPath:
+								"polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0% 50%)",
+						}}
+					/>
+				) : (
+					<div className="w-8 h-8 bg-gray-200 animate-pulse rounded-full"></div>
+				)}
 				<div className="leading-tight">
-					<p className="font-semibold text-sm text-black">{userName}</p>
-					<p className="text-xs text-zinc-500">{userRole}</p>
+					<p className="font-semibold text-sm text-black ">{username}</p>
+					<p className="text-xs text-zinc-500">
+						<Link to={`/bizzu/${username}`}>Ver perfil</Link>
+					</p>
 				</div>
 			</div>
-
-			{/* Itens do menu */}
-			<nav className="flex flex-col gap-2">
-				{items.map((item, index) =>
-					item.children ? (
-						<Menu
-							as="div"
-							key={index}
-							className="relative"
-						>
-							{({open}) => (
-								<>
-									<MenuButton className="ml-2 mt-1 flex w-full items-center gap-2 text-black rounded hover:bg-zinc-200/60 transition bg-transparent">
-										<div className="flex items-center gap-2">
-											{item.icon}
-											<span className="text-sx">{item.label}</span>
-										</div>
-										<CaretDown
-											size={14}
-											className={`transition-transform duration-200 ${
-												open ? "rotate-180" : ""
-											}`}
-										/>
-									</MenuButton>
-
-									<MenuItems className="absolute left-0 top-full mt-1 w-full bg-transparent z-50 flex flex-col">
-										{item.children!.map((child, idx) => (
-											<MenuItem key={idx}>
-												{({active}) => (
-													<button
-														onClick={child.onClick}
-														className={`flex items-center gap-3 px-4 py-2 text-sm w-full ${
-															active ? "hover:bg-zinc-200/60 rounded" : ""
-														}`}
-													>
-														{child.image && (
-															<img
-																src={child.image}
-																alt={child.label}
-																className="w-6 h-6 object-cover"
-																style={{
-																	clipPath:
-																		"polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0% 50%)",
-																}}
-															/>
-														)}
-														{child.icon && <span>{child.icon}</span>}
-														<span>{child.label}</span>
-													</button>
-												)}
-											</MenuItem>
-										))}
-									</MenuItems>
-								</>
-							)}
-						</Menu>
-					) : (
-						<button
-							key={index}
-							onClick={item.onClick}
-							className="flex items-center gap-2 px-2 py-1 rounded text-black hover:bg-zinc-200/60 transition bg-transparent text-sx"
-						>
-							{item.icon}
-							<span>{item.label}</span>
-						</button>
-					),
-				)}
-			</nav>
-		</aside>
+			<Divider />
+			<Menu
+				className="border-none "
+				defaultSelectedKeys={["1"]}
+				defaultOpenKeys={["3"]}
+				mode="inline"
+				items={items}
+				onSelect={(e) => {
+					onSelecionarSecao(e.key);
+				}}
+			/>
+		</div>
 	);
 };

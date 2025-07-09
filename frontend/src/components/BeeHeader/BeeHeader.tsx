@@ -1,23 +1,37 @@
 import React from "react";
 import BeeSearchBar from "../BeeSearchBar/BeeSearchBar";
 import BeeButton from "../BeeButtons/BeeButtons";
-import {SignOut} from "@phosphor-icons/react"; // Importa o ícone de logout
+import {SignOut} from "@phosphor-icons/react";
+import acessAuth from "../../utils/acessAuth";
+import {Link, useNavigate} from "react-router-dom";
 
 const BeeHeader: React.FC = () => {
+	const {deslogar} = acessAuth();
+
+	const mudar = useNavigate();
+
+	const sair = () => {
+		deslogar();
+		mudar("/login", {replace: true});
+	};
+
 	return (
 		<header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between bg-white py-4 px-8 shadow-sm">
 			<div className="flex items-center">
-				<img
-					src="/logo.png"
-					alt="BIZZU Logo"
-					className="w-32"
-				/>
+				<Link to={`/`}>
+					<img
+						src="/logo.png"
+						alt="BIZZU Logo"
+						className="w-32"
+					/>
+				</Link>
 			</div>
 			<BeeSearchBar
 				onSearch={(termo: string) => console.log("Search term:", termo)}
 			/>
+
 			<BeeButton
-				onClick={() => console.log("Logout clicked")}
+				onClick={() => sair()}
 				icone={
 					<SignOut
 						size={20}

@@ -1,6 +1,10 @@
+//Usado para autenticação
+
 export interface IBeeUsuario{
     // texto referente ao nome da pessoa
-    nome: string 
-    // imagem que a pessoa coloca 
-    imagemPerfil: string
+    username: string;
+    // Token de autenticação do usuŕio
+    token: string;
+    //Id do usuario autenticado 
+    id: number;
 }

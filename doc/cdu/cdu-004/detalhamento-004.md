@@ -1,46 +1,46 @@
 # CDU004. Fazer Login
 
-- **Ator principal**: Visitante
+- **Ator principal**: Internauta e moderador
 - **Atores secundários**: ...
-- **Resumo**: Permite que um usuário com conta cadastrada no sistema se autentique utilizando e-mail ou nome de usuário e senha. Uma vez autenticado, o usuário tem acesso a funcionalidades exclusivas do sistema.  
-- **Pré-condição**: O usuário não pode estar logado.
-- **Pós-Condição**: Feedback de sucesso ou erro após a tentativa de login. Se bem-sucedido, o usuário é autenticado e ganha acesso a funcionalidades restritas.
+- **Resumo**: Permite que os usuários façam login utilizando e-mail ou nome de usuário e senha. Uma vez autenticados, têm acesso a funcionalidades exclusivas do sistema, de acordo com seu perfil (internauta ou moderador).
+- **Pré-condição**: O usuário não deve estar autenticado no sistema.
+- **Pós-Condição**: O sistema retorna feedback de sucesso ou erro após a tentativa de login. Se a autenticação for bem-sucedida, o usuário é autenticado e passa a ter acesso às funcionalidades restritas do sistema.
 
 ## Fluxo Principal - [Fazer Login]
 | Ações do ator | Ações do sistema |
 | :-----------------: | :-----------------: |
-| 1 - Acessa a tela de login. | |
-|  | 2 - Mostra o pop-up do login |
+| 1 - Clica no botão "Fazer login". | |
+|  | 2 - Exibe a página de login. |
 | 3 - Insere credenciais (e-mail ou nome de usuário e senha) e clica no botão "Entrar". |  |
-| | 4 - Valida as credenciais, autentica o usuário e redireciona ao feed principal.|
-## Fluxo Alternativo - [Esquecer Senha]
+|  | 4 - Valida as credenciais, autentica o usuário e redireciona ao feed principal.|
+
+## Fluxo Alternativo - [Login com Conta Externa(Google)] 
 | Ações do ator | Ações do sistema |
 | :-----------------: |:-----------------: |
-| 1 - Clica no botão "Esqueci minha senha". | |
-| | 2 - Redireciona para uma tela de recuperação de senha. |
-| 3 - Insere e-mail para recuperação. | |
-| | 4 - Envia um e-mail com instruções para redefinição de senha. |
+| 1 - Clica no botão "Fazer login". | |
+|  | 2 - Exibe a página de login. |
+| 3 - Clica no botão para login via Google. | |
+| | 4 - Redireciona para a autenticação externa. |
+| 5 - Concede permissão para acessar os dados básicos da conta. | |
+| | 6 - Recebe o token e autentica o usuário no sistema, redirecionando ao feed principal. |
 
 ## Fluxo de Exceção - [Credenciais Inválidas]
 | Ações do ator | Ações do sistema |
 | :-----------------: | :-----------------: |
-| 1 - Insere credenciais incorretas e clica no botão "Entrar". | |
-| | 2 - Valida as credenciais e identifica que são inválidas. |
-| 3 - Pode tentar novamente ou acessar o fluxo de esquecer senha. |
+| 1 - Clica no botão "Fazer login". | |
+|  | 2 - Exibe a página de login. |
+| 3 - O Usuário insere as credenciais incorretas e clica no botão "Entrar". | |
+| | 2 - Valida as credenciais e identifica que são inválidas, o sistema exibe uma mensagem de erro. |
+
 
 ## Protótipo
-![LOGIN - DESLOGADO (COM ALTERAÇÕES](https://github.com/user-attachments/assets/ea5b850b-5db2-4742-a440-4b5ee7ec6c1d)
 
+![LOGIN](https://github.com/user-attachments/assets/407dfe9f-1c68-4c3e-859a-f3df9ce44f52)
 
-> Obs. as seções a seguir apenas serão utilizadas na segunda unidade do PDSWeb (segundo orientações do gerente do projeto).
 
 ### Fazer Login Versão Astah
 
 ![unnamed](https://github.com/user-attachments/assets/d23f8f5b-d50a-4680-819e-03b02992ae8c)
-
-### Fazer Login Versão Mermaid
-
-![image](https://github.com/user-attachments/assets/9cba43f3-4d79-4bf4-9324-b6bff37299b0)
 
 
 ## Diagrama de Classes de Projeto

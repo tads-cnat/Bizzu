@@ -1,18 +1,16 @@
-import {IBeeInput} from "./IBeeInput";
+import type {IBeeInput} from "./IBeeInput";
 
 const BeeInput: React.FC<IBeeInput> = ({
 	label,
 	placeholder,
 	type,
 	icon: Icon,
+	register,
 }) => {
 	return (
 		<>
 			<div>
-				<label
-					htmlFor="price"
-					className="block text-sm/6 font-medium text-gray-900"
-				>
+				<label className="block text-sm/6 font-medium text-gray-900">
 					{label}
 				</label>
 				<div className="mt-2">
@@ -27,6 +25,7 @@ const BeeInput: React.FC<IBeeInput> = ({
 							)}
 						</div>
 						<input
+							{...register}
 							type={type}
 							placeholder={placeholder}
 							className="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6"
@@ -37,4 +36,5 @@ const BeeInput: React.FC<IBeeInput> = ({
 		</>
 	);
 };
+
 export default BeeInput;
