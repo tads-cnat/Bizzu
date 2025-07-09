@@ -43,14 +43,8 @@ const BeeRepo: React.FC<BeeRepoProps> = ({
     setShowMenu(!showMenu)
   }
 
-  const handleClickRepositorio = () => {
-    if (id) {
-      navigate(`/repositorio/${id}`)
-    }
-  }
-
   return (
-    <div className="bg-[#F2F2F7] shadow-md rounded-lg p-4 mb-4 relative w-full cursor-pointer transition-all duration-300 ease-in-out hover:shadow-xl hover:-translate-y-1 hover:bg-white" onClick={handleClickRepositorio}>
+    <div className="bg-[#F2F2F7] shadow-md rounded-lg p-4 mb-4 relative w-full cursor-pointer transition-all duration-300 ease-in-out hover:shadow-xl hover:-translate-y-1 hover:bg-white">
       {/* Menu de opções */}
       <div className="absolute top-4 right-4">
         <button
