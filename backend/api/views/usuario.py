@@ -10,6 +10,9 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
 from api.serializers.usuario import UsuarioProfileSerializer, UsuarioSerializer, PesquisaSerializer
 from api.filters.usuario import UsuarioFilter
+from rest_framework import filters
+
+
 class UsuarioViewSet(viewsets.ModelViewSet):
     queryset = Usuario.objects.all()
     serializer_class = UsuarioSerializer
@@ -115,4 +118,5 @@ class PesquisaViewSet(viewsets.ModelViewSet):
     queryset = Usuario.objects.all()
     serializer_class = PesquisaSerializer
     filterset_class = UsuarioFilter
+    filter_backends = [filters.SearchFilter]
     search_fields = ["nome"]

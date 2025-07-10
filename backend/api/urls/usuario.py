@@ -4,4 +4,4 @@ from api.views.usuario import UsuarioViewSet, PesquisaViewSet
 
 usuarioRouter = routers.DefaultRouter()
 usuarioRouter.register("usuario", UsuarioViewSet)
-usuarioRouter.register("pesquisa", PesquisaViewSet)
+usuarioRouter.register("pesquisa", PesquisaViewSet, basename="pesquisar-usuario")
