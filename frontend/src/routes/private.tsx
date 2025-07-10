@@ -6,7 +6,6 @@ import EditRepositorio from "../features/Repositorio/Edit";
 import CreateRepositorio from "../features/Repositorio/Create";
 import Repositorio from "../features/Repositorio/Repositorio";
 import LayoutFeed from "../features/Layout/LayoutFeed";
-import {Navigate} from "react-router-dom";
 
 export const privatesRoutes = [
 	{
@@ -30,22 +29,9 @@ export const privatesRoutes = [
 				element: <EditPostagem />,
 			},
 			{
-				path: "repositorio/criar",
-				element: <CreateRepositorio />,
-			},
-			{
 				path: "repositorio/criar/",
 				element: <CreateRepositorio />,
 			},
-			// {
-			// 	path: "repositorio/criar/",
-			// 	element: (
-			// 		<Navigate
-			// 			to="/repositorio/criar"
-			// 			replace
-			// 		/>
-			// 	),
-			// },
 			{
 				path: "repositorio/editar/:id",
 				element: <EditRepositorio />,
