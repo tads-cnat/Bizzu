@@ -1,19 +1,11 @@
-import React from "react";
+import React, {useState, useEffect, ChangeEvent} from "react";
 import {IFormEditarPerfil} from "./IFormEditarPerfil";
 import axios from "axios";
-import {useState, useEffect, ChangeEvent, FormEvent} from "react";
-import {useParams, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import getLocalStorage from "../../../utils/getLocalStorage";
+import BeeButton from "../../../components/BeeButtons/BeeButtons";
 
-const FormEditarPerfil: React.FC<IFormEditarPerfil> = ({
-	nome,
-	descricao,
-	imagemPerfil,
-	linkedinUrl,
-	escolaFormacao,
-	instituicaoAtual,
-	onClose,
-}) => {
+const FormEditarPerfil: React.FC<IFormEditarPerfil> = ({onClose}) => {
 	const [form, setForm] = useState<IFormEditarPerfil>({
 		nome: "",
 		descricao: "",
@@ -21,49 +13,48 @@ const FormEditarPerfil: React.FC<IFormEditarPerfil> = ({
 		escolaFormacao: "",
 		instituicaoAtual: "",
 	});
-	const navigate = useNavigate();
 	const [imagem, setImagem] = useState<File | null>(null);
 	const [mensagem, setMensagem] = useState("");
+	const [userId, setUserId] = useState<number | null>(null);
 	const usuarioLocal = getLocalStorage();
-	const token = usuarioLocal?.token;
+	const navigate = useNavigate();
+
 	const handleChange = (
 		usuario: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
 	) => {
 		setForm({...form, [usuario.target.name]: usuario.target.value});
 	};
-
 	const handleImagemChange = (usuario: ChangeEvent<HTMLInputElement>) => {
 		if (usuario.target.files && usuario.target.files.length > 0) {
 			setImagem(usuario.target.files[0]);
 		}
 	};
-
 	const handleSubmit = async (usuario: React.FormEvent) => {
 		usuario.preventDefault();
+
+		if (!userId) {
+			setMensagem("ID do usuário não carregado.");
+			return;
+		}
+
 		const formData = new FormData();
 		Object.entries(form).forEach(([key, value]) => {
-			if (value !== undefined && value !== null) {
+			if (typeof value === "string" && value.trim() !== "") {
 				formData.append(key, value);
 			}
 		});
-
 		if (imagem) {
 			formData.append("imagemPerfil", imagem);
 		}
 
 		try {
 			await axios.patch(
-				"http://localhost:8000/api/usuario/editarPerfil/",
+				`http://localhost:8000/api/usuario/${userId}/`,
 				formData,
-				{
-					headers: {
-						Authorization: `Bearer ${token}`,
-						"Content-Type": "multipart/form-data",
-					},
-				},
 			);
 			setMensagem("Perfil atualizado com sucesso!");
-			onClose?.();
+			navigate(`/bizzu/${usuarioLocal.username}`);
+			window.location.reload();
 		} catch (error: any) {
 			console.error(error.response?.data || error.message);
 			setMensagem("Erro ao atualizar perfil.");
@@ -71,32 +62,28 @@ const FormEditarPerfil: React.FC<IFormEditarPerfil> = ({
 	};
 
 	useEffect(() => {
-		const dadosUsuario = async () => {
+		const carregarInfoUsuario = async () => {
+			if (!usuarioLocal.username || !usuarioLocal.token) return;
+
 			try {
 				const response = await axios.get(
-					"http://localhost:8000/api/usuario/editarPerfil/",
-					{
-						headers: {
-							Authorization: `Bearer ${token}`,
-						},
-					},
+					`http://localhost:8000/api/usuario/userByusername/${usuarioLocal.username}/`,
 				);
-
+				console.log("Dados do usuário no editar perfil:", response.data);
 				setForm({
 					nome: response.data.nome || "",
 					descricao: response.data.descricao || "",
-					imagemPerfil: response.data.imagemPerfil || "",
 					linkedinUrl: response.data.linkedinUrl || "",
 					escolaFormacao: response.data.escolaFormacao || "",
 					instituicaoAtual: response.data.instituicaoAtual || "",
 				});
+				setUserId(response.data.id);
 			} catch (error) {
 				console.error("Erro ao buscar dados do usuário:", error);
-				console.log(token);
 			}
 		};
 
-		dadosUsuario();
+		carregarInfoUsuario();
 	}, []);
 
 	return (
@@ -137,7 +124,6 @@ const FormEditarPerfil: React.FC<IFormEditarPerfil> = ({
 									id="linkedinUrl"
 									name="linkedinUrl"
 									type="text"
-									placeholder="https://linkedin.com/in/seu-perfil"
 									value={form.linkedinUrl}
 									onChange={handleChange}
 									className="block w-full rounded-md border-gray-300 px-3 py-1.5 text-base text-gray-900 shadow-sm focus:outline-indigo-600 sm:text-sm"
@@ -221,19 +207,15 @@ const FormEditarPerfil: React.FC<IFormEditarPerfil> = ({
 				</div>
 
 				<div className="mt-6 flex items-center justify-end gap-x-6">
-					<button
-						type="button"
-						className="text-sm/6 font-semibold text-gray-900"
-						onClick={() => navigate("/bizzu/perfil/editar/")}
-					>
-						Cancelar
-					</button>
-					<button
-						type="submit"
-						className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500"
-					>
-						Salvar
-					</button>
+					<BeeButton
+						label="cancelar"
+						variante="negativo"
+						onClick={() => navigate(`/bizzu/${usuarioLocal.username}`)}
+					/>
+					<BeeButton
+						variante="primaria"
+						label="Salvar"
+					/>
 					{mensagem && <p className="text-sm text-green-600">{mensagem}</p>}
 				</div>
 			</div>

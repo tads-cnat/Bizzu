@@ -39,8 +39,8 @@ const schema = yup.object().shape({
 			return this.parent.password === value;
 		}),
 	descricao: yup.string().optional(),
-	formacao: yup.string().optional(),
-	instituicao: yup.string().optional(),
+	escolaFormacao: yup.string().optional(),
+	instituicaoAtual: yup.string().optional(),
 	imagemPerfil: yup.mixed().optional(),
 });
 
@@ -238,11 +238,11 @@ const FormSig: React.FC = () => {
 									placeholder="Antiga formação..."
 									label="Escola de formação"
 									type="text"
-									register={{...register("formacao")}}
+									register={{...register("escolaFormacao")}}
 								/>
-								{errors.formacao && (
+								{errors.escolaFormacao && (
 									<p className="text-red-500 text-sm mt-1">
-										{errors.formacao.message}
+										{errors.escolaFormacao.message}
 									</p>
 								)}
 							</div>
@@ -252,11 +252,11 @@ const FormSig: React.FC = () => {
 									placeholder="Onde você estuda atualmente..."
 									label="Instituição Atual"
 									type="text"
-									register={{...register("instituicao")}}
+									register={{...register("instituicaoAtual")}}
 								/>
-								{errors.instituicao && (
+								{errors.instituicaoAtual && (
 									<p className="text-red-500 text-sm mt-1">
-										{errors.instituicao.message}
+										{errors.instituicaoAtual.message}
 									</p>
 								)}
 							</div>

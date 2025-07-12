@@ -11,12 +11,14 @@ import {IBeeSidebarProps} from "./IBeeSidebar";
 import {IBeeUser} from "../../features/Perfil/components/BeeHeaderProfile/IBeeUser";
 
 export const BeeSidebar = ({onSelecionarSecao}: IBeeSidebarProps) => {
-	const {username} = acessAuth();
-	const identificador = useParams().username;
+	const paramsUsername = useParams().username;
+	const identificador = paramsUsername;
 	const [usuario, setUsuario] = useState<IBeeUser>();
 	const [comunidades, setComunidades] = useState<MenuItem[]>([]);
 
 	useEffect(() => {
+		if (!identificador) return; // evita chamada com username vazio
+
 		void UsuarioService.getbyUsername(String(identificador))
 			.then((response) => {
 				setUsuario(response);
@@ -61,6 +63,7 @@ export const BeeSidebar = ({onSelecionarSecao}: IBeeSidebarProps) => {
 			children: comunidades,
 		},
 	];
+
 	return (
 		<div className="h-full w-1/3">
 			<div className="flex items-center gap-2 mt-4 ml-5 bg-transparent ">
@@ -71,7 +74,6 @@ export const BeeSidebar = ({onSelecionarSecao}: IBeeSidebarProps) => {
 								? `http://localhost:8000${usuario.imagemPerfil}`
 								: "http://localhost:8000/imgPostagens/usuarios/2025/06/10/sem_imagem_avatar.png"
 						}
-						alt={username}
 						className="w-8 h-8 object-cover"
 						style={{
 							clipPath:
@@ -82,9 +84,9 @@ export const BeeSidebar = ({onSelecionarSecao}: IBeeSidebarProps) => {
 					<div className="w-8 h-8 bg-gray-200 animate-pulse rounded-full"></div>
 				)}
 				<div className="leading-tight">
-					<p className="font-semibold text-sm text-black ">{username}</p>
+					<p className="font-semibold text-sm text-black ">{identificador}</p>
 					<p className="text-xs text-zinc-500">
-						<Link to={`/bizzu/${username}`}>Ver perfil</Link>
+						<Link to={`/bizzu/${identificador}`}>Ver perfil</Link>
 					</p>
 				</div>
 			</div>

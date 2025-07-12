@@ -25,6 +25,7 @@ class UsuarioViewSet(viewsets.ModelViewSet):
 
         elif self.request.method == "PATCH":
             return UsuarioPatchSerializer
+        return UsuarioSerializer
 
     @action(detail=False, methods=["get"], url_path="userByusername/(?P<username>.*)")
     def profileUsername(self, request, username):
@@ -85,19 +86,3 @@ class UsuarioViewSet(viewsets.ModelViewSet):
             return Response({"data": "Um usuário com esse username já existe"})
         else:
             return Response({"data": "Um usuário com esse username não existe"})
-
-    @action(
-        detail=False,
-        methods=["patch"],
-        permission_classes=[IsAuthenticated],
-        parser_classes=[MultiPartParser],
-    )
-    def editarPerfil(self, request):
-        user = request.user
-        serializer = UsuarioPatchSerializer(user, data=request.data, partial=True)
-
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

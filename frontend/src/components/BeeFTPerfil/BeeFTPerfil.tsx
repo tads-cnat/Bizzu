@@ -40,7 +40,7 @@ const BeeFTPerfil: React.FC<IBeeFTPerfil> = ({usuarioId, dataPublicacao}) => {
 						<img
 							src={
 								usuario.imagemPerfil
-									? `http://localhost:8000${usuario.imagemPerfil}`
+									? `${usuario.imagemPerfil}`
 									: "http://localhost:8000/imgPostagens/usuarios/2025/06/10/sem_imagem_avatar.png"
 							}
 							alt="Imagem de usuário"
