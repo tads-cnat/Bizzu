@@ -5,14 +5,19 @@ import Perfil from "../features/Perfil/Perfil";
 import EditRepositorio from "../features/Repositorio/Edit";
 import CreateRepositorio from "../features/Repositorio/Create";
 import Repositorio from "../features/Repositorio/Repositorio";
+import LayoutFeed from "../features/Layout/LayoutFeed";
 
 export const privatesRoutes = [
 	{
-		path: "bizzu/",
+		path: "/",
+		element: <LayoutFeed />,
+	},
+	{
+		path: "",
 		element: <Layout />,
 		children: [
 			{
-				path: ":username",
+				path: "/:username",
 				element: <Perfil />,
 			},
 			{
@@ -28,7 +33,7 @@ export const privatesRoutes = [
 				element: <CreateRepositorio />,
 			},
 			{
-				path: "repositorio/editar/:id",
+				path: "repositorio/editar/",
 				element: <EditRepositorio />,
 			},
 			{

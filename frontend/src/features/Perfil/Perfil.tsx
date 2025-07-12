@@ -9,10 +9,12 @@ import type {Postagem, Tag} from "../../interfaces/Postagem";
 import type {Comunidade} from "../../interfaces/Comunidade";
 import type {Categoria} from "../../interfaces/Categoria";
 import {useParams} from "react-router-dom";
-import BeeHeaderProfile from "../../components/BeeHeaderProfile/BeeHeaderProfile";
-import {IBeeUser} from "../../components/BeeHeaderProfile/IBeeUser";
 import UsuarioService from "../../services/models/UsuarioService";
 import BeeAlert from "../../components/BeeAlert/BeeAlert";
+import {IBeeUser} from "./components/BeeHeaderProfile/IBeeUser";
+import BeeHeaderProfile from "./components/BeeHeaderProfile/BeeHeaderProfile";
+import BeePerfilSidebar from "../../components/BeePerfilSidebar/BeePerfilSidebar";
+import acessPermissions from "../../utils/acessPermissions";
 
 const Perfil: React.FC = () => {
 	const [postagens, setPostagens] = useState<Postagem[]>([]);
@@ -22,6 +24,8 @@ const Perfil: React.FC = () => {
 	const identificator = useParams().username;
 	const [usuario, setUsuario] = useState<IBeeUser>();
 	const [alertActivate, setAlertActivate] = useState<Boolean>(false);
+	let {permissions} = acessPermissions();
+	const [permissoes, setPermissoes] = useState(permissions);
 
 	useEffect(() => {
 		if (usuario === undefined) {
@@ -30,10 +34,16 @@ const Perfil: React.FC = () => {
 					setUsuario(response);
 				})
 				.catch(() => {
-					console.log("Não recebeu dados");
+					console.error("Não recebeu dados");
 				});
 		}
 	}, []);
+
+	useEffect(() => {
+		if (permissions) {
+			setPermissoes(permissions);
+		}
+	}, [permissions]);
 
 	useEffect(() => {
 		if (usuario !== undefined) {
@@ -81,9 +91,9 @@ const Perfil: React.FC = () => {
 
 		// Cores por tipo de categoria
 		const coresPorTipo: Record<"tec" | "mat" | "per", string> = {
-			tec: "#FCBD18",
-			mat: "#058B92",
-			per: "#F2C94C",
+			tec: "magenta",
+			mat: "orange",
+			per: "cyan",
 		};
 
 		const defaultColor = "#6FCF97";
@@ -139,12 +149,12 @@ const Perfil: React.FC = () => {
 		try {
 			const response = await PostagemService.getPost(usuario.id);
 			setPostagens(response.data);
-			console.log(response.data);
 		} catch (error) {
 			console.error("Erro ao carregar postagens:", error);
 			setError("Erro ao carregar postagens. Verifique sua conexão.");
 		}
 	};
+
 	return (
 		<>
 			{alertActivate && (
@@ -158,10 +168,7 @@ const Perfil: React.FC = () => {
 				{postagens?.length ? (
 					<div className="space-y-4">
 						{postagens.map((post: Postagem) => {
-							// Converter categorias em tags
 							const tags = categoriasParaTags(post.categorias);
-
-							// Buscar nome da comunidade
 							const comunidadeNome = getComunidadeNome(post.comunidade ?? null);
 
 							return (
@@ -200,6 +207,10 @@ const Perfil: React.FC = () => {
 				)}
 				<div>Parte dos repositórios</div>
 			</BeeAbasPerfil>
+
+			<aside className="fixed top-[80px] right-4 w-1/4 min-h-screen shadow-md flex flex-col justify-start px-3 py-4 rounded-xl bg-white z-40 overflow-y-auto gap-4">
+				<BeePerfilSidebar />
+			</aside>
 		</>
 	);
 };

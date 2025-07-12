@@ -96,6 +96,7 @@ const FormSig: React.FC = () => {
 					dataSubmit.append("escolaFormacao", data.escolaFormacao);
 				if (data.instituicaoAtual !== null)
 					dataSubmit.append("instituicaoAtual", data.instituicaoAtual);
+				dataSubmit.append("papel", "int");
 				await UsuarioService.post(dataSubmit);
 				redirecionar(-1);
 			} catch (e) {
@@ -188,7 +189,7 @@ const FormSig: React.FC = () => {
 								<p className="text-right text-sm/6 text-gray-500">
 									Já tem uma conta?{" "}
 									<Link
-										to={`/`}
+										to={`/login/`}
 										className="font-semibold text-[#FCBD18] hover:text-indigo-500"
 									>
 										Faça Login

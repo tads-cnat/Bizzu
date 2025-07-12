@@ -1,10 +1,14 @@
 from rest_framework.response import Response
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
-from rest_framework.permissions import IsAuthenticated
 from rest_framework.parsers import MultiPartParser
 from ..models import Usuario
-from api.serializers.usuario import UsuarioProfileSerializer, UsuarioSerializer, PesquisaSerializer
+from api.serializers.usuario import UsuarioProfileSerializer, UsuarioSerializer
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.permissions import AllowAny
+from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.tokens import RefreshToken
 from api.filters.usuario import UsuarioFilter
 from rest_framework import filters
 
@@ -13,6 +17,18 @@ class UsuarioViewSet(viewsets.ModelViewSet):
     queryset = Usuario.objects.all()
     serializer_class = UsuarioSerializer
     parser_classes = [MultiPartParser]
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get_permissions(self):
+        if (
+            self.action == "create"
+            or self.action == "usernameExits"
+            or self.action == "profileUsername"
+            or self.action == "retrieve"
+        ):
+            return [AllowAny()]
+        return super().get_permissions()
 
     def get_serializer_class(self):
         if self.request.method == "GET":
@@ -20,8 +36,13 @@ class UsuarioViewSet(viewsets.ModelViewSet):
 
         elif self.request.method == "POST":
             return UsuarioProfileSerializer
+        return self.serializer_class
 
-    @action(detail=False, methods=["get"], url_path="userByusername/(?P<username>.*)")
+    @action(
+        detail=False,
+        methods=["get"],
+        url_path="userByusername/(?P<username>.*)",
+    )
     def profileUsername(self, request, username):
         user = Usuario.objects.filter(username=username).first()
         serializador = UsuarioProfileSerializer(user)
@@ -31,7 +52,7 @@ class UsuarioViewSet(viewsets.ModelViewSet):
             return Response({"Algo deu errado": "serializador.errors"})
 
 
-    @action(detail=True, methods=["post"], permission_classes=[IsAuthenticated])
+    @action(detail=True, methods=["post"])
     def seguir(self, request, pk=None):
         usuario_seguido = self.get_object()
         usuario_seguidor = request.user
@@ -48,7 +69,7 @@ class UsuarioViewSet(viewsets.ModelViewSet):
             status=status.HTTP_200_OK,
         )
 
-    @action(detail=True, methods=["delete"], permission_classes=[IsAuthenticated])
+    @action(detail=True, methods=["delete"])
     def deixar_de_seguir(self, request, pk=None):
         usuario_seguido = self.get_object()
         usuario_seguidor = request.user
@@ -59,7 +80,7 @@ class UsuarioViewSet(viewsets.ModelViewSet):
             status=status.HTTP_200_OK,
         )
 
-    @action(detail=True, methods=["get"], permission_classes=[IsAuthenticated])
+    @action(detail=True, methods=["get"])
     def verificar_seguimento(self, request, pk=None):
         usuario_seguido = self.get_object()
         usuario_seguidor = request.user
@@ -88,3 +109,17 @@ class PesquisaViewSet(viewsets.ModelViewSet):
     filterset_class = UsuarioFilter
     filter_backends = [filters.SearchFilter]
     search_fields = ["nome"]
+
+class LogoutUsuarioView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        print(request)
+        refresh_token = request.data.get("refresh")
+        try:
+            token = RefreshToken(refresh_token)
+            token.blacklist()
+            return Response({"detail": "Usuário deslogado com sucesso."})
+        except Exception as error:
+            return Response({"error": str(error)})
