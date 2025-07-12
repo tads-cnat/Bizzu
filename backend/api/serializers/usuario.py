@@ -28,7 +28,11 @@ class UsuarioProfileSerializer(serializers.ModelSerializer):
         usuario.save()
         return usuario
 
+
 class PesquisaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Usuario
-        fields = ["imagemPerfil", "nome"]
+        fields = [
+            "imagemPerfil",
+            "username",
+        ]

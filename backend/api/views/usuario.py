@@ -47,7 +47,6 @@ class UsuarioViewSet(viewsets.ModelViewSet):
         else:
             return Response({"Algo deu errado": "serializador.errors"})
 
-
     @action(detail=True, methods=["post"])
     def seguir(self, request, pk=None):
         usuario_seguido = self.get_object()
@@ -100,6 +99,14 @@ class UsuarioViewSet(viewsets.ModelViewSet):
             return Response({"data": "Um usuário com esse username não existe"})
 
 
+class PesquisaViewSet(viewsets.ModelViewSet):
+    queryset = Usuario.objects.all()
+    serializer_class = PesquisaSerializer
+    filterset_class = UsuarioFilter
+    filter_backends = [filters.SearchFilter]
+    search_fields = ["username"]
+
+
 class LogoutUsuarioView(APIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
@@ -113,10 +120,3 @@ class LogoutUsuarioView(APIView):
             return Response({"detail": "Usuário deslogado com sucesso."})
         except Exception as error:
             return Response({"error": str(error)})
-
-class PesquisaViewSet(viewsets.ModelViewSet):
-    queryset = Usuario.objects.all()
-    serializer_class = PesquisaSerializer
-    filterset_class = UsuarioFilter
-    filter_backends = [filters.SearchFilter]
-    search_fields = ["nome"]
