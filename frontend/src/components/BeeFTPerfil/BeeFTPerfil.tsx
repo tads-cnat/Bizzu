@@ -1,3 +1,5 @@
+"use client"
+
 import {useEffect, useState} from "react";
 import UsuarioService from "../../services/models/UsuarioService";
 import {IBeeFTPerfil} from "./IBeeFTPerfil";
@@ -25,14 +27,22 @@ const BeeFTPerfil: React.FC<IBeeFTPerfil> = ({usuarioId, dataPublicacao}) => {
 	const {username} = acessAuth();
 
 	useEffect(() => {
-		void UsuarioService.get(usuarioId)
-			.then((response) => {
-				setUsuario(response.data);
-			})
-			.catch((e) => {
-				console.error("Não recebeu dados", e);
-			});
-	}, []);
+		const fetchUser = async () => {
+			try {
+			  if (typeof usuarioId === "number") {
+				const response = await UsuarioService.get(usuarioId)
+				setUsuario(response.data)
+			  } else {
+				const response = await UsuarioService.getbyUsername(usuarioId)
+				setUsuario(response)
+			  }
+			} catch (e) {
+			  console.error("Não recebeu dados", e)
+			}
+		  }
+	  
+		  fetchUser()
+		}, [usuarioId])
 
 	return (
 		<>
