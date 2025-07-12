@@ -6,6 +6,7 @@ from api.urls.curtida import curtidaRouter
 from api.urls.comunidade import comunidadeRouter
 from api.urls.categoria import categoriaRouter
 from .feed import urlpatterns as feed_urls
+from api.urls.comentario import comentarioRouter
 
 urlpatterns = [
     path("", include(postagemRouter.urls)),
@@ -15,5 +16,6 @@ urlpatterns = [
     path("", include(comunidadeRouter.urls)),
     path("", include(categoriaRouter.urls)),
     path("", include(feed_urls)),
+    path("", include(comentarioRouter.urls)),
 ]
 

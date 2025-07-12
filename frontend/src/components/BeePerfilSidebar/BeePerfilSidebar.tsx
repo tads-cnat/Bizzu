@@ -6,9 +6,11 @@ import {useParams} from "react-router-dom";
 import {PencilSimple, GraduationCap, Gear} from "@phosphor-icons/react";
 import UsuarioService from "../../services/models/UsuarioService";
 import type {IBeeUser} from "../BeeHeaderProfile/IBeeUser";
+import acessPermissions from "../../utils/acessPermissions";
 
 const BeePerfilSidebar: React.FC = () => {
 	const {username} = useParams();
+	const {permissions} = acessPermissions();
 	const [usuario, setUsuario] = useState<IBeeUser | null>(null);
 	const [loading, setLoading] = useState(true);
 
@@ -79,13 +81,13 @@ const BeePerfilSidebar: React.FC = () => {
 
 	// Preparar dados de formação acadêmica
 	const formacoes = [];
-	if (usuario.escolaFormacao) {
+	if (usuario.escolaFormacao != "undefined") {
 		formacoes.push({
 			instituicao: usuario.escolaFormacao,
 			curso: "Formação anterior",
 		});
 	}
-	if (usuario.instituicaoAtual) {
+	if (usuario.instituicaoAtual != "undefined") {
 		formacoes.push({
 			instituicao: usuario.instituicaoAtual,
 			curso: "Instituição atual",
@@ -183,47 +185,49 @@ const BeePerfilSidebar: React.FC = () => {
 			</div>
 
 			{/* Card de Configurações */}
-			<div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
-				<div className="flex items-center gap-2 mb-4">
-					<Gear
-						size={20}
-						weight="regular"
-						className="text-[#333333]"
-					/>
-					<h3 className="text-lg font-semibold text-[#333333] font-poppins">
-						Configurações
-					</h3>
-				</div>
+			{permissions.update && (
+				<div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
+					<div className="flex items-center gap-2 mb-4">
+						<Gear
+							size={20}
+							weight="regular"
+							className="text-[#333333]"
+						/>
+						<h3 className="text-lg font-semibold text-[#333333] font-poppins">
+							Configurações
+						</h3>
+					</div>
 
-				<div className="space-y-3">
-					{configuracoes.map((config, index) => (
-						<div
-							key={index}
-							className="flex items-center justify-between"
-						>
-							<div className="flex-1">
-								<h4 className="font-medium text-[#333333] font-poppins text-sm">
-									{config.label}
-								</h4>
-								<p className="text-xs text-[#666666] font-poppins">
-									{config.descricao}
-								</p>
-							</div>
-
-							<button
-								onClick={config.onClick}
-								className="flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-[#058B92] hover:bg-gray-50 rounded-md transition-colors"
+					<div className="space-y-3">
+						{configuracoes.map((config, index) => (
+							<div
+								key={index}
+								className="flex items-center justify-between"
 							>
-								<PencilSimple
-									size={12}
-									weight="regular"
-								/>
-								{config.acao}
-							</button>
-						</div>
-					))}
+								<div className="flex-1">
+									<h4 className="font-medium text-[#333333] font-poppins text-sm">
+										{config.label}
+									</h4>
+									<p className="text-xs text-[#666666] font-poppins">
+										{config.descricao}
+									</p>
+								</div>
+
+								<button
+									onClick={config.onClick}
+									className="flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-[#058B92] hover:bg-gray-50 rounded-md transition-colors"
+								>
+									<PencilSimple
+										size={12}
+										weight="regular"
+									/>
+									{config.acao}
+								</button>
+							</div>
+						))}
+					</div>
 				</div>
-			</div>
+			)}
 		</div>
 	);
 };

@@ -7,4 +7,6 @@ export interface IBeeUsuario{
     token: string;
     //Id do usuario autenticado 
     id: number;
+    // Papel
+    papel: string;
 }
