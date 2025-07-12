@@ -8,7 +8,6 @@ import BeeSteps from "../componentes/BeeSteps/BeeSteps";
 import BeeArquivo from "../../../components/BeeArquivo/BeeArquivo";
 import UsuarioService from "../../../services/models/UsuarioService";
 import {Link, useNavigate} from "react-router-dom";
-
 const schema = yup.object().shape({
 	nome: yup.string().required("O nome é obrigatório"),
 	username: yup
@@ -42,11 +41,11 @@ const schema = yup.object().shape({
 	formacao: yup.string().optional(),
 	instituicao: yup.string().optional(),
 	imagemPerfil: yup.mixed().optional(),
+	banner: yup.mixed().optional(),
 });
 
 const FormSig: React.FC = () => {
 	const [current, setCurrent] = useState<number>(0);
-	// const [comunidade, setComunidade] = useState<IBeeComunidade[]>();
 
 	const {
 		handleSubmit,
@@ -54,19 +53,6 @@ const FormSig: React.FC = () => {
 		control,
 		formState: {errors},
 	} = useForm({resolver: yupResolver(schema)});
-
-	// async function loadComunidades() {
-	// 	try {
-	// 		const response = await ComunidadeService.listAll();
-	// 		setComunidade(response.data);
-	// 	} catch {
-	// 		console.error("Não foi possível carregar as comunidades");
-	// 	}
-	// }
-
-	// useEffect(() => {
-	// 	loadComunidades();
-	// });
 
 	const redirecionar = useNavigate();
 
@@ -78,11 +64,11 @@ const FormSig: React.FC = () => {
 		imagemPerfil: File;
 		escolaFormacao: string;
 		instituicaoAtual: string;
+		banner: File;
 	}): Promise<void> {
 		if (current == 0) setCurrent(1);
+		else if (current == 1) setCurrent(2);
 		else {
-			console.log(data);
-
 			try {
 				const dataSubmit = new FormData();
 				dataSubmit.append("password", data.password);
@@ -92,6 +78,8 @@ const FormSig: React.FC = () => {
 					dataSubmit.append("descricao", data.descricao);
 				if (data.imagemPerfil !== null && data.imagemPerfil !== undefined)
 					dataSubmit.append("imagemPerfil", data.imagemPerfil);
+				if (data.banner !== null && data.banner !== undefined)
+					dataSubmit.append("banner", data.banner);
 				if (data.escolaFormacao !== null)
 					dataSubmit.append("escolaFormacao", data.escolaFormacao);
 				if (data.instituicaoAtual !== null)
@@ -207,20 +195,6 @@ const FormSig: React.FC = () => {
 					{current == 1 && (
 						<div className="mt-5 sm:mx-auto sm:w-full sm:max-w-sm">
 							<div className="mt-2">
-								<Controller
-									name="imagemPerfil"
-									control={control}
-									render={({field}) => (
-										<BeeArquivo
-											multiple={false}
-											value={field.value}
-											onChange={(val) => field.onChange(val)}
-										/>
-									)}
-								/>
-							</div>
-
-							<div className="mt-2">
 								<BeeInput
 									placeholder="Fale um pouco mais sobre você..."
 									label="Descrição"
@@ -261,7 +235,41 @@ const FormSig: React.FC = () => {
 									</p>
 								)}
 							</div>
-
+							<BeeButton
+								variante="aviso"
+								label="Próximo Passo"
+								tamanho="grande"
+							/>
+						</div>
+					)}
+					{current == 2 && (
+						<div className="mt-5 sm:mx-auto sm:w-full sm:max-w-sm">
+							<div className="mt-2">
+								<Controller
+									name="imagemPerfil"
+									control={control}
+									render={({field}) => (
+										<BeeArquivo
+											multiple={false}
+											value={field.value}
+											onChange={(val) => field.onChange(val)}
+										/>
+									)}
+								/>
+							</div>
+							<div className="mt-2">
+								<Controller
+									name="banner"
+									control={control}
+									render={({field}) => (
+										<BeeArquivo
+											multiple={false}
+											value={field.value}
+											onChange={(val) => field.onChange(val)}
+										/>
+									)}
+								/>
+							</div>
 							<BeeButton
 								variante="aviso"
 								label="Cadastrar"
