@@ -10,6 +10,7 @@ export interface BeePostProps {
   curtidas?: number
   comentarios?: number
   imagemUsuarioLogado?: string
+  categorias?: number[] 
   onCurtir: () => void
   onAbrirComentarios: () => void
   onExcluir?: (id: number) => void

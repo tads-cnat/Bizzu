@@ -16,6 +16,12 @@ class PostagemService extends BaseService{
     const response = await axiosInstance.get(`${this.complementoURL}/postFollowers/${username}`)
     return response
   }
+
+  async getFeedFiltradoPorCategoria(nomeCategoria: string) {
+    const response = await axiosInstance.get(`/feed/categoria/?categoria=${nomeCategoria}`)
+    return response
+  }
+  
 }
 
 export default new PostagemService("postagem");
