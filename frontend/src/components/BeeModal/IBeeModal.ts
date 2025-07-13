@@ -11,4 +11,6 @@ export interface IBeeModal{
     id?: number
     // função utilizada para excluir o post/repositório
     onExcluir?: (id: number) => void
+    // Para ele vir aberto em casos que ele é chamado várias vezes 
+    openDefault?: boolean
 }

@@ -15,17 +15,21 @@ import {IBeeUser} from "./components/BeeHeaderProfile/IBeeUser";
 import BeeHeaderProfile from "./components/BeeHeaderProfile/BeeHeaderProfile";
 import BeePerfilSidebar from "../../components/BeePerfilSidebar/BeePerfilSidebar";
 import acessPermissions from "../../utils/acessPermissions";
+import {Spin} from "antd";
+import FormCategoria from "./Form/FormCategoria";
+import BeeEditTag from "./components/BeeEditTag/BeeEditTag";
+import BeeButton from "../../components/BeeButtons/BeeButtons";
 
 const Perfil: React.FC = () => {
 	const [postagens, setPostagens] = useState<Postagem[]>([]);
 	const [comunidades, setComunidades] = useState<Comunidade[]>([]);
 	const [categorias, setCategorias] = useState<Categoria[]>([]);
-	const [error, setError] = useState<string | null>(null);
 	const identificator = useParams().username;
 	const [usuario, setUsuario] = useState<IBeeUser>();
 	const [alertActivate, setAlertActivate] = useState<Boolean>(false);
-	let {permissions} = acessPermissions();
-	const [permissoes, setPermissoes] = useState(permissions);
+	let {permissions, load} = acessPermissions();
+	const [abrirModal, setModal] = useState<Boolean>(false);
+	const [key, setKey] = useState<number>(0);
 
 	useEffect(() => {
 		if (usuario === undefined) {
@@ -38,12 +42,6 @@ const Perfil: React.FC = () => {
 				});
 		}
 	}, []);
-
-	useEffect(() => {
-		if (permissions) {
-			setPermissoes(permissions);
-		}
-	}, [permissions]);
 
 	useEffect(() => {
 		if (usuario !== undefined) {
@@ -145,72 +143,100 @@ const Perfil: React.FC = () => {
 	};
 
 	const loadPostagens = async (): Promise<void> => {
-		setError(null);
 		try {
 			const response = await PostagemService.getPost(usuario.id);
 			setPostagens(response.data);
 		} catch (error) {
 			console.error("Erro ao carregar postagens:", error);
-			setError("Erro ao carregar postagens. Verifique sua conexão.");
 		}
+	};
+
+	const modal = () => {
+		if (!abrirModal) return null;
+		return (
+			<FormCategoria
+				key={key}
+				label="Criar Categoria"
+			/>
+		);
 	};
 
 	return (
 		<>
-			{alertActivate && (
-				<BeeAlert
-					typeAlert="success"
-					messageAlert="Postagem excluída com sucesso!"
-				/>
-			)}
-			<BeeHeaderProfile />
-			<BeeAbasPerfil initialActiveKey="1">
-				{postagens?.length ? (
-					<div className="space-y-4">
-						{postagens.map((post: Postagem) => {
-							const tags = categoriasParaTags(post.categorias);
-							const comunidadeNome = getComunidadeNome(post.comunidade ?? null);
+			{!load ? (
+				<Spin />
+			) : (
+				<div>
+					{alertActivate && (
+						<BeeAlert
+							typeAlert="success"
+							messageAlert="Postagem excluída com sucesso!"
+						/>
+					)}
+					<BeeHeaderProfile />
+					<BeeAbasPerfil initialActiveKey="1">
+						{postagens?.length ? (
+							<div className="space-y-4">
+								{postagens.map((post: Postagem) => {
+									const tags = categoriasParaTags(post.categorias);
+									const comunidadeNome = getComunidadeNome(
+										post.comunidade ?? null,
+									);
 
-							return (
-								<div
-									key={post.id}
-									className="mb-6"
-								>
-									{comunidadeNome && (
-										<div className="bg-white p-2 rounded-t-lg border-b border-gray-200">
-											<p className="text-sm text-gray-600">
-												<span className="font-medium">Comunidade:</span>{" "}
-												{comunidadeNome}
-											</p>
+									return (
+										<div
+											key={post.id}
+											className="mb-6"
+										>
+											{comunidadeNome && (
+												<div className="bg-white p-2 rounded-t-lg border-b border-gray-200">
+													<p className="text-sm text-gray-600">
+														<span className="font-medium">Comunidade:</span>{" "}
+														{comunidadeNome}
+													</p>
+												</div>
+											)}
+
+											<BeePost
+												id={post.id}
+												texto={post.texto}
+												tags={tags}
+												curtidas={post.curtidas || 0}
+												comentarios={post.comentarios || 0}
+												usuario={post.usuario}
+												dataPublicacao={post.dataPublicacao}
+												imagemPost={post.imagem}
+												onCurtir={() => handleCurtir(post.id)}
+												onAbrirComentarios={() => handleComentar(post.id)}
+												onExcluir={handleExcluir}
+											/>
 										</div>
-									)}
+									);
+								})}
+							</div>
+						) : (
+							<div>Nenhuma postagem encontrada</div>
+						)}
+						<div>Parte dos repositórios</div>
+						<div>
+							<BeeButton
+								label="Adicionar categoria"
+								onClick={() => {
+									setModal(true);
+									setKey((prev) => prev + 1);
+								}}
+							/>
+							{/* <FormCategoria /> */}
+							<BeeEditTag />
+						</div>
+					</BeeAbasPerfil>
 
-									<BeePost
-										id={post.id}
-										texto={post.texto}
-										tags={tags}
-										curtidas={post.curtidas || 0}
-										comentarios={post.comentarios || 0}
-										usuario={post.usuario}
-										dataPublicacao={post.dataPublicacao}
-										imagemPost={post.imagem}
-										onCurtir={() => handleCurtir(post.id)}
-										onAbrirComentarios={() => handleComentar(post.id)}
-										onExcluir={handleExcluir}
-									/>
-								</div>
-							);
-						})}
-					</div>
-				) : (
-					<div>Nenhuma postagem encontrada</div>
-				)}
-				<div>Parte dos repositórios</div>
-			</BeeAbasPerfil>
-
-			<aside className="fixed top-[80px] right-4 w-1/4 min-h-screen shadow-md flex flex-col justify-start px-3 py-4 rounded-xl bg-white z-40 overflow-y-auto gap-4">
-				<BeePerfilSidebar />
-			</aside>
+					<aside className="fixed top-[80px] right-4 w-1/4 min-h-screen shadow-md flex flex-col justify-start px-3 py-4 rounded-xl bg-white z-40 overflow-y-auto gap-4">
+						<BeePerfilSidebar />
+					</aside>
+				</div>
+			)}
+			{modal()}
 		</>
 	);
 };
