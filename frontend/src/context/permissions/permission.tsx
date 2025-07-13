@@ -13,6 +13,8 @@ export const PermissionContext = createContext<IContextPermission>(
 const PermissionProvider = ({children}: IProviderPermission) => {
 	const {papel, username} = acessAuth();
 	const location = useLocation();
+	const [load, setIsLoading] = useState<any>(false);
+
 	const [permissions, setPermissions] = useState<Record<Types, boolean>>({
 		[Types.READ]: false,
 		[Types.CREATE]: false,
@@ -21,19 +23,28 @@ const PermissionProvider = ({children}: IProviderPermission) => {
 	});
 
 	useEffect(() => {
+		async function pegar() {
+			try {
+				const userPermissions = await getPermissions(
+					location.pathname,
+					papel,
+					username,
+				);
+				setPermissions(userPermissions);
+			} catch (error) {
+				console.error("Erro ao carregar permissões", error);
+			} finally {
+				setIsLoading(true);
+			}
+		}
 		if (papel) {
-			const userPermissions = getPermissions(
-				location.pathname,
-				papel,
-				username,
-			);
-			setPermissions(userPermissions);
+			pegar();
 		}
 	}, [location.pathname, papel, username]);
 
 	return (
 		<>
-			<PermissionContext.Provider value={{permissions}}>
+			<PermissionContext.Provider value={{permissions, load}}>
 				{children}
 			</PermissionContext.Provider>
 		</>

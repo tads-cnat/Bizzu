@@ -9,7 +9,6 @@ import BeeButton from "../../../../components/BeeButtons/BeeButtons";
 import acessPermissions from "../../../../utils/acessPermissions";
 
 const BeeHeaderProfile = () => {
-	const {username} = acessAuth();
 	const identificator = useParams().username;
 	const [usuario, setUsuario] = useState<IBeeUser>();
 	const [visble, setVisible] = useState<Boolean>(false);
@@ -106,7 +105,7 @@ const BeeHeaderProfile = () => {
 							>
 								{seguidores} Seguidores
 							</a>
-							{permissions.create && username !== undefined ? (
+							{permissions.create ? (
 								<Menu
 									as="div"
 									className="relative inline-block text-left"
