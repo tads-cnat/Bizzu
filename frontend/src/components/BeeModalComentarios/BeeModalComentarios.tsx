@@ -7,8 +7,12 @@ import {
 	DialogBackdrop,
 	DialogPanel,
 	DialogTitle,
+	Menu,
+	MenuButton,
+	MenuItem,
+	MenuItems,
 } from "@headlessui/react";
-import {X, PaperPlaneRight} from "@phosphor-icons/react";
+import {X, PaperPlaneRight, Warning} from "@phosphor-icons/react";
 import BeePost from "../BeePost/BeePost";
 import type {
 	Comentario,
@@ -181,7 +185,7 @@ const BeeModalComentarios: React.FC<IBeeModalComentarios> = ({
 
 											{/* Conteúdo do comentário */}
 											<div className="flex-1 min-w-0">
-												<div className="bg-gray-100 rounded-2xl px-4 py-2">
+												<div className="relative bg-gray-100 rounded-2xl px-4 py-2">
 													<div className="flex items-center mb-1">
 														<span className="font-semibold text-sm text-[#333333]">
 															{comentario.usuario.nome}
@@ -189,6 +193,35 @@ const BeeModalComentarios: React.FC<IBeeModalComentarios> = ({
 														<span className="text-xs text-gray-500">
 															@{comentario.usuario.username}
 														</span>
+														<Menu
+															as="div"
+															className="absolute top-2 right-2 z-10"
+														>
+															<div>
+																<MenuButton className="p-0 m-0 bg-transparent rounded-none shadow-none ring-0 hover:bg-transparent">
+																	<Warning
+																		size={24}
+																		className="text-gray-500 hover:text-red-500"
+																	/>
+																</MenuButton>
+															</div>
+
+															<MenuItems
+																transition
+																className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 transition focus:outline-none data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
+															>
+																<div className="py-1">
+																	<MenuItem>
+																		<a
+																			href="#"
+																			className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+																		>
+																			Denunciar comentário
+																		</a>
+																	</MenuItem>
+																</div>
+															</MenuItems>
+														</Menu>
 													</div>
 													<p className="text-sm text-[#333333] break-words">
 														{comentario.conteudo}
