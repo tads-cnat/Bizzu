@@ -9,6 +9,7 @@ function BeeSearchBar({onSearch}: IBeeSearchBar) {
 	const handleSearch = () => {
 		onSearch(termo);
 	};
+
 	return (
 		<div className="relative flex items-center w-full max-w-md">
 			<input

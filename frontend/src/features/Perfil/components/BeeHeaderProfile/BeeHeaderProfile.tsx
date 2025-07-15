@@ -6,6 +6,7 @@ import {Menu, MenuItem} from "@headlessui/react";
 import acessAuth from "../../../../utils/acessAuth";
 import UsuarioService from "../../../../services/models/UsuarioService";
 import BeeButton from "../../../../components/BeeButtons/BeeButtons";
+import acessPermissions from "../../../../utils/acessPermissions";
 
 const BeeHeaderProfile = () => {
 	const {username} = acessAuth();
@@ -15,6 +16,7 @@ const BeeHeaderProfile = () => {
 	const [estaSeguindo, setEstaSeguindo] = useState(false);
 	const [seguidores, setSeguidores] = useState(0);
 	const [seguindo, setSeguindo] = useState(0);
+	const {permissions} = acessPermissions();
 
 	useEffect(() => {
 		void UsuarioService.getbyUsername(String(identificator))
@@ -104,7 +106,7 @@ const BeeHeaderProfile = () => {
 							>
 								{seguidores} Seguidores
 							</a>
-							{usuario.username == username ? (
+							{permissions.create && username !== undefined ? (
 								<Menu
 									as="div"
 									className="relative inline-block text-left"
@@ -119,7 +121,7 @@ const BeeHeaderProfile = () => {
 										<div className="absolute top-full left-0 z-50 w-56 mt-2 bg-white shadow-xl rounded-xl border border-gray-200 py-2">
 											<MenuItem>
 												<Link
-													to={`/bizzu/postagem/criar/`}
+													to={`/postagem/criar/`}
 													className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
 												>
 													<Newspaper className="w-5 h-5 text-cyan-500" /> Criar
@@ -128,7 +130,7 @@ const BeeHeaderProfile = () => {
 											</MenuItem>
 
 											<MenuItem>
-												<Link to={`/bizzu/repositorio/criar/`}>
+												<Link to={`/repositorio/criar/`}>
 													<BoxArrowUp /> Criar Repositório
 												</Link>
 											</MenuItem>

@@ -6,7 +6,7 @@ from ..models import Usuario
 class UsuarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Usuario
-        fields = ["id", "username", "imagemPerfil"]
+        fields = ["id", "username", "imagemPerfil", "papel"]
         extra_kwargs = {"id": {"read_only": False}}
 
 
@@ -27,3 +27,12 @@ class UsuarioProfileSerializer(serializers.ModelSerializer):
         usuario.is_active = True
         usuario.save()
         return usuario
+
+
+class PesquisaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Usuario
+        fields = [
+            "imagemPerfil",
+            "username",
+        ]

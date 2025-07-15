@@ -2,24 +2,16 @@
 
 import type React from "react";
 import type IBeeTags from "./IBeeTags";
+import {Tag} from "antd";
 
-const BeeTags: React.FC<IBeeTags> = ({
-	label,
-	color,
-	tipo,
-	onClick,
-	isSelected = false,
-}) => {
+const BeeTags: React.FC<IBeeTags> = ({label, color}) => {
 	return (
-		<div
-			className={`w-auto h-6 inline-flex rounded-[10px] items-center p-3 cursor-pointer transition-all duration-200 ${
-				isSelected ? "ring-2 ring-blue-500" : ""
-			}`}
-			style={{backgroundColor: color}}
-			onClick={onClick}
+		<Tag
+			bordered={false}
+			color={color}
 		>
-			<p className="text-[#333333] font-semibold text-[12px]">#{label}</p>
-		</div>
+			#{label}
+		</Tag>
 	);
 };
 

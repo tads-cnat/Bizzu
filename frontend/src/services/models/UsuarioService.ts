@@ -32,6 +32,11 @@ class UsuarioService extends BaseService{
         const response = await axiosInstance.get(`/usuario/usernameExits/${username}`);
         return response.data;
     }
+
+    async logout() {
+        const response = await axiosInstance.post(`/logout`);
+        return response.data;
+    }
 }
 
 export default new UsuarioService("usuario");
