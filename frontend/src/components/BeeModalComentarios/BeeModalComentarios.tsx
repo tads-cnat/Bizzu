@@ -21,6 +21,8 @@ import type {
 import ComentarioService from "../../services/models/ComentarioService";
 import type {IBeeModalComentarios} from "./IBeeModalComentarios";
 import BeeFTPerfil from "../BeeFTPerfil/BeeFTPerfil";
+import BeeDenuncia from "../BeeDenuncia/BeeDenuncia";
+import BeeButton from "../BeeButtons/BeeButtons";
 
 // Função para calcular tempo decorrido
 function tempoDesde(data: string): string {
@@ -49,6 +51,14 @@ const BeeModalComentarios: React.FC<IBeeModalComentarios> = ({
 	const [loading, setLoading] = useState(false);
 	const [enviandoComentario, setEnviandoComentario] = useState(false);
 	const [totalComentarios, setTotalComentarios] = useState(0);
+
+	const [mostrarDenuncia, setMostrarDenuncia] = useState(false);
+	const handleAbrirDenuncia = () => {
+		setMostrarDenuncia(true);
+	};
+	const handleFecharDenuncia = () => {
+		setMostrarDenuncia(false);
+	};
 
 	// Carregar comentários quando o modal abrir
 	useEffect(() => {
@@ -211,12 +221,13 @@ const BeeModalComentarios: React.FC<IBeeModalComentarios> = ({
 																className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 transition focus:outline-none data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
 															>
 																<div className="py-1">
-																	<MenuItem>
+																	<MenuItem onClick={handleAbrirDenuncia}>
 																		<a
 																			href="#"
 																			className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
 																		>
-																			Denunciar comentário
+																			Denunciar comentário de{" "}
+																			{comentario.usuario.username}
 																		</a>
 																	</MenuItem>
 																</div>
@@ -238,6 +249,35 @@ const BeeModalComentarios: React.FC<IBeeModalComentarios> = ({
 								)}
 							</div>
 						</div>
+						{mostrarDenuncia && (
+							<div className="absolute top-0 left-0 w-full h-full  bg-opacity-40 flex justify-center items-center z-50">
+								<div className="bg-white p-4 rounded-md w-[400px] max-w-full shadow-lg relative">
+									<button
+										onClick={handleFecharDenuncia}
+										className="absolute top-2 right-2 text-gray-600 hover:text-red-600"
+									>
+										X
+									</button>
+
+									<BeeDenuncia
+										id={123}
+										entidade="comentario"
+										tipos={["Spam", "Ofensivo", "Fake news", "Outro"]}
+									/>
+									<div className="mt-4 flex justify-end gap-2">
+										<BeeButton
+											onClick={handleFecharDenuncia}
+											label="Cancelar"
+											variante="negativo"
+										/>
+										<BeeButton
+											label="Enviar denuncia"
+											variante="primaria"
+										/>
+									</div>
+								</div>
+							</div>
+						)}
 
 						{/* Campo para novo comentário */}
 						<div className="border-t border-gray-200 p-4">
