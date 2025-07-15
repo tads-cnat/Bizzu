@@ -11,8 +11,9 @@ import {IBeeSidebarProps} from "./IBeeSidebar";
 import {IBeeUser} from "../../features/Perfil/components/BeeHeaderProfile/IBeeUser";
 
 export const BeeSidebar = ({onSelecionarSecao}: IBeeSidebarProps) => {
+	const {username: authUsername} = acessAuth();
 	const paramsUsername = useParams().username;
-	const identificador = paramsUsername;
+	const identificador = paramsUsername || authUsername;
 	const [usuario, setUsuario] = useState<IBeeUser>();
 	const [comunidades, setComunidades] = useState<MenuItem[]>([]);
 

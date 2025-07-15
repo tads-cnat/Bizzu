@@ -12,10 +12,9 @@ const BeePerfilSidebar: React.FC = () => {
 	const [usuario, setUsuario] = useState<IBeeUser | null>(null);
 	const [loading, setLoading] = useState(true);
 	const navigate = useNavigate();
-	const [mostrarFormulario, setMostrarFormulario] = useState(false);
+
 	const handleClick = (onClickOriginal: () => void) => {
 		onClickOriginal();
-		setMostrarFormulario(true);
 	};
 
 	useEffect(() => {
@@ -228,11 +227,6 @@ const BeePerfilSidebar: React.FC = () => {
 							</button>
 						</div>
 					))}
-					{mostrarFormulario && (
-						<div className="mt-3 border p-4 rounded bg-gray-50">
-							<FormEditarPerfil onClose={() => setMostrarFormulario(false)} />
-						</div>
-					)}
 				</div>
 			</div>
 		</div>

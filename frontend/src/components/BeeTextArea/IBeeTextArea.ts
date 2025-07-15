@@ -16,4 +16,7 @@ export interface IBeeTextArea {
   
     // Rótulo visível acima da área de texto
     label?: string;
+
+    // valor atual do input ( basicamente ta sendo usado pra puxar o que o usuário salvo previamente em "x" campo)
+    value?: any;
   }
