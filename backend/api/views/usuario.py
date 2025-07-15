@@ -3,12 +3,18 @@ from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.parsers import MultiPartParser
 from ..models import Usuario
-from api.serializers.usuario import UsuarioProfileSerializer, UsuarioSerializer
+from api.serializers.usuario import (
+    UsuarioProfileSerializer,
+    UsuarioSerializer,
+    PesquisaSerializer,
+)
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import AllowAny
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
+from api.filters.usuario import UsuarioFilter
+from rest_framework import filters
 
 
 class UsuarioViewSet(viewsets.ModelViewSet):
@@ -99,6 +105,14 @@ class UsuarioViewSet(viewsets.ModelViewSet):
             return Response({"data": "Um usuário com esse username já existe"})
         else:
             return Response({"data": "Um usuário com esse username não existe"})
+
+
+class PesquisaViewSet(viewsets.ModelViewSet):
+    queryset = Usuario.objects.all()
+    serializer_class = PesquisaSerializer
+    filterset_class = UsuarioFilter
+    filter_backends = [filters.SearchFilter]
+    search_fields = ["username"]
 
 
 class LogoutUsuarioView(APIView):
