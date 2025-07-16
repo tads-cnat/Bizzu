@@ -28,7 +28,7 @@ const RepoList: React.FC = () => {
 			setRepositorios((prev) => prev.filter((repo) => repo.id !== id));
 		} catch (error) {
 			console.error("Erro ao excluir repositório:", error);
-			alert("Erro ao excluir repositório. Tente novamente.");
+			// alert removido conforme solicitado
 		}
 	};
 
