@@ -46,3 +46,13 @@ class Usuario(AbstractUser):
 
     def __str__(self):
         return self.username
+
+
+class Solicitacao(models.Model):
+    descricao = models.CharField(
+        verbose_name="Descrição", max_length=400, blank=True, null=True
+    )
+    solicitante = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    data_solocitacao = models.DateTimeField(
+        auto_now_add=True, verbose_name="Data da solicitação", null=True, blank=True
+    )
