@@ -13,6 +13,7 @@ import {BeePostProps} from "../../components/BeePost/IBeePost";
 import {useEffect, useState} from "react";
 import {Empty} from "antd";
 import getLocalStorage from "../../utils/getLocalStorage";
+import IBeeTags from "../../components/BeeTags/IBeeTags";
 const LayoutFeed: React.FC = () => {
 	const [usuario, setUsuario] = useState<any>();
 	const [repositorios, setRepositorios] = useState<Repositorio[]>([]);
@@ -86,7 +87,7 @@ const LayoutFeed: React.FC = () => {
 			setRepositorios((prev) => prev.filter((repo) => repo.id !== id));
 		} catch (error) {
 			console.error("Erro ao excluir repositório:", error);
-			alert("Erro ao excluir repositório. Tente novamente.");
+			// alert removido conforme solicitado
 		}
 	};
 
@@ -154,7 +155,19 @@ const LayoutFeed: React.FC = () => {
 										{postagensComunidade.length > 0 ? (
 											<div>
 												{postagensComunidade.map((post) => {
-													const tags: any = categoriasParaTags(post.categorias);
+													const tags = categoriasParaTags(
+														(post as any).categorias ?? [],
+													) as IBeeTags[];
+													let usuarioUsername = "";
+													if (
+														post.usuario &&
+														typeof post.usuario === "object" &&
+														post.usuario !== null &&
+														"username" in post.usuario &&
+														typeof post.usuario.username === "string"
+													) {
+														usuarioUsername = post.usuario.username;
+													}
 													return (
 														<BeePost
 															key={post.id}
@@ -163,9 +176,9 @@ const LayoutFeed: React.FC = () => {
 															tags={tags}
 															curtidas={post.curtidas || 0}
 															comentarios={post.comentarios || 0}
-															usuario={post.usuario}
+															usuario={usuarioUsername}
 															dataPublicacao={post.dataPublicacao}
-															imagemPost={post.imagem}
+															imagemPost={(post as any).imagem ?? undefined}
 															onCurtir={() => post.id}
 															onAbrirComentarios={() => post.id}
 															onExcluir={() => {}}
@@ -185,7 +198,19 @@ const LayoutFeed: React.FC = () => {
 										{postagensSeguidores.length > 0 ? (
 											<div>
 												{postagensSeguidores.map((post) => {
-													const tags: any = categoriasParaTags(post.categorias);
+													const tags = categoriasParaTags(
+														(post as any).categorias ?? [],
+													) as IBeeTags[];
+													let usuarioUsername = "";
+													if (
+														post.usuario &&
+														typeof post.usuario === "object" &&
+														post.usuario !== null &&
+														"username" in post.usuario &&
+														typeof post.usuario.username === "string"
+													) {
+														usuarioUsername = post.usuario.username;
+													}
 													return (
 														<BeePost
 															id={post.id}
@@ -193,9 +218,9 @@ const LayoutFeed: React.FC = () => {
 															tags={tags}
 															curtidas={post.curtidas || 0}
 															comentarios={post.comentarios || 0}
-															usuario={post.usuario}
+															usuario={usuarioUsername}
 															dataPublicacao={post.dataPublicacao}
-															imagemPost={post.imagem}
+															imagemPost={(post as any).imagem ?? undefined}
 															onCurtir={() => post.id}
 															onAbrirComentarios={() => post.id}
 															onExcluir={() => {}}
@@ -217,7 +242,19 @@ const LayoutFeed: React.FC = () => {
 								{allPost.length > 0 ? (
 									<div>
 										{allPost.map((post) => {
-											const tags: any = categoriasParaTags(post.categorias);
+											const tags = categoriasParaTags(
+												(post as any).categorias ?? [],
+											) as IBeeTags[];
+											let usuarioUsername = "";
+											if (
+												post.usuario &&
+												typeof post.usuario === "object" &&
+												post.usuario !== null &&
+												"username" in post.usuario &&
+												typeof post.usuario.username === "string"
+											) {
+												usuarioUsername = post.usuario.username;
+											}
 											return (
 												<BeePost
 													id={post.id}
@@ -225,9 +262,9 @@ const LayoutFeed: React.FC = () => {
 													tags={tags}
 													curtidas={post.curtidas || 0}
 													comentarios={post.comentarios || 0}
-													usuario={post.usuario}
+													usuario={usuarioUsername}
 													dataPublicacao={post.dataPublicacao}
-													imagemPost={post.imagem}
+													imagemPost={(post as any).imagem ?? undefined}
 													onCurtir={() => post.id}
 													onAbrirComentarios={() => post.id}
 													onExcluir={() => {}}
