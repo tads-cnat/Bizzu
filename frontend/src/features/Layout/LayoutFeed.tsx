@@ -72,8 +72,6 @@ const LayoutFeed: React.FC = () => {
 	const carregarPostDefault = async () => {
 		try {
 			const response = await PostagemService.listAll();
-			console.log(response);
-
 			setAllPost(response.data || []);
 		} catch (error) {
 			console.error("Erro ao carregar todas as postagens:", error);
@@ -133,7 +131,6 @@ const LayoutFeed: React.FC = () => {
 			carregarCategorias();
 			carregarPostagemSeguidores();
 		}
-		console.log(categorias);
 	}, []);
 
 	const handleSelecionarSecao = (secao: string) => {
