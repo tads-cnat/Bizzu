@@ -7,6 +7,7 @@ from api.serializers.usuario import (
     UsuarioProfileSerializer,
     UsuarioSerializer,
     PesquisaSerializer,
+    SolicitacaoSerializer,
 )
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import AllowAny
@@ -39,6 +40,8 @@ class UsuarioViewSet(viewsets.ModelViewSet):
             return UsuarioSerializer
 
         elif self.request.method == "POST":
+            if self.action == "solicitarMudanca":
+                return SolicitacaoSerializer
             return UsuarioProfileSerializer
         return self.serializer_class
 
@@ -105,6 +108,16 @@ class UsuarioViewSet(viewsets.ModelViewSet):
             return Response({"data": "Um usuário com esse username já existe"})
         else:
             return Response({"data": "Um usuário com esse username não existe"})
+
+    @action(detail=False, methods=["POST"], url_path="solicitarMudanca")
+    def solicitarMudanca(self, request):
+        serializer = SolicitacaoSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        print(serializer.errors)
+        breakpoint()
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class PesquisaViewSet(viewsets.ModelViewSet):

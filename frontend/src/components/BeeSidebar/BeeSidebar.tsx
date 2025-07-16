@@ -63,7 +63,7 @@ export const BeeSidebar = ({onSelecionarSecao}: IBeeSidebarProps) => {
 		},
 	];
 	return (
-		<div className="h-full w-1/3">
+		<div className="h-screen w-1/3 shadow-2xs border border-gray-200">
 			<div className="flex items-center gap-2 mt-4 ml-5 bg-transparent ">
 				{usuario && username ? (
 					<div className="flex items-center gap-2">
