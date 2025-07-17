@@ -29,8 +29,6 @@ const BeeModal = ({
 	);
 	const [labelButton, setLabelButton] = useState("Descartar");
 	const handleExcluirClick = () => {
-		console.log("AQUII ", onExcluir);
-
 		if (onExcluir && id) {
 			onExcluir(id);
 		}

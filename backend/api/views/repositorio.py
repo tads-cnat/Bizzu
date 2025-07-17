@@ -11,7 +11,7 @@ class RepositorioViewSet(viewsets.ModelViewSet):
     queryset = Repositorio.objects.all()
     serializer_class = RepositorioSerializer
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
+    permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
         instance = serializer.save()
