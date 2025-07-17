@@ -5,12 +5,12 @@ import BeeRepo from "../../components/BeeRepo/BeeRepo";
 import RepositorioService from "../../services/models/RepositorioService";
 import CategoriaService from "../../services/models/CategoriaService";
 import {useEffect, useState} from "react";
-import type {Repositorio, Tag} from "../../interfaces/Repositorio";
-import type {Categoria} from "../../interfaces/Categoria";
+import type {IRepositorio, ITag} from "../../interfaces/Repositorio";
+import type {ICategoria} from "../../interfaces/Categoria";
 
 const RepoList: React.FC = () => {
-	const [repositorios, setRepositorios] = useState<Repositorio[]>([]);
-	const [categorias, setCategorias] = useState<Categoria[]>([]);
+	const [repositorios, setRepositorios] = useState<IRepositorio[]>([]);
+	const [categorias, setCategorias] = useState<ICategoria[]>([]);
 
 	const carregarCategorias = async () => {
 		try {
@@ -33,7 +33,7 @@ const RepoList: React.FC = () => {
 	};
 
 	// Função para converter categorias em tags
-	const categoriasParaTags = (categoriasIds: number[]): Tag[] => {
+	const categoriasParaTags = (categoriasIds: number[]): ITag[] => {
 		if (!categoriasIds || categoriasIds.length === 0) return [];
 
 		const coresPorTipo: Record<"tec" | "mat" | "per", string> = {
@@ -44,7 +44,7 @@ const RepoList: React.FC = () => {
 
 		const defaultColor = "#6FCF97";
 
-		const tagsValidas: Tag[] = [];
+		const tagsValidas: ITag[] = [];
 
 		for (const categoriaId of categoriasIds) {
 			const categoria = categorias.find((c) => c.id === categoriaId);
