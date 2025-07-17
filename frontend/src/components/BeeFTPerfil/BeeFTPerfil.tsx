@@ -56,7 +56,7 @@ const BeeFTPerfil: React.FC<IBeeFTPerfil> = ({usuarioId, dataPublicacao}) => {
 									: "http://localhost:8000/imgPostagens/usuarios/2025/06/10/sem_imagem_avatar.png"
 							}
 							alt="Imagem de usuário"
-							className="w-12 h-12 object-cover gap-2 mt-2"
+							className="w-10 h-10 object-cover gap-1 mt-1"
 							style={{
 								clipPath:
 									"polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0% 50%)",
@@ -66,7 +66,7 @@ const BeeFTPerfil: React.FC<IBeeFTPerfil> = ({usuarioId, dataPublicacao}) => {
 						<img
 							src="https://saae.lucasdorioverde.mt.gov.br/arquivos/setores/sem_imagem_avatar.png"
 							alt="Imagem de usuário"
-							className="w-12 h-12 object-cover gap-2 mt-2"
+							className="w-10 h-10 object-cover gap-1 mt-1"
 							style={{
 								clipPath:
 									"polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0% 50%)",
@@ -81,10 +81,10 @@ const BeeFTPerfil: React.FC<IBeeFTPerfil> = ({usuarioId, dataPublicacao}) => {
 								<Link
 									to={`/${usuario?.username}/`}
 									style={{color: "#333333"}}
-									className="text-[#333333] font-poppins font-semibold outline-none"
+									className="text-[#333333] font-poppins font-semibold outline-none text-xs"
 								>
 									{usuario?.username}
-									<span className="text-[#FCBD18] font-poppins font-semibold">
+									<span className="text-[#FCBD18] font-poppins font-semibold text-xs">
 										{" "}
 										• {tempoDesde(dataPublicacao)}{" "}
 									</span>
@@ -98,10 +98,10 @@ const BeeFTPerfil: React.FC<IBeeFTPerfil> = ({usuarioId, dataPublicacao}) => {
 										content={
 											<div
 												style={{color: "#333333"}}
-												className="text-[#333333] font-poppins font-semibold outline-none"
+												className="text-[#333333] font-poppins font-semibold outline-none text-xs"
 											>
 												{usuario?.username}{" "}
-												<span className="text-[#FCBD18] font-poppins font-semibold">
+												<span className="text-[#FCBD18] font-poppins font-semibold text-xs">
 													{" "}
 													• {tempoDesde(dataPublicacao)}{" "}
 												</span>{" "}
