@@ -38,10 +38,8 @@ const FormPapel = () => {
 	const handleCreate = async (data: {descricao: string}): Promise<void> => {
 		try {
 			const dados = new FormData();
-			dados.append("descricao", "teste");
+			dados.append("descricao", data.descricao);
 			dados.append("solicitante", String(usuario?.id));
-
-			console.log("Chegou", dados);
 			UsuarioService.solicitarMudanca(dados);
 			setOpen(false);
 		} catch (e) {
