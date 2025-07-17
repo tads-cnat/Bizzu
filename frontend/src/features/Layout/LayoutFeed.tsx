@@ -3,10 +3,10 @@ import React from "react";
 import BeeHeader from "../../components/BeeHeader/BeeHeader";
 import {BeeSidebar} from "../../components/BeeSidebar/BeeSidebar";
 import BeeRepo from "../../components/BeeRepo/BeeRepo";
-import {Repositorio, Tag} from "../../interfaces/Repositorio";
+import {IRepositorio, ITag} from "../../interfaces/Repositorio";
 import RepositorioService from "../../services/models/RepositorioService";
 import CategoriaService from "../../services/models/CategoriaService";
-import type {Categoria} from "../../interfaces/Categoria";
+import type {ICategoria} from "../../interfaces/Categoria";
 import PostagemService from "../../services/models/PostagemService";
 import BeePost from "../../components/BeePost/BeePost";
 import {BeePostProps} from "../../components/BeePost/IBeePost";
@@ -16,8 +16,8 @@ import getLocalStorage from "../../utils/getLocalStorage";
 import IBeeTags from "../../components/BeeTags/IBeeTags";
 const LayoutFeed: React.FC = () => {
 	const [usuario, setUsuario] = useState<any>();
-	const [repositorios, setRepositorios] = useState<Repositorio[]>([]);
-	const [categorias, setCategorias] = useState<Categoria[]>([]);
+	const [repositorios, setRepositorios] = useState<IRepositorio[]>([]);
+	const [categorias, setCategorias] = useState<ICategoria[]>([]);
 	const [postagensComunidade, setPostagensComunidade] = useState<
 		BeePostProps[]
 	>([]);
@@ -90,7 +90,7 @@ const LayoutFeed: React.FC = () => {
 	};
 
 	// Função para converter categorias em tags
-	const categoriasParaTags = (categoriasIds: number[]): Tag[] => {
+	const categoriasParaTags = (categoriasIds: number[]): ITag[] => {
 		if (!categoriasIds || categoriasIds.length === 0) return [];
 
 		const coresPorTipo: Record<"tec" | "mat" | "per", string> = {
@@ -101,7 +101,7 @@ const LayoutFeed: React.FC = () => {
 
 		const defaultColor = "#6FCF97";
 
-		const tagsValidas: Tag[] = [];
+		const tagsValidas: ITag[] = [];
 
 		for (const categoriaId of categoriasIds) {
 			const categoria = categorias.find((c) => c.id === categoriaId);
@@ -279,7 +279,7 @@ const LayoutFeed: React.FC = () => {
 						)}
 					</div>
 				</div>
-				<aside className="fixed top-[80px] right-4 w-1/4 min-h-screen shadow-md flex flex-col justify-start px-3 py-4 rounded-xl bg-white z-40 overflow-y-auto gap-4">
+				<aside className="fixed top-[80px] right-4 w-1/4 min-h-screen shadow-md flex flex-col justify-start px-3 py-4 rounded-xl bg-white z-40 overflow-y-auto gap-4 h-screen scrollbar-hide">
 					<h2 className="text-lg font-bold mb-2">Repositórios</h2>
 					{repositorios.length === 0 && (
 						<Empty
