@@ -39,7 +39,7 @@ class UsuarioService extends BaseService{
     }
 
     async solicitarMudanca(content: any){
-        const response = await axiosInstance.post('/usuario/solicitarMudanca/');
+        const response = await axiosInstance.post('/usuario/solicitarMudanca/', content);
         return response.data;
     }
 }
