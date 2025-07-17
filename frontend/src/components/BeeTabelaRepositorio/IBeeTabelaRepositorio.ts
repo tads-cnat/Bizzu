@@ -2,7 +2,7 @@ import type { Usuario } from "../../interfaces/Repositorio"
 
 export interface FileItem {
   id: number
-  nome: string
+  nome?: string
   arquivo: string
   repositorio: number
 }
