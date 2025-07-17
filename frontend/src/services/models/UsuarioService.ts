@@ -37,6 +37,11 @@ class UsuarioService extends BaseService{
         const response = await axiosInstance.post(`/logout`);
         return response.data;
     }
+
+    async solicitarMudanca(content: any){
+        const response = await axiosInstance.post('/usuario/solicitarMudanca/', content);
+        return response.data;
+    }
 }
 
 export default new UsuarioService("usuario");
