@@ -1,13 +1,12 @@
-export type tipoDenuncia = "Spam" | "Ofensivo" | "Fake news" | "Outro";
-
-export type entidadeDenunciada = "comentario" | "postagem" | "repositorio";
+export type tipoDenuncia ={
+    value: string;
+    label: string;
+}
 
 export interface IBeeDenuncia {
-    // ID da entidade denunciada
-	id?: number;
-    // Tipo de item denunciado
-	entidade?: entidadeDenunciada; 
-    // Um ou mais tipos de denúncia
+    // Props que carrega os tipos das denúncias do backend
 	tipos: tipoDenuncia[]; 
+    // Função utilizada para pegar o tipo de denuncia selecionado
+    onTipoSelecionado: (tipo: string) => void;
 
 }

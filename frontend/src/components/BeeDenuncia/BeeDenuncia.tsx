@@ -3,9 +3,8 @@ import {Divider, List} from "antd";
 import {IBeeDenuncia} from "./IBeeDenuncia";
 import "./BeeDenuncia.css";
 
-const BeeDenuncia: React.FC<IBeeDenuncia> = ({id, entidade, tipos}) => {
+const BeeDenuncia: React.FC<IBeeDenuncia> = ({tipos, onTipoSelecionado}) => {
 	const [selecionado, setSelecionado] = useState<string | null>(null);
-
 	return (
 		<>
 			<Divider orientation="left">Tipos de Denúncia</Divider>
@@ -14,11 +13,15 @@ const BeeDenuncia: React.FC<IBeeDenuncia> = ({id, entidade, tipos}) => {
 				dataSource={tipos}
 				renderItem={(item) => (
 					<List.Item
-						onClick={() => setSelecionado(item)}
-						className={selecionado === item ? "item-selecionado" : ""}
+						onClick={() => {
+							console.log("item selecionado:", item.value);
+							setSelecionado(item.value);
+							onTipoSelecionado(item.value);
+						}}
+						className={selecionado === item.value ? "item-selecionado" : ""}
 						style={{cursor: "pointer"}}
 					>
-						{item}
+						{item.label}
 					</List.Item>
 				)}
 			/>

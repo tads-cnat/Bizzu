@@ -23,6 +23,7 @@ import type {IBeeModalComentarios} from "./IBeeModalComentarios";
 import BeeFTPerfil from "../BeeFTPerfil/BeeFTPerfil";
 import BeeDenuncia from "../BeeDenuncia/BeeDenuncia";
 import BeeButton from "../BeeButtons/BeeButtons";
+import DenunciaService from "../../services/models/DenunciaService";
 
 // Função para calcular tempo decorrido
 function tempoDesde(data: string): string {
@@ -52,8 +53,50 @@ const BeeModalComentarios: React.FC<IBeeModalComentarios> = ({
 	const [enviandoComentario, setEnviandoComentario] = useState(false);
 	const [totalComentarios, setTotalComentarios] = useState(0);
 
+	const [tipos, setTipos] = useState<[]>([]);
+	const [tipoSelecionado, setTipoSelecionado] = useState<string | null>(null);
+	const [comentarioParaDenunciar, setComentarioParaDenunciar] =
+		useState<Comentario | null>(null);
+
+	const loadDenunciaType = async () => {
+		try {
+			const response = await DenunciaService.getTipos();
+			const data = response?.data;
+			if (Array.isArray(data)) {
+				setTipos(data);
+			} else {
+				console.warn(
+					"Resposta inesperada ao carregar tipos de denúncia:",
+					data,
+				);
+			}
+		} catch (error) {
+			console.error("Erro ao carregar tipos de denúncia:", error);
+		}
+	};
+	const enviarDenuncia = async () => {
+		if (!comentarioParaDenunciar || !tipoSelecionado) {
+			alert("Selecione um comentário e um tipo de denúncia.");
+			return;
+		}
+
+		try {
+			await DenunciaService.enviarDenuncia({
+				tipo: tipoSelecionado,
+				comentario: comentarioParaDenunciar.id,
+			});
+			alert("Denúncia enviada!");
+			setMostrarDenuncia(false);
+		} catch (e) {
+			alert("Erro ao enviar denúncia.");
+		}
+	};
+
 	const [mostrarDenuncia, setMostrarDenuncia] = useState(false);
-	const handleAbrirDenuncia = () => {
+
+	const handleAbrirDenuncia = (comentario: Comentario) => {
+		loadDenunciaType();
+		setComentarioParaDenunciar(comentario);
 		setMostrarDenuncia(true);
 	};
 	const handleFecharDenuncia = () => {
@@ -221,7 +264,11 @@ const BeeModalComentarios: React.FC<IBeeModalComentarios> = ({
 																className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 transition focus:outline-none data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
 															>
 																<div className="py-1">
-																	<MenuItem onClick={handleAbrirDenuncia}>
+																	<MenuItem
+																		onClick={() =>
+																			handleAbrirDenuncia(comentario)
+																		}
+																	>
 																		<a
 																			href="#"
 																			className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
@@ -260,9 +307,8 @@ const BeeModalComentarios: React.FC<IBeeModalComentarios> = ({
 									</button>
 
 									<BeeDenuncia
-										id={123}
-										entidade="comentario"
-										tipos={["Spam", "Ofensivo", "Fake news", "Outro"]}
+										tipos={tipos}
+										onTipoSelecionado={setTipoSelecionado}
 									/>
 									<div className="mt-4 flex justify-end gap-2">
 										<BeeButton
@@ -271,6 +317,7 @@ const BeeModalComentarios: React.FC<IBeeModalComentarios> = ({
 											variante="negativo"
 										/>
 										<BeeButton
+											onClick={enviarDenuncia}
 											label="Enviar denuncia"
 											variante="primaria"
 										/>
