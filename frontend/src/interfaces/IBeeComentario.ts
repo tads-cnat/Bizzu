@@ -1,4 +1,4 @@
-export interface IComentario {
+export interface IBeeComentario {
 	id: number;
 	conteudo: string;
 	dataPostagem: string;
@@ -11,7 +11,7 @@ export interface IComentario {
 	postagem: number;
 }
 
-export interface IComentariosResponse {
-	comentarios: IComentario[];
+export interface IBeeComentariosResponse {
+	comentarios: IBeeComentario[];
 	total: number;
 }

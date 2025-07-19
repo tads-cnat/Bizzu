@@ -51,8 +51,6 @@ const BeeRepo: React.FC<iBeeRepoProps> = ({
 	const {username} = acessAuth();
 	const isOwner = usuario && usuario.username === username;
 
-	console.log("usuario recebido em BeeRepo:", usuario);
-
 	// Função para tratar a exclusão e fechar o modal
 	const handleConfirmarExclusao = (id: number) => {
 		if (onExcluir && id) {

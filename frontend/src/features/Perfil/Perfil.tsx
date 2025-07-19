@@ -7,7 +7,7 @@ import ComunidadeService from "../../services/models/ComunidadeService";
 import CategoriaService from "../../services/models/CategoriaService";
 import type {Postagem, Tag} from "../../interfaces/Postagem";
 import type {Comunidade} from "../../interfaces/Comunidade";
-import type {Categoria} from "../../interfaces/Categoria";
+import type {Categoria} from "../../interfaces/IBeeCategoria";
 import {useParams} from "react-router-dom";
 import UsuarioService from "../../services/models/UsuarioService";
 import BeeAlert from "../../components/BeeAlert/BeeAlert";
@@ -15,15 +15,19 @@ import {IBeeUser} from "./components/BeeHeaderProfile/IBeeUser";
 import BeeHeaderProfile from "./components/BeeHeaderProfile/BeeHeaderProfile";
 import BeePerfilSidebar from "../../components/BeePerfilSidebar/BeePerfilSidebar";
 import acessPermissions from "../../utils/acessPermissions";
-import {Spin} from "antd";
+import {Empty, Spin} from "antd";
 import FormCategoria from "./Form/FormCategoria";
 import BeeEditTag from "./components/BeeEditTag/BeeEditTag";
 import BeeButton from "../../components/BeeButtons/BeeButtons";
+import {IRepositorio} from "../../interfaces/Repositorio";
+import RepositorioService from "../../services/models/RepositorioService";
+import BeeRepo from "../../components/BeeRepo/BeeRepo";
 
 const Perfil: React.FC = () => {
 	const [postagens, setPostagens] = useState<Postagem[]>([]);
 	const [comunidades, setComunidades] = useState<Comunidade[]>([]);
 	const [categorias, setCategorias] = useState<Categoria[]>([]);
+	const [repositorio, setRepositorio] = useState<IRepositorio[]>([]);
 	const identificator = useParams().username;
 	const [usuario, setUsuario] = useState<IBeeUser>();
 	const [alertActivate, setAlertActivate] = useState<Boolean>(false);
@@ -48,6 +52,7 @@ const Perfil: React.FC = () => {
 			loadComunidades();
 			loadCategorias();
 			loadPostagens();
+			loadRepositorio();
 		}
 	}, [usuario]);
 
@@ -128,6 +133,17 @@ const Perfil: React.FC = () => {
 			}
 		} catch (error) {
 			console.error("Erro ao carregar comunidades:", error);
+		}
+	};
+
+	const loadRepositorio = async () => {
+		try {
+			const response = await RepositorioService.listAll();
+			if (response.data && Array.isArray(response.data)) {
+				setRepositorio(response.data);
+			}
+		} catch (error) {
+			console.error("Erro ao carregar repositorios:", error);
 		}
 	};
 
@@ -215,9 +231,41 @@ const Perfil: React.FC = () => {
 								})}
 							</div>
 						) : (
-							<div>Nenhuma postagem encontrada</div>
+							<Empty
+								description="Não há postagens"
+								image={Empty.PRESENTED_IMAGE_SIMPLE}
+							/>
 						)}
-						<div>Parte dos repositórios</div>
+						{repositorio.length > 0 ? (
+							<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+								{repositorio.map((repo: IRepositorio) => {
+									const tags = categoriasParaTags(repo.categorias);
+									const comunidadeNome = getComunidadeNome(
+										repo.comunidade ?? null,
+									);
+
+									return (
+										<>
+											<BeeRepo
+												id={repo.id}
+												descricao={repo.descricao}
+												dataPublicacao={repo.dataPublicacao}
+												usuario={repo.usuario}
+												titulo={repo.titulo}
+												tags={tags}
+												comunidade={comunidadeNome}
+												imagemRepo={repo.imagem}
+											/>
+										</>
+									);
+								})}
+							</div>
+						) : (
+							<Empty
+								description="Não há reositórios"
+								image={Empty.PRESENTED_IMAGE_SIMPLE}
+							/>
+						)}
 						<div>
 							<BeeButton
 								label="Adicionar categoria"

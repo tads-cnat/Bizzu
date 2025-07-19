@@ -11,7 +11,6 @@ import BeeSelect from "../../../components/BeeSelect/BeeSelect";
 import BeeFiltroCategorias from "../../../components/BeeFiltroCategorias/BeeFiltroCategorias";
 import ComunidadeService from "../../../services/models/ComunidadeService";
 import CategoriaService from "../../../services/models/CategoriaService";
-import type {ICategoria} from "../../../interfaces/Categoria";
 import type {IComunidadeSelect} from "../../../interfaces/Comunidade";
 import {useNavigate} from "react-router-dom";
 import acessAuth from "../../../utils/acessAuth";
@@ -20,6 +19,7 @@ import {IBeeUser} from "../../../components/BeeHeaderProfile/IBeeUser";
 import {BeeRepoProps} from "../../../components/BeeRepo/IBeeRepo";
 import {IRepositorioFormValues} from "../../../interfaces/Repositorio";
 import RepositorioService from "../../../services/models/RepositorioService";
+import {IBeeCategoria} from "../../../interfaces/IBeeCategoria";
 
 // Schema de validação com Yup
 const schema = yup.object().shape({
@@ -47,7 +47,7 @@ export const FormRepositorio = ({
 }: IFormRepositorio & {onSubmitCallback?: () => void}) => {
 	const [loading, setLoading] = useState(false);
 	const [comunidades, setComunidades] = useState<IComunidadeSelect[]>([]);
-	const [categorias, setCategorias] = useState<ICategoria[]>([]);
+	const [categorias, setCategorias] = useState<IBeeCategoria[]>([]);
 	const [loadingData, setLoadingData] = useState(false);
 	const [termoPesquisa, setTermoPesquisa] = useState("");
 
