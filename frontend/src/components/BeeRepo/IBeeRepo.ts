@@ -1,19 +1,19 @@
-import type { Usuario } from "../../interfaces/Repositorio";
+import type {IUsuario, ITag} from "../../interfaces/Repositorio";
 
-export interface Tag {
-  label: string
-  color: string
-  tipo: "tec" | "mat" | "per"
+export interface iTag {
+	label: string;
+	color: string;
+	tipo: "tec" | "mat" | "per";
 }
 
-export interface BeeRepoProps {
-  id?: number
-  usuario: string;
-  titulo?: string
-  descricao: string
-  imagemRepo?: string
-  tags?: Tag[]
-  dataPublicacao: string
-  imagemUsuarioLogado?: string
-  onExcluir?: (id: number) => void
+export interface iBeeRepoProps {
+	id?: number;
+	usuario: IUsuario; // Alterado de string para IUsuario
+	titulo?: string;
+	descricao: string;
+	imagemRepo?: string;
+	tags?: ITag[];
+	dataPublicacao: string;
+	imagemUsuarioLogado?: string;
+	onExcluir?: (id: number) => void;
 }

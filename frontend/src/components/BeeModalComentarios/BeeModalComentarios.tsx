@@ -10,13 +10,12 @@ import {
 } from "@headlessui/react";
 import {X, PaperPlaneRight} from "@phosphor-icons/react";
 import BeePost from "../BeePost/BeePost";
-import type {
-	Comentario,
-	ComentariosResponse,
-} from "../../interfaces/Comentario";
 import ComentarioService from "../../services/models/ComentarioService";
 import type {IBeeModalComentarios} from "./IBeeModalComentarios";
-import BeeFTPerfil from "../BeeFTPerfil/BeeFTPerfil";
+import {
+	IBeeComentario,
+	IBeeComentariosResponse,
+} from "../../interfaces/IBeeComentario";
 
 // Função para calcular tempo decorrido
 function tempoDesde(data: string): string {
@@ -40,7 +39,7 @@ const BeeModalComentarios: React.FC<IBeeModalComentarios> = ({
 	post,
 	onComentarioAdicionado,
 }) => {
-	const [comentarios, setComentarios] = useState<Comentario[]>([]);
+	const [comentarios, setComentarios] = useState<IBeeComentario[]>([]);
 	const [novoComentario, setNovoComentario] = useState("");
 	const [loading, setLoading] = useState(false);
 	const [enviandoComentario, setEnviandoComentario] = useState(false);
@@ -58,7 +57,7 @@ const BeeModalComentarios: React.FC<IBeeModalComentarios> = ({
 
 		setLoading(true);
 		try {
-			const response: ComentariosResponse =
+			const response: IBeeComentariosResponse =
 				await ComentarioService.getComentariosByPostagem(post.id);
 			setComentarios(response.comentarios);
 			setTotalComentarios(response.total);

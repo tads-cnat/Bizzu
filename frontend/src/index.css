@@ -3,10 +3,14 @@
 .hexagon {
 	width: 36px;
 	height: 36px;
-	clip-path: polygon(
-		25% 6%, 75% 6%,
-		100% 50%, 75% 94%,
-		25% 94%, 0% 50%
-	);
+	clip-path: polygon(25% 6%, 75% 6%, 100% 50%, 75% 94%, 25% 94%, 0% 50%);
 	object-fit: cover;
+}
+
+.scrollbar-hide {
+	scrollbar-width: none; /* Firefox */
+	-ms-overflow-style: none; /* IE 10+ */
+}
+.scrollbar-hide::-webkit-scrollbar {
+	display: none; /* Chrome, Safari, Opera */
 }

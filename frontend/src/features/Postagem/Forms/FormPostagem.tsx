@@ -12,7 +12,7 @@ import BeeSelect from "../../../components/BeeSelect/BeeSelect";
 import BeeFiltroCategorias from "../../../components/BeeFiltroCategorias/BeeFiltroCategorias";
 import ComunidadeService from "../../../services/models/ComunidadeService";
 import CategoriaService from "../../../services/models/CategoriaService";
-import type {Categoria} from "../../../interfaces/Categoria";
+import type {Categoria} from "../../../interfaces/IBeeCategoria";
 import type {ComunidadeSelect} from "../../../interfaces/Comunidade";
 import type {PostagemFormValues} from "../../../interfaces/Postagem";
 import {useNavigate} from "react-router-dom";
