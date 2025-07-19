@@ -182,7 +182,7 @@ const FormEditarPerfil: React.FC = () => {
 							</div>
 							<div className="col-span-full">
 								<Controller
-									name="imagem"
+									name="imagemPerfil"
 									control={control}
 									render={({field}) => (
 										<BeeArquivo
