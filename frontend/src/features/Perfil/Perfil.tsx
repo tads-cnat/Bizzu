@@ -56,16 +56,6 @@ const Perfil: React.FC = () => {
 		}
 	}, [usuario]);
 
-	const handleCurtir = async (postagemId?: number) => {
-		console.log("Curtir postagem:", postagemId);
-		// Aqui será implementada a lógica de curtir
-	};
-
-	const handleComentar = async (postagemId?: number) => {
-		console.log("Comentar postagem:", postagemId);
-		// Aqui será implementada a lógica de comentar
-	};
-
 	const handleExcluir = async (postagemId: number) => {
 		try {
 			await PostagemService.delete(postagemId);
@@ -223,6 +213,7 @@ const Perfil: React.FC = () => {
 											)}
 
 											<BeePost
+												key={post.id}
 												id={post.id}
 												texto={post.texto}
 												tags={tags}
