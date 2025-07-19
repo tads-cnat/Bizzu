@@ -33,7 +33,11 @@ export const BeeSidebar = ({onSelecionarSecao}: IBeeSidebarProps) => {
 				const listarComunidades: MenuItem[] = response.data.map(
 					(comunidade: any) => ({
 						key: `comunidade-${comunidade.id}`,
-						label: comunidade.nome,
+						label: (
+							<Link to={`/comunidade/${comunidade.nome}`}>
+								{comunidade.nome}
+							</Link>
+						),
 					}),
 				);
 				setComunidades(listarComunidades);
