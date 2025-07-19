@@ -1,140 +1,110 @@
-import React, {useState, useEffect, ChangeEvent} from "react";
+import React, {useState, useEffect} from "react";
 import {IFormEditarPerfil} from "./IFormEditarPerfil";
 import {useForm, Controller} from "react-hook-form";
-import axios from "axios";
 import {useNavigate} from "react-router-dom";
 import getLocalStorage from "../../../utils/getLocalStorage";
 import BeeButton from "../../../components/BeeButtons/BeeButtons";
-import BeeInputPerfil from "../../../components/BeeInputPerfil/IBeeInputPerfil";
 import {BeeTextArea} from "../../../components/BeeTextArea/BeeTextArea";
 import BeeArquivo from "../../../components/BeeArquivo/BeeArquivo";
 import BeeAlert from "../../../components/BeeAlert/BeeAlert";
+import * as yup from "yup";
+import {yupResolver} from "@hookform/resolvers/yup";
+import BeeInput from "../../../components/BeeInput/BeeInput";
+import UsuarioService from "../../../services/models/UsuarioService";
+
+const schema = yup.object().shape({
+	nome: yup.string().optional(),
+	descricao: yup.string().optional(),
+	escolaFormacao: yup.string().optional(),
+	instituicaoAtual: yup.string().optional(),
+	imagemPerfil: yup.mixed().optional(),
+});
 
 const FormEditarPerfil: React.FC = () => {
 	const [alert, setAlert] = useState<boolean>(false);
 	const [status, setStatus] = useState<string>("error");
-	const [mensagem, setMensagem] = useState("");
-	const [userId, setUserId] = useState<number | null>(null);
+	const [usuario, setUsuario] = useState();
 	const usuarioLocal = getLocalStorage();
 	const navigate = useNavigate();
 
-	const {control, handleSubmit, setValue} = useForm<IFormEditarPerfil>({
-		defaultValues: {
-			nome: "",
-			descricao: "",
-			linkedinUrl: "",
-			escolaFormacao: "",
-			instituicaoAtual: "",
-		},
-	});
+	const {
+		handleSubmit,
+		register,
+		control,
+		formState: {errors},
+	} = useForm({resolver: yupResolver(schema)});
 
 	useEffect(() => {
 		const carregarInfoUsuario = async () => {
 			if (!usuarioLocal.username || !usuarioLocal.token) return;
 
 			try {
-				const response = await axios.get(
-					`http://localhost:8000/api/usuario/userByusername/${usuarioLocal.username}/`,
+				const response = await UsuarioService.getbyUsername(
+					usuarioLocal.username,
 				);
-				const data = response.data;
-				setUserId(data.id);
-
-				setValue("nome", data.nome || "");
-				setValue("descricao", data.descricao || "");
-				setValue("linkedinUrl", data.linkedinUrl || "");
-				setValue("escolaFormacao", data.escolaFormacao || "");
-				setValue("instituicaoAtual", data.instituicaoAtual || "");
+				setUsuario(response);
 			} catch (error) {
 				console.error("Erro ao buscar dados do usuário:", error);
 			}
 		};
 
 		carregarInfoUsuario();
-	}, [setValue, usuarioLocal]);
+	}, [setUsuario]);
 
+	const caminho = useNavigate();
 	const onSubmit = async (data: IFormEditarPerfil) => {
-		if (!userId) {
-			setMensagem("ID do usuário não carregado.");
-			setStatus("error");
-			setAlert(true);
-			return;
-		}
-
-		const formData = new FormData();
-
-		Object.entries(data).forEach(([key, value]) => {
-			if (key !== "imagem") {
-				if (typeof value === "string" && value.trim() !== "") {
-					formData.append(key, value);
-				}
-			}
-		});
-
-		if (data.imagem && data.imagem instanceof File) {
-			formData.append("imagemPerfil", data.imagem);
-		}
-
 		try {
-			await axios.patch(
-				`http://localhost:8000/api/usuario/${userId}/`,
-				formData,
-			);
+			const dataSubmit = new FormData();
+			if (data.nome !== "") dataSubmit.append("nome", data.nome);
+			else dataSubmit.append("nome", usuario.nome);
+			if (data.descricao !== "" && data.descricao !== undefined)
+				dataSubmit.append("descricao", data.descricao);
+			else dataSubmit.append("descricao", usuario.descricao);
+			if (data.imagemPerfil !== "" && data.imagemPerfil !== undefined)
+				dataSubmit.append("imagemPerfil", data.imagemPerfil);
 
-			setMensagem("Perfil atualizado com sucesso!");
-			setStatus("success");
-			setAlert(true);
-
-			navigate(`/bizzu/${usuarioLocal.username}`);
-			window.location.reload();
-		} catch (error: any) {
-			console.error(error.response?.data || error.message);
-			setMensagem("Erro ao atualizar perfil.");
-			setStatus("error");
-			setAlert(true);
+			if (data.escolaFormacao !== "")
+				dataSubmit.append("escolaFormacao", data.escolaFormacao);
+			if (data.instituicaoAtual !== "")
+				dataSubmit.append("instituicaoAtual", data.instituicaoAtual);
+			else dataSubmit.append("instituicaoAtual", usuario.instituicaoAtual);
+			await UsuarioService.patch(usuario.id, dataSubmit);
+			caminho(-1);
+		} catch (e) {
+			console.error("Não foi possivel salvar o usuário", e);
 		}
 	};
 
 	return (
 		<>
-			<h1 className="text-2xl font-bold mb-4">Editar perfil</h1>
-
 			<form
 				className="bg-white p-6 rounded-lg shadow-md"
 				onSubmit={handleSubmit(onSubmit)}
 			>
+				<h1 className="text-2xl font-bold ">Editar perfil</h1>
 				<div className="space-y-12">
 					<div>
 						<div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-							<div className="sm:col-span-4">
-								<div className="sm:col-span-3">
-									<div className="mt-2">
-										<Controller
-											name="nome"
-											control={control}
-											render={({field}) => (
-												<BeeInputPerfil
-													{...field}
-													label="Nome"
-													type="text"
-													placeholder="João"
-												/>
-											)}
-										/>
-									</div>
-								</div>
+							<div className="col-span-full">
 								<div className="mt-2">
-									<Controller
-										name="linkedinUrl"
-										control={control}
-										render={({field}) => (
-											<BeeInputPerfil
-												{...field}
-												label="LinkedIn"
-												type="text"
-												placeholder="https://br.linkedin.com/"
-											/>
-										)}
+									<BeeInput
+										placeholder="Digite seu nome"
+										label="Nome"
+										type="text"
+										defaultValue={
+											usuario !== undefined
+												? usuario.nome
+													? usuario.nome
+													: ""
+												: ""
+										}
+										register={{...register("nome")}}
 									/>
+									{errors.nome && (
+										<p className="text-red-500 text-sm mt-1">
+											{errors.nome.message}
+										</p>
+									)}
 								</div>
 							</div>
 
@@ -147,58 +117,87 @@ const FormEditarPerfil: React.FC = () => {
 											<BeeTextArea
 												{...field}
 												id="descricao"
+												defaultValue={
+													usuario !== undefined
+														? usuario.descricao
+															? usuario.descricao
+															: ""
+														: ""
+												}
 												rows={3}
 											/>
 										)}
 									/>
+									{errors.descricao && (
+										<p className="text-red-500 text-sm mt-1">
+											{errors.descricao.message}
+										</p>
+									)}
 								</div>
 							</div>
+							<div className="col-span-full">
+								<div className="mt-2">
+									<BeeInput
+										placeholder="Digite a escola de formação"
+										label="Escola de formação"
+										type="text"
+										defaultValue={
+											usuario !== undefined
+												? usuario.escolaFormacao
+													? usuario.escolaFormacao
+													: ""
+												: ""
+										}
+										register={{...register("escolaFormacao")}}
+									/>
+									{errors.escolaFormacao && (
+										<p className="text-red-500 text-sm mt-1">
+											{errors.escolaFormacao.message}
+										</p>
+									)}
+								</div>
+							</div>
+							<div className="col-span-full">
+								<div className="mt-2">
+									<BeeInput
+										placeholder="Digite a instituição atual"
+										label="Instituição atual"
+										defaultValue={
+											usuario !== undefined
+												? usuario.instituicaoAtual
+													? usuario.instituicaoAtual
+													: ""
+												: ""
+										}
+										type="text"
+										register={{...register("instituicaoAtual")}}
+									/>
 
+									{errors.instituicaoAtual && (
+										<p className="text-red-500 text-sm mt-1">
+											{errors.instituicaoAtual.message}
+										</p>
+									)}
+								</div>
+							</div>
 							<div className="col-span-full">
 								<Controller
 									name="imagem"
 									control={control}
 									render={({field}) => (
 										<BeeArquivo
-											value={field.value}
+											value={
+												usuario !== undefined
+													? usuario.imagemPerfil
+														? usuario.imagemPerfil
+														: ""
+													: ""
+											}
 											onChange={field.onChange}
 											multiple={false}
 										/>
 									)}
 								/>
-							</div>
-
-							<div className="sm:col-span-3">
-								<div className="mt-2">
-									<Controller
-										name="escolaFormacao"
-										control={control}
-										render={({field}) => (
-											<BeeInputPerfil
-												{...field}
-												label="Escola/Formação"
-												type="text"
-												placeholder="Formado no IFRN"
-											/>
-										)}
-									/>
-								</div>
-							</div>
-							<div className="sm:col-span-4">
-								<div className="mt-2">
-									<Controller
-										name="instituicaoAtual"
-										control={control}
-										render={({field}) => (
-											<BeeInputPerfil
-												{...field}
-												label="Instituicao Atual"
-												type="text"
-												placeholder="IFRN"
-											/>
-										)}
-									/>
-								</div>
 							</div>
 						</div>
 					</div>
