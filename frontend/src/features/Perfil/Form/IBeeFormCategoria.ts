@@ -1,4 +1,4 @@
-import { Categoria } from "../../../interfaces/Categoria";
+import { Categoria } from "../../../interfaces/IBeeCategoria";
 
 type tipo = "editar" | "criar";
 

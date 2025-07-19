@@ -6,11 +6,11 @@ import RepositorioService from "../../services/models/RepositorioService";
 import CategoriaService from "../../services/models/CategoriaService";
 import {useEffect, useState} from "react";
 import type {IRepositorio, ITag} from "../../interfaces/Repositorio";
-import type {ICategoria} from "../../interfaces/Categoria";
+import {IBeeCategoria} from "../../interfaces/IBeeCategoria";
 
 const RepoList: React.FC = () => {
 	const [repositorios, setRepositorios] = useState<IRepositorio[]>([]);
-	const [categorias, setCategorias] = useState<ICategoria[]>([]);
+	const [categorias, setCategorias] = useState<IBeeCategoria[]>([]);
 
 	const carregarCategorias = async () => {
 		try {

@@ -6,7 +6,6 @@ import BeeRepo from "../../components/BeeRepo/BeeRepo";
 import {IRepositorio, ITag} from "../../interfaces/Repositorio";
 import RepositorioService from "../../services/models/RepositorioService";
 import CategoriaService from "../../services/models/CategoriaService";
-import type {ICategoria} from "../../interfaces/Categoria";
 import PostagemService from "../../services/models/PostagemService";
 import BeePost from "../../components/BeePost/BeePost";
 import {BeePostProps} from "../../components/BeePost/IBeePost";
@@ -14,10 +13,11 @@ import {useEffect, useState} from "react";
 import {Empty} from "antd";
 import getLocalStorage from "../../utils/getLocalStorage";
 import IBeeTags from "../../components/BeeTags/IBeeTags";
+import {IBeeCategoria} from "../../interfaces/IBeeCategoria";
 const LayoutFeed: React.FC = () => {
 	const [usuario, setUsuario] = useState<any>();
 	const [repositorios, setRepositorios] = useState<IRepositorio[]>([]);
-	const [categorias, setCategorias] = useState<ICategoria[]>([]);
+	const [categorias, setCategorias] = useState<IBeeCategoria[]>([]);
 	const [postagensComunidade, setPostagensComunidade] = useState<
 		BeePostProps[]
 	>([]);
