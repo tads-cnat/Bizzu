@@ -1,4 +1,4 @@
-import {GraduationCap} from "@phosphor-icons/react";
+import {Building, GraduationCap} from "@phosphor-icons/react";
 import {IBeeCommunity} from "../../../../interfaces/IBeeCommunity";
 import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
@@ -76,7 +76,7 @@ const BeeSidebarCommunity = () => {
 					</div>
 					<div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
 						<div className="flex items-center gap-2 mb-4">
-							<GraduationCap
+							<Building
 								size={20}
 								weight="regular"
 								className="text-[#333333]"
