@@ -125,6 +125,15 @@ const Perfil: React.FC = () => {
 		return tagsValidas;
 	};
 
+	const handleExcluirRepositorio = async (id: number) => {
+		try {
+			await RepositorioService.delete(id);
+			setRepositorio((prev) => prev.filter((repo) => repo.id !== id));
+		} catch (error) {
+			console.error("Erro ao excluir repositório:", error);
+		}
+	};
+
 	const loadComunidades = async () => {
 		try {
 			const response = await ComunidadeService.listAll();
@@ -255,6 +264,7 @@ const Perfil: React.FC = () => {
 												tags={tags}
 												comunidade={comunidadeNome}
 												imagemRepo={repo.imagem}
+												onExcluir={handleExcluirRepositorio}
 											/>
 										</>
 									);
