@@ -279,8 +279,11 @@ const LayoutFeed: React.FC = () => {
 						)}
 					</div>
 				</div>
-				<aside className="fixed top-[80px] right-4 w-1/4 min-h-screen shadow-md flex flex-col justify-start px-3 py-4 rounded-xl bg-white z-40 overflow-y-auto gap-4 h-screen scrollbar-hide">
-					<h2 className="text-lg font-bold mb-2">Repositórios</h2>
+				<aside className="fixed top-[80px] right-4 bottom-0 w-1/4 shadow-md flex flex-col justify-start px-3 py-4 rounded-xl bg-white z-40 overflow-y-auto scrollbar-hide">
+					<h2 className="text-xl font-extrabold text-yellow-500 tracking-wide mb-2 transition-all duration-700 ease-in transform hover:scale-[1.03]">
+						Repositórios
+					</h2>
+
 					{repositorios.length === 0 && (
 						<Empty
 							image={Empty.PRESENTED_IMAGE_SIMPLE}
