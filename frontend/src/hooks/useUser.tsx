@@ -82,11 +82,32 @@ const useUser = () => {
 		}
 	};
 
+	const handleExcluirRepositorio = async (id: number) => {
+		try {
+			await RepositorioService.delete(id);
+			setRepositorio((prev) => prev.filter((repo) => repo.id !== id));
+		} catch (error) {
+			console.error("Erro ao excluir repositório:", error);
+		}
+	};
+
+	const handleExcluir = async (postagemId: number) => {
+		try {
+			await PostagemService.delete(postagemId);
+			setPostagens((prev) => prev.filter((post) => post.id !== postagemId));
+		} catch (error) {
+			console.error("Erro ao excluir postagem:", error);
+			alert("Erro ao excluir postagem. Tente novamente.");
+		}
+	};
+
 	return {
 		postagens,
 		comunidades,
 		categorias,
 		repositorio,
+		handleExcluir,
+		handleExcluirRepositorio,
 	};
 };
 

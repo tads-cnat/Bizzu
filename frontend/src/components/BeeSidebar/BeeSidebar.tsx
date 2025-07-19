@@ -39,7 +39,7 @@ export const BeeSidebar = ({onSelecionarSecao}: IBeeSidebarProps) => {
 				setComunidades(listarComunidades);
 			})
 			.catch(() => {
-				console.log("Erro ao buscar comunidades");
+				console.error("Erro ao buscar comunidades");
 			});
 	}, []);
 
