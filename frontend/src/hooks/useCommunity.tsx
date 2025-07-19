@@ -1,44 +1,40 @@
 import {useEffect, useState} from "react";
 import {IPostagem} from "../interfaces/Postagem";
-import {IBeeComunidade} from "../interfaces/IBeeComunidade";
+import ComunidadeService from "../services/models/ComunidadeService";
+import {IBeeCommunity} from "../interfaces/IBeeCommunity";
 import {IBeeCategoria} from "../interfaces/IBeeCategoria";
 import {IRepositorio} from "../interfaces/Repositorio";
-import {IBeeUser} from "../features/Perfil/components/BeeHeaderProfile/IBeeUser";
-import {useParams} from "react-router-dom";
-import UsuarioService from "../services/models/UsuarioService";
-import PostagemService from "../services/models/PostagemService";
-import ComunidadeService from "../services/models/ComunidadeService";
 import RepositorioService from "../services/models/RepositorioService";
 import CategoriaService from "../services/models/CategoriaService";
+import PostagemService from "../services/models/PostagemService";
 
-const useUser = () => {
+const useCommunity = (id: number) => {
+	const [comunidade, setComunidade] = useState<IBeeCommunity>();
+	const [comunidades, setComunidades] = useState<IBeeCommunity[]>([]);
 	const [postagens, setPostagens] = useState<IPostagem[]>([]);
-	const [comunidades, setComunidades] = useState<IBeeComunidade[]>([]);
 	const [categorias, setCategorias] = useState<IBeeCategoria[]>([]);
 	const [repositorio, setRepositorio] = useState<IRepositorio[]>([]);
-	const identificator = useParams().username;
-	const [usuario, setUsuario] = useState<IBeeUser>();
 
 	useEffect(() => {
-		if (usuario === undefined) {
-			void UsuarioService.getbyUsername(String(identificator))
+		if (comunidade === undefined) {
+			void ComunidadeService.get(id)
 				.then((response) => {
-					setUsuario(response);
+					setComunidade(response.data);
 				})
 				.catch(() => {
-					console.error("Não recebeu dados");
+					console.error("Não capturou comunidade");
 				});
 		}
 	}, []);
 
 	useEffect(() => {
-		if (usuario !== undefined) {
+		if (comunidade !== undefined) {
 			loadComunidades();
 			loadCategorias();
 			loadPostagens();
 			loadRepositorio();
 		}
-	}, [usuario]);
+	}, [comunidade]);
 
 	const loadComunidades = async () => {
 		try {
@@ -53,7 +49,9 @@ const useUser = () => {
 
 	const loadRepositorio = async () => {
 		try {
-			const response = await RepositorioService.getRepo(usuario?.id);
+			const response = await RepositorioService.getRepoComunidade(
+				comunidade.id,
+			);
 			if (response.data && Array.isArray(response.data)) {
 				setRepositorio(response.data);
 			}
@@ -75,7 +73,7 @@ const useUser = () => {
 
 	const loadPostagens = async (): Promise<void> => {
 		try {
-			const response = await PostagemService.getPost(usuario.id);
+			const response = await PostagemService.getPostComunidade(comunidade.id);
 			setPostagens(response.data);
 		} catch (error) {
 			console.error("Erro ao carregar postagens:", error);
@@ -102,13 +100,14 @@ const useUser = () => {
 	};
 
 	return {
-		postagens,
-		comunidades,
+		comunidade,
 		categorias,
+		postagens,
 		repositorio,
+		comunidades,
 		handleExcluir,
 		handleExcluirRepositorio,
 	};
 };
 
-export default useUser;
+export default useCommunity;

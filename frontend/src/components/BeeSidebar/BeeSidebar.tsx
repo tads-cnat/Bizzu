@@ -34,9 +34,7 @@ export const BeeSidebar = ({onSelecionarSecao}: IBeeSidebarProps) => {
 					(comunidade: any) => ({
 						key: `comunidade-${comunidade.id}`,
 						label: (
-							<Link to={`/comunidade/${comunidade.nome}`}>
-								{comunidade.nome}
-							</Link>
+							<Link to={`/comunidade/${comunidade.id}`}>{comunidade.nome}</Link>
 						),
 					}),
 				);

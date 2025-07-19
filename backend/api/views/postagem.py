@@ -18,7 +18,11 @@ class PostagemViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
 
     def get_permissions(self):
-        if self.action == "getPost" or self.action == "list":
+        if (
+            self.action == "getPost"
+            or self.action == "getPostComunidade"
+            or self.action == "list"
+        ):
             return [AllowAny()]
         return super().get_permissions()
 
@@ -90,6 +94,24 @@ class PostagemViewSet(viewsets.ModelViewSet):
             if not postagens.exists():
                 return Response(
                     {"message": "Não existem postagens para estes usuarios"}
+                )
+
+            serializer = self.get_serializer(postagens, many=True)
+            return Response(serializer.data)
+
+        except Exception as e:
+            return Response({"error": str(e)}, status=400)
+
+    @action(
+        detail=True, methods=["GET"]
+    )  # Para pegar todos os post de uma comunidade especifica
+    def getPostComunidade(self, request, pk):
+        try:
+            postagens = Postagem.objects.filter(comunidade__pk=pk)
+
+            if not postagens.exists():
+                return Response(
+                    {"message": "Não existem postagens para esta comunidade"}
                 )
 
             serializer = self.get_serializer(postagens, many=True)

@@ -7,6 +7,7 @@ import CreateRepositorio from "../features/Repositorio/Create";
 import Repositorio from "../features/Repositorio/Repositorio";
 import LayoutFeed from "../features/Layout/LayoutFeed";
 import PerfilComunidade from "../features/Perfil/PerfilComunidade";
+import LayoutCommunity from "../features/Layout/LayoutCommunity";
 
 export const privatesRoutes = [
 	{
@@ -41,8 +42,14 @@ export const privatesRoutes = [
 				path: "repositorio",
 				element: <Repositorio />,
 			},
+		],
+	},
+	{
+		path: "",
+		element: <LayoutCommunity />,
+		children: [
 			{
-				path: "comunidade/:nome",
+				path: "comunidade/:id",
 				element: <PerfilComunidade />,
 			},
 		],
