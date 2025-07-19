@@ -13,6 +13,8 @@ import {
 	MenuItems,
 } from "@headlessui/react";
 import {X, PaperPlaneRight, Warning} from "@phosphor-icons/react";
+import {CloseOutlined} from "@ant-design/icons";
+
 import BeePost from "../BeePost/BeePost";
 import type {
 	Comentario,
@@ -54,6 +56,7 @@ const BeeModalComentarios: React.FC<IBeeModalComentarios> = ({
 	const [totalComentarios, setTotalComentarios] = useState(0);
 
 	const [tipos, setTipos] = useState<[]>([]);
+	const [mostrarDenuncia, setMostrarDenuncia] = useState(false);
 	const [tipoSelecionado, setTipoSelecionado] = useState<string | null>(null);
 	const [comentarioParaDenunciar, setComentarioParaDenunciar] =
 		useState<Comentario | null>(null);
@@ -79,11 +82,11 @@ const BeeModalComentarios: React.FC<IBeeModalComentarios> = ({
 			alert("Selecione um comentário e um tipo de denúncia.");
 			return;
 		}
-
 		try {
 			await DenunciaService.enviarDenuncia({
 				tipo: tipoSelecionado,
 				comentario: comentarioParaDenunciar.id,
+				postagem: post.id,
 			});
 			alert("Denúncia enviada!");
 			setMostrarDenuncia(false);
@@ -91,9 +94,6 @@ const BeeModalComentarios: React.FC<IBeeModalComentarios> = ({
 			alert("Erro ao enviar denúncia.");
 		}
 	};
-
-	const [mostrarDenuncia, setMostrarDenuncia] = useState(false);
-
 	const handleAbrirDenuncia = (comentario: Comentario) => {
 		loadDenunciaType();
 		setComentarioParaDenunciar(comentario);
@@ -303,7 +303,7 @@ const BeeModalComentarios: React.FC<IBeeModalComentarios> = ({
 										onClick={handleFecharDenuncia}
 										className="absolute top-2 right-2 text-gray-600 hover:text-red-600"
 									>
-										X
+										<CloseOutlined />
 									</button>
 
 									<BeeDenuncia
@@ -314,7 +314,7 @@ const BeeModalComentarios: React.FC<IBeeModalComentarios> = ({
 										<BeeButton
 											onClick={handleFecharDenuncia}
 											label="Cancelar"
-											variante="negativo"
+											variante="neutro"
 										/>
 										<BeeButton
 											onClick={enviarDenuncia}

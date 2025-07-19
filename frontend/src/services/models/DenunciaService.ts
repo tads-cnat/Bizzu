@@ -23,7 +23,7 @@ class DenunciaService extends BaseService{
         tipo,
         postagem: postagem ?? null,
         comentario: comentario ?? null,
-        repositorio,
+        repositorio: repositorio ?? null,
         };
 
         const response = await axiosInstance.post('/denuncia/', payload);

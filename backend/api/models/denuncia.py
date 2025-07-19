@@ -7,7 +7,13 @@ from django.core.exceptions import ValidationError
 
 
 class Denuncia(models.Model):
-    TIPO = (("ling", "Linguajar Ofensivo"), ("spam", "Spam"), ("out", "Outros"))
+    TIPO = (
+        ("ling", "Linguajar Ofensivo"),
+        ("spam", "Spam"),
+        ("dis", "Discurso violento"),
+        ("odio", "Ódio"),
+        ("out", "Outros"),
+    )
     postagem = models.ForeignKey(
         Postagem, on_delete=models.CASCADE, null=True, blank=True
     )
