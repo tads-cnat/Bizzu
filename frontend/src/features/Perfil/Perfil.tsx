@@ -5,9 +5,9 @@ import BeePost from "../../components/BeePost/BeePost";
 import PostagemService from "../../services/models/PostagemService";
 import ComunidadeService from "../../services/models/ComunidadeService";
 import CategoriaService from "../../services/models/CategoriaService";
-import type {Postagem, Tag} from "../../interfaces/Postagem";
-import type {Comunidade} from "../../interfaces/Comunidade";
-import type {Categoria} from "../../interfaces/IBeeCategoria";
+import type {IPostagem, ITag} from "../../interfaces/Postagem";
+import type {IBeeComunidade} from "../../interfaces/IBeeComunidade";
+import type {IBeeCategoria} from "../../interfaces/IBeeCategoria";
 import {useParams} from "react-router-dom";
 import UsuarioService from "../../services/models/UsuarioService";
 import BeeAlert from "../../components/BeeAlert/BeeAlert";
@@ -24,9 +24,9 @@ import RepositorioService from "../../services/models/RepositorioService";
 import BeeRepo from "../../components/BeeRepo/BeeRepo";
 
 const Perfil: React.FC = () => {
-	const [postagens, setPostagens] = useState<Postagem[]>([]);
-	const [comunidades, setComunidades] = useState<Comunidade[]>([]);
-	const [categorias, setCategorias] = useState<Categoria[]>([]);
+	const [postagens, setPostagens] = useState<IPostagem[]>([]);
+	const [comunidades, setComunidades] = useState<IBeeComunidade[]>([]);
+	const [categorias, setCategorias] = useState<IBeeCategoria[]>([]);
 	const [repositorio, setRepositorio] = useState<IRepositorio[]>([]);
 	const identificator = useParams().username;
 	const [usuario, setUsuario] = useState<IBeeUser>();
@@ -79,7 +79,7 @@ const Perfil: React.FC = () => {
 	};
 
 	// Função para converter categorias em tags para o componente BeePost
-	const categoriasParaTags = (categoriasIds: number[]): Tag[] => {
+	const categoriasParaTags = (categoriasIds: number[]): ITag[] => {
 		if (!categoriasIds || categoriasIds.length === 0) return [];
 
 		// Cores por tipo de categoria
@@ -192,7 +192,7 @@ const Perfil: React.FC = () => {
 					<BeeAbasPerfil initialActiveKey="1">
 						{postagens?.length ? (
 							<div className="space-y-4">
-								{postagens.map((post: Postagem) => {
+								{postagens.map((post: IPostagem) => {
 									const tags = categoriasParaTags(post.categorias);
 									const comunidadeNome = getComunidadeNome(
 										post.comunidade ?? null,

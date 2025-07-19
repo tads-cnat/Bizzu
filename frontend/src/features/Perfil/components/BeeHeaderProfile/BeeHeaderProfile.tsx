@@ -3,7 +3,6 @@ import {IBeeUser} from "./IBeeUser";
 import {useEffect, useState} from "react";
 import {Link, useParams} from "react-router-dom";
 import {Menu, MenuItem} from "@headlessui/react";
-import acessAuth from "../../../../utils/acessAuth";
 import UsuarioService from "../../../../services/models/UsuarioService";
 import BeeButton from "../../../../components/BeeButtons/BeeButtons";
 import acessPermissions from "../../../../utils/acessPermissions";
