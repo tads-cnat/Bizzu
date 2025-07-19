@@ -12,7 +12,12 @@ import {
 	MenuItem,
 	MenuItems,
 } from "@headlessui/react";
-import {X, PaperPlaneRight, Warning} from "@phosphor-icons/react";
+import {
+	X,
+	PaperPlaneRight,
+	DotsThreeVertical,
+	// Warning,
+} from "@phosphor-icons/react";
 import {CloseOutlined} from "@ant-design/icons";
 
 import BeePost from "../BeePost/BeePost";
@@ -25,7 +30,9 @@ import type {IBeeModalComentarios} from "./IBeeModalComentarios";
 import BeeFTPerfil from "../BeeFTPerfil/BeeFTPerfil";
 import BeeDenuncia from "../BeeDenuncia/BeeDenuncia";
 import BeeButton from "../BeeButtons/BeeButtons";
+import BeeAlert from "../BeeAlert/BeeAlert";
 import DenunciaService from "../../services/models/DenunciaService";
+import getLocalStorage from "../../utils/getLocalStorage";
 
 // Função para calcular tempo decorrido
 function tempoDesde(data: string): string {
@@ -54,54 +61,6 @@ const BeeModalComentarios: React.FC<IBeeModalComentarios> = ({
 	const [loading, setLoading] = useState(false);
 	const [enviandoComentario, setEnviandoComentario] = useState(false);
 	const [totalComentarios, setTotalComentarios] = useState(0);
-
-	const [tipos, setTipos] = useState<[]>([]);
-	const [mostrarDenuncia, setMostrarDenuncia] = useState(false);
-	const [tipoSelecionado, setTipoSelecionado] = useState<string | null>(null);
-	const [comentarioParaDenunciar, setComentarioParaDenunciar] =
-		useState<Comentario | null>(null);
-
-	const loadDenunciaType = async () => {
-		try {
-			const response = await DenunciaService.getTipos();
-			const data = response?.data;
-			if (Array.isArray(data)) {
-				setTipos(data);
-			} else {
-				console.warn(
-					"Resposta inesperada ao carregar tipos de denúncia:",
-					data,
-				);
-			}
-		} catch (error) {
-			console.error("Erro ao carregar tipos de denúncia:", error);
-		}
-	};
-	const enviarDenuncia = async () => {
-		if (!comentarioParaDenunciar || !tipoSelecionado) {
-			alert("Selecione um comentário e um tipo de denúncia.");
-			return;
-		}
-		try {
-			await DenunciaService.enviarDenuncia({
-				tipo: tipoSelecionado,
-				comentario: comentarioParaDenunciar.id,
-				postagem: post.id,
-			});
-			alert("Denúncia enviada!");
-			setMostrarDenuncia(false);
-		} catch (e) {
-			alert("Erro ao enviar denúncia.");
-		}
-	};
-	const handleAbrirDenuncia = (comentario: Comentario) => {
-		loadDenunciaType();
-		setComentarioParaDenunciar(comentario);
-		setMostrarDenuncia(true);
-	};
-	const handleFecharDenuncia = () => {
-		setMostrarDenuncia(false);
-	};
 
 	// Carregar comentários quando o modal abrir
 	useEffect(() => {
@@ -157,6 +116,91 @@ const BeeModalComentarios: React.FC<IBeeModalComentarios> = ({
 			e.preventDefault();
 			enviarComentario();
 		}
+	};
+
+	// Aqui é onde tá o código de denúncia (Foi separado aqui pra ficar mais fácil de entender o código)
+	const usuarioLocal = getLocalStorage();
+	const [tipos, setTipos] = useState<[]>([]);
+	const [mostrarDenuncia, setMostrarDenuncia] = useState(false);
+	const [tipoSelecionado, setTipoSelecionado] = useState<string | null>(null);
+
+	// Função para setar os tipos de alerta
+	const [alertaDenuncia, setAlertaDenuncia] = useState<{
+		tipo: "success" | "error";
+		mensagem: string;
+	} | null>(null);
+
+	// Função que pega exatamente o comentário que está sendo denunciado e esse useEffect é para o BeeAlert
+	const [comentarioParaDenunciar, setComentarioParaDenunciar] =
+		useState<Comentario | null>(null);
+	useEffect(() => {
+		if (alertaDenuncia) {
+			const timer = setTimeout(() => {
+				setAlertaDenuncia(null);
+			}, 3000);
+			return () => clearTimeout(timer);
+		}
+	}, [alertaDenuncia]);
+
+	// Função que carrega os tipos de denúncia vindo la do modal de denuncias
+	const loadDenunciaType = async () => {
+		try {
+			const response = await DenunciaService.getTipos();
+			const data = response?.data;
+			if (Array.isArray(data)) {
+				setTipos(data);
+			} else {
+				console.warn(
+					"Resposta inesperada ao carregar tipos de denúncia:",
+					data,
+				);
+			}
+		} catch (error) {
+			console.error("Erro ao carregar tipos de denúncia:", error);
+		}
+	};
+
+	// Função responsável pro enviar a denúncia e chamar o modal de abrir, fechar e alert
+	const enviarDenuncia = async () => {
+		if (!comentarioParaDenunciar || !tipoSelecionado) {
+			setAlertaDenuncia({
+				tipo: "error",
+				mensagem: "Selecione um comentário e um tipo de denúncia.",
+			});
+			return;
+		}
+		try {
+			await DenunciaService.enviarDenuncia({
+				tipo: tipoSelecionado,
+				comentario: comentarioParaDenunciar.id,
+				postagem: post.id,
+			});
+			setAlertaDenuncia({
+				tipo: "success",
+				mensagem: "Denúncia enviada com sucesso.",
+			});
+			setMostrarDenuncia(false);
+			console.log("ID DO USUARIO", usuarioLocal.id);
+			console.log("ID DA POSTAGEM", post.id);
+			console.log("NOME DO USUARIO", usuarioLocal.username);
+		} catch (e) {
+			setAlertaDenuncia({
+				tipo: "error",
+				mensagem: "Erro ao enviar denúncia.",
+			});
+		}
+	};
+
+	// Função responsável por abrir o modal de denuncia
+	const handleAbrirDenuncia = (comentario: Comentario) => {
+		loadDenunciaType();
+		setComentarioParaDenunciar(comentario);
+		setMostrarDenuncia(true);
+	};
+
+	// Função responsável por fechar o modal de denuncia
+	const handleFecharDenuncia = () => {
+		setMostrarDenuncia(false);
 	};
 
 	return (
@@ -252,9 +296,9 @@ const BeeModalComentarios: React.FC<IBeeModalComentarios> = ({
 														>
 															<div>
 																<MenuButton className="p-0 m-0 bg-transparent rounded-none shadow-none ring-0 hover:bg-transparent">
-																	<Warning
+																	<DotsThreeVertical
 																		size={24}
-																		className="text-gray-500 hover:text-red-500"
+																		className="text-gray-500  rounded-full cursor-pointer "
 																	/>
 																</MenuButton>
 															</div>
@@ -296,7 +340,16 @@ const BeeModalComentarios: React.FC<IBeeModalComentarios> = ({
 								)}
 							</div>
 						</div>
-						{mostrarDenuncia && (
+
+						{alertaDenuncia && (
+							<div className="absolute top-5 left-1/2 transform -translate-x-1/2 z-50 transition-all duration-500 ease-out opacity-100 translate-y-0">
+								<BeeAlert
+									typeAlert={alertaDenuncia.tipo}
+									messageAlert={alertaDenuncia.mensagem}
+								/>
+							</div>
+						)}
+						{mostrarDenuncia && post.id !== usuarioLocal.id && (
 							<div className="absolute top-0 left-0 w-full h-full  bg-opacity-40 flex justify-center items-center z-50">
 								<div className="bg-white p-4 rounded-md w-[400px] max-w-full shadow-lg relative">
 									<button
