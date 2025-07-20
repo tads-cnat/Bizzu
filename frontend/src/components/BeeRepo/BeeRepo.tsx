@@ -11,13 +11,18 @@ import {
 import {useNavigate, Link} from "react-router-dom";
 import BeeFTPerfil from "../BeeFTPerfil/BeeFTPerfil";
 import type {iBeeRepoProps} from "./IBeeRepo";
-import type {Usuario} from "../../interfaces/Repositorio";
+import type {IUsuario} from "../../interfaces/Repositorio";
 import BeeTags from "../BeeTags/BeeTags";
 import "../../index.css";
 import acessAuth from "../../utils/acessAuth";
 import {BeeButton} from "../BeeButtons/BeeButtons";
 import UsuarioService from "../../services/models/UsuarioService";
 import BeeModal from "../BeeModal/BeeModal";
+import BeeDenuncia from "../BeeDenuncia/BeeDenuncia";
+import BeeAlert from "../BeeAlert/BeeAlert";
+import DenunciaService from "../../services/models/DenunciaService";
+import getLocalStorage from "../../utils/getLocalStorage";
+import {CloseOutlined} from "@ant-design/icons";
 
 const defaultBeeImg = "/static/img/abelha_bizzu.svg";
 
@@ -50,6 +55,82 @@ const BeeRepo: React.FC<iBeeRepoProps> = ({
 	const navigate = useNavigate();
 	const {username} = acessAuth();
 	const isOwner = usuario && usuario.username === username;
+
+	// Estados para denúncia
+	const usuarioLocal = getLocalStorage();
+	const [tipos, setTipos] = useState<any[]>([]);
+	const [mostrarDenuncia, setMostrarDenuncia] = useState(false);
+	const [tipoSelecionado, setTipoSelecionado] = useState<string | null>(null);
+	const [alertaDenuncia, setAlertaDenuncia] = useState<{
+		tipo: "success" | "error";
+		mensagem: string;
+	} | null>(null);
+
+	// Função para setar os tipos de alerta
+	useEffect(() => {
+		if (alertaDenuncia) {
+			const timer = setTimeout(() => {
+				setAlertaDenuncia(null);
+			}, 3000);
+			return () => clearTimeout(timer);
+		}
+	}, [alertaDenuncia]);
+
+	// Função que carrega os tipos de denúncia
+	const loadDenunciaType = async () => {
+		try {
+			const response = await DenunciaService.getTipos();
+			const data = response?.data;
+			if (Array.isArray(data)) {
+				setTipos(data);
+			} else {
+				console.warn(
+					"Resposta inesperada ao carregar tipos de denúncia:",
+					data,
+				);
+			}
+		} catch (error) {
+			console.error("Erro ao carregar tipos de denúncia:", error);
+		}
+	};
+
+	// Função responsável por enviar a denúncia
+	const enviarDenuncia = async () => {
+		if (!tipoSelecionado) {
+			setAlertaDenuncia({
+				tipo: "error",
+				mensagem: "Selecione um tipo de denúncia.",
+			});
+			return;
+		}
+		try {
+			await DenunciaService.enviarDenuncia({
+				tipo: tipoSelecionado,
+				repositorio: id,
+			});
+			setAlertaDenuncia({
+				tipo: "success",
+				mensagem: "Denúncia enviada com sucesso.",
+			});
+			setMostrarDenuncia(false);
+		} catch (e) {
+			setAlertaDenuncia({
+				tipo: "error",
+				mensagem: "Erro ao enviar denúncia.",
+			});
+		}
+	};
+
+	// Função responsável por abrir o modal de denuncia
+	const handleAbrirDenuncia = () => {
+		loadDenunciaType();
+		setMostrarDenuncia(true);
+	};
+
+	// Função responsável por fechar o modal de denuncia
+	const handleFecharDenuncia = () => {
+		setMostrarDenuncia(false);
+	};
 
 	// Função para tratar a exclusão e fechar o modal
 	const handleConfirmarExclusao = (id: number) => {
@@ -152,7 +233,7 @@ const BeeRepo: React.FC<iBeeRepoProps> = ({
 					<button
 						type="button"
 						className="text-[#FCBD18] hover:text-[#e6a800] cursor-pointer bg-transparent border-none"
-						onClick={() => alert("Denúncia enviada!")}
+						onClick={handleAbrirDenuncia}
 					>
 						<WarningCircle
 							size={18}
@@ -191,6 +272,47 @@ const BeeRepo: React.FC<iBeeRepoProps> = ({
 							color={tag.color as "magenta" | "orange" | "cyan"}
 						/>
 					))}
+				</div>
+			)}
+
+			{/* Modal de Denúncia */}
+			{mostrarDenuncia && (
+				<div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-40 flex justify-center items-center z-50">
+					<div className="bg-white p-4 rounded-md w-[400px] max-w-full shadow-lg relative">
+						<button
+							onClick={handleFecharDenuncia}
+							className="absolute top-2 right-2 text-gray-600 hover:text-red-600"
+						>
+							<CloseOutlined />
+						</button>
+
+						<BeeDenuncia
+							tipos={tipos}
+							onTipoSelecionado={setTipoSelecionado}
+						/>
+						<div className="mt-4 flex justify-end gap-2">
+							<BeeButton
+								onClick={handleFecharDenuncia}
+								label="Cancelar"
+								variante="neutro"
+							/>
+							<BeeButton
+								onClick={enviarDenuncia}
+								label="Enviar denuncia"
+								variante="primaria"
+							/>
+						</div>
+					</div>
+				</div>
+			)}
+
+			{/* Alerta de Denúncia */}
+			{alertaDenuncia && (
+				<div className="absolute top-5 left-1/2 transform -translate-x-1/2 z-50 transition-all duration-500 ease-out opacity-100 translate-y-0">
+					<BeeAlert
+						typeAlert={alertaDenuncia.tipo}
+						messageAlert={alertaDenuncia.mensagem}
+					/>
 				</div>
 			)}
 		</div>
