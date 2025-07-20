@@ -122,6 +122,7 @@ const BeeModalComentarios: React.FC<IBeeModalComentarios> = ({
 	const usuarioLocal = getLocalStorage();
 	const [tipos, setTipos] = useState<[]>([]);
 	const [mostrarDenuncia, setMostrarDenuncia] = useState(false);
+	const [mostrarBotão, setMostrarBotão] = useState(true);
 	const [tipoSelecionado, setTipoSelecionado] = useState<string | null>(null);
 
 	// Função para setar os tipos de alerta
@@ -182,7 +183,6 @@ const BeeModalComentarios: React.FC<IBeeModalComentarios> = ({
 			setMostrarDenuncia(false);
 			console.log("ID DO USUARIO", usuarioLocal.id);
 			console.log("ID DA POSTAGEM", post.id);
-			console.log("NOME DO USUARIO", usuarioLocal.username);
 		} catch (e) {
 			setAlertaDenuncia({
 				tipo: "error",
@@ -294,14 +294,19 @@ const BeeModalComentarios: React.FC<IBeeModalComentarios> = ({
 															as="div"
 															className="absolute top-2 right-2 z-10"
 														>
-															<div>
-																<MenuButton className="p-0 m-0 bg-transparent rounded-none shadow-none ring-0 hover:bg-transparent">
-																	<DotsThreeVertical
-																		size={24}
-																		className="text-gray-500  rounded-full cursor-pointer "
-																	/>
-																</MenuButton>
-															</div>
+															{mostrarBotão &&
+																usuarioLocal &&
+																comentario.usuario?.username?.toLowerCase() !==
+																	usuarioLocal?.username?.toLowerCase() && (
+																	<div>
+																		<MenuButton className="p-0 m-0 bg-transparent rounded-none shadow-none ring-0 hover:bg-transparent">
+																			<DotsThreeVertical
+																				size={24}
+																				className="text-gray-500 rounded-full cursor-pointer"
+																			/>
+																		</MenuButton>
+																	</div>
+																)}
 
 															<MenuItems
 																transition
@@ -349,35 +354,37 @@ const BeeModalComentarios: React.FC<IBeeModalComentarios> = ({
 								/>
 							</div>
 						)}
-						{mostrarDenuncia && post.id !== usuarioLocal.id && (
-							<div className="absolute top-0 left-0 w-full h-full  bg-opacity-40 flex justify-center items-center z-50">
-								<div className="bg-white p-4 rounded-md w-[400px] max-w-full shadow-lg relative">
-									<button
-										onClick={handleFecharDenuncia}
-										className="absolute top-2 right-2 text-gray-600 hover:text-red-600"
-									>
-										<CloseOutlined />
-									</button>
-
-									<BeeDenuncia
-										tipos={tipos}
-										onTipoSelecionado={setTipoSelecionado}
-									/>
-									<div className="mt-4 flex justify-end gap-2">
-										<BeeButton
+						{mostrarDenuncia &&
+							comentarioParaDenunciar?.usuario?.username?.toLowerCase() !==
+								usuarioLocal?.username?.toLowerCase() && (
+								<div className="absolute top-0 left-0 w-full h-full  bg-opacity-40 flex justify-center items-center z-50">
+									<div className="bg-white p-4 rounded-md w-[400px] max-w-full shadow-lg relative">
+										<button
 											onClick={handleFecharDenuncia}
-											label="Cancelar"
-											variante="neutro"
+											className="absolute top-2 right-2 text-gray-600 hover:text-red-600"
+										>
+											<CloseOutlined />
+										</button>
+
+										<BeeDenuncia
+											tipos={tipos}
+											onTipoSelecionado={setTipoSelecionado}
 										/>
-										<BeeButton
-											onClick={enviarDenuncia}
-											label="Enviar denuncia"
-											variante="primaria"
-										/>
+										<div className="mt-4 flex justify-end gap-2">
+											<BeeButton
+												onClick={handleFecharDenuncia}
+												label="Cancelar"
+												variante="neutro"
+											/>
+											<BeeButton
+												onClick={enviarDenuncia}
+												label="Enviar denuncia"
+												variante="primaria"
+											/>
+										</div>
 									</div>
 								</div>
-							</div>
-						)}
+							)}
 
 						{/* Campo para novo comentário */}
 						<div className="border-t border-gray-200 p-4">
