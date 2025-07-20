@@ -3,12 +3,17 @@ from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.parsers import MultiPartParser
 from ..models import Usuario
+from api.serializers.usuario import (
+    UsuarioProfileSerializer,
+    UsuarioSerializer,
+    PesquisaSerializer,
+    SolicitacaoSerializer,
+)
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import AllowAny
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
-from api.serializers.usuario import UsuarioProfileSerializer, UsuarioSerializer, PesquisaSerializer
 from api.filters.usuario import UsuarioFilter
 from rest_framework import filters
 

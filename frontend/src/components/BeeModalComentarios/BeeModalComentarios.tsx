@@ -29,7 +29,10 @@ import BeeButton from "../BeeButtons/BeeButtons";
 import BeeAlert from "../BeeAlert/BeeAlert";
 import DenunciaService from "../../services/models/DenunciaService";
 import getLocalStorage from "../../utils/getLocalStorage";
-
+import {
+	IBeeComentario,
+	IBeeComentariosResponse,
+} from "../../interfaces/IBeeComentario";
 // Função para calcular tempo decorrido
 function tempoDesde(data: string): string {
 	const date = new Date(data);
