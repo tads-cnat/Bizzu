@@ -1,8 +1,47 @@
 import {Menu} from "@headlessui/react";
 import BeeButton from "../../../../components/BeeButtons/BeeButtons";
 import {IBeeHeaderCommunity} from "./IBeeHeaderCommunity";
+import {useEffect, useState} from "react";
+import ComunidadeService from "../../../../services/models/ComunidadeService";
+
 
 const BeeHeaderComunnity = ({comunidade}: IBeeHeaderCommunity) => {
+	const [estaSeguindo, setEstaSeguindo] = useState(false);
+	const [seguidores, setSeguidores] = useState(0);
+	const [seguindo, setSeguindo] = useState(0);
+
+	const verificarStatusSeguimento = async (id: number) => {
+		try {
+			const response = await ComunidadeService.verificarSeguimento(id);
+			setEstaSeguindo(response.esta_seguindo);
+			setSeguidores(response.seguidores);
+			setSeguindo(response.seguindo);
+		} catch (error) {
+			console.error("Erro ao verificar status de seguimento:", error);
+		}
+	};
+
+	const handleSeguir = async () => {
+		if (!comunidade?.id) return;
+		try {
+			await ComunidadeService.seguirComunidade(comunidade.id);
+			setEstaSeguindo(true);
+			setSeguidores((prev) => prev + 1);
+		} catch (error) {
+			console.error("Erro ao seguir usuário:", error);
+		}
+	};
+
+	const handleDeixarDeSeguir = async () => {
+		if (!comunidade?.id) return;
+		try {
+			await ComunidadeService.deixarDeSeguir(comunidade.id);
+			setEstaSeguindo(false);
+			setSeguidores((prev) => prev - 1);
+		} catch (error) {
+			console.error("Erro ao deixar de seguir usuário:", error);
+		}
+	};
 	return (
 		<>
 			{comunidade && (
@@ -29,13 +68,13 @@ const BeeHeaderComunnity = ({comunidade}: IBeeHeaderCommunity) => {
 								href="#"
 								className="mt-2 flex font-semibold items-center text-sm text-[#333333]"
 							>
-								y Segue
+								{seguindo} Segue
 							</a>
 							<a
 								href="#"
 								className="mt-2 flex font-semibold items-center text-sm text-[#333333]"
 							>
-								x Seguidores
+								{seguidores} Seguidores
 							</a>
 
 							<Menu
@@ -43,8 +82,9 @@ const BeeHeaderComunnity = ({comunidade}: IBeeHeaderCommunity) => {
 								className="relative inline-block text-left"
 							>
 								<BeeButton
-									variante={"primaria"}
-									label={"Seguir"}
+									variante={estaSeguindo ? "secundaria" : "primaria"}
+									label={estaSeguindo ? "Seguindo" : "Seguir"}
+									onClick={estaSeguindo ? handleDeixarDeSeguir : handleSeguir}
 								/>
 							</Menu>
 						</div>
