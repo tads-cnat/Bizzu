@@ -14,6 +14,10 @@ import {Empty} from "antd";
 import getLocalStorage from "../../utils/getLocalStorage";
 import IBeeTags from "../../components/BeeTags/IBeeTags";
 import {IBeeCategoria} from "../../interfaces/IBeeCategoria";
+import type {IComunidade} from "../../interfaces/Comunidade";
+import ComunidadeService from "../../services/models/ComunidadeService";
+import type {IUsuario} from "../../interfaces/Postagem";
+const usuarioPlaceholder: IUsuario = {id: -1, nome: "Usuário desconhecido"};
 const LayoutFeed: React.FC = () => {
 	const [usuario, setUsuario] = useState<any>();
 	const [repositorios, setRepositorios] = useState<IRepositorio[]>([]);
@@ -25,6 +29,7 @@ const LayoutFeed: React.FC = () => {
 		BeePostProps[]
 	>([]);
 	const [allPost, setAllPost] = useState<BeePostProps[]>([]);
+	const [comunidades, setComunidades] = useState<IComunidade[]>([]);
 
 	if (getLocalStorage() !== null && usuario === undefined) {
 		setUsuario(getLocalStorage().username);
@@ -67,6 +72,16 @@ const LayoutFeed: React.FC = () => {
 		} catch (error) {
 			console.error("Erro ao carregar categorias:", error);
 			setCategorias([]);
+		}
+	};
+
+	const carregarComunidades = async () => {
+		try {
+			const response = await ComunidadeService.listAll();
+			setComunidades(response.data || []);
+		} catch (error) {
+			console.error("Erro ao carregar comunidades:", error);
+			setComunidades([]);
 		}
 	};
 
@@ -124,6 +139,14 @@ const LayoutFeed: React.FC = () => {
 		return tagsValidas;
 	};
 
+	const getComunidadeNome = (
+		comunidadeId: number | null | undefined,
+	): string | null => {
+		if (!comunidadeId) return null;
+		const comunidade = comunidades.find((c) => c.id === comunidadeId);
+		return comunidade?.nome || null;
+	};
+
 	useEffect(() => {
 		if (usuario === undefined) carregarPostDefault();
 		else {
@@ -131,6 +154,7 @@ const LayoutFeed: React.FC = () => {
 			carregarRepositorios();
 			carregarCategorias();
 			carregarPostagemSeguidores();
+			carregarComunidades();
 		}
 	}, []);
 
@@ -155,31 +179,43 @@ const LayoutFeed: React.FC = () => {
 													const tags = categoriasParaTags(
 														(post as any).categorias ?? [],
 													) as IBeeTags[];
-													let usuarioUsername = "";
-													if (
-														post.usuario &&
-														typeof post.usuario === "object" &&
-														post.usuario !== null &&
-														"username" in post.usuario &&
-														typeof post.usuario.username === "string"
-													) {
-														usuarioUsername = post.usuario.username;
-													}
+													const usuarioObj =
+														post.usuario && typeof post.usuario === "object"
+															? post.usuario
+															: usuarioPlaceholder;
+													const comunidadeNome = getComunidadeNome(
+														(post as any).comunidade ?? null,
+													);
 													return (
-														<BeePost
+														<div
 															key={post.id}
-															id={post.id}
-															texto={post.texto}
-															tags={tags}
-															curtidas={post.curtidas || 0}
-															comentarios={post.comentarios || 0}
-															usuario={usuarioUsername}
-															dataPublicacao={post.dataPublicacao}
-															imagemPost={(post as any).imagem ?? undefined}
-															onCurtir={() => post.id}
-															onAbrirComentarios={() => post.id}
-															onExcluir={() => {}}
-														/>
+															className="mb-6"
+														>
+															{comunidadeNome && (
+																<div className="bg-white p-2 rounded-t-lg border-b border-gray-200">
+																	<p className="text-sm text-gray-600">
+																		<span className="font-medium">
+																			Comunidade:
+																		</span>{" "}
+																		{comunidadeNome}
+																	</p>
+																</div>
+															)}
+															<BeePost
+																key={post.id}
+																id={post.id}
+																texto={post.texto}
+																tags={tags}
+																curtidas={post.curtidas || 0}
+																comentarios={post.comentarios || 0}
+																usuario={usuarioObj}
+																dataPublicacao={post.dataPublicacao}
+																imagemPost={(post as any).imagem ?? undefined}
+																onCurtir={() => post.id}
+																onAbrirComentarios={() => post.id}
+																onExcluir={() => {}}
+															/>
+														</div>
 													);
 												})}
 											</div>
@@ -198,30 +234,42 @@ const LayoutFeed: React.FC = () => {
 													const tags = categoriasParaTags(
 														(post as any).categorias ?? [],
 													) as IBeeTags[];
-													let usuarioUsername = "";
-													if (
-														post.usuario &&
-														typeof post.usuario === "object" &&
-														post.usuario !== null &&
-														"username" in post.usuario &&
-														typeof post.usuario.username === "string"
-													) {
-														usuarioUsername = post.usuario.username;
-													}
+													const usuarioObj =
+														post.usuario && typeof post.usuario === "object"
+															? post.usuario
+															: usuarioPlaceholder;
+													const comunidadeNome = getComunidadeNome(
+														(post as any).comunidade ?? null,
+													);
 													return (
-														<BeePost
-															id={post.id}
-															texto={post.texto}
-															tags={tags}
-															curtidas={post.curtidas || 0}
-															comentarios={post.comentarios || 0}
-															usuario={usuarioUsername}
-															dataPublicacao={post.dataPublicacao}
-															imagemPost={(post as any).imagem ?? undefined}
-															onCurtir={() => post.id}
-															onAbrirComentarios={() => post.id}
-															onExcluir={() => {}}
-														/>
+														<div
+															key={post.id}
+															className="mb-6"
+														>
+															{comunidadeNome && (
+																<div className="bg-white p-2 rounded-t-lg border-b border-gray-200">
+																	<p className="text-sm text-gray-600">
+																		<span className="font-medium">
+																			Comunidade:
+																		</span>{" "}
+																		{comunidadeNome}
+																	</p>
+																</div>
+															)}
+															<BeePost
+																id={post.id}
+																texto={post.texto}
+																tags={tags}
+																curtidas={post.curtidas || 0}
+																comentarios={post.comentarios || 0}
+																usuario={usuarioObj}
+																dataPublicacao={post.dataPublicacao}
+																imagemPost={(post as any).imagem ?? undefined}
+																onCurtir={() => post.id}
+																onAbrirComentarios={() => post.id}
+																onExcluir={() => {}}
+															/>
+														</div>
 													);
 												})}
 											</div>
@@ -242,30 +290,40 @@ const LayoutFeed: React.FC = () => {
 											const tags = categoriasParaTags(
 												(post as any).categorias ?? [],
 											) as IBeeTags[];
-											let usuarioUsername = "";
-											if (
-												post.usuario &&
-												typeof post.usuario === "object" &&
-												post.usuario !== null &&
-												"username" in post.usuario &&
-												typeof post.usuario.username === "string"
-											) {
-												usuarioUsername = post.usuario.username;
-											}
+											const usuarioObj =
+												post.usuario && typeof post.usuario === "object"
+													? post.usuario
+													: usuarioPlaceholder;
+											const comunidadeNome = getComunidadeNome(
+												(post as any).comunidade ?? null,
+											);
 											return (
-												<BeePost
-													id={post.id}
-													texto={post.texto}
-													tags={tags}
-													curtidas={post.curtidas || 0}
-													comentarios={post.comentarios || 0}
-													usuario={usuarioUsername}
-													dataPublicacao={post.dataPublicacao}
-													imagemPost={(post as any).imagem ?? undefined}
-													onCurtir={() => post.id}
-													onAbrirComentarios={() => post.id}
-													onExcluir={() => {}}
-												/>
+												<div
+													key={post.id}
+													className="mb-6"
+												>
+													{comunidadeNome && (
+														<div className="bg-white p-2 rounded-t-lg border-b border-gray-200">
+															<p className="text-sm text-gray-600">
+																<span className="font-medium">Comunidade:</span>{" "}
+																{comunidadeNome}
+															</p>
+														</div>
+													)}
+													<BeePost
+														id={post.id}
+														texto={post.texto}
+														tags={tags}
+														curtidas={post.curtidas || 0}
+														comentarios={post.comentarios || 0}
+														usuario={usuarioObj}
+														dataPublicacao={post.dataPublicacao}
+														imagemPost={(post as any).imagem ?? undefined}
+														onCurtir={() => post.id}
+														onAbrirComentarios={() => post.id}
+														onExcluir={() => {}}
+													/>
+												</div>
 											);
 										})}
 									</div>
