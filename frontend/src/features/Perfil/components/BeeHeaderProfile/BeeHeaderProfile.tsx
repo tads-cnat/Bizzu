@@ -129,8 +129,12 @@ const BeeHeaderProfile = () => {
 											</MenuItem>
 
 											<MenuItem>
-												<Link to={`/repositorio/criar/`}>
-													<BoxArrowUp /> Criar Repositório
+												<Link
+													to={`/repositorio/criar/`}
+													className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
+												>
+													<BoxArrowUp className="w-5 h-5 text-cyan-500" /> Criar
+													Repositório
 												</Link>
 											</MenuItem>
 										</div>

@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import {Empty, Tag} from "antd";
 import CategoriaService from "../../../../services/models/CategoriaService";
-import {Categoria} from "../../../../interfaces/Categoria";
+import {Categoria} from "../../../../interfaces/IBeeCategoria";
 import BeeModal from "../../../../components/BeeModal/BeeModal";
 import FormCategoria from "../../Form/FormCategoria";
 
