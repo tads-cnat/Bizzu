@@ -17,6 +17,12 @@ class Comunidade(models.Model):
     linkHorarios = models.URLField(verbose_name="Link horários")
     linkExtra = models.URLField(verbose_name="Link extra")
     # seguidores = models.ManyToManyField("Usuario", verbose_name="Seguidores", symmetrical=False,related_name="follows",blank=True)
-
+    seguidores = models.ManyToManyField(
+        "Usuario",
+        symmetrical=False,
+        verbose_name="seguidores",
+        related_name="seguidopor",
+        blank=True,
+    )
     def __str__(self):
         return self.nome
