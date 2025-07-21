@@ -86,15 +86,7 @@ const BeeRepo: React.FC<iBeeRepoProps> = ({
 		<div
 			className="bg-[#F7F7FA] shadow-md rounded-xl p-3 mb-2 relative w-full flex flex-col gap-1 border border-[#F2F2F7] transition-all duration-200 hover:shadow-xl hover:-translate-y-1"
 			style={{maxWidth: 320}}
-			onClick={(e) => {
-				if (
-					(e.target as HTMLElement).closest(".repo-header, .repo-tag") ||
-					showMenu ||
-					deleteConfirmation
-				) {
-					return;
-				}
-			}}
+			onClick={handleClickRepositorio}
 		>
 			{/* Modal de confirmação de exclusão */}
 			{deleteConfirmation && (

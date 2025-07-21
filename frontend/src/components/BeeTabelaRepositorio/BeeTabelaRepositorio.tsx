@@ -142,7 +142,7 @@ const BeeTabelaRepositorio: React.FC<IBeeTabelaRepositorio> = ({
 					<div className="flex items-center gap-4">
 						{usuario && (
 							<BeeFTPerfil
-								usuarioId={usuario.nome}
+								usuarioId={usuario.id}
 								dataPublicacao={dataPublicacao}
 							/>
 						)}
