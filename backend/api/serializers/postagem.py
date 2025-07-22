@@ -1,11 +1,13 @@
 import os
 from rest_framework import serializers
 from ..models import Postagem
-from .usuario import UsuarioSerializer
+from ..serializers.categoria import CategoriaSerializer
 
 
 class PostagemSerializer(serializers.ModelSerializer):
-    usuario = UsuarioSerializer(read_only=True)
+    categorias_detalhadas = CategoriaSerializer(
+        source="categorias", many=True, read_only=True
+    )
 
     class Meta:
         model = Postagem

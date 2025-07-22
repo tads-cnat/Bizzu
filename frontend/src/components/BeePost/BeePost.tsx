@@ -211,7 +211,7 @@ const BeePost: React.FC<BeePostProps> = ({
 			)}
 
 			<BeeFTPerfil
-				usuarioId={usuario.id}
+				usuarioId={usuario}
 				dataPublicacao={dataPublicacao}
 			/>
 
