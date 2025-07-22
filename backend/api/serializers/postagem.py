@@ -5,9 +5,7 @@ from ..serializers.categoria import CategoriaSerializer
 
 
 class PostagemSerializer(serializers.ModelSerializer):
-    categorias_detalhadas = CategoriaSerializer(
-        source="categorias", many=True, read_only=True
-    )
+    categorias_detalhadas = CategoriaSerializer(source='categorias', many=True, read_only=True)
 
     class Meta:
         model = Postagem

@@ -7,6 +7,7 @@ from api.urls.comunidade import comunidadeRouter
 from api.urls.categoria import categoriaRouter
 from api.urls.comentario import comentarioRouter
 from api.urls.arquivo import arquivoRouter
+from api.urls.denuncia import denunciaRouter
 
 urlpatterns = [
     path("", include(postagemRouter.urls)),
@@ -17,4 +18,5 @@ urlpatterns = [
     path("", include(categoriaRouter.urls)),
     path("", include(comentarioRouter.urls)),
     path("", include(arquivoRouter.urls)),
+    path("", include(denunciaRouter.urls)),
 ]
