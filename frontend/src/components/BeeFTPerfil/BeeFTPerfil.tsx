@@ -62,7 +62,6 @@ const BeeFTPerfil: React.FC<IBeeFTPerfil> = ({usuarioId, dataPublicacao}) => {
 					<span className="text-[#FCBD18] font-poppins font-semibold text-xs">
 						{" "}
 						• {tempoDesde(dataPublicacao)}{" "}
-
 					</span>
 				</div>
 			</div>
