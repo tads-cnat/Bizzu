@@ -53,13 +53,14 @@ class PostagemViewSet(viewsets.ModelViewSet):
         methods=["GET"],
         url_path="postCommunity/(?P<username>.*)",
     )  # Para pegar todos os post de comunidade que um usuário segue
-    def getPostComunidade(self, request, username):
+    # so funcionou depois que mudei o nome dessa função
+    def getPostComunidadee(self, request, username):
         try:
             usuario = Usuario.objects.filter(username=username).first()
             if not usuario:
                 return Response({"message": "Usuário não encontrado"})
 
-            comunidades = usuario.comunidades.all()
+            comunidades = usuario.comunidades_que_sigo.all()
             postagens = Postagem.objects.filter(comunidade__in=comunidades).order_by(
                 "-dataPublicacao"
             )

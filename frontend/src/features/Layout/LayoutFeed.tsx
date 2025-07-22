@@ -46,6 +46,7 @@ const LayoutFeed: React.FC = () => {
 		try {
 			const response = await PostagemService.getPostByCommunity(usuario);
 			setPostagensComunidade(response.data);
+			console.log("Posts recebidos da API:", response.data);
 		} catch (error) {
 			console.error("Erro ao carregar usuario:", error);
 		}

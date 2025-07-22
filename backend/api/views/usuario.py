@@ -16,6 +16,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
 from api.filters.usuario import UsuarioFilter
 from rest_framework import filters
+from ..models import Comunidade
 
 
 class UsuarioViewSet(viewsets.ModelViewSet):
@@ -92,9 +93,12 @@ class UsuarioViewSet(viewsets.ModelViewSet):
         usuario_seguidor = request.user
 
         esta_seguindo = usuario_seguidor.segue.filter(id=usuario_seguido.id).exists()
+        esta_seguindo_comunidade = usuario_seguidor.comunidades_que_sigo.exists()
+        print(esta_seguindo_comunidade)
         return Response(
             {
                 "esta_seguindo": esta_seguindo,
+                "esta_seguindo_comunidade": esta_seguindo_comunidade,
                 "seguidores": usuario_seguido.seguido_por.count(),
                 "seguindo": usuario_seguido.segue.count()
                 + usuario_seguido.comunidades_que_sigo.count(),

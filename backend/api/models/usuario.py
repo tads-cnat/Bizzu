@@ -38,9 +38,7 @@ class Usuario(AbstractUser):
         related_name="seguido_por",
         blank=True,
     )
-    comunidades = models.ManyToManyField(
-        "Comunidade", verbose_name="Comunidades", related_name="seguido_por", blank=True
-    )
+
     PERFIS = (("mod", "moderador"), ("int", "internauta"))
     papel = models.CharField(verbose_name="Papel", null=True, choices=PERFIS)
 
