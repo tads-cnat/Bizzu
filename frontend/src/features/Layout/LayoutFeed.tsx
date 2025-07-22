@@ -416,4 +416,3 @@ const LayoutFeed: React.FC = () => {
 }
 
 export default LayoutFeed
-

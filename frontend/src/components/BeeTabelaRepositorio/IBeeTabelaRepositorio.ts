@@ -1,8 +1,8 @@
-import type { Usuario } from "../../interfaces/Repositorio"
-
+import  { IUsuario } from "../../interfaces/Postagem"
+import  IBeeTags from "../BeeTags/IBeeTags"
 export interface FileItem {
   id: number
-  nome: string
+  nome?: string
   arquivo: string
   repositorio: number
 }
@@ -15,11 +15,11 @@ export interface IBeeTabelaRepositorio {
   /** Descrição do repositório */
   descricao: string
   /** Objeto com informações do usuário dono do repositório */
-  usuario: Usuario | null
+  usuario: IUsuario | null
   /** Data de criação/atualização do repositório */
   dataPublicacao: string
   /** Lista de tags associadas ao repositório */
-  tags: string[]
+  tags: IBeeTags[]
   /** Lista de arquivos anexados ao repositório */
   arquivos: FileItem[]
   /** Imagem do repositório (opcional) */
