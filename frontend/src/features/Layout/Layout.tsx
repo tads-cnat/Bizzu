@@ -10,7 +10,7 @@ const Layout: React.FC = () => {
 			<BeeHeader />
 			<div className="fixed top-[80px] w-1/5 min-h-screen shadow-md flex flex-col justify-start rounded-xl bg-white z-40 overflow-y-auto">
 				<BeeSidebar />
-				<div className="fixed top-[80px] left-1/5 w-200 h-[calc(100vh-80px)] flex-1 flex flex-col px-3 py-4 rounded-xl z-40 overflow-y-auto justify-start items-center">
+				<div className="fixed top-[80px] ml-70 w-[59%] h-[calc(100vh-80px)] flex-1 flex flex-col px-3 py-4 rounded-xl z-40 overflow-y-auto justify-start items-center">
 					<div className="w-full max-w-[500px] px-4 flex flex-col">
 						<Outlet />
 					</div>
