@@ -15,37 +15,38 @@ class ComunidadeViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
 
     @action(detail=True, methods=["post"])
-    def seguir(self, request, pk=None):
+    def seguir_comunidade(self, request, pk=None):
         comunidade_seguida = self.get_object()
-        usuario_seguidor = Usuario.objects.all()
+        usuario_seguidor = request.user
         comunidade_seguida.seguidores.add(usuario_seguidor)
+
         return Response(
-            {"message": f"Agora você está seguindo {usuario_seguidor.username}"},
+            {"message": f"Agora você está seguindo {comunidade_seguida.nome}"},
             status=status.HTTP_200_OK,
         )
-    
+
     @action(detail=True, methods=["delete"])
-    def deixar_de_seguir(self, request, pk=None):
+    def deixar_de_seguir_comunidade(self, request, pk=None):
         comunidade_seguida = self.get_object()
-        usuario_seguidor = Usuario.objects.all()
+        usuario_seguidor = request.user
 
-        usuario_seguidor.seguidores.remove(comunidade_seguida)
+        comunidade_seguida.seguidores.remove(usuario_seguidor)
+
         return Response(
-            {"message": f"Você deixou de seguir {comunidade_seguida.username}"},
+            {"message": f"Você deixou de seguir {comunidade_seguida.nome}"},
             status=status.HTTP_200_OK,
         )
-    
-    @action(detail=True, methods=["get"])
-    def verificar_seguimento(self, request, pk=None):
-        comunidade_seguida = self.get_object()
-        usuario_seguidor = Usuario.objects.all()
 
-        esta_seguindo = usuario_seguidor.seguidores.filter(id=comunidade_seguida.id).exists()
+    @action(detail=True, methods=["get"])
+    def verificar_seguimento_comunidade(self, request, pk=None):
+        comunidade = self.get_object()
+        usuario = request.user
+        esta_seguindo = comunidade.seguidores.filter(id=usuario.id).exists()
+        return Response({"esta_seguindo": esta_seguindo})
+
+    @action(detail=True, methods=["get"])
+    def contar_seguidores_comunidade(self, request, pk=None):
+        comunidade = self.get_object()
         return Response(
-            {
-                "esta_seguindo": esta_seguindo,
-                "seguidores": comunidade_seguida.seguido_por.count(),
-                "seguindo": comunidade_seguida.seguidores.count(),
-            },
-            status=status.HTTP_200_OK,
+            {"seguidores": comunidade.seguidores.count()}, status=status.HTTP_200_OK
         )

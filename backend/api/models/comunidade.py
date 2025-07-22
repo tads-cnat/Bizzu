@@ -21,8 +21,9 @@ class Comunidade(models.Model):
         "Usuario",
         symmetrical=False,
         verbose_name="seguidores",
-        related_name="seguidopor",
+        related_name="comunidades_que_sigo",
         blank=True,
     )
-    def __str__(self):
+
+    def str(self):
         return self.nome
