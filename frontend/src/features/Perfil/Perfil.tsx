@@ -24,6 +24,7 @@ const Perfil: React.FC = () => {
 		comunidades,
 		postagens,
 		repositorio,
+		usuario,
 		handleExcluir,
 		handleExcluirRepositorio,
 	} = useUser();
@@ -107,7 +108,7 @@ const Perfil: React.FC = () => {
 											repo.usuario && usuario && repo.usuario.id === usuario.id,
 									)
 									.map((repo: IRepositorio) => {
-										const tags = categoriasParaTags(repo.categorias);
+										const tags = tagsCategory(repo.categorias, categorias);
 										const comunidadeNome = getComunidadeNome(
 											repo.comunidade ?? null,
 										);

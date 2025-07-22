@@ -13,28 +13,20 @@ import BeeNotification from "../BeeNotification/BeeNotification";
 import getLocalStorage from "../../utils/getLocalStorage";
 
 export const BeeSidebar = ({onSelecionarSecao}: IBeeSidebarProps) => {
-	const [username, setUsername] = useState();
+	const username = getLocalStorage().username;
 	const [usuario, setUsuario] = useState<IBeeUser>();
 	const [comunidades, setComunidades] = useState<MenuItem[]>([]);
 
-	const fetchUser = async () => {
-		try {
-			const response = await UsuarioService.getbyUsername(
-				getLocalStorage().username,
-			);
-			setUsuario(response);
-		} catch (e) {
-			console.error("Não recebeu dados", e);
-		}
-	};
-
 	useEffect(() => {
-		if (getLocalStorage() != null) {
-			setUsername(getLocalStorage().username);
-			fetchUser();
-			console.log(getLocalStorage().username);
-		}
+		void UsuarioService.getbyUsername(username)
+			.then((response) => {
+				setUsuario(response);
+			})
+			.catch(() => {
+				console.log("Não recebeu dados");
+			});
 	}, []);
+
 	useEffect(() => {
 		void ComunidadeService.listAll()
 			.then((response) => {
