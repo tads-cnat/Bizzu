@@ -11,15 +11,15 @@ import BeeSelect from "../../../components/BeeSelect/BeeSelect";
 import BeeFiltroCategorias from "../../../components/BeeFiltroCategorias/BeeFiltroCategorias";
 import ComunidadeService from "../../../services/models/ComunidadeService";
 import CategoriaService from "../../../services/models/CategoriaService";
-import type {Categoria} from "../../../interfaces/Categoria";
-import type {ComunidadeSelect} from "../../../interfaces/Comunidade";
+import type {IComunidadeSelect} from "../../../interfaces/Comunidade";
 import {useNavigate} from "react-router-dom";
 import acessAuth from "../../../utils/acessAuth";
 import UsuarioService from "../../../services/models/UsuarioService";
 import {IBeeUser} from "../../../components/BeeHeaderProfile/IBeeUser";
 import {BeeRepoProps} from "../../../components/BeeRepo/IBeeRepo";
-import {RepositorioFormValues} from "../../../interfaces/Repositorio";
+import {IRepositorioFormValues} from "../../../interfaces/Repositorio";
 import RepositorioService from "../../../services/models/RepositorioService";
+import {IBeeCategoria} from "../../../interfaces/IBeeCategoria";
 
 // Schema de validação com Yup
 const schema = yup.object().shape({
@@ -46,8 +46,8 @@ export const FormRepositorio = ({
 	tipoForm,
 }: IFormRepositorio & {onSubmitCallback?: () => void}) => {
 	const [loading, setLoading] = useState(false);
-	const [comunidades, setComunidades] = useState<ComunidadeSelect[]>([]);
-	const [categorias, setCategorias] = useState<Categoria[]>([]);
+	const [comunidades, setComunidades] = useState<IComunidadeSelect[]>([]);
+	const [categorias, setCategorias] = useState<IBeeCategoria[]>([]);
 	const [loadingData, setLoadingData] = useState(false);
 	const [termoPesquisa, setTermoPesquisa] = useState("");
 
@@ -58,7 +58,7 @@ export const FormRepositorio = ({
 		setValue,
 		watch,
 		getValues,
-	} = useForm<RepositorioFormValues>({
+	} = useForm<IRepositorioFormValues>({
 		resolver: yupResolver(schema) as any,
 		defaultValues: {
 			titulo: "",
@@ -195,7 +195,7 @@ export const FormRepositorio = ({
 	);
 
 	const handleComunidadeChange = useCallback(
-		(value: ComunidadeSelect) => {
+		(value: IComunidadeSelect) => {
 			const currentValue = getValues("comunidade");
 			if (currentValue?.value !== value.value) {
 				setValue("comunidade", value.value ? value : undefined, {
@@ -211,7 +211,7 @@ export const FormRepositorio = ({
 	}, []);
 
 	const caminho = useNavigate();
-	const onSubmit: SubmitHandler<RepositorioFormValues> = async (data) => {
+	const onSubmit: SubmitHandler<IRepositorioFormValues> = async (data) => {
 		if (tipoForm == "criar") {
 			const dataSubmit = new FormData();
 			dataSubmit.append("titulo", data.titulo);

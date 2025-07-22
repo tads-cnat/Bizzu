@@ -7,16 +7,32 @@ import {
 	DialogBackdrop,
 	DialogPanel,
 	DialogTitle,
+	Menu,
+	MenuButton,
+	MenuItem,
+	MenuItems,
 } from "@headlessui/react";
-import {X, PaperPlaneRight} from "@phosphor-icons/react";
+import {
+	X,
+	PaperPlaneRight,
+	DotsThreeVertical,
+	// Warning,
+} from "@phosphor-icons/react";
+import {CloseOutlined} from "@ant-design/icons";
+
 import BeePost from "../BeePost/BeePost";
-import type {
-	Comentario,
-	ComentariosResponse,
-} from "../../interfaces/Comentario";
 import ComentarioService from "../../services/models/ComentarioService";
 import type {IBeeModalComentarios} from "./IBeeModalComentarios";
 import BeeFTPerfil from "../BeeFTPerfil/BeeFTPerfil";
+import BeeDenuncia from "../BeeDenuncia/BeeDenuncia";
+import BeeButton from "../BeeButtons/BeeButtons";
+import BeeAlert from "../BeeAlert/BeeAlert";
+import DenunciaService from "../../services/models/DenunciaService";
+import getLocalStorage from "../../utils/getLocalStorage";
+import {
+	IBeeComentario,
+	IBeeComentariosResponse,
+} from "../../interfaces/IBeeComentario";
 
 // Função para calcular tempo decorrido
 function tempoDesde(data: string): string {
@@ -40,7 +56,7 @@ const BeeModalComentarios: React.FC<IBeeModalComentarios> = ({
 	post,
 	onComentarioAdicionado,
 }) => {
-	const [comentarios, setComentarios] = useState<Comentario[]>([]);
+	const [comentarios, setComentarios] = useState<IBeeComentario[]>([]);
 	const [novoComentario, setNovoComentario] = useState("");
 	const [loading, setLoading] = useState(false);
 	const [enviandoComentario, setEnviandoComentario] = useState(false);
@@ -58,7 +74,7 @@ const BeeModalComentarios: React.FC<IBeeModalComentarios> = ({
 
 		setLoading(true);
 		try {
-			const response: ComentariosResponse =
+			const response: IBeeComentariosResponse =
 				await ComentarioService.getComentariosByPostagem(post.id);
 			setComentarios(response.comentarios);
 			setTotalComentarios(response.total);
@@ -100,6 +116,91 @@ const BeeModalComentarios: React.FC<IBeeModalComentarios> = ({
 			e.preventDefault();
 			enviarComentario();
 		}
+	};
+
+	// Aqui é onde tá o código de denúncia (Foi separado aqui pra ficar mais fácil de entender o código)
+	const usuarioLocal = getLocalStorage();
+	const [tipos, setTipos] = useState<[]>([]);
+	const [mostrarDenuncia, setMostrarDenuncia] = useState(false);
+	const [mostrarBotão, setMostrarBotão] = useState(true);
+	const [tipoSelecionado, setTipoSelecionado] = useState<string | null>(null);
+
+	// Função para setar os tipos de alerta
+	const [alertaDenuncia, setAlertaDenuncia] = useState<{
+		tipo: "success" | "error";
+		mensagem: string;
+	} | null>(null);
+
+	// Função que pega exatamente o comentário que está sendo denunciado e esse useEffect é para o BeeAlert
+	const [comentarioParaDenunciar, setComentarioParaDenunciar] =
+		useState<Comentario | null>(null);
+	useEffect(() => {
+		if (alertaDenuncia) {
+			const timer = setTimeout(() => {
+				setAlertaDenuncia(null);
+			}, 3000);
+			return () => clearTimeout(timer);
+		}
+	}, [alertaDenuncia]);
+
+	// Função que carrega os tipos de denúncia vindo la do modal de denuncias
+	const loadDenunciaType = async () => {
+		try {
+			const response = await DenunciaService.getTipos();
+			const data = response?.data;
+			if (Array.isArray(data)) {
+				setTipos(data);
+			} else {
+				console.warn(
+					"Resposta inesperada ao carregar tipos de denúncia:",
+					data,
+				);
+			}
+		} catch (error) {
+			console.error("Erro ao carregar tipos de denúncia:", error);
+		}
+	};
+
+	// Função responsável pro enviar a denúncia e chamar o modal de abrir, fechar e alert
+	const enviarDenuncia = async () => {
+		if (!comentarioParaDenunciar || !tipoSelecionado) {
+			setAlertaDenuncia({
+				tipo: "error",
+				mensagem: "Selecione um comentário e um tipo de denúncia.",
+			});
+			return;
+		}
+		try {
+			await DenunciaService.enviarDenuncia({
+				tipo: tipoSelecionado,
+				comentario: comentarioParaDenunciar.id,
+				postagem: post.id,
+			});
+			setAlertaDenuncia({
+				tipo: "success",
+				mensagem: "Denúncia enviada com sucesso.",
+			});
+			setMostrarDenuncia(false);
+			console.log("ID DO USUARIO", usuarioLocal.id);
+			console.log("ID DA POSTAGEM", post.id);
+		} catch (e) {
+			setAlertaDenuncia({
+				tipo: "error",
+				mensagem: "Erro ao enviar denúncia.",
+			});
+		}
+	};
+
+	// Função responsável por abrir o modal de denuncia
+	const handleAbrirDenuncia = (comentario: Comentario) => {
+		loadDenunciaType();
+		setComentarioParaDenunciar(comentario);
+		setMostrarDenuncia(true);
+	};
+
+	// Função responsável por fechar o modal de denuncia
+	const handleFecharDenuncia = () => {
+		setMostrarDenuncia(false);
 	};
 
 	return (
@@ -181,7 +282,7 @@ const BeeModalComentarios: React.FC<IBeeModalComentarios> = ({
 
 											{/* Conteúdo do comentário */}
 											<div className="flex-1 min-w-0">
-												<div className="bg-gray-100 rounded-2xl px-4 py-2">
+												<div className="relative bg-gray-100 rounded-2xl px-4 py-2">
 													<div className="flex items-center mb-1">
 														<span className="font-semibold text-sm text-[#333333]">
 															{comentario.usuario.nome}
@@ -189,6 +290,45 @@ const BeeModalComentarios: React.FC<IBeeModalComentarios> = ({
 														<span className="text-xs text-gray-500">
 															@{comentario.usuario.username}
 														</span>
+														<Menu
+															as="div"
+															className="absolute top-2 right-2 z-10"
+														>
+															{mostrarBotão &&
+																usuarioLocal &&
+																comentario.usuario?.username?.toLowerCase() !==
+																	usuarioLocal?.username?.toLowerCase() && (
+																	<div>
+																		<MenuButton className="p-0 m-0 bg-transparent rounded-none shadow-none ring-0 hover:bg-transparent">
+																			<DotsThreeVertical
+																				size={24}
+																				className="text-gray-500 rounded-full cursor-pointer"
+																			/>
+																		</MenuButton>
+																	</div>
+																)}
+
+															<MenuItems
+																transition
+																className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 transition focus:outline-none data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
+															>
+																<div className="py-1">
+																	<MenuItem
+																		onClick={() =>
+																			handleAbrirDenuncia(comentario)
+																		}
+																	>
+																		<a
+																			href="#"
+																			className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+																		>
+																			Denunciar comentário de{" "}
+																			{comentario.usuario.username}
+																		</a>
+																	</MenuItem>
+																</div>
+															</MenuItems>
+														</Menu>
 													</div>
 													<p className="text-sm text-[#333333] break-words">
 														{comentario.conteudo}
@@ -205,6 +345,46 @@ const BeeModalComentarios: React.FC<IBeeModalComentarios> = ({
 								)}
 							</div>
 						</div>
+
+						{alertaDenuncia && (
+							<div className="absolute top-5 left-1/2 transform -translate-x-1/2 z-50 transition-all duration-500 ease-out opacity-100 translate-y-0">
+								<BeeAlert
+									typeAlert={alertaDenuncia.tipo}
+									messageAlert={alertaDenuncia.mensagem}
+								/>
+							</div>
+						)}
+						{mostrarDenuncia &&
+							comentarioParaDenunciar?.usuario?.username?.toLowerCase() !==
+								usuarioLocal?.username?.toLowerCase() && (
+								<div className="absolute top-0 left-0 w-full h-full  bg-opacity-40 flex justify-center items-center z-50">
+									<div className="bg-white p-4 rounded-md w-[400px] max-w-full shadow-lg relative">
+										<button
+											onClick={handleFecharDenuncia}
+											className="absolute top-2 right-2 text-gray-600 hover:text-red-600"
+										>
+											<CloseOutlined />
+										</button>
+
+										<BeeDenuncia
+											tipos={tipos}
+											onTipoSelecionado={setTipoSelecionado}
+										/>
+										<div className="mt-4 flex justify-end gap-2">
+											<BeeButton
+												onClick={handleFecharDenuncia}
+												label="Cancelar"
+												variante="neutro"
+											/>
+											<BeeButton
+												onClick={enviarDenuncia}
+												label="Enviar denuncia"
+												variante="primaria"
+											/>
+										</div>
+									</div>
+								</div>
+							)}
 
 						{/* Campo para novo comentário */}
 						<div className="border-t border-gray-200 p-4">

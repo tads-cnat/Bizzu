@@ -14,7 +14,7 @@ class RepositorioViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
-        instance = serializer.save()
+        instance = serializer.save(usuario=self.request.user)
         arquivos = self.request.FILES.getlist("arquivos[]")
         for arquivo in arquivos:
             Arquivo.objects.create(repositorio=instance, arquivo=arquivo)
