@@ -219,7 +219,7 @@ const Perfil: React.FC = () => {
 												tags={tags}
 												curtidas={post.curtidas || 0}
 												comentarios={post.comentarios || 0}
-												usuario={post.usuario}
+												usuario={post.usuario ? post.usuario : ""}
 												dataPublicacao={post.dataPublicacao}
 												imagemPost={post.imagem}
 												onCurtir={() => handleCurtir(post.id)}

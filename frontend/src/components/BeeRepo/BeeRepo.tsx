@@ -277,30 +277,35 @@ const BeeRepo: React.FC<iBeeRepoProps> = ({
 
 			{/* Modal de Denúncia */}
 			{mostrarDenuncia && (
-				<div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-40 flex justify-center items-center z-50">
-					<div className="bg-white p-4 rounded-md w-[400px] max-w-full shadow-lg relative">
+				<div className="absolute inset-0 flex justify-center items-center z-[9999] pointer-events-none">
+					<div className="bg-white p-6 rounded-lg w-[400px] max-w-full shadow-2xl relative animate-fade-in pointer-events-auto">
 						<button
 							onClick={handleFecharDenuncia}
-							className="absolute top-2 right-2 text-gray-600 hover:text-red-600"
+							className="absolute top-2 right-2 text-gray-600 hover:text-red-600 cursor-pointer transition-colors"
+							type="button"
+							aria-label="Fechar"
 						>
 							<CloseOutlined />
 						</button>
-
 						<BeeDenuncia
 							tipos={tipos}
 							onTipoSelecionado={setTipoSelecionado}
 						/>
 						<div className="mt-4 flex justify-end gap-2">
-							<BeeButton
+							<button
 								onClick={handleFecharDenuncia}
-								label="Cancelar"
-								variante="neutro"
-							/>
-							<BeeButton
+								className="px-4 py-2 rounded bg-gray-200 hover:bg-gray-300 text-gray-700 cursor-pointer transition-colors"
+								type="button"
+							>
+								Cancelar
+							</button>
+							<button
 								onClick={enviarDenuncia}
-								label="Enviar denuncia"
-								variante="primaria"
-							/>
+								className="px-4 py-2 rounded bg-[#FCBD18] hover:bg-yellow-400 text-white font-bold cursor-pointer transition-colors"
+								type="button"
+							>
+								Enviar denúncia
+							</button>
 						</div>
 					</div>
 				</div>
@@ -308,7 +313,7 @@ const BeeRepo: React.FC<iBeeRepoProps> = ({
 
 			{/* Alerta de Denúncia */}
 			{alertaDenuncia && (
-				<div className="absolute top-5 left-1/2 transform -translate-x-1/2 z-50 transition-all duration-500 ease-out opacity-100 translate-y-0">
+				<div className="fixed top-8 left-1/2 transform -translate-x-1/2 z-[10000] transition-all duration-500 ease-out opacity-100 translate-y-0">
 					<BeeAlert
 						typeAlert={alertaDenuncia.tipo}
 						messageAlert={alertaDenuncia.mensagem}
