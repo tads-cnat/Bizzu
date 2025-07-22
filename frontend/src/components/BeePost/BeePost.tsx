@@ -269,7 +269,7 @@ const BeePost: React.FC<BeePostProps> = ({
 					</button>
 				</div>
 				{tags && tags.length > 0 && (
-					<div className="flex gap-1 flex-wrap">
+					<div className="flex gap-1 flex-wrap justify-end">
 						{tags.map((tag, index) => (
 							<BeeTags
 								key={index}
