@@ -96,34 +96,42 @@ const Perfil: React.FC = () => {
 								image={Empty.PRESENTED_IMAGE_SIMPLE}
 							/>
 						)}
-						{repositorio.length > 0 ? (
+						{repositorio.filter(
+							(repo: IRepositorio) =>
+								repo.usuario && usuario && repo.usuario.id === usuario.id,
+						).length > 0 ? (
 							<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-								{repositorio.map((repo: IRepositorio) => {
-									const tags = tagsCategory(repo.categorias, categorias);
-									const comunidadeNome = getComunidadeNome(
-										repo.comunidade ?? null,
-									);
+								{repositorio
+									.filter(
+										(repo: IRepositorio) =>
+											repo.usuario && usuario && repo.usuario.id === usuario.id,
+									)
+									.map((repo: IRepositorio) => {
+										const tags = categoriasParaTags(repo.categorias);
+										const comunidadeNome = getComunidadeNome(
+											repo.comunidade ?? null,
+										);
 
-									return (
-										<>
-											<BeeRepo
-												id={repo.id}
-												descricao={repo.descricao}
-												dataPublicacao={repo.dataPublicacao}
-												usuario={repo.usuario}
-												titulo={repo.titulo}
-												tags={tags}
-												comunidade={comunidadeNome}
-												imagemRepo={repo.imagem}
-												onExcluir={handleExcluirRepositorio}
-											/>
-										</>
-									);
-								})}
+										return (
+											<>
+												<BeeRepo
+													id={repo.id}
+													descricao={repo.descricao}
+													dataPublicacao={repo.dataPublicacao}
+													usuario={repo.usuario}
+													titulo={repo.titulo}
+													tags={tags}
+													comunidade={comunidadeNome}
+													imagemRepo={repo.imagem}
+													onExcluir={handleExcluirRepositorio}
+												/>
+											</>
+										);
+									})}
 							</div>
 						) : (
 							<Empty
-								description="Não há reositórios"
+								description="Não há repositórios"
 								image={Empty.PRESENTED_IMAGE_SIMPLE}
 							/>
 						)}

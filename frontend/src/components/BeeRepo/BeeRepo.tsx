@@ -76,19 +76,21 @@ const BeeRepo: React.FC<iBeeRepoProps> = ({
 		setShowMenu(!showMenu);
 	};
 
+	const handleClickRepositorio = (e: React.MouseEvent) => {
+		if (deleteConfirmation) {
+			e.stopPropagation();
+			return;
+		}
+		if (id) {
+			navigate(`/repositorio/${id}`);
+		}
+	};
+
 	return (
 		<div
 			className="bg-[#F7F7FA] shadow-md rounded-xl p-3 mb-2 relative w-full flex flex-col gap-1 border border-[#F2F2F7] transition-all duration-200 hover:shadow-xl hover:-translate-y-1"
 			style={{maxWidth: 320}}
-			onClick={(e) => {
-				if (
-					(e.target as HTMLElement).closest(".repo-header, .repo-tag") ||
-					showMenu ||
-					deleteConfirmation
-				) {
-					return;
-				}
-			}}
+			onClick={(e) => handleClickRepositorio(e)}
 		>
 			{/* Modal de confirmação de exclusão */}
 			{deleteConfirmation && (
@@ -104,7 +106,10 @@ const BeeRepo: React.FC<iBeeRepoProps> = ({
 				{usuario && isOwner ? (
 					<>
 						<button
-							onClick={toggleMenu}
+							onClick={(e) => {
+								e.stopPropagation();
+								toggleMenu(e);
+							}}
 							className="text-gray-600 hover:text-gray-800 cursor-pointer hover:bg-gray-100 rounded-full p-1 transition duration-200 ease-in-out"
 							type="button"
 						>
@@ -117,7 +122,10 @@ const BeeRepo: React.FC<iBeeRepoProps> = ({
 							<div className="absolute right-0 mt-2 w-36 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 z-20">
 								<div className="py-0.5">
 									<button
-										onClick={handleEditarClick}
+										onClick={(e) => {
+											e.stopPropagation();
+											handleEditarClick();
+										}}
 										className="flex items-center w-full px-3 py-1.5 text-xs text-gray-700 hover:bg-gray-100 transition duration-200"
 										type="button"
 									>
@@ -128,7 +136,10 @@ const BeeRepo: React.FC<iBeeRepoProps> = ({
 										Editar
 									</button>
 									<button
-										onClick={handleExcluirClick}
+										onClick={(e) => {
+											e.stopPropagation();
+											handleExcluirClick();
+										}}
 										className="flex items-center w-full px-3 py-1.5 text-xs text-red-600 hover:bg-red-50 transition duration-200"
 										type="button"
 									>

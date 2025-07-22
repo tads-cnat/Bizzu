@@ -1,19 +1,33 @@
-import React from "react";
+"use client"
 
-import BeeHeader from "../../components/BeeHeader/BeeHeader";
-import {BeeSidebar} from "../../components/BeeSidebar/BeeSidebar";
-import BeeRepo from "../../components/BeeRepo/BeeRepo";
-import {IRepositorio, ITag} from "../../interfaces/Repositorio";
-import RepositorioService from "../../services/models/RepositorioService";
-import CategoriaService from "../../services/models/CategoriaService";
-import PostagemService from "../../services/models/PostagemService";
-import BeePost from "../../components/BeePost/BeePost";
-import {BeePostProps} from "../../components/BeePost/IBeePost";
-import {useEffect, useState} from "react";
-import {Empty} from "antd";
-import getLocalStorage from "../../utils/getLocalStorage";
-import IBeeTags from "../../components/BeeTags/IBeeTags";
-import {IBeeCategoria} from "../../interfaces/IBeeCategoria";
+import type React from "react"
+
+import BeeHeader from "../../components/BeeHeader/BeeHeader"
+import { BeeSidebar } from "../../components/BeeSidebar/BeeSidebar"
+import BeeRepo from "../../components/BeeRepo/BeeRepo"
+import type { Repositorio, Tag } from "../../interfaces/Repositorio"
+import RepositorioService from "../../services/models/RepositorioService"
+import CategoriaService from "../../services/models/CategoriaService"
+import type { Categoria } from "../../interfaces/Categoria"
+import PostagemService from "../../services/models/PostagemService"
+import BeePost from "../../components/BeePost/BeePost"
+import type { BeePostProps } from "../../components/BeePost/IBeePost"
+import { useEffect, useState } from "react"
+import { Empty } from "antd"
+import getLocalStorage from "../../utils/getLocalStorage"
+import type IBeeTags from "../../components/BeeTags/IBeeTags"
+import BeeModalFiltros from "../../components/BeeModalFiltros/BeeModalFiltros"
+import type { FiltrosPostagem } from "../../components/BeeModalFiltros/IBeeModalFiltros"
+import { Funnel } from "@phosphor-icons/react"
+
+interface Usuario {
+  username: string
+}
+
+interface BeePostPropsExtended extends BeePostProps {
+  categorias?: number[]
+}
+
 const LayoutFeed: React.FC = () => {
 	const [usuario, setUsuario] = useState<any>();
 	const [repositorios, setRepositorios] = useState<IRepositorio[]>([]);
