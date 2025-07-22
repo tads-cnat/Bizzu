@@ -49,23 +49,23 @@ export const BeeSidebar = ({onSelecionarSecao}: IBeeSidebarProps) => {
 	const items: MenuItem[] = [
 		{
 			key: "1",
-			icon: <House />,
+			icon: <House size={20} />,
 			label: "Página inicial",
 		},
 		{
 			key: "2",
-			icon: <User />,
+			icon: <User size={20} />,
 			label: "Você segue",
 		},
 		{
 			key: "3",
 			label: "Comunidades",
-			icon: <Globe />,
+			icon: <Globe size={20} />,
 			children: comunidades,
 		},
 	];
 	return (
-		<div className="h-screen w-1/3 shadow-2xs border border-gray-200">
+		<div className="h-screen w-fill">
 			<div className="flex items-center gap-2 mt-4 ml-5 bg-transparent ">
 				{usuario && username ? (
 					<div className="flex items-center gap-2">
@@ -76,14 +76,14 @@ export const BeeSidebar = ({onSelecionarSecao}: IBeeSidebarProps) => {
 									: "http://localhost:8000/imgPostagens/usuarios/2025/06/10/sem_imagem_avatar.png"
 							}
 							alt={username}
-							className="w-8 h-8 object-cover"
+							className="w-10 h-10 object-cover"
 							style={{
 								clipPath:
 									"polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0% 50%)",
 							}}
 						/>
 						<div className="leading-tight">
-							<p className="font-semibold text-sm text-black ">{username}</p>
+							<p className="font-semibold text-md text-black ">{username}</p>
 							<p className="text-xs text-zinc-500">
 								<Link to={`/${username}/`}>Ver perfil</Link>
 							</p>
@@ -104,7 +104,7 @@ export const BeeSidebar = ({onSelecionarSecao}: IBeeSidebarProps) => {
 					</div>
 				)}
 			</div>
-			<Divider />
+			<Divider className="mt-400" />
 			{username === undefined ? (
 				<BeeNotification
 					type="warning"

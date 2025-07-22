@@ -141,7 +141,7 @@ const LayoutFeed: React.FC = () => {
 	return (
 		<>
 			<BeeHeader />
-			<div className="flex flex-col flex-1 items-start w-200 mt-20">
+			<div className="fixed top-[80px] w-1/5 min-h-screen shadow-md flex flex-col justify-start rounded-xl bg-white z-40 overflow-y-auto">
 				<BeeSidebar onSelecionarSecao={handleSelecionarSecao} />
 				<div className="fixed top-[80px] left-1/5 w-200 h-[calc(100vh-80px)] flex-1 flex flex-col px-3 py-4 rounded-xl z-40 overflow-y-auto justify-start items-center">
 					<div className="w-full max-w-[500px] px-4 flex flex-col">
@@ -279,7 +279,7 @@ const LayoutFeed: React.FC = () => {
 						)}
 					</div>
 				</div>
-				<aside className="fixed top-[80px] right-4 bottom-0 w-1/4 shadow-md flex flex-col justify-start px-3 py-4 rounded-xl bg-white z-40 overflow-y-auto scrollbar-hide">
+				<aside className="fixed top-[80px] right-2 bottom-0 w-1/4 shadow-md flex flex-col justify-start rounded-xl bg-white z-40 overflow-y-auto scrollbar-hide">
 					<h2 className="text-xl font-extrabold text-yellow-500 tracking-wide mb-2 transition-all duration-700 ease-in transform hover:scale-[1.03]">
 						Repositórios
 					</h2>
