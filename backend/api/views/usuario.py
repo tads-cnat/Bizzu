@@ -96,7 +96,8 @@ class UsuarioViewSet(viewsets.ModelViewSet):
             {
                 "esta_seguindo": esta_seguindo,
                 "seguidores": usuario_seguido.seguido_por.count(),
-                "seguindo": usuario_seguido.segue.count(),
+                "seguindo": usuario_seguido.segue.count()
+                + usuario_seguido.comunidades_que_sigo.count(),
             },
             status=status.HTTP_200_OK,
         )
