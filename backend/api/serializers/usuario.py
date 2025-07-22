@@ -1,6 +1,6 @@
 from django.forms import ImageField
 from rest_framework import serializers
-from ..models import Usuario
+from ..models import Usuario, Solicitacao
 
 
 class UsuarioSerializer(serializers.ModelSerializer):
@@ -27,3 +27,18 @@ class UsuarioProfileSerializer(serializers.ModelSerializer):
         usuario.is_active = True
         usuario.save()
         return usuario
+
+
+class PesquisaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Usuario
+        fields = [
+            "imagemPerfil",
+            "username",
+        ]
+
+
+class SolicitacaoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Solicitacao
+        fields = ["descricao", "solicitante"]

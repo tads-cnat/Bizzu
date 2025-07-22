@@ -9,11 +9,16 @@ import {TrashSimple, File} from "@phosphor-icons/react";
 import {BeeButton} from "../BeeButtons/BeeButtons";
 import {IBeeModal} from "./IBeeModal";
 import {BeeButtonVariantes} from "../BeeButtons/IBeeButtons";
-//import BeeAlert from "../BeeAlert/BeeAlert";
 
-const BeeModal = ({label, text, type, onExcluir, id}: IBeeModal) => {
-	const [open, setOpen] = useState(true);
-	//const [showAlert, setShowAlert] = useState(false);
+const BeeModal = ({
+	label,
+	text,
+	type,
+	onExcluir,
+	id,
+	openDefault = true,
+}: IBeeModal) => {
+	const [open, setOpen] = useState(openDefault);
 	const [buttonType, setbuttonType] = useState<BeeButtonVariantes>("negativo");
 	const [stateIcon, setStateIcon] = useState(
 		<TrashSimple
@@ -24,15 +29,8 @@ const BeeModal = ({label, text, type, onExcluir, id}: IBeeModal) => {
 	);
 	const [labelButton, setLabelButton] = useState("Descartar");
 	const handleExcluirClick = () => {
-		console.log("clicando no botão de descartar");
-		console.log("ID recebido:", id);
 		if (onExcluir && id) {
 			onExcluir(id);
-			//<BeeAlert
-			//	typeAlert="success"
-			//	messageAlert="Sua postagem foi deletado com sucesso."
-			///>;
-			//setShowAlert(true);
 		}
 		setOpen(false);
 	};

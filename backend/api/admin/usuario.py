@@ -1,5 +1,5 @@
 from django.contrib import admin
-from ..models.usuario import Usuario
+from ..models.usuario import Usuario, Solicitacao
 
 
 class UsuarioAdmin(admin.ModelAdmin):
@@ -7,3 +7,4 @@ class UsuarioAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Usuario, UsuarioAdmin)
+admin.site.register(Solicitacao, UsuarioAdmin)

@@ -3,20 +3,21 @@ import React from "react";
 import BeeHeader from "../../components/BeeHeader/BeeHeader";
 import {BeeSidebar} from "../../components/BeeSidebar/BeeSidebar";
 import BeeRepo from "../../components/BeeRepo/BeeRepo";
-import {Repositorio, Tag} from "../../interfaces/Repositorio";
+import {IRepositorio, ITag} from "../../interfaces/Repositorio";
 import RepositorioService from "../../services/models/RepositorioService";
 import CategoriaService from "../../services/models/CategoriaService";
-import type {Categoria} from "../../interfaces/Categoria";
 import PostagemService from "../../services/models/PostagemService";
 import BeePost from "../../components/BeePost/BeePost";
 import {BeePostProps} from "../../components/BeePost/IBeePost";
 import {useEffect, useState} from "react";
 import {Empty} from "antd";
 import getLocalStorage from "../../utils/getLocalStorage";
+import IBeeTags from "../../components/BeeTags/IBeeTags";
+import {IBeeCategoria} from "../../interfaces/IBeeCategoria";
 const LayoutFeed: React.FC = () => {
 	const [usuario, setUsuario] = useState<any>();
-	const [repositorios, setRepositorios] = useState<Repositorio[]>([]);
-	const [categorias, setCategorias] = useState<Categoria[]>([]);
+	const [repositorios, setRepositorios] = useState<IRepositorio[]>([]);
+	const [categorias, setCategorias] = useState<IBeeCategoria[]>([]);
 	const [postagensComunidade, setPostagensComunidade] = useState<
 		BeePostProps[]
 	>([]);
@@ -72,8 +73,6 @@ const LayoutFeed: React.FC = () => {
 	const carregarPostDefault = async () => {
 		try {
 			const response = await PostagemService.listAll();
-			console.log(response);
-
 			setAllPost(response.data || []);
 		} catch (error) {
 			console.error("Erro ao carregar todas as postagens:", error);
@@ -86,12 +85,12 @@ const LayoutFeed: React.FC = () => {
 			setRepositorios((prev) => prev.filter((repo) => repo.id !== id));
 		} catch (error) {
 			console.error("Erro ao excluir repositório:", error);
-			alert("Erro ao excluir repositório. Tente novamente.");
+			// alert removido conforme solicitado
 		}
 	};
 
 	// Função para converter categorias em tags
-	const categoriasParaTags = (categoriasIds: number[]): Tag[] => {
+	const categoriasParaTags = (categoriasIds: number[]): ITag[] => {
 		if (!categoriasIds || categoriasIds.length === 0) return [];
 
 		const coresPorTipo: Record<"tec" | "mat" | "per", string> = {
@@ -102,7 +101,7 @@ const LayoutFeed: React.FC = () => {
 
 		const defaultColor = "#6FCF97";
 
-		const tagsValidas: Tag[] = [];
+		const tagsValidas: ITag[] = [];
 
 		for (const categoriaId of categoriasIds) {
 			const categoria = categorias.find((c) => c.id === categoriaId);
@@ -133,7 +132,6 @@ const LayoutFeed: React.FC = () => {
 			carregarCategorias();
 			carregarPostagemSeguidores();
 		}
-		console.log(categorias);
 	}, []);
 
 	const handleSelecionarSecao = (secao: string) => {
@@ -154,7 +152,19 @@ const LayoutFeed: React.FC = () => {
 										{postagensComunidade.length > 0 ? (
 											<div>
 												{postagensComunidade.map((post) => {
-													const tags: any = categoriasParaTags(post.categorias);
+													const tags = categoriasParaTags(
+														(post as any).categorias ?? [],
+													) as IBeeTags[];
+													let usuarioUsername = "";
+													if (
+														post.usuario &&
+														typeof post.usuario === "object" &&
+														post.usuario !== null &&
+														"username" in post.usuario &&
+														typeof post.usuario.username === "string"
+													) {
+														usuarioUsername = post.usuario.username;
+													}
 													return (
 														<BeePost
 															key={post.id}
@@ -163,9 +173,9 @@ const LayoutFeed: React.FC = () => {
 															tags={tags}
 															curtidas={post.curtidas || 0}
 															comentarios={post.comentarios || 0}
-															usuario={post.usuario}
+															usuario={usuarioUsername}
 															dataPublicacao={post.dataPublicacao}
-															imagemPost={post.imagem}
+															imagemPost={(post as any).imagem ?? undefined}
 															onCurtir={() => post.id}
 															onAbrirComentarios={() => post.id}
 															onExcluir={() => {}}
@@ -185,7 +195,19 @@ const LayoutFeed: React.FC = () => {
 										{postagensSeguidores.length > 0 ? (
 											<div>
 												{postagensSeguidores.map((post) => {
-													const tags: any = categoriasParaTags(post.categorias);
+													const tags = categoriasParaTags(
+														(post as any).categorias ?? [],
+													) as IBeeTags[];
+													let usuarioUsername = "";
+													if (
+														post.usuario &&
+														typeof post.usuario === "object" &&
+														post.usuario !== null &&
+														"username" in post.usuario &&
+														typeof post.usuario.username === "string"
+													) {
+														usuarioUsername = post.usuario.username;
+													}
 													return (
 														<BeePost
 															id={post.id}
@@ -193,9 +215,9 @@ const LayoutFeed: React.FC = () => {
 															tags={tags}
 															curtidas={post.curtidas || 0}
 															comentarios={post.comentarios || 0}
-															usuario={post.usuario}
+															usuario={usuarioUsername}
 															dataPublicacao={post.dataPublicacao}
-															imagemPost={post.imagem}
+															imagemPost={(post as any).imagem ?? undefined}
 															onCurtir={() => post.id}
 															onAbrirComentarios={() => post.id}
 															onExcluir={() => {}}
@@ -217,7 +239,19 @@ const LayoutFeed: React.FC = () => {
 								{allPost.length > 0 ? (
 									<div>
 										{allPost.map((post) => {
-											const tags: any = categoriasParaTags(post.categorias);
+											const tags = categoriasParaTags(
+												(post as any).categorias ?? [],
+											) as IBeeTags[];
+											let usuarioUsername = "";
+											if (
+												post.usuario &&
+												typeof post.usuario === "object" &&
+												post.usuario !== null &&
+												"username" in post.usuario &&
+												typeof post.usuario.username === "string"
+											) {
+												usuarioUsername = post.usuario.username;
+											}
 											return (
 												<BeePost
 													id={post.id}
@@ -225,9 +259,9 @@ const LayoutFeed: React.FC = () => {
 													tags={tags}
 													curtidas={post.curtidas || 0}
 													comentarios={post.comentarios || 0}
-													usuario={post.usuario}
+													usuario={usuarioUsername}
 													dataPublicacao={post.dataPublicacao}
-													imagemPost={post.imagem}
+													imagemPost={(post as any).imagem ?? undefined}
 													onCurtir={() => post.id}
 													onAbrirComentarios={() => post.id}
 													onExcluir={() => {}}
@@ -245,8 +279,11 @@ const LayoutFeed: React.FC = () => {
 						)}
 					</div>
 				</div>
-				<aside className="fixed top-[80px] right-4 w-1/4 min-h-screen shadow-md flex flex-col justify-start px-3 py-4 rounded-xl bg-white z-40 overflow-y-auto gap-4">
-					<h2 className="text-lg font-bold mb-2">Repositórios</h2>
+				<aside className="fixed top-[80px] right-4 bottom-0 w-1/4 shadow-md flex flex-col justify-start px-3 py-4 rounded-xl bg-white z-40 overflow-y-auto scrollbar-hide">
+					<h2 className="text-xl font-extrabold text-yellow-500 tracking-wide mb-2 transition-all duration-700 ease-in transform hover:scale-[1.03]">
+						Repositórios
+					</h2>
+
 					{repositorios.length === 0 && (
 						<Empty
 							image={Empty.PRESENTED_IMAGE_SIMPLE}

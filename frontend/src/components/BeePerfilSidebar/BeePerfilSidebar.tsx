@@ -5,14 +5,22 @@ import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import {PencilSimple, GraduationCap, Gear} from "@phosphor-icons/react";
 import UsuarioService from "../../services/models/UsuarioService";
-import type {IBeeUser} from "../BeeHeaderProfile/IBeeUser";
 import acessPermissions from "../../utils/acessPermissions";
+import {UserSwitch} from "@phosphor-icons/react/dist/ssr";
+import {IBeeUser} from "../../features/Perfil/components/BeeHeaderProfile/IBeeUser";
+import getLocalStorage from "../../utils/getLocalStorage";
+import FormPapel from "./Forms/FormPapel";
 
 const BeePerfilSidebar: React.FC = () => {
 	const {username} = useParams();
 	const {permissions} = acessPermissions();
 	const [usuario, setUsuario] = useState<IBeeUser | null>(null);
 	const [loading, setLoading] = useState(true);
+	const [papel, setPapel] = useState();
+	const [key, setKey] = useState<number>(0);
+	const [abrirModal, setModal] = useState<Boolean>(false);
+	if (getLocalStorage() != null && papel == undefined)
+		setPapel(getLocalStorage().papel);
 
 	useEffect(() => {
 		const carregarUsuario = async () => {
@@ -117,10 +125,15 @@ const BeePerfilSidebar: React.FC = () => {
 		},
 	];
 
+	const modal = () => {
+		if (!abrirModal) return null;
+		return <FormPapel key={key} />;
+	};
+
 	return (
 		<div className="space-y-4">
 			{/* Card de Perfil Resumo */}
-			<div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+			<div className="bg-white shadow-2xs border border-gray-200 overflow-hidden">
 				<div
 					className="h-24 bg-gradient-to-r from-orange-300 via-orange-400 to-yellow-400"
 					style={{
@@ -225,9 +238,36 @@ const BeePerfilSidebar: React.FC = () => {
 								</button>
 							</div>
 						))}
+						{papel == "int" && (
+							<div className="flex items-center justify-between">
+								<div className="flex-1">
+									<h4 className="font-medium text-[#333333] font-poppins text-sm">
+										Solicitar mudança
+									</h4>
+									<p className="text-xs text-[#666666] font-poppins">
+										Faça uma solicitação para se tornar um moderador do sistema
+									</p>
+								</div>
+
+								<button
+									onClick={() => {
+										setModal(true);
+										setKey((prev) => prev + 1);
+									}}
+									className="flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-[#058B92] hover:bg-gray-50 rounded-md transition-colors"
+								>
+									<UserSwitch
+										size={12}
+										weight="regular"
+									/>
+									Se torne moderador
+								</button>
+							</div>
+						)}
 					</div>
 				</div>
 			)}
+			{modal()}
 		</div>
 	);
 };

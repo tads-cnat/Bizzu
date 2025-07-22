@@ -33,7 +33,7 @@ export const privatesRoutes = [
 				element: <CreateRepositorio />,
 			},
 			{
-				path: "repositorio/editar/",
+				path: "repositorio/editar/:id",
 				element: <EditRepositorio />,
 			},
 			{
