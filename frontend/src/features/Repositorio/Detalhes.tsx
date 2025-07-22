@@ -243,7 +243,7 @@ const DetalhesRepositorio: React.FC = () => {
 				descricao={repositorio.descricao}
 				usuario={repositorio.usuario ?? null}
 				dataPublicacao={repositorio.dataPublicacao}
-				tags={tags.map((tag) => tag.label)}
+				tags={tags}
 				arquivos={arquivos}
 				imagem={repositorio.imagem}
 			/>

@@ -5,6 +5,8 @@ import {File, Download, Calendar, Tag as TagIcon} from "@phosphor-icons/react";
 import type {IBeeTabelaRepositorio, FileItem} from "./IBeeTabelaRepositorio";
 import BeeTags from "../BeeTags/BeeTags";
 import BeeFTPerfil from "../BeeFTPerfil/BeeFTPerfil";
+import BeeButton from "../BeeButtons/BeeButtons";
+import {Star} from "@phosphor-icons/react";
 
 // Função para calcular tempo decorrido
 function tempoDesde(data: string): string {
@@ -45,39 +47,23 @@ function getFileColor(extension: string): string {
 	return colorMap[extension] || colorMap.default;
 }
 
-// Função para processar tags do backend
-function processarTags(tags: string[]): {
-	label: string;
-	color: "magenta" | "orange" | "cyan";
-	tipo: "tec" | "mat" | "per";
-}[] {
-	return tags.map((tag) => {
-		// Lógica simples para determinar tipo e cor baseado no conteúdo da tag
-		let tipo: "tec" | "mat" | "per" = "tec";
-		let color: "magenta" | "orange" | "cyan" = "magenta";
+// Função para processar tags igual ao BeePost
+function categoriasParaTags(
+	tags: any[],
+): {label: string; color: string; tipo: string}[] {
+	if (!tags || tags.length === 0) return [];
 
-		if (
-			tag.toLowerCase().includes("matemática") ||
-			tag.toLowerCase().includes("cálculo")
-		) {
-			tipo = "mat";
-			color = "orange";
-		} else if (
-			tag.toLowerCase().includes("pesquisa") ||
-			tag.toLowerCase().includes("projeto")
-		) {
-			tipo = "per";
-			color = "cyan";
-		} else {
-			color = "magenta";
-		}
+	const coresPorTipo: Record<string, string> = {
+		tec: "magenta",
+		mat: "orange",
+		per: "cyan",
+	};
 
-		return {
-			label: tag,
-			color,
-			tipo,
-		};
-	});
+	return tags.map((tag) => ({
+		label: tag.label || tag.nome || tag,
+		color: coresPorTipo[tag.tipo] || "magenta",
+		tipo: tag.tipo || "tec",
+	}));
 }
 
 const BeeTabelaRepositorio: React.FC<IBeeTabelaRepositorio> = ({
@@ -86,7 +72,7 @@ const BeeTabelaRepositorio: React.FC<IBeeTabelaRepositorio> = ({
 	descricao,
 	usuario,
 	dataPublicacao,
-	tags,
+	tags = [],
 	arquivos,
 	imagem,
 }) => {
@@ -116,7 +102,7 @@ const BeeTabelaRepositorio: React.FC<IBeeTabelaRepositorio> = ({
 		}
 	};
 
-	const tagsProcessadas = processarTags(tags);
+	const tagsPadronizadas = categoriasParaTags(tags);
 
 	return (
 		<div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
@@ -155,7 +141,7 @@ const BeeTabelaRepositorio: React.FC<IBeeTabelaRepositorio> = ({
 				</div>
 
 				{/* Tags */}
-				{tags && tags.length > 0 && (
+				{tagsPadronizadas.length > 0 && (
 					<div className="mt-4">
 						<div className="flex items-center gap-2 mb-2">
 							<TagIcon
@@ -165,13 +151,17 @@ const BeeTabelaRepositorio: React.FC<IBeeTabelaRepositorio> = ({
 							<span className="text-sm font-medium text-gray-700">Tags:</span>
 						</div>
 						<div className="flex flex-wrap gap-2">
-							{tagsProcessadas.map((tag, index) => (
-								<BeeTags
-									key={index}
-									label={tag.label}
-									color={tag.color}
-								/>
-							))}
+						{tags && tags.length > 0 && (
+							<div className="flex gap-1 flex-wrap">
+								{tagsPadronizadas.map((tag, index) => (
+									<BeeTags
+										key={index}
+										label={tag.label}
+										color={tag.color}
+									/>
+								))}
+							</div>
+						)}
 						</div>
 					</div>
 				)}
@@ -252,6 +242,17 @@ const BeeTabelaRepositorio: React.FC<IBeeTabelaRepositorio> = ({
 							<TagIcon size={14} />
 							{tags.length} {tags.length === 1 ? "tag" : "tags"}
 						</span>
+						<div className="pl-30">
+							<BeeButton
+								label="Favoritar"
+								icone={<Star size={16} />}
+								variante="aviso"
+								desabilitado={false}
+								onClick={() => {
+									alert("Implementar o favoritar");
+								}}
+							/>
+						</div>
 					</div>
 				</div>
 			</div>
