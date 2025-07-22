@@ -159,7 +159,7 @@ const BeeRepo: React.FC<iBeeRepoProps> = ({
 
 	return (
 		<div
-			className="bg-[#F7F7FA] shadow-md rounded-xl p-3 mb-2 relative w-full flex flex-col gap-1 border border-[#F2F2F7] transition-all duration-200 hover:shadow-xl hover:-translate-y-1"
+			className={`bg-[#F7F7FA] shadow-md rounded-xl p-3 mb-2 relative w-full flex flex-col gap-1 border border-[#F2F2F7] transition-all duration-200 hover:shadow-xl ${!mostrarDenuncia ? "hover:-translate-y-1" : ""}`}
 			style={{maxWidth: 320}}
 			onClick={(e) => {
 				if (
@@ -277,11 +277,11 @@ const BeeRepo: React.FC<iBeeRepoProps> = ({
 
 			{/* Modal de Denúncia */}
 			{mostrarDenuncia && (
-				<div className="absolute inset-0 flex justify-center items-center z-[9999] pointer-events-none">
-					<div className="bg-white p-6 rounded-lg w-[400px] max-w-full shadow-2xl relative animate-fade-in pointer-events-auto">
+				<div className="absolute inset-0 flex justify-center items-center pointer-events-none">
+					<div className="bg-white p-6 rounded-lg w-[400px] pointer-events-auto fixed z-[9999]">
 						<button
 							onClick={handleFecharDenuncia}
-							className="absolute top-2 right-2 text-gray-600 hover:text-red-600 cursor-pointer transition-colors"
+							className="text-gray-600 hover:text-red-600 cursor-pointer"
 							type="button"
 							aria-label="Fechar"
 						>

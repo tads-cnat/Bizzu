@@ -27,6 +27,21 @@
 	align-items: center;
 }
 
+.bee-denuncia-overlay-left {
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100vh;
+	width: 420px;
+	background: rgba(0, 0, 0, 0.05);
+	z-index: 9999;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: center;
+	pointer-events: auto;
+}
+
 .bee-denuncia-modal {
 	background: #fff;
 	border-radius: 16px;
