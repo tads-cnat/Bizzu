@@ -57,7 +57,7 @@ const BeeSidebarCommunity = () => {
 							className="h-24 bg-gradient-to-r from-orange-300 via-orange-400 to-yellow-400"
 							style={{
 								backgroundImage: comunidade.banner
-									? `url(http://localhost:8000${comunidade.banner})`
+									? `url(${comunidade.banner})`
 									: `url(/banner.png)`,
 								backgroundSize: "cover",
 								backgroundPosition: "center",

@@ -155,16 +155,6 @@ const LayoutFeed: React.FC = () => {
 													const tags = categoriasParaTags(
 														(post as any).categorias ?? [],
 													) as IBeeTags[];
-													let usuarioUsername = "";
-													if (
-														post.usuario &&
-														typeof post.usuario === "object" &&
-														post.usuario !== null &&
-														"username" in post.usuario &&
-														typeof post.usuario.username === "string"
-													) {
-														usuarioUsername = post.usuario.username;
-													}
 													return (
 														<BeePost
 															key={post.id}
@@ -173,7 +163,7 @@ const LayoutFeed: React.FC = () => {
 															tags={tags}
 															curtidas={post.curtidas || 0}
 															comentarios={post.comentarios || 0}
-															usuario={usuarioUsername}
+															usuario={post.usuario}
 															dataPublicacao={post.dataPublicacao}
 															imagemPost={(post as any).imagem ?? undefined}
 															onCurtir={() => post.id}
@@ -198,16 +188,6 @@ const LayoutFeed: React.FC = () => {
 													const tags = categoriasParaTags(
 														(post as any).categorias ?? [],
 													) as IBeeTags[];
-													let usuarioUsername = "";
-													if (
-														post.usuario &&
-														typeof post.usuario === "object" &&
-														post.usuario !== null &&
-														"username" in post.usuario &&
-														typeof post.usuario.username === "string"
-													) {
-														usuarioUsername = post.usuario.username;
-													}
 													return (
 														<BeePost
 															id={post.id}
@@ -215,7 +195,7 @@ const LayoutFeed: React.FC = () => {
 															tags={tags}
 															curtidas={post.curtidas || 0}
 															comentarios={post.comentarios || 0}
-															usuario={usuarioUsername}
+															usuario={post.usuario}
 															dataPublicacao={post.dataPublicacao}
 															imagemPost={(post as any).imagem ?? undefined}
 															onCurtir={() => post.id}
@@ -242,16 +222,6 @@ const LayoutFeed: React.FC = () => {
 											const tags = categoriasParaTags(
 												(post as any).categorias ?? [],
 											) as IBeeTags[];
-											let usuarioUsername = "";
-											if (
-												post.usuario &&
-												typeof post.usuario === "object" &&
-												post.usuario !== null &&
-												"username" in post.usuario &&
-												typeof post.usuario.username === "string"
-											) {
-												usuarioUsername = post.usuario.username;
-											}
 											return (
 												<BeePost
 													id={post.id}
@@ -259,7 +229,7 @@ const LayoutFeed: React.FC = () => {
 													tags={tags}
 													curtidas={post.curtidas || 0}
 													comentarios={post.comentarios || 0}
-													usuario={usuarioUsername}
+													usuario={post.usuario}
 													dataPublicacao={post.dataPublicacao}
 													imagemPost={(post as any).imagem ?? undefined}
 													onCurtir={() => post.id}

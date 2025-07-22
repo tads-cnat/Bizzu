@@ -25,5 +25,5 @@ class Comunidade(models.Model):
         blank=True,
     )
 
-    def str(self):
+    def __str__(self):
         return self.nome
