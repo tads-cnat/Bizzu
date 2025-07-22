@@ -106,6 +106,7 @@ const useUser = () => {
 		comunidades,
 		categorias,
 		repositorio,
+		usuario,
 		handleExcluir,
 		handleExcluirRepositorio,
 	};
