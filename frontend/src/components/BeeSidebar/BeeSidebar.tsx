@@ -86,7 +86,11 @@ export const BeeSidebar = ({onSelecionarSecao}: IBeeSidebarProps) => {
 			{usuario == undefined ? (
 				<Spin />
 			) : (
-				<div className="h-screen w-full">
+				<div
+					className={`h-screen w-full ${
+						!collapsed ? "border-r border-gray-300" : ""
+					}`}
+				>
 					<div className="flex flex-col mt-4 ml-5 gap-3">
 						<BeeButton
 							onClick={toggleCollapsed}
