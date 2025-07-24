@@ -70,6 +70,8 @@ const FormEditarPerfil: React.FC = () => {
 			else dataSubmit.append("instituicaoAtual", usuario.instituicaoAtual);
 			await UsuarioService.patch(usuario.id, dataSubmit);
 			caminho(-1);
+			navigate(`/bizzu/${usuarioLocal.username}`);
+			window.location.reload();
 		} catch (e) {
 			console.error("Não foi possivel salvar o usuário", e);
 		}
