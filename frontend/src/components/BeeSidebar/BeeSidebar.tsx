@@ -4,18 +4,24 @@ import {Link, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import ComunidadeService from "../../services/models/ComunidadeService";
 import UsuarioService from "../../services/models/UsuarioService";
-import {Divider, Menu, Spin} from "antd";
+import {Button, Divider, Menu, Spin} from "antd";
 import type {GetProp, MenuProps} from "antd";
-import {Globe, House, User} from "@phosphor-icons/react";
+import {Globe, House, ListBullets, User} from "@phosphor-icons/react";
 import {IBeeSidebarProps} from "./IBeeSidebar";
 import {IBeeUser} from "../../features/Perfil/components/BeeHeaderProfile/IBeeUser";
 import BeeNotification from "../BeeNotification/BeeNotification";
 import getLocalStorage from "../../utils/getLocalStorage";
+import BeeButton from "../BeeButtons/BeeButtons";
 
 export const BeeSidebar = ({onSelecionarSecao}: IBeeSidebarProps) => {
 	const username = getLocalStorage().username;
 	const [usuario, setUsuario] = useState<IBeeUser>();
 	const [comunidades, setComunidades] = useState<MenuItem[]>([]);
+	const [collapsed, setCollapsed] = useState(false);
+
+	const toggleCollapsed = () => {
+		setCollapsed(!collapsed);
+	};
 
 	useEffect(() => {
 		void UsuarioService.getbyUsername(username)
@@ -65,38 +71,47 @@ export const BeeSidebar = ({onSelecionarSecao}: IBeeSidebarProps) => {
 		},
 	];
 
-	console.log("USUARUI", usuario);
-
 	return (
 		<>
 			{usuario == undefined ? (
 				<Spin />
 			) : (
-				<div className="h-screen w-fill">
-					<div className="flex items-center gap-2 mt-4 ml-5 bg-transparent ">
+				<div className="h-screen w-full">
+					<div className="flex flex-col mt-4 ml-5 gap-3">
+						<BeeButton
+							onClick={toggleCollapsed}
+							icone={<ListBullets />}
+							variante="aviso"
+							className="w-fit"
+							classesDefault={false}
+						/>
 						{usuario && username ? (
-							<div className="flex items-center gap-2">
-								<img
-									src={
-										usuario.imagemPerfil
-											? `http://localhost:8000${usuario.imagemPerfil}`
-											: "http://localhost:8000/imgPostagens/usuarios/2025/06/10/sem_imagem_avatar.png"
-									}
-									alt={username}
-									className="w-10 h-10 object-cover"
-									style={{
-										clipPath:
-											"polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0% 50%)",
-									}}
-								/>
-								<div className="leading-tight">
-									<p className="font-semibold text-md text-black ">
-										{username}
-									</p>
-									<p className="text-xs text-zinc-500">
-										<Link to={`/${username}/`}>Ver perfil</Link>
-									</p>
-								</div>
+							<div className="flex items-center gap-3">
+								{!collapsed && (
+									<div className="flex items-center gap-3">
+										<img
+											src={
+												usuario.imagemPerfil
+													? `http://localhost:8000${usuario.imagemPerfil}`
+													: "http://localhost:8000/imgPostagens/usuarios/2025/06/10/sem_imagem_avatar.png"
+											}
+											alt={username}
+											className="w-10 h-10 object-cover"
+											style={{
+												clipPath:
+													"polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0% 50%)",
+											}}
+										/>
+										<div className="leading-tight">
+											<p className="font-semibold text-md text-black">
+												{username}
+											</p>
+											<p className="text-xs text-zinc-500">
+												<Link to={`/${username}/`}>Ver perfil</Link>
+											</p>
+										</div>
+									</div>
+								)}
 							</div>
 						) : (
 							<div className="flex items-center">
@@ -113,7 +128,7 @@ export const BeeSidebar = ({onSelecionarSecao}: IBeeSidebarProps) => {
 							</div>
 						)}
 					</div>
-					<Divider className="mt-400" />
+					{!collapsed && <Divider className="mt-400" />}
 					{username === undefined ? (
 						<BeeNotification
 							type="warning"
@@ -137,6 +152,7 @@ export const BeeSidebar = ({onSelecionarSecao}: IBeeSidebarProps) => {
 							defaultOpenKeys={["3"]}
 							mode="inline"
 							items={items}
+							inlineCollapsed={collapsed}
 							onSelect={(e) => {
 								onSelecionarSecao(e.key);
 							}}
