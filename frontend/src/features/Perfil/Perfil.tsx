@@ -4,7 +4,6 @@ import {useState} from "react";
 import BeePost from "../../components/BeePost/BeePost";
 import type {IPostagem} from "../../interfaces/Postagem";
 import BeeHeaderProfile from "./components/BeeHeaderProfile/BeeHeaderProfile";
-import BeePerfilSidebar from "../../components/BeePerfilSidebar/BeePerfilSidebar";
 import acessPermissions from "../../utils/acessPermissions";
 import {Empty, Spin} from "antd";
 import FormCategoria from "./Form/FormCategoria";
@@ -148,10 +147,6 @@ const Perfil: React.FC = () => {
 							<BeeEditTag />
 						</div>
 					</BeeAbasPerfil>
-
-					<aside className="fixed top-[80px] right-4 w-1/4 min-h-screen shadow-md flex flex-col justify-start px-3 py-4 rounded-xl bg-white z-40 overflow-y-auto gap-4">
-						<BeePerfilSidebar />
-					</aside>
 				</div>
 			)}
 			{modal()}

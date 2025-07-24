@@ -55,18 +55,28 @@ export const BeeSidebar = ({onSelecionarSecao}: IBeeSidebarProps) => {
 	const items: MenuItem[] = [
 		{
 			key: "1",
-			icon: <House size={20} />,
+			icon: (
+				<House
+					size={23}
+					weight="fill"
+				/>
+			),
 			label: "Página inicial",
 		},
 		{
 			key: "2",
-			icon: <User size={20} />,
+			icon: (
+				<User
+					size={23}
+					weight="fill"
+				/>
+			),
 			label: "Você segue",
 		},
 		{
 			key: "3",
 			label: "Comunidades",
-			icon: <Globe size={20} />,
+			icon: <Globe size={23} />,
 			children: comunidades,
 		},
 	];
