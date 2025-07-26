@@ -1,10 +1,9 @@
 import "./style.css";
-import acessAuth from "../../utils/acessAuth";
-import {Link, useParams} from "react-router-dom";
+import {Link} from "react-router-dom";
 import {useEffect, useState} from "react";
 import ComunidadeService from "../../services/models/ComunidadeService";
 import UsuarioService from "../../services/models/UsuarioService";
-import {Button, Divider, Menu, Spin} from "antd";
+import {Divider, Menu, Spin} from "antd";
 import type {GetProp, MenuProps} from "antd";
 import {Globe, House, ListBullets, User} from "@phosphor-icons/react";
 import {IBeeSidebarProps} from "./IBeeSidebar";
