@@ -37,6 +37,13 @@ const BeeAbasPerfil: React.FC<IBeeAbasPerfil> = ({
 	const onChange = (newActiveKey: string) => {
 		setActiveKey(newActiveKey);
 	};
+	if (papel === "mod") {
+		abas.push({
+			key: "4",
+			label: <span className="text-[#333333] font-medium">Solicitações</span>,
+			children: <>{childrenArray[3]}</>,
+		});
+	}
 
 	return (
 		<>

@@ -49,6 +49,17 @@ class PesquisaSerializer(serializers.ModelSerializer):
 
 
 class SolicitacaoSerializer(serializers.ModelSerializer):
+    # Usado para pegar o nome da pessoa que solicitou
+    nome_solicitante = serializers.SerializerMethodField()
+
+    def get_nome_solicitante(self, obj):
+        return obj.solicitante.nome
+
     class Meta:
         model = Solicitacao
-        fields = ["descricao", "solicitante"]
+        fields = ["descricao", "solicitante", "status", "nome_solicitante", "id"]
+
+
+# Tiver que criar esse serializer pois por algum motivo se eu tento usar o de cima da esso erro "[Violation] 'setTimeout' handler took 51ms"
+class AprovarSolicitacaoSerializer(serializers.Serializer):
+    id = serializers.IntegerField()

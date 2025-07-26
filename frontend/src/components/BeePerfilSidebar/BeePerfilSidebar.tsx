@@ -20,8 +20,11 @@ const BeePerfilSidebar: React.FC = () => {
 	const [papel, setPapel] = useState();
 	const [key, setKey] = useState<number>(0);
 	const [abrirModal, setModal] = useState<Boolean>(false);
-	if (getLocalStorage() != null && papel == undefined)
-		setPapel(getLocalStorage().papel);
+	const [userLocal, setUserlocal] = useState();
+	if (getLocalStorage() != null) {
+		if (papel == undefined) setPapel(getLocalStorage().papel);
+		if (userLocal == undefined) setUserlocal(getLocalStorage().username);
+	}
 
 	useEffect(() => {
 		const carregarUsuario = async () => {
@@ -199,7 +202,7 @@ const BeePerfilSidebar: React.FC = () => {
 				</div>
 
 				{/* Card de Configurações */}
-				{username == usuario.username && (
+				{userLocal == usuario.username && (
 					<div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
 						<div className="flex items-center gap-2 mb-4">
 							<Gear

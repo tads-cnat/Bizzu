@@ -11,10 +11,12 @@ import BeeEditTag from "./components/BeeEditTag/BeeEditTag";
 import BeeButton from "../../components/BeeButtons/BeeButtons";
 import {IRepositorio} from "../../interfaces/Repositorio";
 import BeeRepo from "../../components/BeeRepo/BeeRepo";
+import BeePapelPerfil from "../../components/BeePapelPerfil/BeePapelPerfil";
 import useUser from "../../hooks/useUser";
 import tagsCategory from "../../utils/tagsCategory";
 import BeeTour from "../../components/BeeTour/BeeTour";
 import {useLocation} from "react-router-dom";
+import BeePerfilSidebar from "../../components/BeePerfilSidebar/BeePerfilSidebar";
 
 const Perfil: React.FC = () => {
 	let {load} = acessPermissions();
@@ -170,6 +172,10 @@ const Perfil: React.FC = () => {
 								/>
 								{/* <FormCategoria /> */}
 								<BeeEditTag />
+							</div>
+
+							<div>
+								<BeePapelPerfil />
 							</div>
 						</BeeAbasPerfil>
 					</div>

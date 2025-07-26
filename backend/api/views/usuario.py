@@ -1,14 +1,15 @@
 from rest_framework.response import Response
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
-from rest_framework.parsers import MultiPartParser
-from ..models import Usuario
+from rest_framework.parsers import MultiPartParser, JSONParser
+from ..models import Usuario, Solicitacao
 from api.serializers.usuario import (
     UsuarioProfileSerializer,
     UsuarioSerializer,
     UsuarioPatchSerializer,
     PesquisaSerializer,
     SolicitacaoSerializer,
+    AprovarSolicitacaoSerializer,
 )
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import AllowAny
@@ -23,7 +24,7 @@ from ..models import Comunidade
 class UsuarioViewSet(viewsets.ModelViewSet):
     queryset = Usuario.objects.all()
     serializer_class = UsuarioSerializer
-    parser_classes = [MultiPartParser]
+    parser_classes = [MultiPartParser, JSONParser]
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
 
@@ -44,6 +45,11 @@ class UsuarioViewSet(viewsets.ModelViewSet):
         elif self.request.method == "POST":
             if self.action == "solicitarMudanca":
                 return SolicitacaoSerializer
+            if (
+                self.action == "aprovarSolicitacao"
+                or self.action == "reprovarSolicitacao"
+            ):
+                return AprovarSolicitacaoSerializer
             return UsuarioProfileSerializer
         elif self.request.method == "PATCH":
             return UsuarioPatchSerializer
@@ -120,6 +126,54 @@ class UsuarioViewSet(viewsets.ModelViewSet):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    @action(detail=False, methods=["GET"], url_path="listarSolicitacoes")
+    def listarSolicitacoes(self, request):
+        solicitacoes = Solicitacao.objects.all().order_by("status", "data_solocitacao")
+        serializer = SolicitacaoSerializer(solicitacoes, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    @action(detail=False, methods=["POST"], url_path="aprovarSolicitacao")
+    def aprovarSolicitacao(self, request):
+        serializer = AprovarSolicitacaoSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        solicitacao_id = serializer.validated_data["id"]
+
+        try:
+            solicitacao = Solicitacao.objects.get(id=solicitacao_id)
+        except Solicitacao.DoesNotExist:
+            return Response({"error": "Solicitação não encontrada."}, status=404)
+
+        usuario = solicitacao.solicitante
+        usuario.papel = "mod"
+        usuario.save()
+        solicitacao.status = "aprovada"
+        solicitacao.save()
+
+        return Response(
+            {"message": "Solicitação aprovada e usuário promovido a moderador."},
+            status=200,
+        )
+
+    @action(detail=False, methods=["POST"], url_path="reprovarSolicitacao")
+    def reprovarSolicitacao(self, request):
+        serializer = AprovarSolicitacaoSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        solicitacao_id = serializer.validated_data["id"]
+
+        try:
+            solicitacao = Solicitacao.objects.get(id=solicitacao_id)
+        except Solicitacao.DoesNotExist:
+            return Response({"error": "Solicitação não encontrada."}, status=404)
+
+        solicitacao.status = "reprovada"
+        solicitacao.save()
+
+        return Response(
+            {"message": "Solicitação reprovada."},
+            status=200,
+        )
 
 
 class PesquisaViewSet(viewsets.ModelViewSet):
