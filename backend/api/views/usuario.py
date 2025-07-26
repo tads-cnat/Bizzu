@@ -2,7 +2,7 @@ from rest_framework.response import Response
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.parsers import MultiPartParser
-from ..models import Usuario
+from ..models import Usuario, Solicitacao
 from api.serializers.usuario import (
     UsuarioProfileSerializer,
     UsuarioSerializer,
@@ -116,6 +116,12 @@ class UsuarioViewSet(viewsets.ModelViewSet):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    @action(detail=False, methods=["GET"], url_path="listarsolicitacoes")
+    def listarSolicitacoes(self, request):
+        solicitacoes = Solicitacao.objects.all()
+        serializer = SolicitacaoSerializer(solicitacoes, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class PesquisaViewSet(viewsets.ModelViewSet):

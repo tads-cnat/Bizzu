@@ -47,6 +47,12 @@ class UsuarioService extends BaseService{
         const response = await axiosInstance.get(`pesquisa/?search=${encodeURIComponent(termo)}`);
         return response;
     }
+
+    async listarSolicitacoes(){
+        const response = await axiosInstance.get('/usuario/listarsolicitacoes');
+        return response
+    }
+
 }
 
 export default new UsuarioService("usuario");

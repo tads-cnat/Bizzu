@@ -22,6 +22,7 @@ import BeeButton from "../../components/BeeButtons/BeeButtons";
 import {IRepositorio} from "../../interfaces/Repositorio";
 import RepositorioService from "../../services/models/RepositorioService";
 import BeeRepo from "../../components/BeeRepo/BeeRepo";
+import BeePapelPerfil from "../../components/BeePapelPerfil/BeePapelPerfil";
 
 const Perfil: React.FC = () => {
 	const [postagens, setPostagens] = useState<Postagem[]>([]);
@@ -285,6 +286,9 @@ const Perfil: React.FC = () => {
 							/>
 							{/* <FormCategoria /> */}
 							<BeeEditTag />
+						</div>
+						<div>
+							<BeePapelPerfil />
 						</div>
 					</BeeAbasPerfil>
 
