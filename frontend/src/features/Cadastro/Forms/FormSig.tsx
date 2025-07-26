@@ -90,13 +90,16 @@ const FormSig: React.FC = () => {
 					dataSubmit.append("instituicaoAtual", data.instituicaoAtual);
 				dataSubmit.append("papel", "int");
 				await UsuarioService.post(dataSubmit);
-				redirecionar(-1);
+				redirecionar("/login", {
+					state: {
+						fromCadastro: true,
+					},
+				});
 			} catch (e) {
 				console.error("Deu erro", e);
 			}
 		}
 	}
-	console.log(preview);
 
 	return (
 		<>
