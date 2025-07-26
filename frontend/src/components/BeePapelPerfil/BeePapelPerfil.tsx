@@ -3,11 +3,33 @@ import {IBeePapelPerfil} from "./IBeePapelPerfil";
 import BeeButton from "../BeeButtons/BeeButtons";
 import {BeeTextArea} from "../BeeTextArea/BeeTextArea";
 import UsuarioService from "../../services/models/UsuarioService";
+import {Empty} from "antd";
+import {ReadOutlined, UserOutlined} from "@ant-design/icons";
 
-const BeePapelPerfil = ({solicitante, descricao}: IBeePapelPerfil) => {
-	const handleAprovarClick = () => {};
-	const handleReprovarClick = () => {};
+const BeePapelPerfil = ({solicitante, descricao, status}: IBeePapelPerfil) => {
 	const [solicitacoes, setSolicitacoes] = useState([]);
+	// Função utilizada para lidar com as aprovações das solicitações
+	const handleAprovarClick = async (id: number) => {
+		try {
+			console.log("ID que está sendo enviado:", id);
+			const response = await UsuarioService.aprovarSolicitacao(id);
+			console.log("Solicitação aprovada:", response.data);
+			await loadSolicitacoes();
+		} catch (error) {
+			console.error("Erro ao aprovar solicitação:", error);
+		}
+	};
+
+	// Função utilizada para lidar com as aprovações das solicitações
+	const handleReprovarClick = async (id: number) => {
+		try {
+			const response = await UsuarioService.reprovarSolicitacao(id);
+			console.log("Solicitação reprovada:", response.data);
+			await loadSolicitacoes();
+		} catch (error) {
+			console.error("Erro ao aprovar solicitação:", error);
+		}
+	};
 
 	// Função utilizada para carregar as solicitações
 	const loadSolicitacoes = async () => {
@@ -19,38 +41,63 @@ const BeePapelPerfil = ({solicitante, descricao}: IBeePapelPerfil) => {
 		}
 	};
 
+	// Função que muda a cor do balãozinho do status no canto superior direito do modal
+	const statusColors = {
+		pendente: "bg-[#FCBD18]",
+		aprovada: "bg-[#058B92]",
+		reprovada: "bg-[#D32F2F]",
+	};
+
 	useEffect(() => {
 		loadSolicitacoes();
 	}, []);
 	return (
 		<>
-			{solicitacoes.map((s, index) => (
-				<div
-					key={index}
-					className="bg-[#F2F2F7] px-4 pt-5 pb-4 sm:p-6 sm:pb-4 mb-4"
-				>
-					<div className="sm:flex sm:items-center justify-center">
-						<div className="mx-auto flex size-12 shrink-0 items-center rounded-full sm:mx-0 sm:size-10">
-							{s.solicitante}
+			{solicitacoes.length === 0 ? (
+				<Empty
+					description="Não há solicitações"
+					image={Empty.PRESENTED_IMAGE_SIMPLE}
+				/>
+			) : (
+				solicitacoes.map((s) => (
+					<div
+						key={s.id}
+						className="bg-[#F7F7FA] shadow-md rounded-xl p-3 mb-6 relative w-full flex flex-col gap-1 border border-[#F2F2F7] transition-all duration-200 hover:shadow-xl hover:-translate-y-1"
+					>
+						<div
+							className={`absolute top-2 right-2 px-3 py-1 rounded-full text-xs font-semibold text-white shadow-md select-none ${statusColors[s.status]}`}
+						>
+							{s.status}
 						</div>
+						<div className="flex flex-col space-y-2">
+							<div className="flex space-x-2">
+								<UserOutlined />
+								<span className="font-semibold">Solicitante:</span>
+								<span>{s.nome_solicitante}</span>
+							</div>
+							<div className="flex space-x-2">
+								<ReadOutlined />
+								<span className="font-semibold">Descrição:</span>
+								<span>{s.descricao}</span>
+							</div>
+						</div>
+						{s.status !== "aprovada" && s.status !== "reprovada" && (
+							<div className="px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6 gap-4">
+								<BeeButton
+									label="Aprovar"
+									variante="primaria"
+									onClick={() => handleAprovarClick(s.id)}
+								/>
+								<BeeButton
+									label="Reprovar"
+									variante="neutro"
+									onClick={() => handleReprovarClick(s.id)}
+								/>
+							</div>
+						)}
 					</div>
-					<div className="mt-4 text-center sm:mt-0 sm:ml-2 sm:text-center">
-						{s.descricao}
-					</div>
-					<div className="px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6 gap-4">
-						<BeeButton
-							label="Aprovar"
-							variante="primaria"
-							onClick={() => handleAprovarClick(s)}
-						/>
-						<BeeButton
-							label="Reprovar"
-							variante="neutro"
-							onClick={() => handleReprovarClick(s)}
-						/>
-					</div>
-				</div>
-			))}
+				))
+			)}
 		</>
 	);
 };

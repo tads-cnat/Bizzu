@@ -49,6 +49,11 @@ class Usuario(AbstractUser):
 
 
 class Solicitacao(models.Model):
+    stats = (
+        ("pendente", "pendente"),
+        ("reprovada", "reprovada"),
+        ("aprovada", "aprovada"),
+    )
     descricao = models.CharField(
         verbose_name="Descrição", max_length=400, blank=True, null=True
     )
@@ -56,3 +61,7 @@ class Solicitacao(models.Model):
     data_solocitacao = models.DateTimeField(
         auto_now_add=True, verbose_name="Data da solicitação", null=True, blank=True
     )
+    status = models.CharField(verbose_name="status", choices=stats, default="pendente")
+
+    def __str__(self):
+        return self.status

@@ -49,10 +49,20 @@ class UsuarioService extends BaseService{
     }
 
     async listarSolicitacoes(){
-        const response = await axiosInstance.get('/usuario/listarsolicitacoes');
+        const response = await axiosInstance.get('/usuario/listarSolicitacoes');
         return response
     }
 
+    async aprovarSolicitacao(id: number){
+        const response = await axiosInstance.post('/usuario/aprovarSolicitacao/', {id: id})
+        
+        return response
+    }
+
+    async reprovarSolicitacao(id: number){
+        const response = await axiosInstance.post('/usuario/reprovarSolicitacao/', {id: id})
+        return response
+    }
 }
 
 export default new UsuarioService("usuario");
