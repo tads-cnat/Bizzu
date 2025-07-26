@@ -182,6 +182,7 @@ const FormEditarPerfil: React.FC = () => {
 									control={control}
 									render={({field}) => (
 										<BeeArquivo
+											label="Insira uma foto"
 											value={
 												usuario !== undefined
 													? usuario.imagemPerfil

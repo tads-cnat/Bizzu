@@ -46,6 +46,10 @@ const schema = yup.object().shape({
 
 const FormSig: React.FC = () => {
 	const [current, setCurrent] = useState<number>(0);
+	const [preview, setPreview] = useState(
+		"http://localhost:8000/imgPostagens/usuarios/2025/06/10/sem_imagem_avatar.png",
+	);
+	const [previewBanner, setPreviewBanner] = useState("/banner.png");
 
 	const {
 		handleSubmit,
@@ -92,6 +96,7 @@ const FormSig: React.FC = () => {
 			}
 		}
 	}
+	console.log(preview);
 
 	return (
 		<>
@@ -188,6 +193,8 @@ const FormSig: React.FC = () => {
 								variante="aviso"
 								label="Próximo Passo"
 								tamanho="grande"
+								classesDefault={false}
+								className="px-4 py-2 rounded-md font-medium text-sm transition-all duration-200 bg-[#FCBD18] text-white hover:bg-yellow-500 sm:w-full sm:max-w-sm mt-5"
 							/>
 						</div>
 					)}
@@ -238,42 +245,82 @@ const FormSig: React.FC = () => {
 							<BeeButton
 								variante="aviso"
 								label="Próximo Passo"
-								tamanho="grande"
+								classesDefault={false}
+								className="px-4 py-2 rounded-md font-medium text-sm transition-all duration-200 bg-[#FCBD18] text-white hover:bg-yellow-500 sm:w-full sm:max-w-sm mt-5"
 							/>
 						</div>
 					)}
 					{current == 2 && (
-						<div className="mt-5 sm:mx-auto sm:w-full sm:max-w-sm">
+						<div className="mt-5 sm:mx-auto sm:w-fill sm:max-w-sm">
 							<div className="mt-2">
-								<Controller
-									name="imagemPerfil"
-									control={control}
-									render={({field}) => (
-										<BeeArquivo
-											multiple={false}
-											value={field.value}
-											onChange={(val) => field.onChange(val)}
-										/>
-									)}
-								/>
+								<label className="block text-sm/6 font-medium text-gray-900">
+									Foto de perfil
+								</label>
+								<div className="flex items-center gap-4">
+									<img
+										src={preview}
+										alt="Imagem de usuário"
+										className={
+											"w-20 h-20 object-cover gap-1 mt-1 opacity-60 w-8 h-8"
+										}
+										style={{
+											clipPath:
+												"polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0% 50%)",
+										}}
+									/>
+									<Controller
+										name="imagemPerfil"
+										control={control}
+										render={({field}) => (
+											<BeeArquivo
+												multiple={false}
+												value={field.value}
+												label="Mostra sua cara"
+												onChange={(val) => {
+													field.onChange(val);
+													if (val == null)
+														setPreview(
+															"http://localhost:8000/imgPostagens/usuarios/2025/06/10/sem_imagem_avatar.png",
+														);
+													else setPreview(URL.createObjectURL(val));
+												}}
+											/>
+										)}
+									/>
+								</div>
 							</div>
-							<div className="mt-2">
-								<Controller
-									name="banner"
-									control={control}
-									render={({field}) => (
-										<BeeArquivo
-											multiple={false}
-											value={field.value}
-											onChange={(val) => field.onChange(val)}
-										/>
-									)}
-								/>
+							<div className="mt-5 sm:mx-auto sm:w-fill sm:max-w-sm">
+								<div className="mt-2">
+									<label className="block text-sm/6 font-medium text-gray-900">
+										Banner do perfil
+									</label>
+									<Controller
+										name="banner"
+										control={control}
+										render={({field}) => (
+											<BeeArquivo
+												multiple={false}
+												label="Personalize seu espaço"
+												value={field.value}
+												onChange={(val) => {
+													field.onChange(val);
+													if (val == null) setPreviewBanner("/banner.png");
+													else setPreviewBanner(URL.createObjectURL(val));
+												}}
+											/>
+										)}
+									/>
+									<img
+										src={previewBanner}
+										className="w-full h-36 object-cover mt-4"
+									/>
+								</div>
 							</div>
 							<BeeButton
 								variante="aviso"
 								label="Cadastrar"
-								tamanho="grande"
+								classesDefault={false}
+								className="px-4 py-2 rounded-md font-medium text-sm transition-all duration-200 bg-[#FCBD18] text-white hover:bg-yellow-500 sm:w-full sm:max-w-sm mt-5"
 							/>
 						</div>
 					)}

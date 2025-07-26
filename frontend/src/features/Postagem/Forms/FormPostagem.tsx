@@ -283,6 +283,7 @@ export const FormPostagem = ({
 						control={control}
 						render={({field}) => (
 							<BeeArquivo
+								label="Selecione os anexos"
 								value={field.value}
 								onChange={field.onChange}
 								error={errors.imagem?.message}

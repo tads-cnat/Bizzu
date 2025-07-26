@@ -118,7 +118,8 @@ const BeeFormAuth: React.FC = () => {
 						<BeeButton
 							variante="aviso"
 							label="Entrar"
-							tamanho="grande"
+							classesDefault={false}
+							className="px-4 py-2 rounded-md font-medium text-sm transition-all duration-200 bg-[#FCBD18] text-white hover:bg-yellow-500 sm:w-full sm:max-w-sm mt-5"
 						/>
 					</form>
 				</div>
