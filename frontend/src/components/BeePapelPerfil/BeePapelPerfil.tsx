@@ -76,7 +76,9 @@ const BeePapelPerfil = () => {
 							<div className="flex items-start space-x-2">
 								<ReadOutlined className="mt-1" />
 								<span className="font-semibold">Descrição:</span>
-								<span>{s.descricao}</span>
+								<span className="break-words overflow-hidden text-ellipsis">
+									{s.descricao}
+								</span>
 							</div>
 						</div>
 						{s.status !== "aprovada" && s.status !== "reprovada" && (
