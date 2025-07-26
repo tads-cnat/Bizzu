@@ -7,14 +7,21 @@ import CreateRepositorio from "../features/Repositorio/Create";
 import Repositorio from "../features/Repositorio/Repositorio";
 import LayoutFeed from "../features/Layout/LayoutFeed";
 import FormEditarPerfil from "../features/Perfil/forms/FormEditarPerfil";
+import PerfilComunidade from "../features/Perfil/PerfilComunidade";
+import LayoutCommunity from "../features/Layout/LayoutCommunity";
+import DetalhesRepositorio from "../features/Repositorio/Detalhes";
 
 export const privatesRoutes = [
 	{
-		path: "bizzu/",
+		path: "/",
+		element: <LayoutFeed />,
+	},
+	{
+		path: "",
 		element: <Layout />,
 		children: [
 			{
-				path: ":username",
+				path: "/:username",
 				element: <Perfil />,
 			},
 			{
@@ -40,11 +47,21 @@ export const privatesRoutes = [
 			{
 				path: "perfil/editar",
 				element: <FormEditarPerfil />,
+        },
+        {
+				path: "repositorio/:id",
+				element: <DetalhesRepositorio />,
 			},
 		],
 	},
 	{
-		path: "/",
-		element: <LayoutFeed />,
+		path: "",
+		element: <LayoutCommunity />,
+		children: [
+			{
+				path: "comunidade/:id",
+				element: <PerfilComunidade />,
+			},
+		],
 	},
 ];

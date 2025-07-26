@@ -1,15 +1,12 @@
-export interface Tag {
-  label: string
-  color: string
-  tipo: "tec" | "mat" | "per" // Mantendo consistência com a interface principal
-}
+import IBeeTags from "../BeeTags/IBeeTags";
+import type { IUsuario } from "../../interfaces/Postagem"
 
 export interface BeePostProps {
   id?: number
-  usuario: String;
+  usuario: IUsuario;
   texto: string
   imagemPost?: string
-  tags?: Tag[]
+  tags?: IBeeTags[]
   dataPublicacao: string
   curtidas?: number
   comentarios?: number
@@ -17,4 +14,5 @@ export interface BeePostProps {
   onCurtir: () => void
   onAbrirComentarios: () => void
   onExcluir?: (id: number) => void
+  disableInteractions?: boolean
 }

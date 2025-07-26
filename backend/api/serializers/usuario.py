@@ -1,12 +1,12 @@
 from django.forms import ImageField
 from rest_framework import serializers
-from ..models import Usuario
+from ..models import Usuario, Solicitacao
 
 
 class UsuarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Usuario
-        fields = ["id", "username", "imagemPerfil"]
+        fields = ["id", "username", "nome", "imagemPerfil", "papel"]
         extra_kwargs = {"id": {"read_only": False}}
 
 
@@ -28,7 +28,6 @@ class UsuarioProfileSerializer(serializers.ModelSerializer):
         usuario.save()
         return usuario
 
-
 class UsuarioPatchSerializer(serializers.ModelSerializer):
     class Meta:
         model = Usuario
@@ -40,3 +39,16 @@ class UsuarioPatchSerializer(serializers.ModelSerializer):
             "imagemPerfil",
             "linkedinUrl",
         ]
+class PesquisaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Usuario
+        fields = [
+            "imagemPerfil",
+            "username",
+        ]
+
+
+class SolicitacaoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Solicitacao
+        fields = ["descricao", "solicitante"]

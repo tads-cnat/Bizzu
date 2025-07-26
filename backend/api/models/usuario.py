@@ -13,10 +13,8 @@ class Usuario(AbstractUser):
     banner = models.ImageField(
         verbose_name="Banner", upload_to="banners/%Y/%m/%d/", blank=True, null=True
     )
-    
-    linkedinUrl = models.URLField(
-        verbose_name="LinkedIn URL", blank=True, null=True
-    )
+
+    linkedinUrl = models.URLField(verbose_name="LinkedIn URL", blank=True, null=True)
     escolaFormacao = models.CharField(
         verbose_name="Escola de formação", max_length=30, blank=True, null=True
     )
@@ -40,19 +38,19 @@ class Usuario(AbstractUser):
         related_name="seguido_por",
         blank=True,
     )
-    comunidades = models.ManyToManyField(
-        "Comunidade", verbose_name="Comunidades", related_name="seguido_por", blank=True
-    )
-    grupo = models.ForeignKey(
-        to=Group,
-        verbose_name="Grupo",
-        on_delete=models.CASCADE,
-        related_name="Grupo",
-        null=True,
-    )
+
+    PERFIS = (("mod", "moderador"), ("int", "internauta"))
+    papel = models.CharField(verbose_name="Papel", null=True, choices=PERFIS)
 
     def __str__(self):
         return self.username
 
 
-# Com a criação dos groups vamos conseguir diferenciar quando um usuário é comum ou moderador e apenas adicionar posteriormente classes de permissão
+class Solicitacao(models.Model):
+    descricao = models.CharField(
+        verbose_name="Descrição", max_length=400, blank=True, null=True
+    )
+    solicitante = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    data_solocitacao = models.DateTimeField(
+        auto_now_add=True, verbose_name="Data da solicitação", null=True, blank=True
+    )

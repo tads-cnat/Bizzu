@@ -34,10 +34,16 @@ const BeeFormAuth: React.FC = () => {
 			await autenticar(data.username, data.password);
 			setStatus("success");
 			setAlert(true);
-			redirecionar(`/bizzu/${data.username}/`);
+			setTimeout(() => {
+				setAlert(false);
+			}, 4000);
+			redirecionar(`/${data.username}/`);
 		} catch (e) {
 			setStatus("error");
 			setAlert(true);
+			setTimeout(() => {
+				setAlert(false);
+			}, 4000);
 			console.error("Deu erro", e);
 		}
 	}
@@ -102,7 +108,7 @@ const BeeFormAuth: React.FC = () => {
 							<p className="text-right text-sm/6 text-gray-500">
 								Não tem conta?{" "}
 								<Link
-									to={`/cadastro`}
+									to={`/cadastro/`}
 									className="font-semibold text-[#FCBD18] hover:text-indigo-500"
 								>
 									Cadastre-se

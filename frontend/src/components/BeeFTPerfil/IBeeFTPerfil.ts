@@ -1,6 +1,6 @@
 export interface IBeeFTPerfil {
     // id da pessoa
-    usuarioId: number;
+    usuarioId: number | string;
     // props utilizada para fazer a função que vai calcular o tempo da postagem
     dataPublicacao: string;
 }

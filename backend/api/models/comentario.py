@@ -1,10 +1,10 @@
 from django.db import models
-import uuid
 from .postagem import Postagem
 from .usuario import Usuario
+from django.conf import settings
 
 class Comentario(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    id = models.AutoField(primary_key=True, editable=False)
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     postagem = models.ForeignKey(Postagem, on_delete=models.CASCADE)
     conteudo = models.TextField()
@@ -12,3 +12,4 @@ class Comentario(models.Model):
 
     def __str__(self):
         return f"Comentário de {self.usuario.nome} em {self.dataPostagem}"
+    

@@ -11,6 +11,7 @@ from drf_spectacular.views import (
 )
 from django.conf import settings
 from django.conf.urls.static import static
+from api.views.usuario import LogoutUsuarioView
 
 
 urlpatterns = [
@@ -25,6 +26,7 @@ urlpatterns = [
     path("api/redoc/", SpectacularRedocView.as_view(url_name="schema"), name="redoc"),
     path("api/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
+    # path("api/logout/", LogoutUsuarioView.as_view()),
 ]
 
 if settings.DEBUG:

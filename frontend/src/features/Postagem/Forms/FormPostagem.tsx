@@ -12,7 +12,7 @@ import BeeSelect from "../../../components/BeeSelect/BeeSelect";
 import BeeFiltroCategorias from "../../../components/BeeFiltroCategorias/BeeFiltroCategorias";
 import ComunidadeService from "../../../services/models/ComunidadeService";
 import CategoriaService from "../../../services/models/CategoriaService";
-import type {Categoria} from "../../../interfaces/Categoria";
+import type {Categoria} from "../../../interfaces/IBeeCategoria";
 import type {ComunidadeSelect} from "../../../interfaces/Comunidade";
 import type {PostagemFormValues} from "../../../interfaces/Postagem";
 import {useNavigate} from "react-router-dom";
@@ -65,6 +65,7 @@ export const FormPostagem = ({
 	const [postagens, setPostagens] = useState<BeePostProps>();
 	const [usuario, setUsuario] = useState<IBeeUser>();
 	const {username} = acessAuth();
+
 	useEffect(() => {
 		if (usuario === undefined) {
 			void UsuarioService.getbyUsername(username)

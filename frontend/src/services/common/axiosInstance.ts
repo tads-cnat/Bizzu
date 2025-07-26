@@ -1,13 +1,12 @@
-import axios from "axios";
-import getLocalStorage from "../../utils/getLocalStorage";
+import axios from "axios"
+import getLocalStorage from "../../utils/getLocalStorage"
 
 const axiosInstance = axios.create({
   baseURL: "http://localhost:8000/api/",
-//   headers: {
-//     "Content-Type": "multipart/form-data"; "boundary"="blob"
-//   }
-});
-
+  // headers: {
+  //   "Content-Type": "application/json",
+  // },
+})
 
 axiosInstance.interceptors.request.use( ///token ser inserido na requisição automaticamente 
     (config) => {
@@ -23,5 +22,6 @@ axiosInstance.interceptors.request.use( ///token ser inserido na requisição au
 	}
 )
 
+export default axiosInstance
 
-export default axiosInstance;
+

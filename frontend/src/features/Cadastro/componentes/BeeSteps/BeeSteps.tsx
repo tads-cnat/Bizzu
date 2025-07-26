@@ -14,6 +14,9 @@ const BeeSteps = ({current}: IBeeSteps) => (
 			{
 				title: "Sobre você",
 			},
+			{
+				title: "Visual",
+			},
 		]}
 	/>
 );
