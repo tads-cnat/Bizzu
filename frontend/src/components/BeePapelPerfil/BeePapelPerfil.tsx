@@ -44,7 +44,7 @@ const BeePapelPerfil = ({solicitante, descricao, status}: IBeePapelPerfil) => {
 	// Função que muda a cor do balãozinho do status no canto superior direito do modal
 	const statusColors = {
 		pendente: "bg-[#FCBD18]",
-		aprovada: "bg-[#058B92]",
+		aprovada: "bg-green-500",
 		reprovada: "bg-[#D32F2F]",
 	};
 
@@ -72,17 +72,17 @@ const BeePapelPerfil = ({solicitante, descricao, status}: IBeePapelPerfil) => {
 						<div className="flex flex-col space-y-2">
 							<div className="flex space-x-2">
 								<UserOutlined />
-								<span className="font-semibold">Solicitante:</span>
+								<span className="font-bold">Solicitante:</span>
 								<span>{s.nome_solicitante}</span>
 							</div>
 							<div className="flex space-x-2">
 								<ReadOutlined />
-								<span className="font-semibold">Descrição:</span>
+								<span className="font-bold">Descrição:</span>
 								<span>{s.descricao}</span>
 							</div>
 						</div>
 						{s.status !== "aprovada" && s.status !== "reprovada" && (
-							<div className="px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6 gap-4">
+							<div className="px-6 py-2  sm:flex sm:flex-row-reverse sm:px-0 gap-4">
 								<BeeButton
 									label="Aprovar"
 									variante="primaria"
