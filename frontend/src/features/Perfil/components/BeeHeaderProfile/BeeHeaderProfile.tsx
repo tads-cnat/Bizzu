@@ -70,7 +70,7 @@ const BeeHeaderProfile = () => {
 	};
 
 	return (
-		<>
+		<div>
 			{usuario && (
 				<div className="flex min-w-0 gap-x-4 mb-7">
 					<img
@@ -152,7 +152,7 @@ const BeeHeaderProfile = () => {
 					</div>
 				</div>
 			)}
-		</>
+		</div>
 	);
 };
 
