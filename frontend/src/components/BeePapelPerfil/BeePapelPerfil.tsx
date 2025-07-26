@@ -42,7 +42,7 @@ const BeePapelPerfil = () => {
 	// Função que muda a cor do balãozinho do status no canto superior direito do modal
 	const statusColors = {
 		pendente: "bg-[#FCBD18]",
-		aprovada: "bg-[#058B92]",
+		aprovada: "bg-green-500",
 		reprovada: "bg-[#D32F2F]",
 	};
 
@@ -60,7 +60,7 @@ const BeePapelPerfil = () => {
 				solicitacoes.map((s: any) => (
 					<div
 						key={s.id}
-						className="bg-[#F7F7FA] shadow-md rounded-xl p-3 mb-6 relative w-full flex flex-col gap-1 border border-[#F2F2F7] transition-all duration-200 hover:shadow-xl hover:-translate-y-1"
+						className="bg-white shadow  rounded-lg p-4 mb-4 relative w-full flex flex-col gap-1 border border-[#F2F2F7] transition-all duration-200 hover:shadow-xl hover:-translate-y-1"
 					>
 						<div
 							className={`absolute top-2 right-2 px-3 py-1 rounded-full text-xs font-semibold text-white shadow-md select-none ${statusColors[s.status]}`}
@@ -70,7 +70,7 @@ const BeePapelPerfil = () => {
 						<div className="flex flex-col space-y-2">
 							<div className="flex space-x-2">
 								<UserOutlined />
-								<span className="font-semibold">Solicitante:</span>
+								<span className="font-bold">Solicitante:</span>
 								<span>{s.nome_solicitante}</span>
 							</div>
 							<div className="flex items-start space-x-2">
@@ -80,7 +80,7 @@ const BeePapelPerfil = () => {
 							</div>
 						</div>
 						{s.status !== "aprovada" && s.status !== "reprovada" && (
-							<div className="px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6 gap-4">
+							<div className="px-6 py-2  sm:flex sm:flex-row-reverse sm:px-0 gap-4">
 								<BeeButton
 									label="Aprovar"
 									variante="primaria"
