@@ -1,5 +1,3 @@
-import { Categoria } from "../../../interfaces/IBeeCategoria";
-
 type tipo = "editar" | "criar";
 
 export interface IBeeFormCategoria{
@@ -8,5 +6,5 @@ export interface IBeeFormCategoria{
     //Caso seja edição
     defaultValues?:  any;
     //O tipo do formulário
-    type: tipo;
+    type?: tipo;
 }

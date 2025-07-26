@@ -34,10 +34,16 @@ const BeeFormAuth: React.FC = () => {
 			await autenticar(data.username, data.password);
 			setStatus("success");
 			setAlert(true);
+			setTimeout(() => {
+				setAlert(false);
+			}, 4000);
 			redirecionar(`/${data.username}/`);
 		} catch (e) {
 			setStatus("error");
 			setAlert(true);
+			setTimeout(() => {
+				setAlert(false);
+			}, 4000);
 			console.error("Deu erro", e);
 		}
 	}

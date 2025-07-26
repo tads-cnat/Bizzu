@@ -53,7 +53,7 @@ const BeePerfilSidebar: React.FC = () => {
 	if (loading) {
 		return (
 			<div className="space-y-4">
-				<div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden animate-pulse">
+				<div className="bg-white rounded-xl overflow-hidden animate-pulse">
 					<div className="h-24 bg-gray-200" />
 					<div className="p-4 space-y-3">
 						<div className="h-6 bg-gray-200 rounded" />

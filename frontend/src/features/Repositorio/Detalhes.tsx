@@ -15,12 +15,13 @@ import type {Categoria} from "../../interfaces/Categoria";
 import type {FileItem} from "../../components/BeeTabelaRepositorio/IBeeTabelaRepositorio";
 import acessAuth from "../../utils/acessAuth";
 import acessPermissions from "../../utils/acessPermissions";
+import { Spin } from "antd";
 
 const DetalhesRepositorio: React.FC = () => {
 	const {id} = useParams<{id: string}>();
 	const navigate = useNavigate();
 	const {username} = acessAuth();
-	const {permissions} = acessPermissions();
+	const {load, permissions} = acessPermissions();
 
 	const [repositorio, setRepositorio] = useState<Repositorio | null>(null);
 	const [arquivos, setArquivos] = useState<FileItem[]>([]);
@@ -206,6 +207,11 @@ const DetalhesRepositorio: React.FC = () => {
 	const tags = categoriasParaTags(repositorio.categorias);
 
 	return (
+		<>
+		{!load ? (
+			<Spin />
+		) : (
+
 		<div className="w-full">
 			{/* Header com navegação e ações */}
 			<div className="flex items-center justify-between mb-6">
@@ -218,7 +224,7 @@ const DetalhesRepositorio: React.FC = () => {
 				</button>
 
 				{/* Ações do proprietário */}
-				{isOwner && permissions.includes("update") && (
+				{isOwner && permissions.update && (
 					<div className="flex items-center gap-2">
 						<BeeButton
 							label="Editar"
@@ -259,6 +265,8 @@ const DetalhesRepositorio: React.FC = () => {
 				/>
 			)}
 		</div>
+		)}
+		</>
 	);
 };
 

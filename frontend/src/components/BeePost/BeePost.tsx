@@ -135,6 +135,8 @@ const BeePost: React.FC<BeePostProps> = ({
 		onExcluir,
 	};
 
+	console.log("POST", imagemPost);
+
 	return (
 		<div className="bg-white shadow rounded-lg p-4 mb-4 relative w-full">
 			{deleteConfimation && (
@@ -145,7 +147,6 @@ const BeePost: React.FC<BeePostProps> = ({
 					id={id}
 				/>
 			)}
-
 			{/* Modal de Comentários - só renderiza se não estiver desabilitado */}
 			{!disableInteractions && (
 				<BeeModalComentarios
@@ -155,7 +156,6 @@ const BeePost: React.FC<BeePostProps> = ({
 					onComentarioAdicionado={handleComentarioAdicionado}
 				/>
 			)}
-
 			{/* Menu de opções - só mostra se não estiver desabilitado */}
 			{!disableInteractions && (
 				<div className="absolute top-4 right-4">
@@ -201,7 +201,6 @@ const BeePost: React.FC<BeePostProps> = ({
 					)}
 				</div>
 			)}
-
 			{/* Overlay para fechar o menu quando clicar fora */}
 			{showMenu && (
 				<div
@@ -209,14 +208,11 @@ const BeePost: React.FC<BeePostProps> = ({
 					onClick={() => setShowMenu(false)}
 				/>
 			)}
-
 			<BeeFTPerfil
 				usuarioId={usuario}
 				dataPublicacao={dataPublicacao}
 			/>
-
 			<p className="mb-3 mt-2">{texto}</p>
-
 			{imagemPost && (
 				<img
 					src={imagemPost || "/placeholder.svg"}
@@ -224,7 +220,6 @@ const BeePost: React.FC<BeePostProps> = ({
 					className="rounded-lg mb-3 w-full object-cover"
 				/>
 			)}
-
 			<div className="flex items-center justify-between text-sm mb-2">
 				<div
 					className="flex items-center gap-4"
