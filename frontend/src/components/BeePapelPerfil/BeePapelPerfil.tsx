@@ -1,12 +1,10 @@
 import {useEffect, useState} from "react";
-import {IBeePapelPerfil} from "./IBeePapelPerfil";
 import BeeButton from "../BeeButtons/BeeButtons";
-import {BeeTextArea} from "../BeeTextArea/BeeTextArea";
 import UsuarioService from "../../services/models/UsuarioService";
 import {Empty} from "antd";
 import {ReadOutlined, UserOutlined} from "@ant-design/icons";
 
-const BeePapelPerfil = ({solicitante, descricao, status}: IBeePapelPerfil) => {
+const BeePapelPerfil = () => {
 	const [solicitacoes, setSolicitacoes] = useState([]);
 	// Função utilizada para lidar com as aprovações das solicitações
 	const handleAprovarClick = async (id: number) => {
@@ -59,7 +57,7 @@ const BeePapelPerfil = ({solicitante, descricao, status}: IBeePapelPerfil) => {
 					image={Empty.PRESENTED_IMAGE_SIMPLE}
 				/>
 			) : (
-				solicitacoes.map((s) => (
+				solicitacoes.map((s: any) => (
 					<div
 						key={s.id}
 						className="bg-[#F7F7FA] shadow-md rounded-xl p-3 mb-6 relative w-full flex flex-col gap-1 border border-[#F2F2F7] transition-all duration-200 hover:shadow-xl hover:-translate-y-1"
@@ -75,8 +73,8 @@ const BeePapelPerfil = ({solicitante, descricao, status}: IBeePapelPerfil) => {
 								<span className="font-semibold">Solicitante:</span>
 								<span>{s.nome_solicitante}</span>
 							</div>
-							<div className="flex space-x-2">
-								<ReadOutlined />
+							<div className="flex items-start space-x-2">
+								<ReadOutlined className="mt-1" />
 								<span className="font-semibold">Descrição:</span>
 								<span>{s.descricao}</span>
 							</div>
