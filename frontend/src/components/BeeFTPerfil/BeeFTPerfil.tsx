@@ -24,35 +24,20 @@ function tempoDesde(data: string): string {
 
 const BeeFTPerfil: React.FC<IBeeFTPerfil> = ({usuarioId, dataPublicacao}) => {
 	const [usuario, setUsuario] = useState<any>();
-	const {username} = acessAuth();
 
 	useEffect(() => {
-		if (
-			usuarioId === null ||
-			usuarioId === "notfound" ||
-			usuarioId === "Usuário não encontrado"
-		) {
-			setUsuario({
-				username: "usuário não encontrado",
-				imagemPerfil: null,
-			});
-			return;
-		}
 		const fetchUser = async () => {
 			try {
-				if (typeof usuarioId === "number") {
-					const response = await UsuarioService.get(usuarioId);
-					setUsuario(response.data);
-				} else {
-					const response = await UsuarioService.getbyUsername(usuarioId);
-					setUsuario(response);
-				}
+				const response = await UsuarioService.get(Number(usuarioId));
+				setUsuario(response.data);
 			} catch (e) {
 				console.error("Não recebeu dados", e);
 			}
 		};
-		fetchUser();
-	}, [usuarioId]);
+		if (usuario == undefined) {
+			fetchUser();
+		}
+	}, []);
 
 	return (
 		<>
@@ -73,18 +58,10 @@ const BeeFTPerfil: React.FC<IBeeFTPerfil> = ({usuarioId, dataPublicacao}) => {
 					/>
 				</div>
 				<div className="p-2 ">
-					<span
-						className={
-							usuario?.username === "usuário não encontrado"
-								? "text-[#A0A0A0] text-[15px] font-normal"
-								: ""
-						}
-					>
-						{usuario?.username || "usuário não encontrado"}
-						<span className="text-[#FCBD18] font-poppins font-semibold text-xs">
-							{" "}
-							• {tempoDesde(dataPublicacao)}{" "}
-						</span>
+					{usuario?.username || "usuário não encontrado"}
+					<span className="text-[#FCBD18] font-poppins font-semibold text-xs">
+						{" "}
+						• {tempoDesde(dataPublicacao)}{" "}
 					</span>
 				</div>
 			</div>

@@ -1,8 +1,9 @@
 import IBeeTags from "../BeeTags/IBeeTags";
+import type { IUsuario } from "../../interfaces/Postagem"
 
 export interface BeePostProps {
   id?: number
-  usuario: string;
+  usuario: IUsuario;
   texto: string
   imagemPost?: string
   tags?: IBeeTags[]

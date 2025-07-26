@@ -1,6 +1,8 @@
 // Interface para usuário
 export interface IUsuario {
+	id: number;
 	nome: string;
+	username: string;
 	imagemPerfil?: string;
 }
 
