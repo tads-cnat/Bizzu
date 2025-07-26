@@ -6,6 +6,7 @@ from ..models import Usuario, Solicitacao
 from api.serializers.usuario import (
     UsuarioProfileSerializer,
     UsuarioSerializer,
+    UsuarioPatchSerializer,
     PesquisaSerializer,
     SolicitacaoSerializer,
     AprovarSolicitacaoSerializer,
@@ -17,6 +18,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
 from api.filters.usuario import UsuarioFilter
 from rest_framework import filters
+from ..models import Comunidade
 
 
 class UsuarioViewSet(viewsets.ModelViewSet):
@@ -49,13 +51,11 @@ class UsuarioViewSet(viewsets.ModelViewSet):
             ):
                 return AprovarSolicitacaoSerializer
             return UsuarioProfileSerializer
-        return self.serializer_class
+        elif self.request.method == "PATCH":
+            return UsuarioPatchSerializer
+        return UsuarioSerializer
 
-    @action(
-        detail=False,
-        methods=["get"],
-        url_path="userByusername/(?P<username>.*)",
-    )
+    @action(detail=False, methods=["get"], url_path="userByusername/(?P<username>.*)")
     def profileUsername(self, request, username):
         user = Usuario.objects.filter(username=username).first()
         serializador = UsuarioProfileSerializer(user)
@@ -98,11 +98,15 @@ class UsuarioViewSet(viewsets.ModelViewSet):
         usuario_seguidor = request.user
 
         esta_seguindo = usuario_seguidor.segue.filter(id=usuario_seguido.id).exists()
+        esta_seguindo_comunidade = usuario_seguidor.comunidades_que_sigo.exists()
+        print(esta_seguindo_comunidade)
         return Response(
             {
                 "esta_seguindo": esta_seguindo,
+                "esta_seguindo_comunidade": esta_seguindo_comunidade,
                 "seguidores": usuario_seguido.seguido_por.count(),
-                "seguindo": usuario_seguido.segue.count(),
+                "seguindo": usuario_seguido.segue.count()
+                + usuario_seguido.comunidades_que_sigo.count(),
             },
             status=status.HTTP_200_OK,
         )

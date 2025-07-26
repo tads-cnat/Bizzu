@@ -6,7 +6,7 @@ import * as yup from "yup";
 import {yupResolver} from "@hookform/resolvers/yup";
 import BeeAlert from "../BeeAlert/BeeAlert";
 import {useState} from "react";
-import {Link, useNavigate} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 
 const schema = yup.object().shape({
 	username: yup.string().required("O usuário é obrigatório"),
@@ -25,6 +25,7 @@ const BeeFormAuth: React.FC = () => {
 	} = useForm({resolver: yupResolver(schema)});
 
 	const redirecionar = useNavigate();
+	const deOndeVeio = useLocation();
 
 	async function saveUser(data: {
 		username: string;
@@ -34,10 +35,26 @@ const BeeFormAuth: React.FC = () => {
 			await autenticar(data.username, data.password);
 			setStatus("success");
 			setAlert(true);
-			redirecionar(`/${data.username}/`);
+			setTimeout(() => {
+				setAlert(false);
+			}, 4000);
+			if (deOndeVeio.state?.fromCadastro) {
+				localStorage.setItem("hasSeenTour", "false");
+				redirecionar(`/${data.username}/`, {
+					state: {
+						showTour: true,
+					},
+				});
+			} else {
+				localStorage.setItem("hasSeenTour", "true");
+				redirecionar(`/${data.username}/`);
+			}
 		} catch (e) {
 			setStatus("error");
 			setAlert(true);
+			setTimeout(() => {
+				setAlert(false);
+			}, 4000);
 			console.error("Deu erro", e);
 		}
 	}
@@ -112,7 +129,8 @@ const BeeFormAuth: React.FC = () => {
 						<BeeButton
 							variante="aviso"
 							label="Entrar"
-							tamanho="grande"
+							classesDefault={false}
+							className="px-4 py-2 rounded-md font-medium text-sm transition-all duration-200 bg-[#FCBD18] text-white hover:bg-yellow-500 sm:w-full sm:max-w-sm mt-5"
 						/>
 					</form>
 				</div>

@@ -6,6 +6,9 @@ import EditRepositorio from "../features/Repositorio/Edit";
 import CreateRepositorio from "../features/Repositorio/Create";
 import Repositorio from "../features/Repositorio/Repositorio";
 import LayoutFeed from "../features/Layout/LayoutFeed";
+import FormEditarPerfil from "../features/Perfil/Form/FormEditarPerfil";
+import PerfilComunidade from "../features/Perfil/PerfilComunidade";
+import LayoutCommunity from "../features/Layout/LayoutCommunity";
 import DetalhesRepositorio from "../features/Repositorio/Detalhes";
 
 export const privatesRoutes = [
@@ -42,8 +45,22 @@ export const privatesRoutes = [
 				element: <Repositorio />,
 			},
 			{
+				path: "editar",
+				element: <FormEditarPerfil />,
+			},
+			{
 				path: "repositorio/:id",
 				element: <DetalhesRepositorio />,
+			},
+		],
+	},
+	{
+		path: "",
+		element: <LayoutCommunity />,
+		children: [
+			{
+				path: "comunidade/:id",
+				element: <PerfilComunidade />,
 			},
 		],
 	},
