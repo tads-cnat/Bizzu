@@ -62,7 +62,7 @@ const BeePapelPerfil = ({solicitante, descricao, status}: IBeePapelPerfil) => {
 				solicitacoes.map((s) => (
 					<div
 						key={s.id}
-						className="bg-[#F7F7FA] shadow-md rounded-xl p-3 mb-6 relative w-full flex flex-col gap-1 border border-[#F2F2F7] transition-all duration-200 hover:shadow-xl hover:-translate-y-1"
+						className="bg-white shadow  rounded-lg p-4 mb-4 relative w-full flex flex-col gap-1 border border-[#F2F2F7] transition-all duration-200 hover:shadow-xl hover:-translate-y-1"
 					>
 						<div
 							className={`absolute top-2 right-2 px-3 py-1 rounded-full text-xs font-semibold text-white shadow-md select-none ${statusColors[s.status]}`}
