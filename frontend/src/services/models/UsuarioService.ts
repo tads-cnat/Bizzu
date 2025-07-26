@@ -35,7 +35,7 @@ class UsuarioService extends BaseService{
     async editarPerfil(dados: any){
         const response = await axiosInstance.patch(`/usuario/editarPerfil/`, dados);
         return response.data
-
+    }
     async logout() {
         const response = await axiosInstance.post(`/logout`);
         return response.data;

@@ -5,7 +5,6 @@ import {useEffect, useState} from "react";
 import {useParams, useNavigate} from "react-router-dom";
 import {PencilSimple, GraduationCap, Gear} from "@phosphor-icons/react";
 import UsuarioService from "../../services/models/UsuarioService";
-import FormEditarPerfil from "../../features/Perfil/forms/FormEditarPerfil";
 import acessPermissions from "../../utils/acessPermissions";
 import {UserSwitch} from "@phosphor-icons/react/dist/ssr";
 import {IBeeUser} from "../../features/Perfil/components/BeeHeaderProfile/IBeeUser";
@@ -18,9 +17,6 @@ const BeePerfilSidebar: React.FC = () => {
 	const [usuario, setUsuario] = useState<IBeeUser | null>(null);
 	const [loading, setLoading] = useState(true);
 	const navigate = useNavigate();
-	const handleClick = (onClickOriginal: () => void) => {
-		onClickOriginal();
-	};
 	const [papel, setPapel] = useState();
 	const [key, setKey] = useState<number>(0);
 	const [abrirModal, setModal] = useState<Boolean>(false);
@@ -46,8 +42,7 @@ const BeePerfilSidebar: React.FC = () => {
 	}, [username]);
 
 	const handleEditarPerfil = () => {
-		// Implementar navegação para edição de perfil
-		console.log("Editar perfil");
+		navigate("perfil/editar");
 	};
 
 	const handleEditarFavoritos = () => {
@@ -254,18 +249,6 @@ const BeePerfilSidebar: React.FC = () => {
 									</p>
 								</div>
 
-							<button
-								onClick={() => navigate("/bizzu/perfil/editar/")}
-								className="flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-[#058B92] hover:bg-gray-50 rounded-md transition-colors"
-							>
-								<PencilSimple
-									size={12}
-									weight="regular"
-								/>
-								{config.acao}
-							</button>
-						</div>
-					))}
 								<button
 									onClick={() => {
 										setModal(true);

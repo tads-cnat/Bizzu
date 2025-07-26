@@ -47,8 +47,8 @@ export const privatesRoutes = [
 			{
 				path: "perfil/editar",
 				element: <FormEditarPerfil />,
-        },
-        {
+			},
+			{
 				path: "repositorio/:id",
 				element: <DetalhesRepositorio />,
 			},
