@@ -22,11 +22,9 @@ export const BeeSidebar = ({onSelecionarSecao}: IBeeSidebarProps) => {
 		setCollapsed(!collapsed);
 	};
 
-	useEffect(() => {
-		if (getLocalStorage() != null && username == undefined) {
-			setUsername(getLocalStorage().username);
-		}
-	}, []);
+	if (getLocalStorage() != null && username == undefined) {
+		setUsername(getLocalStorage().username);
+	}
 
 	useEffect(() => {
 		void UsuarioService.getbyUsername(username)
@@ -111,7 +109,7 @@ export const BeeSidebar = ({onSelecionarSecao}: IBeeSidebarProps) => {
 										<div className="flex items-center gap-3">
 											<img
 												src={
-													usuario.imagemPerfil
+													usuario.imagemPerfil != undefined
 														? `http://localhost:8000${usuario.imagemPerfil}`
 														: "http://localhost:8000/imgPostagens/usuarios/2025/06/10/sem_imagem_avatar.png"
 												}

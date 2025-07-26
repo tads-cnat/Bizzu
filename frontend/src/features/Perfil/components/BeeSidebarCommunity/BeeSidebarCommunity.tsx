@@ -17,7 +17,6 @@ const BeeSidebarCommunity = () => {
 			void ComunidadeService.get(identificator)
 				.then((response) => {
 					setComunidade(response.data);
-					console.log(response);
 				})
 				.catch(() => {
 					console.error("Não capturou comunidade");

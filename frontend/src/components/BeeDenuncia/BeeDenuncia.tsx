@@ -14,7 +14,6 @@ const BeeDenuncia: React.FC<IBeeDenuncia> = ({tipos, onTipoSelecionado}) => {
 				renderItem={(item) => (
 					<List.Item
 						onClick={() => {
-							console.log("item selecionado:", item.value);
 							setSelecionado(item.value);
 							onTipoSelecionado(item.value);
 						}}

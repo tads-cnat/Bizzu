@@ -6,6 +6,7 @@ from ..models import Usuario
 from api.serializers.usuario import (
     UsuarioProfileSerializer,
     UsuarioSerializer,
+    UsuarioPatchSerializer,
     PesquisaSerializer,
     SolicitacaoSerializer,
 )
@@ -44,13 +45,11 @@ class UsuarioViewSet(viewsets.ModelViewSet):
             if self.action == "solicitarMudanca":
                 return SolicitacaoSerializer
             return UsuarioProfileSerializer
-        return self.serializer_class
+        elif self.request.method == "PATCH":
+            return UsuarioPatchSerializer
+        return UsuarioSerializer
 
-    @action(
-        detail=False,
-        methods=["get"],
-        url_path="userByusername/(?P<username>.*)",
-    )
+    @action(detail=False, methods=["get"], url_path="userByusername/(?P<username>.*)")
     def profileUsername(self, request, username):
         user = Usuario.objects.filter(username=username).first()
         serializador = UsuarioProfileSerializer(user)
