@@ -16,6 +16,7 @@ import useUser from "../../hooks/useUser";
 import tagsCategory from "../../utils/tagsCategory";
 import BeeTour from "../../components/BeeTour/BeeTour";
 import {useLocation} from "react-router-dom";
+import BeePerfilSidebar from "../../components/BeePerfilSidebar/BeePerfilSidebar";
 
 const Perfil: React.FC = () => {
 	let {load} = acessPermissions();
@@ -172,31 +173,12 @@ const Perfil: React.FC = () => {
 								{/* <FormCategoria /> */}
 								<BeeEditTag />
 							</div>
-						) : (
-							<Empty
-								description="Não há repositórios"
-								image={Empty.PRESENTED_IMAGE_SIMPLE}
-							/>
-						)}
-						<div>
-							<BeeButton
-								label="Adicionar categoria"
-								onClick={() => {
-									setModal(true);
-									setKey((prev) => prev + 1);
-								}}
-							/>
-							{/* <FormCategoria /> */}
-							<BeeEditTag />
-						</div>
-						<div>
-							<BeePapelPerfil />
-						</div>
-					</BeeAbasPerfil>
 
-					<aside className="fixed top-[80px] right-4 w-1/4 min-h-screen shadow-md flex flex-col justify-start px-3 py-4 rounded-xl bg-white z-40 overflow-y-auto gap-4">
-						<BeePerfilSidebar />
-					</aside>
+							<div>
+								<BeePapelPerfil />
+							</div>
+						</BeeAbasPerfil>
+					</div>
 				</div>
 			)}
 			{modal()}
