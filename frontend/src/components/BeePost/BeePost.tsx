@@ -135,8 +135,6 @@ const BeePost: React.FC<BeePostProps> = ({
 		onExcluir,
 	};
 
-	console.log("POST", imagemPost);
-
 	return (
 		<div className="bg-white shadow rounded-lg p-4 mb-4 relative w-full">
 			{deleteConfimation && (

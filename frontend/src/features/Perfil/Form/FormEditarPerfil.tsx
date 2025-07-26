@@ -62,16 +62,14 @@ const FormEditarPerfil: React.FC = () => {
 			else dataSubmit.append("descricao", usuario.descricao);
 			if (data.imagemPerfil !== "" && data.imagemPerfil !== undefined)
 				dataSubmit.append("imagemPerfil", data.imagemPerfil);
-
 			if (data.escolaFormacao !== "")
 				dataSubmit.append("escolaFormacao", data.escolaFormacao);
 			if (data.instituicaoAtual !== "")
 				dataSubmit.append("instituicaoAtual", data.instituicaoAtual);
 			else dataSubmit.append("instituicaoAtual", usuario.instituicaoAtual);
 			await UsuarioService.patch(usuario.id, dataSubmit);
-			caminho(-1);
-			navigate(`/bizzu/${usuarioLocal.username}`);
-			window.location.reload();
+			// caminho(`/${usuarioLocal.username}`);
+			window.location.href = `/${usuarioLocal.username}`;
 		} catch (e) {
 			console.error("Não foi possivel salvar o usuário", e);
 		}
@@ -86,66 +84,63 @@ const FormEditarPerfil: React.FC = () => {
 				<h1 className="text-2xl font-bold ">Editar perfil</h1>
 				<div className="space-y-12">
 					<div>
-						<div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+						<div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-6">
 							<div className="col-span-full">
-								<div className="mt-2">
-									<BeeInput
-										placeholder="Digite seu nome"
-										label="Nome"
-										type="text"
-										defaultValue={
-											usuario !== undefined
+								<BeeInput
+									placeholder="Digite seu nome"
+									label="Nome"
+									type="text"
+									defaultValue={
+										usuario !== undefined
+											? usuario.nome
 												? usuario.nome
-													? usuario.nome
-													: ""
 												: ""
-										}
-										register={{...register("nome")}}
-									/>
-									{errors.nome && (
-										<p className="text-red-500 text-sm mt-1">
-											{errors.nome.message}
-										</p>
-									)}
-								</div>
+											: ""
+									}
+									register={{...register("nome")}}
+								/>
+								{errors.nome && (
+									<p className="text-red-500 text-sm mt-1">
+										{errors.nome.message}
+									</p>
+								)}
 							</div>
 
 							<div className="col-span-full">
-								<div className="mt-2">
-									<Controller
-										name="descricao"
-										control={control}
-										render={({field}) => (
-											<BeeTextArea
-												{...field}
-												id="descricao"
-												defaultValue={
-													usuario !== undefined
+								<Controller
+									name="descricao"
+									control={control}
+									render={({field}) => (
+										<BeeTextArea
+											{...field}
+											id="descricao"
+											defaultValue={
+												usuario !== undefined
+													? usuario.descricao
 														? usuario.descricao
-															? usuario.descricao
-															: ""
 														: ""
-												}
-												rows={3}
-											/>
-										)}
-									/>
-									{errors.descricao && (
-										<p className="text-red-500 text-sm mt-1">
-											{errors.descricao.message}
-										</p>
+													: ""
+											}
+											rows={3}
+										/>
 									)}
-								</div>
+								/>
+								{errors.descricao && (
+									<p className="text-red-500 text-sm mt-1">
+										{errors.descricao.message}
+									</p>
+								)}
 							</div>
 							<div className="col-span-full">
-								<div className="mt-2">
+								<div>
 									<BeeInput
 										placeholder="Digite a escola de formação"
 										label="Escola de formação"
 										type="text"
 										defaultValue={
 											usuario !== undefined
-												? usuario.escolaFormacao
+												? usuario.escolaFormacao != undefined &&
+													usuario.escolaFormacao != "undefined"
 													? usuario.escolaFormacao
 													: ""
 												: ""
@@ -160,27 +155,26 @@ const FormEditarPerfil: React.FC = () => {
 								</div>
 							</div>
 							<div className="col-span-full">
-								<div className="mt-2">
-									<BeeInput
-										placeholder="Digite a instituição atual"
-										label="Instituição atual"
-										defaultValue={
-											usuario !== undefined
+								<BeeInput
+									placeholder="Digite a instituição atual"
+									label="Instituição atual"
+									defaultValue={
+										usuario !== undefined
+											? usuario.instituicaoAtual != undefined &&
+												usuario.instituicaoAtual != "undefined"
 												? usuario.instituicaoAtual
-													? usuario.instituicaoAtual
-													: ""
 												: ""
-										}
-										type="text"
-										register={{...register("instituicaoAtual")}}
-									/>
+											: ""
+									}
+									type="text"
+									register={{...register("instituicaoAtual")}}
+								/>
 
-									{errors.instituicaoAtual && (
-										<p className="text-red-500 text-sm mt-1">
-											{errors.instituicaoAtual.message}
-										</p>
-									)}
-								</div>
+								{errors.instituicaoAtual && (
+									<p className="text-red-500 text-sm mt-1">
+										{errors.instituicaoAtual.message}
+									</p>
+								)}
 							</div>
 							<div className="col-span-full">
 								<Controller
@@ -208,7 +202,7 @@ const FormEditarPerfil: React.FC = () => {
 						<BeeButton
 							label="cancelar"
 							variante="negativo"
-							onClick={() => navigate(`/bizzu/${usuarioLocal.username}`)}
+							onClick={() => navigate(`/${usuarioLocal.username}`)}
 						/>
 						<BeeButton
 							variante="primaria"
@@ -218,12 +212,12 @@ const FormEditarPerfil: React.FC = () => {
 							(status === "success" ? (
 								<BeeAlert
 									typeAlert="success"
-									messageAlert={mensagem}
+									messageAlert={"Perfil alterado com sucesso"}
 								/>
 							) : (
 								<BeeAlert
 									typeAlert="error"
-									messageAlert={mensagem}
+									messageAlert={"Não foi possível alterar o sue perfil"}
 								/>
 							))}
 					</div>
