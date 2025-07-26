@@ -6,9 +6,16 @@
    padding: 0 !important;
 }
 
+.ant-menu-title-content{
+    flex: none !important;
+}
+
 .css-dev-only-do-not-override-ut69n1{
     box-shadow: none !important;
    border-color: none !important;
 }
 
 
+.ant-notification-notice-description > a{
+    color: #FCBD18 !important;
+}
