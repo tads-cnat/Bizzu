@@ -10,7 +10,6 @@ class PermissionList(permissions.BasePermission):
             return False
         if usuario.papel == self.papel:
             return True
-        print("USUARIO: ", self.papel)
         return False
 
 
