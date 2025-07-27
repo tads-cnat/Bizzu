@@ -17,6 +17,7 @@ import tagsCategory from "../../utils/tagsCategory";
 import BeeTour from "../../components/BeeTour/BeeTour";
 import {useLocation} from "react-router-dom";
 import BeePerfilSidebar from "../../components/BeePerfilSidebar/BeePerfilSidebar";
+import BeeCardDenuncia from "../../components/BeeCardDenuncia/BeeCardDeniuncia";
 
 const Perfil: React.FC = () => {
 	let {load} = acessPermissions();
@@ -176,6 +177,9 @@ const Perfil: React.FC = () => {
 
 							<div>
 								<BeePapelPerfil />
+							</div>
+							<div>
+								<BeeCardDenuncia />
 							</div>
 						</BeeAbasPerfil>
 					</div>
