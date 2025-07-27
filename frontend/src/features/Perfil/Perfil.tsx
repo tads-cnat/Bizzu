@@ -1,6 +1,6 @@
 import BeeAbasPerfil from "./components/BeeAbasPerfil/BeeAbasPerfil";
 import type React from "react";
-import {useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import BeePost from "../../components/BeePost/BeePost";
 import type {IPostagem} from "../../interfaces/Postagem";
 import BeeHeaderProfile from "./components/BeeHeaderProfile/BeeHeaderProfile";
@@ -17,11 +17,13 @@ import tagsCategory from "../../utils/tagsCategory";
 import BeeTour from "../../components/BeeTour/BeeTour";
 import {useLocation} from "react-router-dom";
 import BeePerfilSidebar from "../../components/BeePerfilSidebar/BeePerfilSidebar";
-import BeeCardDenuncia from "../../components/BeeCardDenuncia/BeeCardDeniuncia";
+import BeeCardDenuncia from "../../components/BeeCardDenuncia/BeeCardDenuncia";
+import getLocalStorage from "../../utils/getLocalStorage";
 
 const Perfil: React.FC = () => {
 	let {load} = acessPermissions();
 	const [abrirModal, setModal] = useState<Boolean>(false);
+	const [username, setUsername] = useState();
 	const [key, setKey] = useState<number>(0);
 	const {
 		categorias,
@@ -43,6 +45,12 @@ const Perfil: React.FC = () => {
 		const comunidade = comunidades.find((c) => c.id === comunidadeId);
 		return comunidade?.nome || null;
 	};
+
+	useEffect(() => {
+		if (getLocalStorage()) {
+			setUsername(getLocalStorage().username);
+		}
+	}, []);
 
 	const refHeader = useRef(null);
 	const refPubli = useRef(null);
@@ -77,7 +85,10 @@ const Perfil: React.FC = () => {
 						<BeeHeaderProfile />
 					</div>
 					<div ref={refPubli}>
-						<BeeAbasPerfil initialActiveKey="1">
+						<BeeAbasPerfil
+							initialActiveKey="1"
+							owner={usuario?.username == username}
+						>
 							{postagens?.length ? (
 								<div className="space-y-4">
 									{postagens.map((post: IPostagem) => {
