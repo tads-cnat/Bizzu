@@ -35,7 +35,7 @@ const BeeCardDenuncia = () => {
 		try {
 			const p: any[] = [];
 			const den = denuncia.map(async (d: any) => {
-				if (d.postagem != null) {
+				if (d.postagem != null && d.comentario == null) {
 					const response = await PostagemService.get(d.postagem);
 					p.push({...response.data, tipo: d.tipo, idDenuncia: d.id});
 				}
@@ -67,8 +67,8 @@ const BeeCardDenuncia = () => {
 		try {
 			const p: any[] = [];
 			const den = denuncia.map(async (d: any) => {
-				if (d.repositorio != null) {
-					const response = await ComentarioService.get(d.repositorio);
+				if (d.comentario != null) {
+					const response = await ComentarioService.get(d.comentario);
 					p.push({...response.data, tipo: d.tipo, idDenuncia: d.id});
 				}
 			});
