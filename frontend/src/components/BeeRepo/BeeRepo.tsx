@@ -122,14 +122,21 @@ const BeeRepo: React.FC<iBeeRepoProps> = ({
 	};
 
 	// Função responsável por abrir o modal de denuncia
-	const handleAbrirDenuncia = () => {
+	const handleAbrirDenuncia = (e: React.MouseEvent) => {
+		e.stopPropagation(); // Impede a propagação do evento
+		e.preventDefault(); // Previne qualquer comportamento padrão
 		loadDenunciaType();
 		setMostrarDenuncia(true);
 	};
 
 	// Função responsável por fechar o modal de denuncia
-	const handleFecharDenuncia = () => {
+	const handleFecharDenuncia = (e?: React.MouseEvent) => {
+		if (e) {
+			e.stopPropagation();
+			e.preventDefault();
+		}
 		setMostrarDenuncia(false);
+		setTipoSelecionado(null);
 	};
 
 	// Função para tratar a exclusão e fechar o modal
@@ -158,6 +165,12 @@ const BeeRepo: React.FC<iBeeRepoProps> = ({
 	};
 
 	const handleClickRepositorio = (e: React.MouseEvent) => {
+		// Se o modal de denúncia estiver aberto, não navegar
+		if (mostrarDenuncia) {
+			e.stopPropagation();
+			return;
+		}
+
 		if (deleteConfirmation) {
 			e.stopPropagation();
 			return;
@@ -167,9 +180,23 @@ const BeeRepo: React.FC<iBeeRepoProps> = ({
 		}
 	};
 
+	// Função para navegar para o perfil do usuário
+	const handleClickPerfil = (e: React.MouseEvent) => {
+		e.stopPropagation(); // Impede a propagação do evento
+		if (usuario && usuario.username) {
+			navigate(`/${usuario.username}`);
+		}
+	};
+
+	// Função para lidar com cliques no modal
+	const handleModalClick = (e: React.MouseEvent) => {
+		e.stopPropagation();
+		e.preventDefault();
+	};
+
 	return (
 		<div
-			className={`bg-[#F7F7FA] shadow-md rounded-xl p-3 mb-2 relative w-full flex flex-col gap-1 border border-[#F2F2F7] transition-all duration-200 hover:shadow-xl ${!mostrarDenuncia ? "hover:-translate-y-1" : ""}`}
+			className={`bg-[#F7F7FA] shadow-md rounded-xl p-3 mb-2 relative w-full flex flex-col gap-1 border border-[#F2F2F7] transition-all duration-200 hover:shadow-xl}`}
 			style={{maxWidth: 320}}
 			onClick={(e) => handleClickRepositorio(e)}
 		>
@@ -254,17 +281,22 @@ const BeeRepo: React.FC<iBeeRepoProps> = ({
 				)}
 			</div>
 			{/* Header: Avatar, nome, tempo - do criador do repositório */}
-			{usuario ? (
-				<BeeFTPerfil
-					usuarioId={usuario.id}
-					dataPublicacao={dataPublicacao}
-				/>
-			) : (
-				<BeeFTPerfil
-					usuarioId="Usuário não encontrado"
-					dataPublicacao={dataPublicacao}
-				/>
-			)}
+			<div
+				onClick={handleClickPerfil}
+				className="cursor-pointer"
+			>
+				{usuario ? (
+					<BeeFTPerfil
+						usuarioId={usuario.id}
+						dataPublicacao={dataPublicacao}
+					/>
+				) : (
+					<BeeFTPerfil
+						usuarioId="Usuário não encontrado"
+						dataPublicacao={dataPublicacao}
+					/>
+				)}
+			</div>
 			{/* Título */}
 			{titulo && (
 				<h3 className="text-base font-bold text-[#333333] mb-0.5">{titulo}</h3>
@@ -288,35 +320,36 @@ const BeeRepo: React.FC<iBeeRepoProps> = ({
 
 			{/* Modal de Denúncia */}
 			{mostrarDenuncia && (
-				<div className="absolute inset-0 flex justify-center items-center pointer-events-none">
-					<div className="bg-white p-6 rounded-lg w-[400px] pointer-events-auto fixed z-[9999]">
+				<div
+					className="absolute top-0 left-0 w-full h-full bg-opacity-40 flex justify-center items-center z-50"
+					onClick={handleFecharDenuncia}
+				>
+					<div
+						className="bg-white p-4 rounded-md w-[400px] max-w-full shadow-lg relative"
+						onClick={handleModalClick}
+					>
 						<button
 							onClick={handleFecharDenuncia}
-							className="text-gray-600 hover:text-red-600 cursor-pointer"
-							type="button"
-							aria-label="Fechar"
+							className="absolute top-2 right-2 text-gray-600 hover:text-red-600"
 						>
 							<CloseOutlined />
 						</button>
+
 						<BeeDenuncia
 							tipos={tipos}
 							onTipoSelecionado={setTipoSelecionado}
 						/>
 						<div className="mt-4 flex justify-end gap-2">
-							<button
+							<BeeButton
 								onClick={handleFecharDenuncia}
-								className="px-4 py-2 rounded bg-gray-200 hover:bg-gray-300 text-gray-700 cursor-pointer transition-colors"
-								type="button"
-							>
-								Cancelar
-							</button>
-							<button
+								label="Cancelar"
+								variante="neutro"
+							/>
+							<BeeButton
 								onClick={enviarDenuncia}
-								className="px-4 py-2 rounded bg-[#FCBD18] hover:bg-yellow-400 text-white font-bold cursor-pointer transition-colors"
-								type="button"
-							>
-								Enviar denúncia
-							</button>
+								label="Enviar denuncia"
+								variante="primaria"
+							/>
 						</div>
 					</div>
 				</div>

@@ -5,6 +5,15 @@ import "./BeeDenuncia.css";
 
 const BeeDenuncia: React.FC<IBeeDenuncia> = ({tipos, onTipoSelecionado}) => {
 	const [selecionado, setSelecionado] = useState<string | null>(null);
+
+	const handleItemClick = (item: any, e: React.MouseEvent) => {
+		e.stopPropagation();
+		e.preventDefault();
+		console.log("item selecionado:", item.value);
+		setSelecionado(item.value);
+		onTipoSelecionado(item.value);
+	};
+
 	return (
 		<>
 			<Divider orientation="left">Tipos de Denúncia</Divider>
@@ -13,11 +22,7 @@ const BeeDenuncia: React.FC<IBeeDenuncia> = ({tipos, onTipoSelecionado}) => {
 				dataSource={tipos}
 				renderItem={(item) => (
 					<List.Item
-						onClick={() => {
-							console.log("item selecionado:", item.value);
-							setSelecionado(item.value);
-							onTipoSelecionado(item.value);
-						}}
+						onClick={(e) => handleItemClick(item, e)}
 						className={selecionado === item.value ? "item-selecionado" : ""}
 						style={{cursor: "pointer"}}
 					>

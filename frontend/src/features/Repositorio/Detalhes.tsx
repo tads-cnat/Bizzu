@@ -10,12 +10,13 @@ import BeeModal from "../../components/BeeModal/BeeModal";
 import RepositorioService from "../../services/models/RepositorioService";
 import ArquivoService from "../../services/models/ArquivoService";
 import CategoriaService from "../../services/models/CategoriaService";
-import type {Repositorio, Tag} from "../../interfaces/Repositorio";
-import type {Categoria} from "../../interfaces/Categoria";
+import type {IRepositorio, ITag} from "../../interfaces/Repositorio";
+import type {ICategoria} from "../../interfaces/Categoria";
 import type {FileItem} from "../../components/BeeTabelaRepositorio/IBeeTabelaRepositorio";
 import acessAuth from "../../utils/acessAuth";
 import acessPermissions from "../../utils/acessPermissions";
-import { Spin } from "antd";
+import {Spin} from "antd";
+import { colors } from "../../components/BeeTags/BeeTags";
 
 const DetalhesRepositorio: React.FC = () => {
 	const {id} = useParams<{id: string}>();
@@ -23,9 +24,9 @@ const DetalhesRepositorio: React.FC = () => {
 	const {username} = acessAuth();
 	const {load, permissions} = acessPermissions();
 
-	const [repositorio, setRepositorio] = useState<Repositorio | null>(null);
+	const [repositorio, setRepositorio] = useState<IRepositorio | null>(null);
 	const [arquivos, setArquivos] = useState<FileItem[]>([]);
-	const [categorias, setCategorias] = useState<Categoria[]>([]);
+	const [categorias, setCategorias] = useState<ICategoria[]>([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
 	const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -106,16 +107,16 @@ const DetalhesRepositorio: React.FC = () => {
 	};
 
 	// Converter categorias em tags
-	const categoriasParaTags = (categoriasIds: number[]): Tag[] => {
+	const categoriasParaTags = (categoriasIds: number[]): ITag[] => {
 		if (!categoriasIds || categoriasIds.length === 0) return [];
 
-		const coresPorTipo: Record<"tec" | "mat" | "per", string> = {
-			tec: "magenta",
-			mat: "orange",
-			per: "cyan",
+		const coresPorTipo: Record<"tec" | "mat" | "per", colors> = {
+			tec: "magenta" as colors,
+			mat: "orange" as colors,
+			per: "cyan" as colors,
 		};
 
-		const tagsValidas: Tag[] = [];
+		const tagsValidas: ITag[] = [];
 
 		for (const categoriaId of categoriasIds) {
 			const categoria = categorias.find((c) => c.id === categoriaId);
@@ -147,7 +148,7 @@ const DetalhesRepositorio: React.FC = () => {
 						className="flex items-center gap-2 text-gray-600 hover:text-gray-800 transition-colors"
 					>
 						<ArrowLeft size={20} />
-						<span>Voltar</span>
+						<span className="cursor-pointer">Voltar</span>
 					</button>
 				</div>
 
@@ -176,7 +177,7 @@ const DetalhesRepositorio: React.FC = () => {
 						className="flex items-center gap-2 text-gray-600 hover:text-gray-800 transition-colors"
 					>
 						<ArrowLeft size={20} />
-						<span>Voltar</span>
+						<span className="cursor-pointer">Voltar</span>
 					</button>
 				</div>
 
@@ -208,64 +209,63 @@ const DetalhesRepositorio: React.FC = () => {
 
 	return (
 		<>
-		{!load ? (
-			<Spin />
-		) : (
+			{!load ? (
+				<Spin />
+			) : (
+				<div className="w-full">
+					{/* Header com navegação e ações */}
+					<div className="flex items-center justify-between mb-6">
+						<button
+							onClick={handleVoltar}
+							className="flex items-center gap-2 text-gray-600 hover:text-gray-800 transition-colors"
+						>
+							<ArrowLeft size={20} />
+							<span className="cursor-pointer">Voltar</span>
+						</button>
 
-		<div className="w-full">
-			{/* Header com navegação e ações */}
-			<div className="flex items-center justify-between mb-6">
-				<button
-					onClick={handleVoltar}
-					className="flex items-center gap-2 text-gray-600 hover:text-gray-800 transition-colors"
-				>
-					<ArrowLeft size={20} />
-					<span>Voltar</span>
-				</button>
-
-				{/* Ações do proprietário */}
-				{isOwner && permissions.update && (
-					<div className="flex items-center gap-2">
-						<BeeButton
-							label="Editar"
-							variante="secundaria"
-							icone={<PencilSimple size={16} />}
-							onClick={handleEditar}
-						/>
-						<BeeButton
-							label="Excluir"
-							variante="negativo"
-							icone={<Trash size={16} />}
-							onClick={() => setShowDeleteModal(true)}
-						/>
+						{/* Ações do proprietário */}
+						{isOwner && permissions.includes("update") && (
+							<div className="flex items-center gap-2">
+								<BeeButton
+									label="Editar"
+									variante="secundaria"
+									icone={<PencilSimple size={16} />}
+									onClick={handleEditar}
+								/>
+								<BeeButton
+									label="Excluir"
+									variante="negativo"
+									icone={<Trash size={16} />}
+									onClick={() => setShowDeleteModal(true)}
+								/>
+							</div>
+						)}
 					</div>
-				)}
-			</div>
 
-			{/* Componente principal do repositório */}
-			<BeeTabelaRepositorio
-				id={repositorio.id}
-				titulo={repositorio.titulo || "Repositório sem título"}
-				descricao={repositorio.descricao}
-				usuario={repositorio.usuario ?? null}
-				dataPublicacao={repositorio.dataPublicacao}
-				tags={tags}
-				arquivos={arquivos}
-				imagem={repositorio.imagem}
-			/>
+					{/* Componente principal do repositório */}
+					<BeeTabelaRepositorio
+						id={repositorio.id}
+						titulo={repositorio.titulo || "Repositório sem título"}
+						descricao={repositorio.descricao}
+						usuario={repositorio.usuario ?? null}
+						dataPublicacao={repositorio.dataPublicacao}
+						tags={tags}
+						arquivos={arquivos}
+						imagem={repositorio.imagem}
+					/>
 
-			{/* Modal de confirmação de exclusão */}
-			{showDeleteModal && (
-				<BeeModal
-					label="Excluir repositório"
-					text="Você tem certeza que deseja excluir este repositório? Esta ação não pode ser desfeita."
-					type="descartar"
-					id={repositorio.id}
-					onExcluir={handleExcluir}
-				/>
+					{/* Modal de confirmação de exclusão */}
+					{showDeleteModal && (
+						<BeeModal
+							label="Excluir repositório"
+							text="Você tem certeza que deseja excluir este repositório? Esta ação não pode ser desfeita."
+							type="descartar"
+							id={repositorio.id}
+							onExcluir={handleExcluir}
+						/>
+					)}
+				</div>
 			)}
-		</div>
-		)}
 		</>
 	);
 };

@@ -1,5 +1,5 @@
-import  { IUsuario } from "../../interfaces/Postagem"
-import  IBeeTags from "../BeeTags/IBeeTags"
+import  { ITag, IUsuario } from "../../interfaces/Repositorio"
+
 export interface FileItem {
   id: number
   nome?: string
@@ -19,7 +19,7 @@ export interface IBeeTabelaRepositorio {
   /** Data de criação/atualização do repositório */
   dataPublicacao: string
   /** Lista de tags associadas ao repositório */
-  tags: IBeeTags[]
+  tags: ITag[]
   /** Lista de arquivos anexados ao repositório */
   arquivos: FileItem[]
   /** Imagem do repositório (opcional) */

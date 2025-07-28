@@ -5,6 +5,8 @@
 	transition:
 		background-color 0.3s ease,
 		color 0.3s ease;
+	position: relative;
+	z-index: 1;
 }
 
 .ant-list-item:hover {
@@ -75,5 +77,20 @@
 	color: #888;
 	cursor: pointer;
 	z-index: 10001;
+}
+
+/* Garantir que os cliques funcionem corretamente */
+.ant-list {
+	position: relative;
+	z-index: 1;
+}
+
+.ant-list-item {
+	pointer-events: auto !important;
+}
+
+/* Prevenir que cliques no modal sejam afetados */
+.bee-denuncia-modal * {
+	pointer-events: auto;
 }
 
