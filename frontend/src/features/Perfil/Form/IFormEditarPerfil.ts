@@ -5,5 +5,6 @@ export interface IFormEditarPerfil {
 	linkedinUrl?: string;
 	escolaFormacao?: string;
 	instituicaoAtual?: string;
+	banner?:string;
 	onClose?: () => void;
 }
