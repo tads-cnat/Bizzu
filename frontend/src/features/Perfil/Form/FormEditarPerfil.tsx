@@ -32,6 +32,22 @@ const FormEditarPerfil: React.FC = () => {
 	);
 	const [previewBanner, setPreviewBanner] = useState("/banner.png");
 
+	useEffect(() => {
+		if (usuario?.banner) {
+			setPreviewBanner(`http://localhost:8000/${usuario.banner}`);
+		} else {
+			setPreviewBanner("/banner.png");
+		}
+
+		if (usuario?.imagemPerfil) {
+			setPreview(`http://localhost:8000/${usuario.imagemPerfil}`);
+		} else {
+			setPreview(
+				"http://localhost:8000/imgPostagens/usuarios/2025/06/10/sem_imagem_avatar.png",
+			);
+		}
+	}, [usuario]);
+
 	const {
 		handleSubmit,
 		register,
@@ -74,7 +90,6 @@ const FormEditarPerfil: React.FC = () => {
 			else dataSubmit.append("instituicaoAtual", usuario.instituicaoAtual);
 			if (data.banner !== "" && data.banner !== undefined)
 				dataSubmit.append("banner", data.banner);
-			else dataSubmit.append("banner", usuario.banner);
 
 			await UsuarioService.patch(usuario.id, dataSubmit);
 			// caminho(`/${usuarioLocal.username}`);

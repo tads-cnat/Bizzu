@@ -181,8 +181,6 @@ const BeeModalComentarios: React.FC<IBeeModalComentarios> = ({
 				mensagem: "Denúncia enviada com sucesso.",
 			});
 			setMostrarDenuncia(false);
-			console.log("ID DO USUARIO", usuarioLocal.id);
-			console.log("ID DA POSTAGEM", post.id);
 		} catch (e) {
 			setAlertaDenuncia({
 				tipo: "error",
