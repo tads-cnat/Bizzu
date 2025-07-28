@@ -1,4 +1,5 @@
 from django.db.models import Q
+from ..permissions.moderador import Moderador
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import viewsets, permissions
@@ -26,6 +27,8 @@ class PostagemViewSet(viewsets.ModelViewSet):
             or self.action == "list"
         ):
             return [AllowAny()]
+        if self.action == "destroy":
+            return [Moderador()]
         return super().get_permissions()
 
     def getSerializer(self):

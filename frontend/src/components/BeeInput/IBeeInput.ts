@@ -13,4 +13,6 @@ import { UseFormRegisterReturn } from "react-hook-form";
      icon?: React.ElementType<IconProps>;
     // Para registrar formulário
     register?: UseFormRegisterReturn;
+    //Valor default
+    defaultValue?:string;
  }

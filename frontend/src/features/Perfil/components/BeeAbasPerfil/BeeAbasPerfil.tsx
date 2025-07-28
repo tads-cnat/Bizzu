@@ -7,6 +7,7 @@ import {Tabs} from "antd";
 const BeeAbasPerfil: React.FC<IBeeAbasPerfil> = ({
 	children,
 	initialActiveKey,
+	owner,
 }) => {
 	const [papel, setPapel] = useState("");
 	if (getLocalStorage() != null && papel == "") {
@@ -25,11 +26,23 @@ const BeeAbasPerfil: React.FC<IBeeAbasPerfil> = ({
 			children: <>{childrenArray[1]}</>,
 		},
 	];
-	if (papel === "mod") {
+	if (papel === "mod" && owner) {
+		abas.push({
+			key: "4",
+			label: <span className="text-[#333333] font-medium">Solicitações</span>,
+			children: <>{childrenArray[3]}</>,
+		});
+	}
+	if (papel === "mod" && owner) {
 		abas.push({
 			key: "3",
 			label: <span className="text-[#333333] font-medium">Categorias</span>,
 			children: <>{childrenArray[2]}</>,
+		});
+		abas.push({
+			key: "5",
+			label: <span className="text-[#333333] font-medium">Denúncias</span>,
+			children: <>{childrenArray[4]}</>,
 		});
 	}
 	const [activeKey, setActiveKey] = useState(initialActiveKey || abas[0].key);
