@@ -20,7 +20,7 @@ const useUser = () => {
 	const [usuario, setUsuario] = useState<IBeeUser>();
 
 	useEffect(() => {
-		if (usuario === undefined) {
+		if (usuario === undefined || usuario.username != identificator) {
 			void UsuarioService.getbyUsername(String(identificator))
 				.then((response) => {
 					setUsuario(response);
@@ -29,7 +29,7 @@ const useUser = () => {
 					console.error("Não recebeu dados");
 				});
 		}
-	}, []);
+	}, [identificator]);
 
 	useEffect(() => {
 		if (usuario !== undefined) {
@@ -100,6 +100,8 @@ const useUser = () => {
 			alert("Erro ao excluir postagem. Tente novamente.");
 		}
 	};
+
+	console.log(postagens, usuario);
 
 	return {
 		postagens,

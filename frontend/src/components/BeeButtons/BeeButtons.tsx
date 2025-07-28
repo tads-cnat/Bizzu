@@ -16,7 +16,7 @@ export const BeeButton = ({
 }: BeeButtonProps) => {
 	// Aqui estão as classes defaults em tailwind para os botões
 	const classesPrimarias =
-		"flex items-center justify-center gap-2 px-4 py-2 rounded-md font-medium text-sm transition-all duration-200";
+		"flex items-center justify-center gap-2 px-4 py-2 rounded-md min-h-[36px] font-medium text-sm transition-all duration-200";
 	// Aqui está a classe para botões desabilitados
 	const classesDesabilitado = "opacity-50 cursor-not-allowed";
 	const classeAtivo = "cursor-pointer";
