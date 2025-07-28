@@ -22,6 +22,7 @@ from rest_framework import filters
 from ..models import Comunidade
 import requests
 from django.conf import settings
+import secrets
 
 
 
@@ -203,58 +204,75 @@ class LogoutUsuarioView(APIView):
             return Response({"error": str(error)})
         
 class GoogleAuthView(APIView):
-    permission_classes = [AllowAny]  # Permitir acesso sem JWT
-    authentication_classes = []      # Desabilita autenticação padrão
+    permission_classes = [AllowAny]
+    authentication_classes = []
 
     def post(self, request):
         token = request.data.get("token")
         if not token:
             return Response({"error": "Token não fornecido"}, status=status.HTTP_400_BAD_REQUEST)
 
-        # Valida token com o Google
+        # ✅ Valida token com Google
         google_resp = requests.get(f"https://oauth2.googleapis.com/tokeninfo?id_token={token}")
         if google_resp.status_code != 200:
-            return Response({"error": "Token inválido"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error": "Token Google inválido"}, status=status.HTTP_400_BAD_REQUEST)
 
         google_data = google_resp.json()
 
-        # Verifica se o token é para o seu Client ID
+        # ✅ Verifica se o token é do seu CLIENT_ID
         if google_data.get("aud") != settings.GOOGLE_CLIENT_ID:
             return Response({"error": "Client ID inválido"}, status=status.HTTP_400_BAD_REQUEST)
 
         email = google_data["email"]
         name = google_data.get("name", email.split("@")[0])
-        picture = google_data.get("picture")  # Caso queira salvar avatar
+        picture = google_data.get("picture")
 
+        # ✅ Garante username único
+        base_username = email.split("@")[0]
+        username = base_username
+        count = 1
+        while Usuario.objects.filter(username=username).exists():
+            username = f"{base_username}{count}"
+            count += 1
 
-        print(google_data)
-        print(google_data[name])
-        print(google_data[picture]) 
-        # Busca ou cria o usuário na tabela Usuario
-        username = email.split("@")[0]
+        # ✅ Busca ou cria usuário com defaults coerentes
         user, created = Usuario.objects.get_or_create(
             email=email,
             defaults={
                 "username": username,
                 "nome": name,
-                "imagemPerfil": picture
+                "descricao": "",
+                "escolaFormacao": "",
+                "instituicaoAtual": "",
+                "papel": "int",
             }
         )
-        
-        if created: 
-            token_pair =  Token.objects.create(created)
-        else:
-            token_pair = Token.objects.create(user)
-        # Gera tokens JWT
+
+        # ✅ Se o usuário acabou de ser criado, define senha aleatória e salva foto
+        if created:
+            user.set_password(secrets.token_urlsafe(16))  # senha random
+            if picture:
+                # Apenas salva URL no campo imagemPerfil se você tiver suporte para URL -> File
+                # Caso contrário, deixe null e o usuário pode atualizar depois
+                user.imagemPerfil = None  
+            user.save()
+
+        # ✅ Gera tokens JWT
+        refresh = RefreshToken.for_user(user)
 
         return Response({
-            "refresh": str(token_pair.refresh_token),
-            "access": str(token_pair.access_token),
+            "refresh": str(refresh),
+            "access": str(refresh.access_token),
+            "is_new": created,  # 🔥 informa ao frontend se o perfil precisa ser completado
             "user": {
                 "id": user.id,
                 "username": user.username,
                 "email": user.email,
-                "nome": getattr(user, "nome", name)
+                "nome": user.nome,
+                "imagemPerfil": request.build_absolute_uri(user.imagemPerfil.url) if user.imagemPerfil else picture,
+                "descricao": user.descricao,
+                "escolaFormacao": user.escolaFormacao,
+                "instituicaoAtual": user.instituicaoAtual,
+                "papel": user.papel
             }
         }, status=status.HTTP_200_OK)
-        return Response({ ok: 'ok' }, status=status.HTTP_200_OK)
