@@ -1,3 +1,4 @@
+from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
@@ -19,6 +20,9 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from api.filters.usuario import UsuarioFilter
 from rest_framework import filters
 from ..models import Comunidade
+import requests
+from django.conf import settings
+
 
 
 class UsuarioViewSet(viewsets.ModelViewSet):
@@ -197,3 +201,60 @@ class LogoutUsuarioView(APIView):
             return Response({"detail": "Usuário deslogado com sucesso."})
         except Exception as error:
             return Response({"error": str(error)})
+        
+class GoogleAuthView(APIView):
+    permission_classes = [AllowAny]  # Permitir acesso sem JWT
+    authentication_classes = []      # Desabilita autenticação padrão
+
+    def post(self, request):
+        token = request.data.get("token")
+        if not token:
+            return Response({"error": "Token não fornecido"}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Valida token com o Google
+        google_resp = requests.get(f"https://oauth2.googleapis.com/tokeninfo?id_token={token}")
+        if google_resp.status_code != 200:
+            return Response({"error": "Token inválido"}, status=status.HTTP_400_BAD_REQUEST)
+
+        google_data = google_resp.json()
+
+        # Verifica se o token é para o seu Client ID
+        if google_data.get("aud") != settings.GOOGLE_CLIENT_ID:
+            return Response({"error": "Client ID inválido"}, status=status.HTTP_400_BAD_REQUEST)
+
+        email = google_data["email"]
+        name = google_data.get("name", email.split("@")[0])
+        picture = google_data.get("picture")  # Caso queira salvar avatar
+
+
+        print(google_data)
+        print(google_data[name])
+        print(google_data[picture]) 
+        # Busca ou cria o usuário na tabela Usuario
+        username = email.split("@")[0]
+        user, created = Usuario.objects.get_or_create(
+            email=email,
+            defaults={
+                "username": username,
+                "nome": name,
+                "imagemPerfil": picture
+            }
+        )
+        
+        if created: 
+            token_pair =  Token.objects.create(created)
+        else:
+            token_pair = Token.objects.create(user)
+        # Gera tokens JWT
+
+        return Response({
+            "refresh": str(token_pair.refresh_token),
+            "access": str(token_pair.access_token),
+            "user": {
+                "id": user.id,
+                "username": user.username,
+                "email": user.email,
+                "nome": getattr(user, "nome", name)
+            }
+        }, status=status.HTTP_200_OK)
+        return Response({ ok: 'ok' }, status=status.HTTP_200_OK)
