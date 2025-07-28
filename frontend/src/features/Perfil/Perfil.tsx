@@ -19,6 +19,7 @@ import {useLocation} from "react-router-dom";
 import BeePerfilSidebar from "../../components/BeePerfilSidebar/BeePerfilSidebar";
 import BeeCardDenuncia from "../../components/BeeCardDenuncia/BeeCardDenuncia";
 import getLocalStorage from "../../utils/getLocalStorage";
+import BeeAlert from "../../components/BeeAlert/BeeAlert";
 
 const Perfil: React.FC = () => {
 	let {load} = acessPermissions();
@@ -35,6 +36,7 @@ const Perfil: React.FC = () => {
 		handleExcluirRepositorio,
 	} = useUser();
 	const location = useLocation();
+	const [alerta, setAlerta] = useState(null);
 	const hasSeenTour = localStorage.getItem("hasSeenTour") === "true";
 	const [tourOpen, setTourOpen] = useState(
 		location.state?.showTour && !hasSeenTour,
@@ -52,6 +54,23 @@ const Perfil: React.FC = () => {
 		}
 	}, []);
 
+	useEffect(() => {
+		if (location.state?.alerta) {
+			setAlerta(location.state.alerta);
+			window.history.replaceState({}, document.title); // pra n ficar abrindo quando o usuário fecha e abre o site
+		}
+	}, [location.state]);
+
+	useEffect(() => {
+		if (alerta) {
+			const timeout = setTimeout(() => {
+				setAlerta(null);
+			}, 3000);
+
+			return () => clearTimeout(timeout);
+		}
+	}, [alerta]);
+
 	const refHeader = useRef(null);
 	const refPubli = useRef(null);
 	const refSidebar = useRef(null);
@@ -68,6 +87,12 @@ const Perfil: React.FC = () => {
 
 	return (
 		<>
+			{alerta && (
+				<BeeAlert
+					typeAlert={alerta.tipo}
+					messageAlert={alerta.mensagem}
+				/>
+			)}
 			{!load ? (
 				<Spin />
 			) : (

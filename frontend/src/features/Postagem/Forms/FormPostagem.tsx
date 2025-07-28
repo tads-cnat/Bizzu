@@ -45,7 +45,6 @@ export const FormPostagem = ({
 	const [categorias, setCategorias] = useState<Categoria[]>([]);
 	const [loadingData, setLoadingData] = useState(false);
 	const [termoPesquisa, setTermoPesquisa] = useState("");
-
 	const {
 		control,
 		handleSubmit,
@@ -214,8 +213,23 @@ export const FormPostagem = ({
 			dataSubmit.append("comunidade", String(data.comunidade?.value));
 			try {
 				await PostagemService.post(dataSubmit);
-				caminho(-1);
+				caminho(`/${username}/`, {
+					state: {
+						alerta: {
+							tipo: "success",
+							mensagem: "Postagem criada com sucesso.",
+						},
+					},
+				});
 			} catch (e) {
+				caminho(`/${username}/`, {
+					state: {
+						alerta: {
+							tipo: "error",
+							mensagem: "Erro ao criar postagem.",
+						},
+					},
+				});
 				console.error("Deu mal", e);
 			}
 		} else {
@@ -235,8 +249,23 @@ export const FormPostagem = ({
 
 			try {
 				await PostagemService.patch(idPostagem, dataSubmit);
-				caminho(-1);
+				caminho(`/${username}/`, {
+					state: {
+						alerta: {
+							tipo: "success",
+							mensagem: "Postagem editada com sucesso.",
+						},
+					},
+				});
 			} catch (e) {
+				caminho(`/${username}/`, {
+					state: {
+						alerta: {
+							tipo: "error",
+							mensagem: "Erro ao editar postagem.",
+						},
+					},
+				});
 				console.error("Deu mal editar", e);
 			}
 		}
