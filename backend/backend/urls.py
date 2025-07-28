@@ -28,7 +28,7 @@ urlpatterns = [
     path("api/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     path("auth/google/", GoogleAuthView.as_view(), name="google_auth"),
-    # path("api/logout/", LogoutUsuarioView.as_view()),
+    path("api/logout/", LogoutUsuarioView.as_view()),
 ]
 
 if settings.DEBUG:

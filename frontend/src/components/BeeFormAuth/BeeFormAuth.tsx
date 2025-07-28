@@ -1,143 +1,178 @@
 import acessAuth from "../../utils/acessAuth";
 import BeeButton from "../BeeButtons/BeeButtons";
 import BeeInput from "../BeeInput/BeeInput";
-import { useForm } from "react-hook-form";
+import {useForm} from "react-hook-form";
 import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
+import {yupResolver} from "@hookform/resolvers/yup";
 import BeeAlert from "../BeeAlert/BeeAlert";
-import { useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { GoogleLogin } from "@react-oauth/google";
+import {useState} from "react";
+import {Link, useLocation, useNavigate} from "react-router-dom";
+import {GoogleLogin} from "@react-oauth/google";
 
 const schema = yup.object().shape({
-  username: yup.string().required("O usuário é obrigatório"),
-  password: yup.string().required("A senha é obrigatória"),
+	username: yup.string().required("O usuário é obrigatório"),
+	password: yup.string().required("A senha é obrigatória"),
 });
 
 const BeeFormAuth: React.FC = () => {
-  const [status, setStatus] = useState<string>("error");
-  const [alert, setAlert] = useState<boolean>(false);
-  const { autenticar } = acessAuth();
+	const [status, setStatus] = useState<string>("error");
+	const [alert, setAlert] = useState<boolean>(false);
+	const {autenticar, atualizarUsuario} = acessAuth();
 
-  const { handleSubmit, register, formState: { errors } } = useForm({ resolver: yupResolver(schema) });
-  const redirecionar = useNavigate();
-  const deOndeVeio = useLocation();
+	const {
+		handleSubmit,
+		register,
+		formState: {errors},
+	} = useForm({resolver: yupResolver(schema)});
+	const redirecionar = useNavigate();
+	const deOndeVeio = useLocation();
 
-  // 🔹 Login normal
-  async function saveUser(data: { username: string; password: string }) {
-    try {
-      await autenticar(data.username, data.password);
-      handleLoginSuccessUI(data.username, false);
-    } catch (e) {
-      handleLoginErrorUI(e);
-    }
-  }
+	async function saveUser(data: {username: string; password: string}) {
+		try {
+			await autenticar(data.username, data.password);
+			handleLoginSuccessUI(data.username, false);
+		} catch (e) {
+			handleLoginErrorUI(e);
+		}
+	}
 
-  // 🔹 Login Google
-  async function loginGoogle(token: string) {
-    try {
-      const res = await fetch("http://localhost:8000/auth/google/", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ token }),
-      });
+	async function loginGoogle(token: string) {
+		try {
+			const res = await fetch("http://localhost:8000/auth/google/", {
+				method: "POST",
+				headers: {"Content-Type": "application/json"},
+				body: JSON.stringify({token}),
+			});
 
-      if (!res.ok) throw new Error("Falha ao autenticar com Google");
+			if (!res.ok) {
+				const errorText = await res.text();
+				throw new Error("Falha ao autenticar com Google");
+			}
 
-      const data = await res.json();
+			const data = await res.json();
 
-      // Armazena tokens JWT
-      localStorage.setItem("access", data.access);
-      localStorage.setItem("refresh", data.refresh);
+			const userData = {
+				token: data.access,
+				username: data.user.username,
+				id: data.user.id,
+				papel: data.user.papel,
+			};
 
-      const username = data.user?.username || "me";
-      const isNew = data.is_new === true;
+			localStorage.setItem("usuario", JSON.stringify(userData));
+			atualizarUsuario();
 
-      handleLoginSuccessUI(username, isNew);
-    } catch (err) {
-      handleLoginErrorUI(err);
-    }
-  }
+			const username = data.user?.username || "me";
+			const isNew = data.is_new === true;
 
-  // 🔹 Helpers UI
-  function handleLoginSuccessUI(username: string, isNew: boolean) {
-    setStatus("success");
-    setAlert(true);
-    setTimeout(() => setAlert(false), 4000);
+			handleLoginSuccessUI(username, isNew);
+		} catch (err) {
+			handleLoginErrorUI(err);
+		}
+	}
 
-    // ✅ Se é usuário recém-criado pelo Google → redireciona para completar perfil
-    if (isNew) {
-      redirecionar(`/editar`, { state: { firstLogin: true } });
-      return;
-    }
+	function handleLoginSuccessUI(username: string, isNew: boolean) {
+		setStatus("success");
+		setAlert(true);
+		setTimeout(() => setAlert(false), 4000);
 
-    // ✅ Fluxo normal
-    if (deOndeVeio.state?.fromCadastro) {
-      localStorage.setItem("hasSeenTour", "false");
-      redirecionar(`/${username}/`, { state: { showTour: true } });
-    } else {
-      localStorage.setItem("hasSeenTour", "true");
-      redirecionar(`/${username}/`);
-    }
-  }
+		if (isNew) {
+			redirecionar(`/editar`, {state: {firstLogin: true}});
+			return;
+		}
 
-  function handleLoginErrorUI(error: any) {
-    console.error("Erro no login:", error);
-    setStatus("error");
-    setAlert(true);
-    setTimeout(() => setAlert(false), 4000);
-  }
+		if (deOndeVeio.state?.fromCadastro) {
+			localStorage.setItem("hasSeenTour", "false");
+			redirecionar(`/${username}/`, {state: {showTour: true}});
+		} else {
+			localStorage.setItem("hasSeenTour", "true");
+			redirecionar(`/${username}/`);
+		}
+	}
 
-  return (
-    <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 w-[400px]">
-      {alert && (
-        status === "success" ? (
-          <BeeAlert typeAlert="success" messageAlert="Login realizado com sucesso" />
-        ) : (
-          <BeeAlert typeAlert="error" messageAlert="Não foi possível fazer o login" />
-        )
-      )}
+	function handleLoginErrorUI(error: any) {
+		console.error("Erro no login:", error);
+		setStatus("error");
+		setAlert(true);
+		setTimeout(() => setAlert(false), 4000);
+	}
 
-      <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <h2 className="mt-10 text-center text-2xl font-bold tracking-tight text-gray-900">
-          Bem-Vindo de volta
-        </h2>
-      </div>
+	return (
+		<div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 w-[400px]">
+			{alert &&
+				(status === "success" ? (
+					<BeeAlert
+						typeAlert="success"
+						messageAlert="Login realizado com sucesso"
+					/>
+				) : (
+					<BeeAlert
+						typeAlert="error"
+						messageAlert="Não foi possível fazer o login"
+					/>
+				))}
 
-      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form onSubmit={handleSubmit(saveUser)} className="space-y-6">
-          <BeeInput placeholder="Digite seu usuário" label="Usuário" type="text" register={{ ...register("username") }} />
-          {errors.username && <p className="text-red-500 text-sm">{errors.username.message}</p>}
+			<div className="sm:mx-auto sm:w-full sm:max-w-sm">
+				<h2 className="mt-10 text-center text-2xl font-bold tracking-tight text-gray-900">
+					Bem-Vindo de volta
+				</h2>
+			</div>
 
-          <BeeInput placeholder="Digite sua senha" label="Senha" type="password" register={{ ...register("password") }} />
-          {errors.password && <p className="text-red-500 text-sm">{errors.password.message}</p>}
+			<div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+				<form
+					onSubmit={handleSubmit(saveUser)}
+					className="space-y-6"
+				>
+					<BeeInput
+						placeholder="Digite seu usuário"
+						label="Usuário"
+						type="text"
+						register={{...register("username")}}
+					/>
+					{errors.username && (
+						<p className="text-red-500 text-sm">{errors.username.message}</p>
+					)}
 
-          <p className="text-right text-sm text-gray-500">
-            Não tem conta?{" "}
-            <Link to="/cadastro/" className="font-semibold text-[#FCBD18] hover:text-indigo-500">Cadastre-se</Link>
-          </p>
+					<BeeInput
+						placeholder="Digite sua senha"
+						label="Senha"
+						type="password"
+						register={{...register("password")}}
+					/>
+					{errors.password && (
+						<p className="text-red-500 text-sm">{errors.password.message}</p>
+					)}
 
-          <BeeButton
-            variante="aviso"
-            label="Entrar"
-            classesDefault={false}
-            className="px-4 py-2 rounded-md font-medium text-sm transition-all duration-200 bg-[#FCBD18] text-white hover:bg-yellow-500 sm:w-full sm:max-w-sm mt-5"
-          />
+					<p className="text-right text-sm text-gray-500">
+						Não tem conta?{" "}
+						<Link
+							to="/cadastro/"
+							className="font-semibold text-[#FCBD18] hover:text-indigo-500"
+						>
+							Cadastre-se
+						</Link>
+					</p>
 
-          {/* 🔹 Login com Google */}
-          <div className="mt-3 flex justify-center">
-            <GoogleLogin
-              onSuccess={(credentialResponse) => {
-                if (credentialResponse.credential) loginGoogle(credentialResponse.credential);
-                else handleLoginErrorUI("Token Google inválido");
-              }}
-              onError={() => handleLoginErrorUI("Erro no login com Google")}
-            />
-          </div>
-        </form>
-      </div>
-    </div>
-  );
+					<BeeButton
+						variante="aviso"
+						label="Entrar"
+						classesDefault={false}
+						className="px-4 py-2 rounded-md font-medium text-sm transition-all duration-200 bg-[#FCBD18] text-white hover:bg-yellow-500 sm:w-full sm:max-w-sm mt-5"
+					/>
+
+					<div className="mt-3 flex justify-center">
+						<GoogleLogin
+							onSuccess={(credentialResponse) => {
+								if (credentialResponse.credential)
+									loginGoogle(credentialResponse.credential);
+								else handleLoginErrorUI("Token Google inválido");
+							}}
+							onError={() => handleLoginErrorUI("Erro no login com Google")}
+						/>
+					</div>
+				</form>
+			</div>
+		</div>
+	);
 };
 
 export default BeeFormAuth;
