@@ -18,6 +18,7 @@ const schema = yup.object().shape({
 	escolaFormacao: yup.string().optional(),
 	instituicaoAtual: yup.string().optional(),
 	imagemPerfil: yup.mixed().optional(),
+	banner: yup.mixed().optional(),
 });
 
 const FormEditarPerfil: React.FC = () => {
@@ -26,6 +27,26 @@ const FormEditarPerfil: React.FC = () => {
 	const [usuario, setUsuario] = useState();
 	const usuarioLocal = getLocalStorage();
 	const navigate = useNavigate();
+	const [preview, setPreview] = useState(
+		"http://localhost:8000/imgPostagens/usuarios/2025/06/10/sem_imagem_avatar.png",
+	);
+	const [previewBanner, setPreviewBanner] = useState("/banner.png");
+
+	useEffect(() => {
+		if (usuario?.banner) {
+			setPreviewBanner(`http://localhost:8000/${usuario.banner}`);
+		} else {
+			setPreviewBanner("/banner.png");
+		}
+
+		if (usuario?.imagemPerfil) {
+			setPreview(`http://localhost:8000/${usuario.imagemPerfil}`);
+		} else {
+			setPreview(
+				"http://localhost:8000/imgPostagens/usuarios/2025/06/10/sem_imagem_avatar.png",
+			);
+		}
+	}, [usuario]);
 
 	const {
 		handleSubmit,
@@ -67,6 +88,9 @@ const FormEditarPerfil: React.FC = () => {
 			if (data.instituicaoAtual !== "")
 				dataSubmit.append("instituicaoAtual", data.instituicaoAtual);
 			else dataSubmit.append("instituicaoAtual", usuario.instituicaoAtual);
+			if (data.banner !== "" && data.banner !== undefined)
+				dataSubmit.append("banner", data.banner);
+
 			await UsuarioService.patch(usuario.id, dataSubmit);
 			// caminho(`/${usuarioLocal.username}`);
 			navigate(`/${usuarioLocal.username}`, {
@@ -94,13 +118,61 @@ const FormEditarPerfil: React.FC = () => {
 	return (
 		<>
 			<form
-				className="bg-white p-6 rounded-lg shadow-md"
+				className="bg-white p-6 rounded-lg shadow-sm w-[550px]"
 				onSubmit={handleSubmit(onSubmit)}
 			>
 				<h1 className="text-2xl font-bold ">Editar perfil</h1>
 				<div className="space-y-12">
 					<div>
-						<div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-6">
+						<div className="mt-5 grid grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-6">
+							<div className="mt-2 sm:mx-auto sm:w-fill sm:max-w-sm">
+								<div className="mt-2">
+									<label className="block text-sm/6 font-medium text-gray-900">
+										Foto de perfil
+									</label>
+									<div className="flex items-center gap-4">
+										<img
+											src={preview}
+											alt="Imagem de usuário"
+											className={
+												"w-20 h-20 object-cover gap-1 mt-1 opacity-60 w-8 h-8"
+											}
+											style={{
+												clipPath:
+													"polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0% 50%)",
+											}}
+										/>
+										<Controller
+											name="imagemPerfil"
+											control={control}
+											render={({field}) => (
+												<BeeArquivo
+													label="Insira uma foto"
+													value={
+														usuario !== undefined
+															? usuario.imagemPerfil
+																? usuario.imagemPerfil
+																: ""
+															: ""
+													}
+													onChange={(val) => {
+														field.onChange(val);
+														if (val == null)
+															if (usuario.imagemPerfil != null)
+																setPreview(usuario.imagemPerfil);
+															else
+																setPreview(
+																	"http://localhost:8000/imgPostagens/usuarios/2025/06/10/sem_imagem_avatar.png",
+																);
+														else setPreview(URL.createObjectURL(val));
+													}}
+													multiple={false}
+												/>
+											)}
+										/>
+									</div>
+								</div>
+							</div>
 							<div className="col-span-full">
 								<BeeInput
 									placeholder="Digite seu nome"
@@ -120,6 +192,46 @@ const FormEditarPerfil: React.FC = () => {
 										{errors.nome.message}
 									</p>
 								)}
+							</div>
+							<div className="col-span-fullmt-5 col-span-full w-full">
+								<div className="mt-2">
+									<label className="block text-sm/6 font-medium text-gray-900 mb-2">
+										Banner do perfil
+									</label>
+
+									<Controller
+										name="banner"
+										control={control}
+										render={({field}) => (
+											<BeeArquivo
+												label="Insira uma foto"
+												value={
+													usuario !== undefined
+														? usuario.banner
+															? usuario.banner
+															: ""
+														: ""
+												}
+												onChange={(val) => {
+													field.onChange(val);
+													if (val == null)
+														if (usuario.banner != null)
+															setPreviewBanner(usuario.banner);
+														else
+															setPreviewBanner(
+																"http://localhost:8000/imgPostagens/usuarios/2025/06/10/sem_imagem_avatar.png",
+															);
+													else setPreviewBanner(URL.createObjectURL(val));
+												}}
+												multiple={false}
+											/>
+										)}
+									/>
+									<img
+										src={previewBanner}
+										className="w-full h-36 object-cover mt-4"
+									/>
+								</div>
 							</div>
 
 							<div className="col-span-full">
@@ -191,26 +303,6 @@ const FormEditarPerfil: React.FC = () => {
 										{errors.instituicaoAtual.message}
 									</p>
 								)}
-							</div>
-							<div className="col-span-full">
-								<Controller
-									name="imagemPerfil"
-									control={control}
-									render={({field}) => (
-										<BeeArquivo
-											label="Insira uma foto"
-											value={
-												usuario !== undefined
-													? usuario.imagemPerfil
-														? usuario.imagemPerfil
-														: ""
-													: ""
-											}
-											onChange={field.onChange}
-											multiple={false}
-										/>
-									)}
-								/>
 							</div>
 						</div>
 					</div>

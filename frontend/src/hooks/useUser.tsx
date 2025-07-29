@@ -101,8 +101,6 @@ const useUser = () => {
 		}
 	};
 
-	console.log(postagens, usuario);
-
 	return {
 		postagens,
 		comunidades,

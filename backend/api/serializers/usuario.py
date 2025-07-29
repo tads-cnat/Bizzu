@@ -28,6 +28,7 @@ class UsuarioProfileSerializer(serializers.ModelSerializer):
         usuario.save()
         return usuario
 
+
 class UsuarioPatchSerializer(serializers.ModelSerializer):
     class Meta:
         model = Usuario
@@ -38,7 +39,10 @@ class UsuarioPatchSerializer(serializers.ModelSerializer):
             "instituicaoAtual",
             "imagemPerfil",
             "linkedinUrl",
+            "banner",
         ]
+
+
 class PesquisaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Usuario
