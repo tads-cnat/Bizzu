@@ -77,6 +77,7 @@ const FormEditarPerfil: React.FC = () => {
 					},
 				},
 			});
+			window.location.reload();
 		} catch (e) {
 			console.error("Não foi possivel salvar o usuário", e);
 			navigate(`/${usuarioLocal.username}`, {

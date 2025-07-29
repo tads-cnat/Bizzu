@@ -28,7 +28,7 @@ class PostagemViewSet(viewsets.ModelViewSet):
         ):
             return [AllowAny()]
         if self.action == "destroy":
-            return [Moderador()]
+            return [(IsOwnerOrReadOnly | Moderador)()]
         return super().get_permissions()
 
     def getSerializer(self):

@@ -16,7 +16,6 @@ import useUser from "../../hooks/useUser";
 import tagsCategory from "../../utils/tagsCategory";
 import BeeTour from "../../components/BeeTour/BeeTour";
 import {useLocation} from "react-router-dom";
-import BeePerfilSidebar from "../../components/BeePerfilSidebar/BeePerfilSidebar";
 import BeeCardDenuncia from "../../components/BeeCardDenuncia/BeeCardDenuncia";
 import getLocalStorage from "../../utils/getLocalStorage";
 import BeeAlert from "../../components/BeeAlert/BeeAlert";
