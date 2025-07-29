@@ -80,6 +80,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+GOOGLE_CLIENT_ID = "339878763062-a58uon1csivv1ru7ubt1g60cmc5tao3a.apps.googleusercontent.com"
+
 # Internationalization
 LANGUAGE_CODE = "pt-br"
 TIME_ZONE = "America/Sao_Paulo"

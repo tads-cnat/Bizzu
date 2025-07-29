@@ -1,3 +1,4 @@
+from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
@@ -19,6 +20,52 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from api.filters.usuario import UsuarioFilter
 from rest_framework import filters
 from ..models import Comunidade
+import requests
+from django.conf import settings
+import secrets
+from django.core.files.base import ContentFile
+from urllib.parse import urlparse
+import os
+
+
+def download_and_save_google_picture(picture_url, user):
+    """
+    Baixa a foto de perfil do Google e salva no sistema de arquivos
+    """
+    try:
+        response = requests.get(picture_url, timeout=10)
+        response.raise_for_status()
+
+        content_type = response.headers.get("content-type", "")
+        if not content_type.startswith("image/"):
+            return False
+
+        parsed_url = urlparse(picture_url)
+        path = parsed_url.path
+        extension = os.path.splitext(path)[1]
+
+        if not extension:
+            if "jpeg" in content_type or "jpg" in content_type:
+                extension = ".jpg"
+            elif "png" in content_type:
+                extension = ".png"
+            elif "gif" in content_type:
+                extension = ".gif"
+            elif "webp" in content_type:
+                extension = ".webp"
+            else:
+                extension = ".jpg"
+
+        filename = f"google_profile_{user.username}{extension}"
+        image_content = ContentFile(response.content)
+        user.imagemPerfil.save(filename, image_content, save=True)
+
+        return True
+
+    except requests.exceptions.RequestException:
+        return False
+    except Exception:
+        return False
 
 
 class UsuarioViewSet(viewsets.ModelViewSet):
@@ -197,3 +244,92 @@ class LogoutUsuarioView(APIView):
             return Response({"detail": "Usuário deslogado com sucesso."})
         except Exception as error:
             return Response({"error": str(error)})
+
+
+class GoogleAuthView(APIView):
+    permission_classes = [AllowAny]
+    authentication_classes = []
+
+    def post(self, request):
+        token = request.data.get("token")
+        if not token:
+            return Response(
+                {"error": "Token não fornecido"}, status=status.HTTP_400_BAD_REQUEST
+            )
+
+        google_resp = requests.get(
+            f"https://oauth2.googleapis.com/tokeninfo?id_token={token}"
+        )
+        if google_resp.status_code != 200:
+            return Response(
+                {"error": "Token Google inválido"}, status=status.HTTP_400_BAD_REQUEST
+            )
+
+        google_data = google_resp.json()
+
+        if google_data.get("aud") != settings.GOOGLE_CLIENT_ID:
+            return Response(
+                {"error": "Client ID inválido"}, status=status.HTTP_400_BAD_REQUEST
+            )
+
+        email = google_data["email"]
+        name = google_data.get("name", email.split("@")[0])
+        picture = google_data.get("picture")
+
+        base_username = email.split("@")[0]
+        username = base_username
+        count = 1
+        while Usuario.objects.filter(username=username).exists():
+            username = f"{base_username}{count}"
+            count += 1
+
+        user, created = Usuario.objects.get_or_create(
+            email=email,
+            defaults={
+                "username": username,
+                "nome": name,
+                "descricao": "",
+                "escolaFormacao": "",
+                "instituicaoAtual": "",
+                "papel": "int",
+            },
+        )
+
+        if created:
+            user.set_password(secrets.token_urlsafe(16))
+
+            if picture:
+                download_and_save_google_picture(picture, user)
+            else:
+                user.imagemPerfil = None
+
+            user.save()
+        else:
+            if picture and not user.imagemPerfil:
+                download_and_save_google_picture(picture, user)
+                user.save()
+
+        refresh = RefreshToken.for_user(user)
+
+        response_data = {
+            "refresh": str(refresh),
+            "access": str(refresh.access_token),
+            "is_new": created,
+            "user": {
+                "id": user.id,
+                "username": user.username,
+                "email": user.email,
+                "nome": user.nome,
+                "imagemPerfil": (
+                    request.build_absolute_uri(user.imagemPerfil.url)
+                    if user.imagemPerfil
+                    else None
+                ),
+                "descricao": user.descricao,
+                "escolaFormacao": user.escolaFormacao,
+                "instituicaoAtual": user.instituicaoAtual,
+                "papel": user.papel,
+            },
+        }
+
+        return Response(response_data, status=status.HTTP_200_OK)
