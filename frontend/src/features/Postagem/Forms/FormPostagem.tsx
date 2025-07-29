@@ -269,11 +269,10 @@ export const FormPostagem = ({
 				<div>
 					<div className="bg-white p-2 rounded-t-lg border-b border-gray-200">
 						<div className="flex items-center justify-between gap-4">
-							<p className="text-sm text-gray-600 whitespace-nowrap">
+							<p className="text-sm text-gray-600 break-words w-full">
 								<span className="font-medium">Comunidade:</span>{" "}
 								{nomeComunidade}
 							</p>
-
 							{comunidades.length > 0 && (
 								<div className="w-full max-w-sm">
 									<Controller

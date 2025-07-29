@@ -20,6 +20,7 @@ import {BeeRepoProps} from "../../../components/BeeRepo/IBeeRepo";
 import {IRepositorioFormValues} from "../../../interfaces/Repositorio";
 import RepositorioService from "../../../services/models/RepositorioService";
 import {IBeeCategoria} from "../../../interfaces/IBeeCategoria";
+import BeeTags from "../../../components/BeeTags/BeeTags";
 
 // Schema de validação com Yup
 const schema = yup.object().shape({
@@ -50,6 +51,7 @@ export const FormRepositorio = ({
 	const [categorias, setCategorias] = useState<IBeeCategoria[]>([]);
 	const [loadingData, setLoadingData] = useState(false);
 	const [termoPesquisa, setTermoPesquisa] = useState("");
+	const [nomeComunidade, setNomeComunidade] = useState("Escolha uma");
 
 	const {
 		control,
@@ -71,6 +73,7 @@ export const FormRepositorio = ({
 	const [repositorios, setRepositorios] = useState<BeeRepoProps>();
 	const [usuario, setUsuario] = useState<IBeeUser>();
 	const {username} = acessAuth();
+	const navigate = useNavigate();
 	useEffect(() => {
 		if (usuario === undefined) {
 			void UsuarioService.getbyUsername(username)
@@ -201,6 +204,7 @@ export const FormRepositorio = ({
 				setValue("comunidade", value.value ? value : undefined, {
 					shouldValidate: true,
 				});
+				setNomeComunidade(value.label);
 			}
 		},
 		[setValue, getValues],
@@ -275,7 +279,32 @@ export const FormRepositorio = ({
 				onSubmit={handleSubmit(onSubmit)}
 				className="flex flex-col gap-6"
 			>
-				{/* Área de título */}
+				<div className="bg-white p-2 rounded-t-lg border-b border-gray-200">
+					<div className="flex items-center justify-between gap-4">
+						<p className="text-sm text-gray-600 break-words w-full">
+							<span className="font-medium">Comunidade:</span> {nomeComunidade}
+						</p>
+
+						{comunidades.length > 0 && (
+							<div className="w-full max-w-sm">
+								<Controller
+									name="comunidade"
+									control={control}
+									render={({field}) => (
+										<BeeSelect
+											options={comunidades}
+											placeholder="Selecione uma comunidade"
+											icone={Hexagon}
+											value={field.value}
+											onChange={handleComunidadeChange}
+											error={errors.comunidade?.message}
+										/>
+									)}
+								/>
+							</div>
+						)}
+					</div>
+				</div>
 				<div>
 					<Controller
 						name="titulo"
@@ -342,29 +371,6 @@ export const FormRepositorio = ({
 					/>
 				</div>
 
-				{/* Select de Comunidade */}
-				{comunidades.length > 0 && (
-					<div>
-						<label className="block text-sm font-medium text-gray-900 mb-2">
-							Comunidade
-						</label>
-						<Controller
-							name="comunidade"
-							control={control}
-							render={({field}) => (
-								<BeeSelect
-									options={comunidades}
-									placeholder="Selecione uma comunidade"
-									icone={Hexagon}
-									value={field.value}
-									onChange={handleComunidadeChange}
-									error={errors.comunidade?.message}
-								/>
-							)}
-						/>
-					</div>
-				)}
-
 				{/* Seleção de Categorias */}
 				{categorias.length > 0 && (
 					<div>
@@ -382,42 +388,46 @@ export const FormRepositorio = ({
 								{errors.categorias.message}
 							</p>
 						)}
-						{categoriasSelecionadas && categoriasSelecionadas.length > 0 && (
-							<div className="mt-2">
-								<p className="text-sm text-gray-600">
-									Categorias selecionadas: {categoriasSelecionadas.length}
-								</p>
-								<div className="flex flex-wrap gap-1 mt-1">
-									{categoriasSelecionadas.map((catId) => {
-										const categoria = categorias.find(
-											(cat) => cat.id === catId,
-										);
-										return categoria ? (
-											<span
-												key={catId}
-												className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-[#FCBD18] text-gray-900"
-											>
-												{categoria.nome}
-											</span>
-										) : null;
-									})}
-								</div>
-							</div>
-						)}
+						<div className="flex flex-wrap gap-1 mt-1">
+							{categoriasSelecionadas.map((catId) => {
+								const categoria = categorias.find((cat) => cat.id === catId);
+								return categoria ? (
+									<div key={catId}>
+										{categoria.tipo == "tec" ? (
+											<BeeTags
+												label={categoria.nome}
+												color="magenta"
+											/>
+										) : categoria.tipo == "per" ? (
+											<BeeTags
+												label={categoria.nome}
+												color="cyan"
+											/>
+										) : (
+											<BeeTags
+												label={categoria.nome}
+												color="orange"
+											/>
+										)}
+									</div>
+								) : null;
+							})}
+						</div>
 					</div>
 				)}
 
-				{/* Botão de Submit */}
-				<BeeButton
-					label={
-						tipoForm === "editar"
-							? "Atualizar Repositorio"
-							: "Publicar Repositorio"
-					}
-					variante="primaria"
-					icone={<PaperPlaneRight size={18} />}
-					desabilitado={loading}
-				/>
+				<div className="mt-6 flex items-center justify-end gap-x-6">
+					<BeeButton
+						label="cancelar"
+						variante="negativo"
+						onClick={() => navigate(`/${usuario.username}`)}
+					/>
+					<BeeButton
+						label={tipoForm === "editar" ? "Atualizar" : "Publicar"}
+						variante="primaria"
+						desabilitado={loading}
+					/>
+				</div>
 
 				{loading && (
 					<p className="text-center text-gray-600">

@@ -53,7 +53,7 @@ const BeeSelect = ({
 	}, [value, placeholder]);
 
 	return (
-		<div className="w-full max-w-xs">
+		<div className="w-full max-w-full">
 			<Listbox
 				value={selected}
 				onChange={handleChange}
