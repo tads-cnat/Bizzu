@@ -50,6 +50,10 @@ export const FormRepositorio = ({
 	const [categorias, setCategorias] = useState<IBeeCategoria[]>([]);
 	const [loadingData, setLoadingData] = useState(false);
 	const [termoPesquisa, setTermoPesquisa] = useState("");
+	const [alerta, setAlerta] = useState<{
+		tipo: "success" | "error";
+		mensagem: string;
+	} | null>(null);
 
 	const {
 		control,
@@ -233,9 +237,24 @@ export const FormRepositorio = ({
 				dataSubmit.append("comunidade", String(data.comunidade.value));
 			try {
 				await RepositorioService.post(dataSubmit);
-				caminho(`/${username}/`);
+				caminho(`/${username}/`, {
+					state: {
+						alerta: {
+							tipo: "success",
+							mensagem: "Repositório criado com sucesso.",
+						},
+					},
+				});
 			} catch (e) {
 				console.error("Deu mal", e);
+				caminho(`/${username}/`, {
+					state: {
+						alerta: {
+							tipo: "error",
+							mensagem: "Erro ao criar repositório.",
+						},
+					},
+				});
 			}
 		} else {
 			const dataSubmit = new FormData();
@@ -258,9 +277,24 @@ export const FormRepositorio = ({
 				dataSubmit.append("comunidade", String(comunidadeValue.value));
 			try {
 				await RepositorioService.patch(idRepositorio, dataSubmit);
-				caminho(-1);
+				caminho(`/${username}/`, {
+					state: {
+						alerta: {
+							tipo: "success",
+							mensagem: "Repositório editado com sucesso.",
+						},
+					},
+				});
 			} catch (e) {
 				console.error("Deu mal editar", e);
+				caminho(`/${username}/`, {
+					state: {
+						alerta: {
+							tipo: "error",
+							mensagem: " Erro ao editar repositório.",
+						},
+					},
+				});
 			}
 		}
 	};

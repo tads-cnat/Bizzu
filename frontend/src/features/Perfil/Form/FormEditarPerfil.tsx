@@ -69,9 +69,25 @@ const FormEditarPerfil: React.FC = () => {
 			else dataSubmit.append("instituicaoAtual", usuario.instituicaoAtual);
 			await UsuarioService.patch(usuario.id, dataSubmit);
 			// caminho(`/${usuarioLocal.username}`);
-			window.location.href = `/${usuarioLocal.username}`;
+			navigate(`/${usuarioLocal.username}`, {
+				state: {
+					alerta: {
+						tipo: "success",
+						mensagem: "Perfil salvo com sucesso.",
+					},
+				},
+			});
+			window.location.reload();
 		} catch (e) {
 			console.error("Não foi possivel salvar o usuário", e);
+			navigate(`/${usuarioLocal.username}`, {
+				state: {
+					alerta: {
+						tipo: "error",
+						mensagem: "Erro ao salvar alterações.",
+					},
+				},
+			});
 		}
 	};
 

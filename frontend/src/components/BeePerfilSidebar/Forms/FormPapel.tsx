@@ -13,6 +13,7 @@ import {BeeTextArea} from "../../BeeTextArea/BeeTextArea";
 import UsuarioService from "../../../services/models/UsuarioService";
 import acessAuth from "../../../utils/acessAuth";
 import {IBeeUser} from "../../../features/Perfil/components/BeeHeaderProfile/IBeeUser";
+import BeeAlert from "../../BeeAlert/BeeAlert";
 
 const schema = yup.object().shape({
 	descricao: yup.string().required("A descrição é obrigatória"),
@@ -22,6 +23,10 @@ const FormPapel = () => {
 	const [open, setOpen] = useState(true);
 	const {username} = acessAuth();
 	const [usuario, setUsuario] = useState<IBeeUser>();
+	const [alerta, setAlerta] = useState<{
+		tipo: "success" | "error";
+		mensagem: string;
+	} | null>(null);
 
 	useEffect(() => {
 		if (usuario === undefined) {
@@ -34,6 +39,15 @@ const FormPapel = () => {
 				});
 		}
 	}, []);
+	useEffect(() => {
+		if (alerta) {
+			const timeout = setTimeout(() => {
+				setAlerta(null);
+			}, 3000);
+
+			return () => clearTimeout(timeout);
+		}
+	}, [alerta]);
 
 	const handleCreate = async (data: {descricao: string}): Promise<void> => {
 		try {
@@ -41,9 +55,17 @@ const FormPapel = () => {
 			dados.append("descricao", data.descricao);
 			dados.append("solicitante", String(usuario?.id));
 			UsuarioService.solicitarMudanca(dados);
+			setAlerta({
+				tipo: "success",
+				mensagem: "Solicitação enviada.",
+			});
 			setOpen(false);
 		} catch (e) {
 			console.error("Erro ao criar solicitação", e);
+			setAlerta({
+				tipo: "error",
+				mensagem: "Erro ao enviar solicitação.",
+			});
 		}
 	};
 
@@ -62,6 +84,12 @@ const FormPapel = () => {
 
 	return (
 		<>
+			{alerta && (
+				<BeeAlert
+					typeAlert={alerta.tipo}
+					messageAlert={alerta.mensagem}
+				/>
+			)}
 			<Dialog
 				open={open}
 				onClose={setOpen}
@@ -82,7 +110,7 @@ const FormPapel = () => {
 								<div className="mt-4 sm:mt-0 sm:ml-2">
 									<DialogTitle
 										as="h3"
-										className="text-base text-[#333333] font-poppins"
+										className="text-base text-[#333333] font-semibold"
 									>
 										Solicitar mudança
 									</DialogTitle>
