@@ -76,7 +76,8 @@ const BeeFormAuth: React.FC = () => {
 		setTimeout(() => setAlert(false), 4000);
 
 		if (isNew) {
-			redirecionar(`/editar`, {state: {firstLogin: true}});
+			localStorage.setItem("hasSeenTour", "false");
+			redirecionar(`/${username}/`, {state: {showTour: true}});
 			return;
 		}
 
