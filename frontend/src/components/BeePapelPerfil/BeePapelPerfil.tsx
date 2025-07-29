@@ -75,7 +75,7 @@ const BeePapelPerfil = () => {
 							</div>
 							<div className="flex items-start space-x-2">
 								<ReadOutlined className="mt-1" />
-								<span className="font-semibold">Descrição:</span>
+								<span className="font-bold">Descrição:</span>
 								<span className="break-words overflow-hidden text-ellipsis">
 									{s.descricao}
 								</span>

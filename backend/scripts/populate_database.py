@@ -489,7 +489,7 @@ def main():
             
             # Cada usuário segue 1-2 comunidades aleatoriamente
             seguir_comunidades = random.sample(comunidades, random.randint(1, 2))
-            usuario.comunidades.set(seguir_comunidades)
+            usuario.comunidades_que_sigo.set(seguir_comunidades)
         
         print("✅ Relacionamentos criados!")
         
