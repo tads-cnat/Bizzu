@@ -2,8 +2,13 @@ import axiosInstance from "../common/axiosInstance";
 import BaseService from "../common/baseService";
 
 class PostagemService extends BaseService{
-    async getPost(id: number) {
+  async getPost(id: number) {
     const response = await axiosInstance.get(`${this.complementoURL}/${id}/getPost`)
+    return response
+  }
+
+  async getPostComunidade(id: number) {
+    const response = await axiosInstance.get(`${this.complementoURL}/${id}/getPostComunidade`)
     return response
   }
 
@@ -16,6 +21,12 @@ class PostagemService extends BaseService{
     const response = await axiosInstance.get(`${this.complementoURL}/postFollowers/${username}`)
     return response
   }
+
+  async getFeedFiltradoPorCategoria(nomeCategoria: string) {
+    const response = await axiosInstance.get(`/feed/categoria/?categoria=${nomeCategoria}`)
+    return response
+  }
+  
 }
 
 export default new PostagemService("postagem");

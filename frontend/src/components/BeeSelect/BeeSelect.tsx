@@ -53,7 +53,7 @@ const BeeSelect = ({
 	}, [value, placeholder]);
 
 	return (
-		<div className="w-full max-w-xs">
+		<div className="w-full max-w-full">
 			<Listbox
 				value={selected}
 				onChange={handleChange}
@@ -72,7 +72,7 @@ const BeeSelect = ({
 								/>
 							)}
 							<span className="block truncate">
-								{selected?.label || placeholder}
+								{selected?.value ? selected.label : placeholder}
 							</span>
 						</span>
 						<span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">

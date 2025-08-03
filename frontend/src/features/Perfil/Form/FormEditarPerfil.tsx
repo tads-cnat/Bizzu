@@ -1,0 +1,339 @@
+import React, {useState, useEffect} from "react";
+import {IFormEditarPerfil} from "./IFormEditarPerfil";
+import {useForm, Controller} from "react-hook-form";
+import {useNavigate} from "react-router-dom";
+import getLocalStorage from "../../../utils/getLocalStorage";
+import BeeButton from "../../../components/BeeButtons/BeeButtons";
+import {BeeTextArea} from "../../../components/BeeTextArea/BeeTextArea";
+import BeeArquivo from "../../../components/BeeArquivo/BeeArquivo";
+import BeeAlert from "../../../components/BeeAlert/BeeAlert";
+import * as yup from "yup";
+import {yupResolver} from "@hookform/resolvers/yup";
+import BeeInput from "../../../components/BeeInput/BeeInput";
+import UsuarioService from "../../../services/models/UsuarioService";
+
+const schema = yup.object().shape({
+	nome: yup.string().optional(),
+	descricao: yup.string().optional(),
+	escolaFormacao: yup.string().optional(),
+	instituicaoAtual: yup.string().optional(),
+	imagemPerfil: yup.mixed().optional(),
+	banner: yup.mixed().optional(),
+});
+
+const FormEditarPerfil: React.FC = () => {
+	const [alert, setAlert] = useState<boolean>(false);
+	const [status, setStatus] = useState<string>("error");
+	const [usuario, setUsuario] = useState();
+	const usuarioLocal = getLocalStorage();
+	const navigate = useNavigate();
+	const [preview, setPreview] = useState(
+		"http://localhost:8000/imgPostagens/usuarios/2025/06/10/sem_imagem_avatar.png",
+	);
+	const [previewBanner, setPreviewBanner] = useState("/banner.png");
+
+	useEffect(() => {
+		if (usuario?.banner) {
+			setPreviewBanner(`http://localhost:8000/${usuario.banner}`);
+		} else {
+			setPreviewBanner("/banner.png");
+		}
+
+		if (usuario?.imagemPerfil) {
+			setPreview(`http://localhost:8000/${usuario.imagemPerfil}`);
+		} else {
+			setPreview(
+				"http://localhost:8000/imgPostagens/usuarios/2025/06/10/sem_imagem_avatar.png",
+			);
+		}
+	}, [usuario]);
+
+	const {
+		handleSubmit,
+		register,
+		control,
+		formState: {errors},
+	} = useForm({resolver: yupResolver(schema)});
+
+	useEffect(() => {
+		const carregarInfoUsuario = async () => {
+			if (!usuarioLocal.username || !usuarioLocal.token) return;
+
+			try {
+				const response = await UsuarioService.getbyUsername(
+					usuarioLocal.username,
+				);
+				setUsuario(response);
+			} catch (error) {
+				console.error("Erro ao buscar dados do usuário:", error);
+			}
+		};
+
+		carregarInfoUsuario();
+	}, [setUsuario]);
+
+	const caminho = useNavigate();
+	const onSubmit = async (data: IFormEditarPerfil) => {
+		try {
+			const dataSubmit = new FormData();
+			if (data.nome !== "") dataSubmit.append("nome", data.nome);
+			else dataSubmit.append("nome", usuario.nome);
+			if (data.descricao !== "" && data.descricao !== undefined)
+				dataSubmit.append("descricao", data.descricao);
+			else dataSubmit.append("descricao", usuario.descricao);
+			if (data.imagemPerfil !== "" && data.imagemPerfil !== undefined)
+				dataSubmit.append("imagemPerfil", data.imagemPerfil);
+			if (data.escolaFormacao !== "")
+				dataSubmit.append("escolaFormacao", data.escolaFormacao);
+			if (data.instituicaoAtual !== "")
+				dataSubmit.append("instituicaoAtual", data.instituicaoAtual);
+			else dataSubmit.append("instituicaoAtual", usuario.instituicaoAtual);
+			if (data.banner !== "" && data.banner !== undefined)
+				dataSubmit.append("banner", data.banner);
+
+			await UsuarioService.patch(usuario.id, dataSubmit);
+			// caminho(`/${usuarioLocal.username}`);
+			navigate(`/${usuarioLocal.username}`, {
+				state: {
+					alerta: {
+						tipo: "success",
+						mensagem: "Perfil salvo com sucesso.",
+					},
+				},
+			});
+			window.location.reload();
+		} catch (e) {
+			console.error("Não foi possivel salvar o usuário", e);
+			navigate(`/${usuarioLocal.username}`, {
+				state: {
+					alerta: {
+						tipo: "error",
+						mensagem: "Erro ao salvar alterações.",
+					},
+				},
+			});
+		}
+	};
+
+	return (
+		<>
+			<form
+				className="bg-white p-6 rounded-lg shadow-sm w-[550px]"
+				onSubmit={handleSubmit(onSubmit)}
+			>
+				<h1 className="text-2xl font-bold ">Editar perfil</h1>
+				<div className="space-y-12">
+					<div>
+						<div className="mt-5 grid grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-6">
+							<div className="mt-2 sm:mx-auto sm:w-fill sm:max-w-sm">
+								<div className="mt-2">
+									<label className="block text-sm/6 font-medium text-gray-900">
+										Foto de perfil
+									</label>
+									<div className="flex items-center gap-4">
+										<img
+											src={preview}
+											alt="Imagem de usuário"
+											className={
+												"w-20 h-20 object-cover gap-1 mt-1 opacity-60 w-8 h-8"
+											}
+											style={{
+												clipPath:
+													"polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0% 50%)",
+											}}
+										/>
+										<Controller
+											name="imagemPerfil"
+											control={control}
+											render={({field}) => (
+												<BeeArquivo
+													label="Insira uma foto"
+													value={
+														usuario !== undefined
+															? usuario.imagemPerfil
+																? usuario.imagemPerfil
+																: ""
+															: ""
+													}
+													onChange={(val) => {
+														field.onChange(val);
+														if (val == null)
+															if (usuario.imagemPerfil != null)
+																setPreview(usuario.imagemPerfil);
+															else
+																setPreview(
+																	"http://localhost:8000/imgPostagens/usuarios/2025/06/10/sem_imagem_avatar.png",
+																);
+														else setPreview(URL.createObjectURL(val));
+													}}
+													multiple={false}
+												/>
+											)}
+										/>
+									</div>
+								</div>
+							</div>
+							<div className="col-span-full">
+								<BeeInput
+									placeholder="Digite seu nome"
+									label="Nome"
+									type="text"
+									defaultValue={
+										usuario !== undefined
+											? usuario.nome
+												? usuario.nome
+												: ""
+											: ""
+									}
+									register={{...register("nome")}}
+								/>
+								{errors.nome && (
+									<p className="text-red-500 text-sm mt-1">
+										{errors.nome.message}
+									</p>
+								)}
+							</div>
+							<div className="col-span-fullmt-5 col-span-full w-full">
+								<div className="mt-2">
+									<label className="block text-sm/6 font-medium text-gray-900 mb-2">
+										Banner do perfil
+									</label>
+
+									<Controller
+										name="banner"
+										control={control}
+										render={({field}) => (
+											<BeeArquivo
+												label="Insira uma foto"
+												value={
+													usuario !== undefined
+														? usuario.banner
+															? usuario.banner
+															: ""
+														: ""
+												}
+												onChange={(val) => {
+													field.onChange(val);
+													if (val == null)
+														if (usuario.banner != null)
+															setPreviewBanner(usuario.banner);
+														else
+															setPreviewBanner(
+																"http://localhost:8000/imgPostagens/usuarios/2025/06/10/sem_imagem_avatar.png",
+															);
+													else setPreviewBanner(URL.createObjectURL(val));
+												}}
+												multiple={false}
+											/>
+										)}
+									/>
+									<img
+										src={previewBanner}
+										className="w-full h-36 object-cover mt-4"
+									/>
+								</div>
+							</div>
+
+							<div className="col-span-full">
+								<Controller
+									name="descricao"
+									control={control}
+									render={({field}) => (
+										<BeeTextArea
+											{...field}
+											id="descricao"
+											defaultValue={
+												usuario !== undefined
+													? usuario.descricao
+														? usuario.descricao
+														: ""
+													: ""
+											}
+											rows={3}
+										/>
+									)}
+								/>
+								{errors.descricao && (
+									<p className="text-red-500 text-sm mt-1">
+										{errors.descricao.message}
+									</p>
+								)}
+							</div>
+							<div className="col-span-full">
+								<div>
+									<BeeInput
+										placeholder="Digite a escola de formação"
+										label="Escola de formação"
+										type="text"
+										defaultValue={
+											usuario !== undefined
+												? usuario.escolaFormacao != undefined &&
+													usuario.escolaFormacao != "undefined"
+													? usuario.escolaFormacao
+													: ""
+												: ""
+										}
+										register={{...register("escolaFormacao")}}
+									/>
+									{errors.escolaFormacao && (
+										<p className="text-red-500 text-sm mt-1">
+											{errors.escolaFormacao.message}
+										</p>
+									)}
+								</div>
+							</div>
+							<div className="col-span-full">
+								<BeeInput
+									placeholder="Digite a instituição atual"
+									label="Instituição atual"
+									defaultValue={
+										usuario !== undefined
+											? usuario.instituicaoAtual != undefined &&
+												usuario.instituicaoAtual != "undefined"
+												? usuario.instituicaoAtual
+												: ""
+											: ""
+									}
+									type="text"
+									register={{...register("instituicaoAtual")}}
+								/>
+
+								{errors.instituicaoAtual && (
+									<p className="text-red-500 text-sm mt-1">
+										{errors.instituicaoAtual.message}
+									</p>
+								)}
+							</div>
+						</div>
+					</div>
+
+					<div className="mt-6 flex items-center justify-end gap-x-6">
+						<BeeButton
+							label="cancelar"
+							variante="negativo"
+							onClick={() => navigate(`/${usuarioLocal.username}`)}
+						/>
+						<BeeButton
+							variante="primaria"
+							label="Salvar"
+						/>
+						{alert &&
+							(status === "success" ? (
+								<BeeAlert
+									typeAlert="success"
+									messageAlert={"Perfil alterado com sucesso"}
+								/>
+							) : (
+								<BeeAlert
+									typeAlert="error"
+									messageAlert={"Não foi possível alterar o sue perfil"}
+								/>
+							))}
+					</div>
+				</div>
+			</form>
+		</>
+	);
+};
+
+export default FormEditarPerfil;

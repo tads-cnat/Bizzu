@@ -8,7 +8,6 @@ import BeeSteps from "../componentes/BeeSteps/BeeSteps";
 import BeeArquivo from "../../../components/BeeArquivo/BeeArquivo";
 import UsuarioService from "../../../services/models/UsuarioService";
 import {Link, useNavigate} from "react-router-dom";
-
 const schema = yup.object().shape({
 	nome: yup.string().required("O nome é obrigatório"),
 	username: yup
@@ -39,14 +38,18 @@ const schema = yup.object().shape({
 			return this.parent.password === value;
 		}),
 	descricao: yup.string().optional(),
-	formacao: yup.string().optional(),
-	instituicao: yup.string().optional(),
+	escolaFormacao: yup.string().optional(),
+	instituicaoAtual: yup.string().optional(),
 	imagemPerfil: yup.mixed().optional(),
+	banner: yup.mixed().optional(),
 });
 
 const FormSig: React.FC = () => {
 	const [current, setCurrent] = useState<number>(0);
-	// const [comunidade, setComunidade] = useState<IBeeComunidade[]>();
+	const [preview, setPreview] = useState(
+		"http://localhost:8000/imgPostagens/usuarios/2025/06/10/sem_imagem_avatar.png",
+	);
+	const [previewBanner, setPreviewBanner] = useState("/banner.png");
 
 	const {
 		handleSubmit,
@@ -54,19 +57,6 @@ const FormSig: React.FC = () => {
 		control,
 		formState: {errors},
 	} = useForm({resolver: yupResolver(schema)});
-
-	// async function loadComunidades() {
-	// 	try {
-	// 		const response = await ComunidadeService.listAll();
-	// 		setComunidade(response.data);
-	// 	} catch {
-	// 		console.error("Não foi possível carregar as comunidades");
-	// 	}
-	// }
-
-	// useEffect(() => {
-	// 	loadComunidades();
-	// });
 
 	const redirecionar = useNavigate();
 
@@ -78,11 +68,11 @@ const FormSig: React.FC = () => {
 		imagemPerfil: File;
 		escolaFormacao: string;
 		instituicaoAtual: string;
+		banner: File;
 	}): Promise<void> {
 		if (current == 0) setCurrent(1);
+		else if (current == 1) setCurrent(2);
 		else {
-			console.log(data);
-
 			try {
 				const dataSubmit = new FormData();
 				dataSubmit.append("password", data.password);
@@ -92,13 +82,19 @@ const FormSig: React.FC = () => {
 					dataSubmit.append("descricao", data.descricao);
 				if (data.imagemPerfil !== null && data.imagemPerfil !== undefined)
 					dataSubmit.append("imagemPerfil", data.imagemPerfil);
+				if (data.banner !== null && data.banner !== undefined)
+					dataSubmit.append("banner", data.banner);
 				if (data.escolaFormacao !== null)
 					dataSubmit.append("escolaFormacao", data.escolaFormacao);
 				if (data.instituicaoAtual !== null)
 					dataSubmit.append("instituicaoAtual", data.instituicaoAtual);
 				dataSubmit.append("papel", "int");
 				await UsuarioService.post(dataSubmit);
-				redirecionar(-1);
+				redirecionar("/login", {
+					state: {
+						fromCadastro: true,
+					},
+				});
 			} catch (e) {
 				console.error("Deu erro", e);
 			}
@@ -200,26 +196,14 @@ const FormSig: React.FC = () => {
 								variante="aviso"
 								label="Próximo Passo"
 								tamanho="grande"
+								classesDefault={false}
+								className="px-4 py-2 rounded-md font-medium text-sm transition-all duration-200 bg-[#FCBD18] text-white hover:bg-yellow-500 sm:w-full sm:max-w-sm mt-5"
 							/>
 						</div>
 					)}
 
 					{current == 1 && (
 						<div className="mt-5 sm:mx-auto sm:w-full sm:max-w-sm">
-							<div className="mt-2">
-								<Controller
-									name="imagemPerfil"
-									control={control}
-									render={({field}) => (
-										<BeeArquivo
-											multiple={false}
-											value={field.value}
-											onChange={(val) => field.onChange(val)}
-										/>
-									)}
-								/>
-							</div>
-
 							<div className="mt-2">
 								<BeeInput
 									placeholder="Fale um pouco mais sobre você..."
@@ -239,11 +223,11 @@ const FormSig: React.FC = () => {
 									placeholder="Antiga formação..."
 									label="Escola de formação"
 									type="text"
-									register={{...register("formacao")}}
+									register={{...register("escolaFormacao")}}
 								/>
-								{errors.formacao && (
+								{errors.escolaFormacao && (
 									<p className="text-red-500 text-sm mt-1">
-										{errors.formacao.message}
+										{errors.escolaFormacao.message}
 									</p>
 								)}
 							</div>
@@ -253,19 +237,93 @@ const FormSig: React.FC = () => {
 									placeholder="Onde você estuda atualmente..."
 									label="Instituição Atual"
 									type="text"
-									register={{...register("instituicao")}}
+									register={{...register("instituicaoAtual")}}
 								/>
-								{errors.instituicao && (
+								{errors.instituicaoAtual && (
 									<p className="text-red-500 text-sm mt-1">
-										{errors.instituicao.message}
+										{errors.instituicaoAtual.message}
 									</p>
 								)}
 							</div>
-
+							<BeeButton
+								variante="aviso"
+								label="Próximo Passo"
+								classesDefault={false}
+								className="px-4 py-2 rounded-md font-medium text-sm transition-all duration-200 bg-[#FCBD18] text-white hover:bg-yellow-500 sm:w-full sm:max-w-sm mt-5"
+							/>
+						</div>
+					)}
+					{current == 2 && (
+						<div className="mt-5 sm:mx-auto sm:w-fill sm:max-w-sm">
+							<div className="mt-2">
+								<label className="block text-sm/6 font-medium text-gray-900">
+									Foto de perfil
+								</label>
+								<div className="flex items-center gap-4">
+									<img
+										src={preview}
+										alt="Imagem de usuário"
+										className={
+											"w-20 h-20 object-cover gap-1 mt-1 opacity-60 w-8 h-8"
+										}
+										style={{
+											clipPath:
+												"polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0% 50%)",
+										}}
+									/>
+									<Controller
+										name="imagemPerfil"
+										control={control}
+										render={({field}) => (
+											<BeeArquivo
+												multiple={false}
+												value={field.value}
+												label="Mostra sua cara"
+												onChange={(val) => {
+													field.onChange(val);
+													if (val == null)
+														setPreview(
+															"http://localhost:8000/imgPostagens/usuarios/2025/06/10/sem_imagem_avatar.png",
+														);
+													else setPreview(URL.createObjectURL(val));
+												}}
+											/>
+										)}
+									/>
+								</div>
+							</div>
+							<div className="mt-5 sm:mx-auto sm:w-fill sm:max-w-sm">
+								<div className="mt-2">
+									<label className="block text-sm/6 font-medium text-gray-900">
+										Banner do perfil
+									</label>
+									<Controller
+										name="banner"
+										control={control}
+										render={({field}) => (
+											<BeeArquivo
+												multiple={false}
+												label="Personalize seu espaço"
+												value={field.value}
+												onChange={(val) => {
+													field.onChange(val);
+													if (val == null) setPreviewBanner("/banner.png");
+													else setPreviewBanner(URL.createObjectURL(val));
+												}}
+											/>
+										)}
+									/>
+									<img
+										src={previewBanner}
+										className="w-full h-36 object-cover mt-4"
+									/>
+								</div>
+							</div>
 							<BeeButton
 								variante="aviso"
 								label="Cadastrar"
-								tamanho="grande"
+								classesDefault={false}
+								className="px-4 py-2 rounded-md font-medium text-sm transition-all duration-200 bg-[#FCBD18] text-white hover:bg-yellow-500 sm:w-full sm:max-w-sm mt-5"
 							/>
 						</div>
 					)}

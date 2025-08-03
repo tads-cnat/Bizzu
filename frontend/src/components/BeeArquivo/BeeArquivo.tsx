@@ -1,4 +1,3 @@
-
 import {UploadSimple} from "@phosphor-icons/react";
 import {Button, Upload, UploadFile} from "antd";
 import {IBeeArquivo} from "./IBeeArquivo";
@@ -7,6 +6,7 @@ import {UploadChangeParam} from "antd/es/upload";
 
 const BeeArquivo: React.FC<IBeeArquivo> = ({
 	value,
+	label,
 	onChange,
 	multiple,
 }: IBeeArquivo) => {
@@ -112,7 +112,7 @@ const BeeArquivo: React.FC<IBeeArquivo> = ({
 				icon={<UploadSimple />}
 				className="mb-2"
 			>
-				Selecione os anexos
+				{label}
 			</Button>
 		</Upload>
 	);

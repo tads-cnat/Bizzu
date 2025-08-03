@@ -1,6 +1,9 @@
 import React from "react";
 import type {IBeeFiltroCategorias} from "./IBeeFiltroCategorias";
 import BeeSearchBar from "../BeeSearchBar/BeeSearchBar";
+import {Tabs} from "antd";
+import TabPane from "antd/es/tabs/TabPane";
+import "./styles.css";
 
 const BeeFiltroCategorias: React.FC<IBeeFiltroCategorias> = ({
 	categorias,
@@ -24,29 +27,31 @@ const BeeFiltroCategorias: React.FC<IBeeFiltroCategorias> = ({
 		aoSelecionarCategoria(categoriaId);
 	};
 
-	React.useEffect(() => {
-		console.log("Categorias selecionadas atualizadas:", categoriasSelecionadas);
-	}, [categoriasSelecionadas]);
+	const tabsItems = [
+		{
+			key: "tec",
+			label: <span className="text-[#333333] font-medium">Tecnologia</span>,
+		},
+		{
+			key: "mat",
+			label: <span className="text-[#333333] font-medium">Matéria</span>,
+		},
+		{
+			key: "per",
+			label: <span className="text-[#333333] font-medium">Período</span>,
+		},
+	];
 
 	return (
-		<div className="bg-white shadow-md rounded-[15px] p-4 w-full max-w-sm">
-			<div className="flex justify-between gap-2 mb-4">
-				{(["tec", "mat", "per"] as const).map((tipo) => (
-					<button
-						key={tipo}
-						type="button"
-						onClick={() => handleTipoChange(tipo)}
-						className={`flex-1 px-3 py-1 rounded-[15px] font-semibold transition duration-200 flex justify-center items-center ${
-							tipoAtivo === tipo
-								? "bg-[#FCBD18] text-gray-900 shadow-md h-[27px]"
-								: "text-gray-600"
-						}`}
-					>
-						{tipo === "tec" && "Curso"}
-						{tipo === "mat" && "Matéria"}
-						{tipo === "per" && "Período"}
-					</button>
-				))}
+		<div className="bg-white rounded-[15px] p-4 w-full max-w-sm">
+			<div className="flex justify-between gap-2">
+				<Tabs
+					activeKey={tipoAtivo}
+					onChange={handleTipoChange}
+					tabBarStyle={{marginBottom: "1rem"}}
+					centered
+					items={tabsItems}
+				/>
 			</div>
 
 			<BeeSearchBar onSearch={aoPesquisar} />

@@ -3,13 +3,12 @@ import {IBeeUser} from "./IBeeUser";
 import {useEffect, useState} from "react";
 import {Link, useParams} from "react-router-dom";
 import {Menu, MenuItem} from "@headlessui/react";
-import acessAuth from "../../../../utils/acessAuth";
 import UsuarioService from "../../../../services/models/UsuarioService";
 import BeeButton from "../../../../components/BeeButtons/BeeButtons";
 import acessPermissions from "../../../../utils/acessPermissions";
+import acessAuth from "../../../../utils/acessAuth";
 
 const BeeHeaderProfile = () => {
-	const {username} = acessAuth();
 	const identificator = useParams().username;
 	const [usuario, setUsuario] = useState<IBeeUser>();
 	const [visble, setVisible] = useState<Boolean>(false);
@@ -17,6 +16,7 @@ const BeeHeaderProfile = () => {
 	const [seguidores, setSeguidores] = useState(0);
 	const [seguindo, setSeguindo] = useState(0);
 	const {permissions} = acessPermissions();
+	const {username} = acessAuth();
 
 	useEffect(() => {
 		void UsuarioService.getbyUsername(String(identificator))
@@ -70,7 +70,7 @@ const BeeHeaderProfile = () => {
 	};
 
 	return (
-		<>
+		<div>
 			{usuario && (
 				<div className="flex min-w-0 gap-x-4 mb-7">
 					<img
@@ -106,7 +106,7 @@ const BeeHeaderProfile = () => {
 							>
 								{seguidores} Seguidores
 							</a>
-							{permissions.create && username !== undefined ? (
+							{permissions.create || usuario.username == username ? (
 								<Menu
 									as="div"
 									className="relative inline-block text-left"
@@ -130,8 +130,12 @@ const BeeHeaderProfile = () => {
 											</MenuItem>
 
 											<MenuItem>
-												<Link to={`/repositorio/criar/`}>
-													<BoxArrowUp /> Criar Repositório
+												<Link
+													to={`/repositorio/criar/`}
+													className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
+												>
+													<BoxArrowUp className="w-5 h-5 text-cyan-500" /> Criar
+													Repositório
 												</Link>
 											</MenuItem>
 										</div>
@@ -148,7 +152,7 @@ const BeeHeaderProfile = () => {
 					</div>
 				</div>
 			)}
-		</>
+		</div>
 	);
 };
 

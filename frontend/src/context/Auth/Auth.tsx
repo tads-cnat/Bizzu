@@ -12,10 +12,16 @@ export const AutenticationContext = createContext<IBeeContext>(
 
 const AuthProvider = ({children}: IBeeProvider) => {
 	const [usuario, setUsuario] = useState<IBeeUsuario | null>(null);
+
 	useEffect(() => {
 		const user = getLocalStorage();
 		if (user) setUsuario(user);
 	}, []);
+
+	const atualizarUsuario = () => {
+		const user = getLocalStorage();
+		if (user) setUsuario(user);
+	};
 
 	const autenticar = async (
 		username: string,
@@ -35,7 +41,9 @@ const AuthProvider = ({children}: IBeeProvider) => {
 
 	return (
 		<>
-			<AutenticationContext.Provider value={{autenticar, deslogar, ...usuario}}>
+			<AutenticationContext.Provider
+				value={{autenticar, deslogar, atualizarUsuario, ...usuario}}
+			>
 				{children}
 			</AutenticationContext.Provider>
 		</>

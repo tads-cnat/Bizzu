@@ -1,44 +1,53 @@
-import axiosInstance from "./axiosInstance"
+import axiosInstance from "./axiosInstance";
 
 class BaseService {
-  complementoURL = ""
+	complementoURL = "";
 
-  constructor(complementoURL: string) {
-    this.complementoURL = complementoURL
-  }
+	constructor(complementoURL: string) {
+		this.complementoURL = complementoURL;
+	}
 
-  async get(id: number) {
-    const response = await axiosInstance.get(`${this.complementoURL}/${id}/`)
-    return response
-  }
+	async get(id: number) {
+		const response = await axiosInstance.get(`${this.complementoURL}/${id}/`);
+		return response;
+	}
 
-  async listAll() {
-    const response = await axiosInstance.get(`${this.complementoURL}/`)
-    return response
-  }
+	async listAll() {
+		const response = await axiosInstance.get(`${this.complementoURL}/`);
+		return response;
+	}
 
-  async post(content: any) {
-    const response = await axiosInstance.post(`${this.complementoURL}/`, content)
-    return response
-  }
+	async post(content: any) {
+		const response = await axiosInstance.post(
+			`${this.complementoURL}/`,
+			content,
+		);
+		return response;
+	}
 
-  async put(id: number, content: any) {
-    const response = await axiosInstance.put(`${this.complementoURL}/${id}/`, content)
-    return response
-  }
+	async put(id: number, content: any) {
+		const response = await axiosInstance.put(
+			`${this.complementoURL}/${id}/`,
+			content,
+		);
+		return response;
+	}
 
-  async patch(id: number, content: any) {
-    const response = await axiosInstance.patch(`${this.complementoURL}/${id}/`, content)
-    return response
-  }
+	async patch(id: number, content: any) {
+		const response = await axiosInstance.patch(
+			`${this.complementoURL}/${id}/`,
+			content,
+		);
+		return response;
+	}
 
-    async delete(id:number){
-        const response = await axiosInstance.delete(`${this.complementoURL}/${id}/`);
+	async delete(id: number) {
+		const response = await axiosInstance.delete(
+			`${this.complementoURL}/${id}/`,
+		);
 
-        return response;
-    }
+		return response;
+	}
+}
 
-
-};
-
-export default BaseService
+export default BaseService;

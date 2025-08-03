@@ -32,10 +32,39 @@ class UsuarioService extends BaseService{
         const response = await axiosInstance.get(`/usuario/usernameExits/${username}`);
         return response.data;
     }
-
+    async editarPerfil(dados: any){
+        const response = await axiosInstance.patch(`/usuario/editarPerfil/`, dados);
+        return response.data
+    }
     async logout() {
         const response = await axiosInstance.post(`/logout`);
         return response.data;
+    }
+
+    async solicitarMudanca(content: any){
+        const response = await axiosInstance.post('/usuario/solicitarMudanca/', content);
+        return response.data;
+    }
+
+    async pesquisarUsuarios(termo: string) {
+        const response = await axiosInstance.get(`pesquisa/?search=${encodeURIComponent(termo)}`);
+        return response;
+    }
+
+    async listarSolicitacoes(){
+        const response = await axiosInstance.get('/usuario/listarSolicitacoes');
+        return response
+    }
+
+    async aprovarSolicitacao(id: number){
+        const response = await axiosInstance.post('/usuario/aprovarSolicitacao/', {id: id})
+        
+        return response
+    }
+
+    async reprovarSolicitacao(id: number){
+        const response = await axiosInstance.post('/usuario/reprovarSolicitacao/', {id: id})
+        return response
     }
 }
 

@@ -11,15 +11,16 @@ import BeeSelect from "../../../components/BeeSelect/BeeSelect";
 import BeeFiltroCategorias from "../../../components/BeeFiltroCategorias/BeeFiltroCategorias";
 import ComunidadeService from "../../../services/models/ComunidadeService";
 import CategoriaService from "../../../services/models/CategoriaService";
-import type {Categoria} from "../../../interfaces/Categoria";
-import type {ComunidadeSelect} from "../../../interfaces/Comunidade";
+import type {IComunidadeSelect} from "../../../interfaces/Comunidade";
 import {useNavigate} from "react-router-dom";
 import acessAuth from "../../../utils/acessAuth";
 import UsuarioService from "../../../services/models/UsuarioService";
 import {IBeeUser} from "../../../components/BeeHeaderProfile/IBeeUser";
 import {BeeRepoProps} from "../../../components/BeeRepo/IBeeRepo";
-import {RepositorioFormValues} from "../../../interfaces/Repositorio";
+import {IRepositorioFormValues} from "../../../interfaces/Repositorio";
 import RepositorioService from "../../../services/models/RepositorioService";
+import {IBeeCategoria} from "../../../interfaces/IBeeCategoria";
+import BeeTags from "../../../components/BeeTags/BeeTags";
 
 // Schema de validação com Yup
 const schema = yup.object().shape({
@@ -46,10 +47,17 @@ export const FormRepositorio = ({
 	tipoForm,
 }: IFormRepositorio & {onSubmitCallback?: () => void}) => {
 	const [loading, setLoading] = useState(false);
-	const [comunidades, setComunidades] = useState<ComunidadeSelect[]>([]);
-	const [categorias, setCategorias] = useState<Categoria[]>([]);
+	const [comunidades, setComunidades] = useState<IComunidadeSelect[]>([]);
+	const [categorias, setCategorias] = useState<IBeeCategoria[]>([]);
 	const [loadingData, setLoadingData] = useState(false);
 	const [termoPesquisa, setTermoPesquisa] = useState("");
+	const [nomeComunidade, setNomeComunidade] = useState("Escolha uma");
+
+	const [alerta, setAlerta] = useState<{
+		tipo: "success" | "error";
+		mensagem: string;
+	} | null>(null);
+
 
 	const {
 		control,
@@ -58,7 +66,7 @@ export const FormRepositorio = ({
 		setValue,
 		watch,
 		getValues,
-	} = useForm<RepositorioFormValues>({
+	} = useForm<IRepositorioFormValues>({
 		resolver: yupResolver(schema) as any,
 		defaultValues: {
 			titulo: "",
@@ -71,6 +79,7 @@ export const FormRepositorio = ({
 	const [repositorios, setRepositorios] = useState<BeeRepoProps>();
 	const [usuario, setUsuario] = useState<IBeeUser>();
 	const {username} = acessAuth();
+	const navigate = useNavigate();
 	useEffect(() => {
 		if (usuario === undefined) {
 			void UsuarioService.getbyUsername(username)
@@ -153,8 +162,12 @@ export const FormRepositorio = ({
 						}
 					}
 
-					if (repositorio.categorias && repositorio.categorias.length > 0) {
-						setValue("categorias", repositorio.categorias);
+					if (
+						repositorios &&
+						Array.isArray(repositorios.categorias) &&
+						repositorios.categorias.length > 0
+					) {
+						setValue("categorias", repositorios.categorias);
 					}
 					if (repositorio.usuario) {
 						setValue("usuario", repositorio.usuario);
@@ -191,12 +204,13 @@ export const FormRepositorio = ({
 	);
 
 	const handleComunidadeChange = useCallback(
-		(value: ComunidadeSelect) => {
+		(value: IComunidadeSelect) => {
 			const currentValue = getValues("comunidade");
 			if (currentValue?.value !== value.value) {
 				setValue("comunidade", value.value ? value : undefined, {
 					shouldValidate: true,
 				});
+				setNomeComunidade(value.label);
 			}
 		},
 		[setValue, getValues],
@@ -207,45 +221,86 @@ export const FormRepositorio = ({
 	}, []);
 
 	const caminho = useNavigate();
-	const onSubmit: SubmitHandler<RepositorioFormValues> = async (data) => {
+	const onSubmit: SubmitHandler<IRepositorioFormValues> = async (data) => {
 		if (tipoForm == "criar") {
 			const dataSubmit = new FormData();
 			dataSubmit.append("titulo", data.titulo);
-			dataSubmit.append("usuario", String(usuario?.id));
+			if (usuario?.id !== undefined)
+				dataSubmit.append("usuario", String(usuario.id));
 			dataSubmit.append("descricao", data.descricao);
-			if (data.imagem !== null && data.imagem !== undefined)
-				dataSubmit.append("imagem", data.imagem);
+			// Enviar todos os arquivos anexados
+			if (data.imagem && Array.isArray(data.imagem)) {
+				data.imagem.forEach((file: File) => {
+					dataSubmit.append("arquivos[]", file);
+				});
+			} else if (data.imagem) {
+				dataSubmit.append("arquivos[]", data.imagem);
+			}
 			for (let i = 0; i < data.categorias.length; i++) {
 				dataSubmit.append("categorias", String(data.categorias[i]));
 			}
-			dataSubmit.append("comunidade", String(data.comunidade?.value));
+			if (data.comunidade?.value !== undefined)
+				dataSubmit.append("comunidade", String(data.comunidade.value));
 			try {
 				await RepositorioService.post(dataSubmit);
-				caminho(`/${username}/`);
+				caminho(`/${username}/`, {
+					state: {
+						alerta: {
+							tipo: "success",
+							mensagem: "Repositório criado com sucesso.",
+						},
+					},
+				});
 			} catch (e) {
 				console.error("Deu mal", e);
+				caminho(`/${username}/`, {
+					state: {
+						alerta: {
+							tipo: "error",
+							mensagem: "Erro ao criar repositório.",
+						},
+					},
+				});
 			}
 		} else {
 			const dataSubmit = new FormData();
 			dataSubmit.append("titulo", getValues("titulo"));
 			dataSubmit.append("descricao", getValues("descricao"));
-			if (
-				getValues("imagem") !== null &&
-				getValues("imagem") &&
-				repositorios?.imagem != getValues("imagem")
-			) {
-				dataSubmit.append("imagem", getValues("imagem"));
+			// Enviar todos os arquivos anexados (modo edição)
+			const imagemValue = getValues("imagem");
+			if (imagemValue && Array.isArray(imagemValue)) {
+				imagemValue.forEach((file: File) => {
+					dataSubmit.append("arquivos[]", file);
+				});
+			} else if (imagemValue) {
+				dataSubmit.append("arquivos[]", imagemValue);
 			}
 			for (let i = 0; i < getValues("categorias").length; i++) {
 				dataSubmit.append("categorias", String(getValues("categorias")[i]));
 			}
-			dataSubmit.append("comunidade", String(getValues("comunidade")?.value));
-
+			const comunidadeValue = getValues("comunidade");
+			if (comunidadeValue?.value !== undefined)
+				dataSubmit.append("comunidade", String(comunidadeValue.value));
 			try {
 				await RepositorioService.patch(idRepositorio, dataSubmit);
-				caminho(-1);
+				caminho(`/${username}/`, {
+					state: {
+						alerta: {
+							tipo: "success",
+							mensagem: "Repositório editado com sucesso.",
+						},
+					},
+				});
 			} catch (e) {
 				console.error("Deu mal editar", e);
+				caminho(`/${username}/`, {
+					state: {
+						alerta: {
+							tipo: "error",
+							mensagem: " Erro ao editar repositório.",
+						},
+					},
+				});
 			}
 		}
 	};
@@ -260,7 +315,32 @@ export const FormRepositorio = ({
 				onSubmit={handleSubmit(onSubmit)}
 				className="flex flex-col gap-6"
 			>
-				{/* Área de título */}
+				<div className="bg-white p-2 rounded-t-lg border-b border-gray-200">
+					<div className="flex items-center justify-between gap-4">
+						<p className="text-sm text-gray-600 break-words w-full">
+							<span className="font-medium">Comunidade:</span> {nomeComunidade}
+						</p>
+
+						{comunidades.length > 0 && (
+							<div className="w-full max-w-sm">
+								<Controller
+									name="comunidade"
+									control={control}
+									render={({field}) => (
+										<BeeSelect
+											options={comunidades}
+											placeholder="Selecione uma comunidade"
+											icone={Hexagon}
+											value={field.value}
+											onChange={handleComunidadeChange}
+											error={errors.comunidade?.message}
+										/>
+									)}
+								/>
+							</div>
+						)}
+					</div>
+				</div>
 				<div>
 					<Controller
 						name="titulo"
@@ -317,37 +397,15 @@ export const FormRepositorio = ({
 						control={control}
 						render={({field}) => (
 							<BeeArquivo
+								label="Selecione os anexos"
 								value={field.value}
 								onChange={field.onChange}
 								error={errors.imagem?.message}
-								multiple={false}
+								multiple={true}
 							/>
 						)}
 					/>
 				</div>
-
-				{/* Select de Comunidade */}
-				{comunidades.length > 0 && (
-					<div>
-						<label className="block text-sm font-medium text-gray-900 mb-2">
-							Comunidade
-						</label>
-						<Controller
-							name="comunidade"
-							control={control}
-							render={({field}) => (
-								<BeeSelect
-									options={comunidades}
-									placeholder="Selecione uma comunidade"
-									icone={Hexagon}
-									value={field.value}
-									onChange={handleComunidadeChange}
-									error={errors.comunidade?.message}
-								/>
-							)}
-						/>
-					</div>
-				)}
 
 				{/* Seleção de Categorias */}
 				{categorias.length > 0 && (
@@ -366,42 +424,46 @@ export const FormRepositorio = ({
 								{errors.categorias.message}
 							</p>
 						)}
-						{categoriasSelecionadas && categoriasSelecionadas.length > 0 && (
-							<div className="mt-2">
-								<p className="text-sm text-gray-600">
-									Categorias selecionadas: {categoriasSelecionadas.length}
-								</p>
-								<div className="flex flex-wrap gap-1 mt-1">
-									{categoriasSelecionadas.map((catId) => {
-										const categoria = categorias.find(
-											(cat) => cat.id === catId,
-										);
-										return categoria ? (
-											<span
-												key={catId}
-												className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-[#FCBD18] text-gray-900"
-											>
-												{categoria.nome}
-											</span>
-										) : null;
-									})}
-								</div>
-							</div>
-						)}
+						<div className="flex flex-wrap gap-1 mt-1">
+							{categoriasSelecionadas.map((catId) => {
+								const categoria = categorias.find((cat) => cat.id === catId);
+								return categoria ? (
+									<div key={catId}>
+										{categoria.tipo == "tec" ? (
+											<BeeTags
+												label={categoria.nome}
+												color="magenta"
+											/>
+										) : categoria.tipo == "per" ? (
+											<BeeTags
+												label={categoria.nome}
+												color="cyan"
+											/>
+										) : (
+											<BeeTags
+												label={categoria.nome}
+												color="orange"
+											/>
+										)}
+									</div>
+								) : null;
+							})}
+						</div>
 					</div>
 				)}
 
-				{/* Botão de Submit */}
-				<BeeButton
-					label={
-						tipoForm === "editar"
-							? "Atualizar Repositorio"
-							: "Publicar Repositorio"
-					}
-					variante="primaria"
-					icone={<PaperPlaneRight size={18} />}
-					desabilitado={loading}
-				/>
+				<div className="mt-6 flex items-center justify-end gap-x-6">
+					<BeeButton
+						label="cancelar"
+						variante="negativo"
+						onClick={() => navigate(`/${usuario.username}`)}
+					/>
+					<BeeButton
+						label={tipoForm === "editar" ? "Atualizar" : "Publicar"}
+						variante="primaria"
+						desabilitado={loading}
+					/>
+				</div>
 
 				{loading && (
 					<p className="text-center text-gray-600">

@@ -15,7 +15,10 @@ export const AllRoutes = () => {
 		),
 	};
 	const {token} = acessAuth();
-	if (token !== undefined)
+
+	if (token !== undefined) {
 		return useRoutes([...privatesRoutes, ...publicRoutes, semRota]);
-	else return useRoutes([...publicRoutes, semRota]);
+	} else {
+		return useRoutes([...publicRoutes, semRota]);
+	}
 };

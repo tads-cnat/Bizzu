@@ -1,4 +1,4 @@
-import React from "react";
+import type React from "react";
 import BeeSearchBar from "../BeeSearchBar/BeeSearchBar";
 import BeeButton from "../BeeButtons/BeeButtons";
 import {SignIn, SignOut} from "@phosphor-icons/react";
@@ -6,6 +6,7 @@ import acessAuth from "../../utils/acessAuth";
 import {Link, useNavigate} from "react-router-dom";
 import UsuarioService from "../../services/models/UsuarioService";
 import BeeNotification from "../BeeNotification/BeeNotification";
+import type {IUsuarioPesquisa} from "../BeeSearchDropdown/IBeeSearchDropdown";
 
 const BeeHeader: React.FC = () => {
 	const {deslogar} = acessAuth();
@@ -25,8 +26,12 @@ const BeeHeader: React.FC = () => {
 		mudar("/login", {replace: true});
 	};
 
+	const handleSelectUser = (usuario: IUsuarioPesquisa) => {
+		mudar(`/${usuario.username}/`);
+	};
+
 	return (
-		<header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between bg-white py-4 px-8 shadow-sm">
+		<header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between bg-white py-4 px-8 border-b border-gray-300">
 			<div className="flex items-center">
 				<Link to={`/`}>
 					<img
@@ -46,6 +51,9 @@ const BeeHeader: React.FC = () => {
 			) : (
 				<BeeSearchBar
 					onSearch={(termo: string) => console.log("Search term:", termo)}
+					showUserSearch={true}
+					onSelectUser={handleSelectUser}
+					placeholder="Buscar usuários..."
 				/>
 			)}
 
