@@ -174,12 +174,6 @@ class UsuarioViewSet(viewsets.ModelViewSet):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    @action(detail=False, methods=["GET"], url_path="listarSolicitacoes")
-    def listarSolicitacoes(self, request):
-        solicitacoes = Solicitacao.objects.all().order_by("status", "data_solocitacao")
-        serializer = SolicitacaoSerializer(solicitacoes, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
     @action(detail=False, methods=["POST"], url_path="aprovarSolicitacao")
     def aprovarSolicitacao(self, request):
         serializer = AprovarSolicitacaoSerializer(data=request.data)
@@ -343,3 +337,9 @@ class StatusViewSet(viewsets.ModelViewSet):
         filters.OrderingFilter,
     ]
     ordering_fields = ["status", "data_solicitacao"]
+    ordering = ["status"]
+
+    def listarSolicitacoes(self, request):
+        solicitacoes = Solicitacao.objects.all()
+        serializer = SolicitacaoSerializer(solicitacoes, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)

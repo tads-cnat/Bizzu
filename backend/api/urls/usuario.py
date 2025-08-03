@@ -6,4 +6,6 @@ from api.views.usuario import UsuarioViewSet, PesquisaViewSet, StatusViewSet
 usuarioRouter = routers.DefaultRouter()
 usuarioRouter.register("usuario", UsuarioViewSet)
 usuarioRouter.register("pesquisa", PesquisaViewSet, basename="pesquisar-usuario")
-usuarioRouter.register("visualizar_status", StatusViewSet, basename="ver-status")
+usuarioRouter.register(
+    "listar_solicitacoes", StatusViewSet, basename="listar-solicitações"
+)
