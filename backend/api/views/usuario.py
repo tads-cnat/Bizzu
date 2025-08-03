@@ -17,7 +17,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
-from api.filters.usuario import UsuarioFilter
+from api.filters.usuario import UsuarioFilter, SolicitacaoFilter
 from rest_framework import filters
 from ..models import Comunidade
 import requests
@@ -333,3 +333,13 @@ class GoogleAuthView(APIView):
         }
 
         return Response(response_data, status=status.HTTP_200_OK)
+
+
+class StatusViewSet(viewsets.ModelViewSet):
+    queryset = Solicitacao.objects.all()
+    serializer_class = SolicitacaoSerializer
+    filterset_class = SolicitacaoFilter
+    filter_backends = [
+        filters.OrderingFilter,
+    ]
+    ordering_fields = ["status", "data_solicitacao"]
