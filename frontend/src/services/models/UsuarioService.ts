@@ -52,7 +52,7 @@ class UsuarioService extends BaseService{
     }
 
     async listarSolicitacoes(){
-        const response = await axiosInstance.get('/usuario/listarSolicitacoes');
+        const response = await axiosInstance.get('/listar_solicitacoes/');
         return response
     }
 
