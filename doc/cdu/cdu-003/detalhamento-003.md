@@ -1,25 +1,25 @@
-# CDU003. Pesquisar Conteúdo
+# CDU003. Pesquisar Usuário
 
 - **Ator principal**: Visitante, Internauta e Moderador
 - **Atores secundários**: ...	 
-- **Resumo**: O usuário pode pesquisar conteúdos disponíveis na rede social, por meio de palavras-chaves inseridas no campo de busca.  
+- **Resumo**: O usuário pode pesquisar perfis de outros usuários da rede social utilizando o nome de usuário (username) inserido no campo de busca.
 - **Pré-condição**: Não há.
-- **Pós-Condição**: Exibição do resultado da pesquisa ou mensagem de erro (feedback) caso não exista conteúdo correspondente.
+- **Pós-Condição**: O sistema exibe o perfil correspondente ao nome de usuário pesquisado ou uma mensagem de erro caso nenhum usuário seja encontrado.
 
 
 ## Fluxo Principal
 | Ações do ator | Ações do sistema |
 | :-----------------: | :-----------------: | 
-| 1 - O usuário acessa o campo de pesquisa na interface e o preenche com uma palavra-chave, nome de usuário ou postagem que deseja achar e confirma a pesquisa ||  
-|| 2 - O sistema processa a solicitação de pesquisa e exibe os resultados, mostrando os conteúdos cadastrados no sistema, filtrados a partir da busca realizada.| 
+| 1 -  O usuário acessa o campo de pesquisa(search bar) na interface e preenche com o nome de usuário que deseja pesquisar. ||  
+|| 2 - O sistema processa a solicitação e exibe o perfil correspondente ao nome de usuário pesquisado, caso exista.| 
 
 ## Fluxo Alternativo I - Não há
 
-## Fluxo de Exceção I - [Quando não existe conteúdo com a palavra-chave pesquisada]
+## Fluxo de Exceção I - [Nome de usuário não encontrado]
 | Ações do ator | Ações do sistema |
 | :-----------------: | :-----------------: | 
-| 1 - O usuário acessa o campo de pesquisa na interface e o preenche com uma palavra-chave, nome de usuário ou postagem que deseja achar e confirma a pesquisa|| 
-|| 2 - O sistema processa a solicitação de pesquisa e nenhum resultado correspondente é encontrado, então o sistema exibe a mensagem: “Sem resultados para sua pesquisa”|  
+| 1 - O usuário acessa o campo de pesquisa na interface e preenche com o nome de usuário desejado.|| 
+|| 2 - O sistema processa a solicitação, mas não encontra nenhum perfil correspondente. Então, exibe a mensagem: “Sem resultados para sua pesquisa”|  
 
 ## Protótipo
 ![image](https://github.com/user-attachments/assets/d561949b-ee17-4e3d-9e3c-17769f074d0c)
