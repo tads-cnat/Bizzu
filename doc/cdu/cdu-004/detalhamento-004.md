@@ -42,7 +42,7 @@
 > Recomendamos baixá-los para melhor visualização.
 
 
-### Fazer Login Versão Astah
+## Diagrama de Interação (Sequência ou Comunicação)
 
 ![alt text](sequenceDiagramFazerLogin.svg)
 
