@@ -29,10 +29,10 @@
 
 ## Diagrama de Interação (Sequência ou Comunicação)
 
-![5044434635727154993](https://github.com/user-attachments/assets/142fbeb3-4228-4687-82f9-f2d1fb1fc422)
+![alt text](sequenceDiagramPesquisarUsuario.svg)
 
 ## Diagrama de Classes de Projeto
 
-![diagramaProjeto](https://github.com/user-attachments/assets/e3241dd7-9735-49d6-9b10-e0274e441056)
+![alt text](classDiagramPesquisarUsuario.svg)
 
 
