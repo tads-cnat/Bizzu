@@ -26,6 +26,10 @@
 
 ![image](https://github.com/user-attachments/assets/5db1fa1b-6ae1-4c97-9631-2d3bacf54e28)
 
+> 💡 Os diagramas abaixo estão em formato SVG (vetorial), o que permite ampliar sem perder qualidade.  
+> Por terem fundo transparente, podem ficar pouco visíveis no modo escuro do GitHub.  
+> Recomendamos baixá-los para melhor visualização.
+
 
 ## Diagrama de Interação (Sequência ou Comunicação)
 
