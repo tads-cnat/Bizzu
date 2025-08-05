@@ -93,11 +93,14 @@
 ![Excluir postagem](https://github.com/user-attachments/assets/cfe11b15-4018-4986-be0f-a752bcf2dbcf)
 ![Visualizar postagem](https://github.com/user-attachments/assets/05dfcc8d-f5a5-4220-9f33-75eb10dcac9b)
 
+> 💡 Os diagramas abaixo estão em formato SVG (vetorial), o que permite ampliar sem perder qualidade.  
+> Por terem fundo transparente, podem ficar pouco visíveis no modo escuro do GitHub.  
+> Recomendamos baixá-los para melhor visualização.
+
 ## Diagrama de Interação (Sequência ou Comunicação)
 
-> ![image](https://github.com/user-attachments/assets/01992257-7487-4ce1-ba78-25580395ce8a)
-> ()
+![alt text](sequenceDiagramManterPostagem.svg)
 
 ## Diagrama de Classes de Projeto
 
-> ![image](https://github.com/user-attachments/assets/b22f1827-850d-416a-b753-f92183cc4464)
+![alt text](classDiagramManterPostagem.svg)

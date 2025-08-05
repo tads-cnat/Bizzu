@@ -39,14 +39,16 @@
 
 
 
-> Obs. as seções a seguir apenas serão utilizadas na segunda unidade do PDSWeb (segundo orientações do gerente do projeto).
+> 💡 Os diagramas abaixo estão em formato SVG (vetorial), o que permite ampliar sem perder qualidade.  
+> Por terem fundo transparente, podem ficar pouco visíveis no modo escuro do GitHub.  
+> Recomendamos baixá-los para melhor visualização.
 
 ## Diagrama de Interação (Sequência ou Comunicação)
 
-![Editar Perfil](https://github.com/user-attachments/assets/55dde3da-864f-434f-a307-f571631fc1c2)
+![alt text](DiagramSequenciaManutencaoPerfilPessoal.svg)
 
 
 ## Diagrama de Classes de Projeto
 
-![Classe de projeto](https://github.com/user-attachments/assets/166ddf5e-bdaf-4cd5-9ea7-e386e3cd5a0c)
+![alt text](DiagramClassesProjetoManutencaoPerfilPessoal.svg)
 
