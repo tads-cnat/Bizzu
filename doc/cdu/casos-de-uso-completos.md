@@ -30,8 +30,8 @@
 
 ### 001 - Manter repositório
 
-**Pré-condições:** O usuário deve ter uma conta e um perfil autenticado.  
-**Resumo:** Ao acessar seu perfil pessoal, o usuário pode criar um repositório ao interagir com o botão "novo" e selecionar a opção "criar novo repositório". Para efetivação, é necessário colocar os arquivos, um título e, opcionalmente, selecionar categorias. Alterações como edição de título, categorias e arquivos, além da exclusão do repositório, são possíveis. A exibição dos repositórios será feita no feed principal, no feed dos seguidores e na comunidade associada, além de estar visível no perfil pessoal do usuário.  
+**Pré-condições:** O usuário deve estar autenticado no sistema.  
+**Resumo:** Ao acessar seu perfil, o usuário pode criar um repositório pelo botão "Novo", informando título, arquivos e, opcionalmente, categorias. É possível editar ou excluir o repositório a qualquer momento. Os repositórios são exibidos no feed principal, dos seguidores, da comunidade associada e no perfil do usuário.
 **Observação:** Os fluxos principais incluem visualização, criação, edição e exclusão. Fluxos de exceção devem considerar falhas na busca, exclusão ou atualização do repositório.<br>
 <a href="doc/cdu/cdu-001/detalhamento-001.md"> **Detalhamento** </a>
 
@@ -39,18 +39,18 @@
 
 ### 002 - Manutenção perfil pessoal
 
-**Pré-condições:** O usuário deve possuir um perfil previamente logado.  
-**Resumo:** O usuário acessa a seção de perfil pessoal e pode editar dados como nome, foto de perfil e biografia, além de atualizar a seção de educação e gerenciar conteúdos salvos. O sistema valida as informações fornecidas e salva os dados atualizados.  
+**Pré-condições:** O usuário deve estar autenticado no sistema.  
+**Resumo:** O usuário acessa a seção de perfil pessoal e pode editar dados como nome, foto de perfil e texto do perfil, além de atualizar a seção de educação e gerenciar conteúdos salvos. O sistema valida as informações fornecidas e salva os dados atualizados.  
 **Observação:** Campos obrigatórios ou inválidos devem gerar mensagens de erro. Problemas de conexão durante a atualização devem alertar o usuário sobre a falha.<br>
 <a href="doc/cdu/cdu-002/detalhamento-002.md"> **Detalhamento** </a>
 
 ---
 
-### 003 - Pesquisar conteúdo
+### 003 - Pesquisar Usuario
 
-**Pré-condições:** Não há.  
-**Resumo:** O usuário acessa o campo de pesquisa na interface, e preenche o campo com uma palavra-chave, categoria ou nome de usuário. O sistema processa a solicitação de pesquisa e busca na base de dados, exibindo os resultados filtrados a partir dessa solicitação.  
-**Observação:** Caso não exista um conteúdo com a palavra-chave pesquisada pelo usuário, aparecerá uma mensagem indicando que não existe conteúdo correspondente.<br>
+**Pré-condições:** O usuário deve estar autenticado no sistema.
+**Resumo:**  Permite ao usuário buscar por outros usuários do sistema digitando termos (nome ou @username) na barra de busca.
+**Observação:** Caso não exista nenhum usuário com o username pesquisado, nemhum perfil será exibido.<br>
 <a href="doc/cdu/cdu-003/detalhamento-003.md"> **Detalhamento** </a>
 
 ---
