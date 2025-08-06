@@ -1,7 +1,7 @@
 # Casos de Uso
 
 
-![Diagrama de caso de uso bizzu](https://github.com/user-attachments/assets/4a043a91-e4ff-4352-8c30-d1e1a9699ec2)
+![alt text](<UseCase Diagram0.svg>)
 
 
 ## Listagem das prioridades
