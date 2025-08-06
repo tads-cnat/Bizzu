@@ -2,12 +2,12 @@
 
 ## Diagrama ER
 
-![Diagrama bizzu revisado drawio](https://github.com/user-attachments/assets/44aaa333-8d49-4296-ba97-44726ffc8620)
+![alt text](<DER - Bizzu..svg>)
 
 
 ## Modelo Relacional
 
-![DiagramaModeloRelacional](https://github.com/user-attachments/assets/dd147dc6-b58e-43a2-92fd-f61b94aa1159)
+![alt text](<MR - BIZZU.svg>)
 
 
 
