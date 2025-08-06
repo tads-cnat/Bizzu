@@ -119,5 +119,64 @@
 | Repositorio_Titulo | Associar a qual repositorio este arquivo pertence  | VARCHAR | 45 | &#9744;  | &#9744; | &#9745; | &#9744; | &#9744; |  | Not null |
 | Localização no diretorio | Localização dos arquivos no diretorio   | INTEGER |  | &#9744;  | &#9744; | &#9744; | &#9744; | &#9744; |  |  |
 
+**Tabela**: Comentario
+
+*Descrição* : Armazena os comentários feitos pelos usuários em postagens do sistema.
+
+*Observações* : Cada comentário está vinculado a uma única postagem e a um único perfil.
+
+| Colunas              | Descrição                                      | Tipo de Dado | Tamanho | Null | PK | FK | Unique | Identity | Default | Check |
+|----------------------|------------------------------------------------|--------------|---------|------|----|----|--------|----------|---------|-------|
+| id_comentario        | Identificador único do comentário              | INTEGER      |         | &#9744; | &#9745; | &#9744; | &#9744;   | &#9745;  |         | Not null |
+| texto                | Texto do comentário                            | TEXT         |         | &#9744; | &#9744; | &#9744; | &#9744;   | &#9744;  |         |         |
+| data_comentario      | Data em que o comentário foi feito             | DATE         |         | &#9744; | &#9744; | &#9744; | &#9744;   | &#9744;  |         |         |
+| postagem_id_postagem | Postagem à qual o comentário pertence          | INTEGER      |         | &#9744; | &#9744; | &#9745; | &#9744;   | &#9744;  |         | Not null |
+| perfil_id_username   | Perfil que fez o comentário                     | VARCHAR      | 45      | &#9744; | &#9744; | &#9745; | &#9744;   | &#9744;  |         | Not null |
+
+---
+**Tabela**: Curtida
+
+*Descrição* : Representa curtidas feitas pelos usuários em postagens do sistema.
+
+*Observações* : Cada curtida está vinculada a um perfil e a uma postagem.
+
+| Colunas              | Descrição                                    | Tipo de Dado | Tamanho | Null | PK | FK | Unique | Identity | Default | Check |
+|----------------------|----------------------------------------------|--------------|---------|------|----|----|--------|----------|---------|-------|
+| id_curtida           | Identificador único da curtida              | INTEGER      |         | &#9744; | &#9745; | &#9744; | &#9744;   | &#9745;  |         | Not null |
+| data_curtida         | Data em que a curtida foi feita             | DATE         |         | &#9744; | &#9744; | &#9744; | &#9744;   | &#9744;  |         |         |
+| postagem_id_postagem | Postagem que recebeu a curtida              | INTEGER      |         | &#9744; | &#9744; | &#9745; | &#9744;   | &#9744;  |         | Not null |
+| perfil_id_username   | Perfil que curtiu a postagem                | VARCHAR      | 45      | &#9744; | &#9744; | &#9745; | &#9744;   | &#9744;  |         | Not null |
+
+---
+**Tabela**: Solicitacao
+
+*Descrição* : Armazena solicitações de entrada em comunidades feitas por usuários.
+
+*Observações* : Pode ser usada para controle de aprovação de membros nas comunidades.
+
+| Colunas                  | Descrição                                     | Tipo de Dado | Tamanho | Null | PK | FK | Unique | Identity | Default | Check |
+|--------------------------|-----------------------------------------------|--------------|---------|------|----|----|--------|----------|---------|-------|
+| id_solicitacao           | Identificador único da solicitação           | INTEGER      |         | &#9744; | &#9745; | &#9744; | &#9744;   | &#9745;  |         | Not null |
+| data_solicitacao         | Data em que a solicitação foi realizada      | DATE         |         | &#9744; | &#9744; | &#9744; | &#9744;   | &#9744;  |         |         |
+| status                   | Status da solicitação (pendente, aceita...)  | VARCHAR      | 45      | &#9744; | &#9744; | &#9744; | &#9744;   | &#9744;  |         |         |
+| perfil_id_username       | Perfil que solicitou entrada                  | VARCHAR      | 45      | &#9744; | &#9744; | &#9745; | &#9744;   | &#9744;  |         | Not null |
+| comunidade_id_comunidade | Comunidade para qual está sendo solicitada   | INTEGER      |         | &#9744; | &#9744; | &#9745; | &#9744;   | &#9744;  |         | Not null |
+
+---
+**Tabela**: Denuncia
+
+*Descrição* : Armazena denúncias feitas por usuários sobre conteúdos impróprios ou inadequados.
+
+*Observações* : As denúncias podem estar relacionadas a postagens ou comentários.
+
+| Colunas              | Descrição                                           | Tipo de Dado | Tamanho | Null | PK | FK | Unique | Identity | Default | Check |
+|----------------------|-----------------------------------------------------|--------------|---------|------|----|----|--------|----------|---------|-------|
+| id_denuncia          | Identificador único da denúncia                    | INTEGER      |         | &#9744; | &#9745; | &#9744; | &#9744;   | &#9745;  |         | Not null |
+| motivo               | Motivo da denúncia                                 | TEXT         |         | &#9744; | &#9744; | &#9744; | &#9744;   | &#9744;  |         |         |
+| data_denuncia        | Data em que a denúncia foi feita                   | DATE         |         | &#9744; | &#9744; | &#9744; | &#9744;   | &#9744;  |         |         |
+| perfil_id_username   | Perfil que fez a denúncia                          | VARCHAR      | 45      | &#9744; | &#9744; | &#9745; | &#9744;   | &#9744;  |         | Not null |
+| postagem_id_postagem | Postagem denunciada (se aplicável)                | INTEGER      |         | &#9745; | &#9744; | &#9745; | &#9744;   | &#9744;  |         |         |
+| comentario_id        | Comentário denunciado (se aplicável)              | INTEGER      |         | &#9744; | &#9744; | &#9745; | &#9744;   | &#9744;  |         |         |
+
 
 
