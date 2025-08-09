@@ -85,12 +85,16 @@
 ![INTERNO REPOSITÓRIO](https://github.com/user-attachments/assets/f97dee7e-bbe2-4642-89bc-0e3dfa31bba7)
 ![PERFIL (visao do proprio perfil) (4)](https://github.com/user-attachments/assets/856b4a2d-eeaa-436c-95be-79bd23fd8c6b)
 
+> 💡 Os diagramas abaixo estão em formato SVG (vetorial), o que permite ampliar sem perder qualidade.  
+> Por terem fundo transparente, podem ficar pouco visíveis no modo escuro do GitHub.  
+> Recomendamos baixá-los para melhor visualização.
+
 ## Diagrama de Interação (Sequência ou Comunicação)
-![Criar repositório diagrma de sequncia^](https://github.com/user-attachments/assets/3f4a4f01-ee4d-40c5-ab5e-7fa535bf0ddd)
+![alt text](DiagramaSequenciaManterRepositorio.svg)
 
 
 ## Diagrama de Classes de Projeto
 
-![Repositrio classes relacionadas ](https://github.com/user-attachments/assets/48e20348-7a01-41c5-a53c-07893dc36b4e)
+![alt text](DiagramaClassesProjetoManterRepositorio.svg)
 
 
