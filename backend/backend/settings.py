@@ -1,6 +1,7 @@
 from datetime import timedelta
 from pathlib import Path
 import os
+from decouple import config
 
 # Build paths inside the project
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,7 +23,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework_simplejwt",
     "corsheaders",
-    'django_filters',
+    "django_filters",
     "rest_framework_simplejwt.token_blacklist",
 ]
 
@@ -59,8 +60,12 @@ WSGI_APPLICATION = "backend.wsgi.application"
 # Database
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": config("SQL_ENGINE"),
+        "NAME": config("SQL_DATABASE"),
+        "USER": config("SQL_USER"),
+        "PASSWORD": config("SQL_PASSWORD"),
+        "HOST": config("SQL_HOST"),
+        "PORT": config("SQL_PORT"),
     }
 }
 
@@ -80,7 +85,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-GOOGLE_CLIENT_ID = "339878763062-a58uon1csivv1ru7ubt1g60cmc5tao3a.apps.googleusercontent.com"
+GOOGLE_CLIENT_ID = (
+    "339878763062-a58uon1csivv1ru7ubt1g60cmc5tao3a.apps.googleusercontent.com"
+)
 
 # Internationalization
 LANGUAGE_CODE = "pt-br"
@@ -103,10 +110,10 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
-    'DEFAULT_FILTER_BACKENDS': [
-        'django_filters.rest_framework.DjangoFilterBackend',
-        'rest_framework.filters.SearchFilter',  # Filtro de busca
-        'rest_framework.filters.OrderingFilter',  # Filtro de ordenação
+    "DEFAULT_FILTER_BACKENDS": [
+        "django_filters.rest_framework.DjangoFilterBackend",
+        "rest_framework.filters.SearchFilter",  # Filtro de busca
+        "rest_framework.filters.OrderingFilter",  # Filtro de ordenação
     ],
 }
 SIMPLE_JWT = {

@@ -1,0 +1,9 @@
+services:
+    web:
+        build: .
+        container_name: bizzuFront
+        command: "yarn dev --host"
+        ports: 
+            - "5173:5173"
+        volumes:
+            - ./:/bizzuVolumeFront

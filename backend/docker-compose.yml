@@ -1,0 +1,28 @@
+services:
+    app:
+        build: .
+        container_name: bizzu
+        command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+        ports: 
+            - "8000:8000"
+        depends_on:
+            - db
+        volumes:
+            - ./:/bizzuVolumeBack
+
+    db:
+        container_name: bizzuDb
+        ports:
+            - "5432:5432"
+        image: postgres:17-alpine
+        volumes:
+            - bizzuData:/var/lib/postgresql/data/
+        environment:
+            POSTGRES_DB: ${SQL_DATABASE}
+            POSTGRES_USER: ${SQL_USER}
+            POSTGRES_PASSWORD: ${SQL_PASSWORD}
+        env_file:
+            - .env
+            
+volumes:
+    bizzuData:
