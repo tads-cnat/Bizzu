@@ -37,13 +37,17 @@
 
 ![LOGIN](https://github.com/user-attachments/assets/407dfe9f-1c68-4c3e-859a-f3df9ce44f52)
 
+> 💡 Os diagramas abaixo estão em formato SVG (vetorial), o que permite ampliar sem perder qualidade.  
+> Por terem fundo transparente, podem ficar pouco visíveis no modo escuro do GitHub.  
+> Recomendamos baixá-los para melhor visualização.
 
-### Fazer Login Versão Astah
 
-![unnamed](https://github.com/user-attachments/assets/d23f8f5b-d50a-4680-819e-03b02992ae8c)
+## Diagrama de Interação (Sequência ou Comunicação)
+
+![alt text](sequenceDiagramFazerLogin.svg)
 
 
 ## Diagrama de Classes de Projeto
 
-![image](https://github.com/user-attachments/assets/4972fe94-c083-48d9-ad67-40fe52c11106)
+![alt text](classDiagramFazerLogin.svg)
 

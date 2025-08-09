@@ -17,7 +17,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
-from api.filters.usuario import UsuarioFilter
+from api.filters.usuario import UsuarioFilter, SolicitacaoFilter
 from rest_framework import filters
 from ..models import Comunidade
 import requests
@@ -174,12 +174,6 @@ class UsuarioViewSet(viewsets.ModelViewSet):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    @action(detail=False, methods=["GET"], url_path="listarSolicitacoes")
-    def listarSolicitacoes(self, request):
-        solicitacoes = Solicitacao.objects.all().order_by("status", "data_solocitacao")
-        serializer = SolicitacaoSerializer(solicitacoes, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
     @action(detail=False, methods=["POST"], url_path="aprovarSolicitacao")
     def aprovarSolicitacao(self, request):
         serializer = AprovarSolicitacaoSerializer(data=request.data)
@@ -333,3 +327,19 @@ class GoogleAuthView(APIView):
         }
 
         return Response(response_data, status=status.HTTP_200_OK)
+
+
+class StatusViewSet(viewsets.ModelViewSet):
+    queryset = Solicitacao.objects.all()
+    serializer_class = SolicitacaoSerializer
+    filterset_class = SolicitacaoFilter
+    filter_backends = [
+        filters.OrderingFilter,
+    ]
+    ordering_fields = ["status", "data_solicitacao"]
+    ordering = ["status"]
+
+    def listarSolicitacoes(self, request):
+        solicitacoes = Solicitacao.objects.all()
+        serializer = SolicitacaoSerializer(solicitacoes, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
