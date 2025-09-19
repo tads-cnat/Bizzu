@@ -65,7 +65,7 @@ Desenvolver uma plataforma funcional de rede social acadêmica voltada para os c
 - Outubro/2025:Entrega etapa 01
 - Janeiro/2026: Entrega etapa 02 e apresentação do projeto.
 
-> Etapa 01: Registro das partes interessadas, definição do escopo (EAP), cronograma de marcos, implantação do produto em nuvem, especificação dos casos de teste (Documento), análise Heurística (Lista Eureca), testes de unidade (Código). 
+> Etapa 01: Registro das partes interessadas, definição do escopo (EAP), cronograma de marcos, implantação do produto em nuvem, especificação dos casos de teste (Documento), análise Heurística (Lista Eureca), testes de unidade (Código). <br>
 > Etapa 02: Cronograma, gerenciamento dos riscos, gerenciamento dos custos, integração Contínua, planejamento e realização de testes (API, Funcional, Não-funcional), teste de usabilidade, avaliação empírica.
 
 ### 10. Autoridade do Gerente de Projeto
@@ -79,6 +79,6 @@ No entanto, a autoridade final sobre o projeto é do professor orientador, que v
 ### 11. Aprovação
 
 Data: __ /__ /__
-<br>
-¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨ 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Patrocinador
+<br><br><br>
+¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨ <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Patrocinador
