@@ -7,7 +7,7 @@
 **Patrocinador**: Diatinf &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **Gerente de Projeto**: Ana Maria
 
 ### 2. Justificativa do Projeto
-O projeto Bizzu surge da necessidade de fortalecer a comunicação, colaboração e apoio mútuo entre os estudantes da DIATINF. Através de uma rede social acadêmica, o projeto busca facilitar o compartilhamento de materiais, atualizações sobre os cursos e integração entre os alunos, contribuindo diretamente para a jornada acadêmica de cada um.
+O projeto Bizzu surge da necessidade de fortalecer a comunicação, colaboração e apoio mútuo entre os estudantes dos cursos de tecnologia da DIATINF. Através de uma rede social acadêmica, o projeto busca facilitar o compartilhamento de materiais, atualizações sobre os cursos e integração entre os alunos, contribuindo diretamente para a jornada acadêmica de cada um.
 
 ### 3. Objetivos do Projeto
 
@@ -23,9 +23,12 @@ Desenvolver uma plataforma funcional de rede social acadêmica voltada para os c
 - Garantir acesso seguro e intuitivo à plataforma.
 
 ### 4. Premissas
-- Os alunos da DIATINF utilizarão a plataforma como ferramenta de apoio acadêmico.
-- A equipe de desenvolvimento terá disponibilidade para cumprir as etapas do projeto.
-- O ambiente de desenvolvimento e testes estará acessível durante todo o ciclo.
+- A equipe de desenvolvimento terá disponibilidade para cumprir as etapas do projeto. 
+- O ambiente de desenvolvimento e testes estará acessível durante todo o ciclo. 
+- A equipe de desenvolvimento manterá comunicação constante e colaborativa durante o projeto.
+- O escopo definido será mantido, salvo ajustes previamente acordados com o professor.
+- A plataforma será utilizada inicialmente por estudantes dos cursos de tecnologia da DIATINF, com possibilidade de expansão futura.
+
 
 ### 5. Restrições
 - A equipe é composta por estudantes com conhecimento técnico em formação.
@@ -53,7 +56,7 @@ Desenvolver uma plataforma funcional de rede social acadêmica voltada para os c
 - Equipe de desenvolvimento (alunos envolvidos no projeto).
 - Professor orientador.
 - Professores da disciplina do PDS.
-- Estudantes da DIATINF (usuários finais).
+- Estudantes dos cursos de tecnologia da DIATINF (usuários finais).
 - Coordenação da DIATINF (apoio institucional).
 
 ### 9. Marcos Principais
