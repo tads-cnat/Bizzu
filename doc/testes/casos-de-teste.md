@@ -12,6 +12,7 @@ O documento foi estruturado para garantir clareza e facilitar a consulta aos tes
 
 ### CDU 001 - Manter repositório
 #### Fluxo Principal - Criar repositório
-| Comunidade | Título | Descrição | Arquivo | Categoria | Resultado Esperado | Resultado Obtido | Situação |
-| ------------- | ------------- | ------------- | ------------- | ------------- |------------- | ------------- |  ------------- | 
-| Entrada 01  | Entrada 02  | Entrada 03 | Entrada 04 | Entrada 05 | Entrada 06 | Entrada 07 | Entrada 08 |
+| Entrada 01  | Entrada 02  | Entrada 03 | Resultado esperado | Resultado obtido | Situação 
+| ------------- | ------------- | ------------- | ------------- | ------------- |------------- | 
+| Comunidade | Título | Descrição | "Erro: não foi possível criar repositório, informações faltando.  | - |- |
+
