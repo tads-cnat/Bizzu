@@ -14,9 +14,10 @@ O documento foi estruturado para garantir clareza e facilitar a consulta aos tes
 
 ## Histórico de Revisões
 
-|    Data    | Versão |   Descrição    |      Autores      |
-| :--------: | :----: | :------------: | :---------------: |
-| 26/09/2025 |  1.0   | Versão inicial | Fábio e Ana Maria |
+|    Data    | Versão |          Descrição           |      Autores      |
+| :--------: | :----: | :--------------------------: | :---------------: |
+| 26/09/2025 |  1.0   |        Versão inicial        | Fábio e Ana Maria |
+| 28/09/2025 |  1.1   | Adiciona CDU manter postagem |     Ana Maria     |
 
 ## Testes Funcionais
 
