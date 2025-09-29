@@ -18,6 +18,7 @@ O documento foi estruturado para garantir clareza e facilitar a consulta aos tes
 | :--------: | :----: | :--------------------------: | :---------------: |
 | 26/09/2025 |  1.0   |        Versão inicial        | Fábio e Ana Maria |
 | 28/09/2025 |  1.1   | Adiciona CDU manter postagem |     Ana Maria     |
+| 29/09/2025 |  1.2  | Adiciona CDU Acessar perfil |     Jesrriel Moura     |
 
 ## Testes Funcionais
 
@@ -84,3 +85,34 @@ O documento foi estruturado para garantir clareza e facilitar a consulta aos tes
 | -       | Exibição de todas as postagens dos usuários que um usuário segue    | -                | -        |
 | -       | Error: Você não segue nenhuma comunidade.                           | -                | -        |
 | -       | Error: Você não segue nenhum usuário.                               | -                | -        |
+
+### CDU 003 – Acessar Perfil
+
+#### Fluxo Principal – Visualizar perfil por username
+
+| Username           | Resultado esperado                                      | Resultado obtido | Situação |
+| ----------------- | ------------------------------------------------------- | ---------------- | -------- |
+| joao123           | Exibição dos dados do perfil de joao123                  | -                | -        |
+| maria_silva        | Exibição dos dados do perfil de maria_silva              | -                | -        |
+
+> Deve ser considerado que os usuários **joao123** e **maria_silva** existem no sistema.
+
+---
+
+#### Fluxo Secundário – Username inexistente
+
+| Username      | Resultado esperado                                     | Resultado obtido | Situação |
+| ------------- | ------------------------------------------------------ | ---------------- | -------- |
+| naoexiste999  | Error: Usuário não encontrado.                          | -                | -        |
+| teste_invalido | Error: Usuário não encontrado.                          | -                | -        |
+
+---
+
+#### Fluxo Secundário – Análise de Valor Limite
+
+| Username (cenário limite)          | Resultado esperado                                                   | Resultado obtido | Situação |
+| --------------------------------- | -------------------------------------------------------------------- | ---------------- | -------- |
+| `ab` (2 caracteres – abaixo limite) | Error: Username deve ter no mínimo 3 caracteres                       | -                | -        |
+| `abc` (3 caracteres – limite mínimo) | Exibição dos dados do perfil se existir / erro se não existir          | -                | -        |
+| `a...a` (30 caracteres – limite máximo) | Exibição dos dados do perfil se existir / erro se não existir        | -                | -        |
+
