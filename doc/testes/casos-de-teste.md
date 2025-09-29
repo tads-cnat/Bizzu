@@ -1,34 +1,41 @@
-# 1 Introdução 
-Este documento reúne os casos de teste elaborados para validar os principais fluxos da aplicação Bizzu, desenvolvida no contexto do PDS Corporativo. Os testes aqui descritos abrangem diferentes casos de uso da aplicação, com o objetivo de assegurar que cada funcionalidade opere conforme os requisitos definidos.
+# Testes Funcionais - Gerenciar Denúncias
 
-Cada caso de teste inclui informações detalhadas sobre o cenário a ser avaliado, os dados de entrada necessários e resultados esperados.
-## 1.1 Visão geral
-O documento foi estruturado para garantir clareza e facilitar a consulta aos testes da aplicação Bizzu. Ele apresenta a introdução ao propósito dos testes, uma visão geral dos critérios de seleção dos casos de uso e, por fim, os testes funcionais com seus respectivos cenários, dados e resultados esperados, servindo como referência para as equipes de desenvolvimento e qualidade. <br> <br>
-|-🗂️ **1 Introdução** <br>
-| |- 📑 1.1 Visão geral <br>
-|- 🗂️ **2 Testes Funcionais** <br>
+### CDU 012 - Gerenciar denúncias
 
-## Testes Funcionais
+#### Fluxo Principal - Criar denúncia
 
-### CDU 001 - Manter repositório
-#### Fluxo Principal - Criar repositório
-| Entrada 01  | Entrada 02  | Entrada 03 | Resultado esperado | Resultado obtido | Situação 
-| ------------- | ------------- | ------------- | ------------- | ------------- |------------- | 
-| Comunidade | Título | Descrição | "Erro: não foi possível criar repositório, informações faltando.  | - |- |
+| Entrada 01 | Entrada 02 | Entrada 03 | Entrada 04 | Resultado esperado | Resultado obtido | Situação |
+|------------|------------|------------|------------|-------------------|------------------|----------|
+| Postagem (ID: 15) | Spam | "Esta postagem contém propaganda excessiva" | Usuário autenticado | Denúncia criada com sucesso! | - | - |
+| Comentário (ID: 8) | Conteúdo ofensivo | "" | Usuário autenticado | Denúncia criada com sucesso! | - | - |
+| Repositório (ID: 3) | Conteúdo inadequado | "Arquivo não condiz com a descrição" | Usuário autenticado | Denúncia criada com sucesso! | - | - |
+| Postagem (ID: 999) | Spam | "Conteúdo suspeito" | Usuário autenticado | Error: Conteúdo não encontrado no sistema. | - | - |
+| Postagem (ID: 15) | (vazio) | "Postagem inadequada" | Usuário autenticado | Error: Você deve selecionar pelo menos um motivo. | - | - |
+| Postagem (ID: 15) | Spam | "Conteúdo suspeito" | Usuário não autenticado | Error: Você precisa estar logado para fazer uma denúncia. | - | - |
 
-### CDU 011 - Ver feed
+#### Fluxo Alternativo - Visualizar denúncias (Admin)
 
-#### Fluxo Principal - Visualizar postagens nos feeds (pessoas e comunidades)
+| Entrada 01 | Entrada 02 | Entrada 03 | Resultado esperado | Resultado obtido | Situação |
+|------------|------------|------------|-------------------|------------------|----------|
+| Admin logado | Status: Pendente | Todos os tipos | Lista todas as denúncias pendentes ordenadas por data. | - | - |
+| Admin logado | Status: Aprovada | Tipo: Postagens | Lista apenas denúncias aprovadas de postagens. | - | - |
+| Usuário comum | Status: Pendente | Todos os tipos | Error: Acesso negado. Apenas administradores podem gerenciar denúncias. | - | - |
+| Admin logado | Nenhuma denúncia no sistema | - | Exibe mensagem: "Nenhuma denúncia encontrada." | - | - |
 
-| Entrada 01                | Entrada 02                                          | Entrada 03                                 | Resultado esperado                                                                                                                 |
-| ------------------------- | --------------------------------------------------- | ------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------- |
-| Usuário autenticado       | Segue 2 pessoas                                     | Ambas possuem postagens recentes           | Feed de pessoas exibe postagens dessas 2 pessoas em ordem cronológica. Interações habilitadas.                                     |
-| Usuário autenticado       | Não segue nenhuma pessoa                            | -                                          | Feed de pessoas exibe mensagem: “Nenhuma publicação disponível. Siga pessoas para ver suas postagens.”                             |
-| Usuário autenticado       | Segue comunidade TADS                               | Existem postagens em TADS, InfoWeb e Redes | Feed de comunidades exibe somente postagens da TADS em ordem cronológica. Interações habilitadas.                                  |
-| Usuário autenticado       | Não segue nenhuma comunidade                        | -                                          | Feed de comunidades exibe mensagem: “Nenhuma publicação disponível. Siga comunidades para ver suas postagens.”                     |
-| Usuário autenticado       | Segue todas as comunidades (TADS, InfoWeb e Redes)  | Existem postagens em todas                 | Feed de comunidades exibe postagens de todas as comunidades seguidas, em ordem cronológica.                                        |
-| Visitante não autenticado | Existem postagens públicas em TADS, InfoWeb e Redes | -                                          | Feed inicial exibe todas as postagens públicas, ordenadas por data. Interações (curtir/comentar/denunciar) aparecem desabilitadas. |
-| Visitante não autenticado | Nenhuma postagem pública disponível                 | -                                          | Feed inicial exibe mensagem: “Nenhuma postagem pública disponível no momento.”                                                     |
-| Usuário autenticado       | Tentativa de acessar feed com sessão expirada       | -                                          | Sistema redireciona para login com mensagem: “Sua sessão expirou.”                                                                 |
-| Visitante não autenticado | Clica em curtir/comentar/denunciar                  | -                                          | Sistema direciona para tela/modal de login com mensagem: “Faça login para continuar.”                                              |
+#### Fluxo Alternativo - Aprovar/Rejeitar denúncia
 
+| Entrada 01 | Entrada 02 | Entrada 03 | Entrada 04 | Resultado esperado | Resultado obtido | Situação |
+|------------|------------|------------|------------|-------------------|------------------|----------|
+| Denúncia (ID: 5) | Aprovar | "Conteúdo realmente inadequado para a plataforma" | Admin | Denúncia aprovada! Conteúdo removido do sistema. | - | - |
+| Denúncia (ID: 7) | Rejeitar | "Denúncia sem fundamento, conteúdo está adequado" | Admin | Denúncia rejeitada! Conteúdo mantido no sistema. | - | - |
+| Denúncia (ID: 999) | Aprovar | "Conteúdo inadequado" | Admin | Error: Denúncia não encontrada no sistema. | - | - |
+| Denúncia (ID: 5) | Aprovar | (vazio) | Admin | Error: Justificativa é obrigatória. | - | - |
+| Denúncia (ID: 5) | Aprovar | "Conteúdo inadequado" | Usuário comum | Error: Acesso negado. Apenas administradores podem gerenciar denúncias. | - | - |
+
+#### Fluxo Alternativo - Excluir denúncia
+
+| Entrada 01 | Entrada 02 | Resultado esperado | Resultado obtido | Situação |
+|------------|------------|-------------------|------------------|----------|
+| Denúncia (ID: 12) | Admin | Denúncia excluída com sucesso! | - | - |
+| Denúncia (ID: 999) | Admin | Error: Denúncia não encontrada no sistema. | - | - |
+| Denúncia (ID: 12) | Usuário comum | Error: Acesso negado. Apenas administradores podem excluir denúncias. | - | - |
