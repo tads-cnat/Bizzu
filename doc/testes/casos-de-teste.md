@@ -88,31 +88,36 @@ O documento foi estruturado para garantir clareza e facilitar a consulta aos tes
 
 ### CDU 003 – Acessar Perfil
 
-#### Fluxo Principal – Visualizar perfil por username
+## 1. Identificar Entradas e Condições
 
-| Username           | Resultado esperado                                      | Resultado obtido | Situação |
-| ----------------- | ------------------------------------------------------- | ---------------- | -------- |
-| joao123           | Exibição dos dados do perfil de joao123                  | -                | -        |
-| maria_silva        | Exibição dos dados do perfil de maria_silva              | -                | -        |
+| Entrada  | Condição                   |
+|----------|----------------------------|
+| username | Condição 01 – existe no banco |
+|          | Condição 02 – não existe no banco |
 
-> Deve ser considerado que os usuários **joao123** e **maria_silva** existem no sistema.
+## 2. Definir Classes de Equivalência
 
----
+| Entrada  | Condição    | Classe Válida          | Classe Inválida       |
+|----------|-------------|------------------------|-----------------------|
+| username | Condição 01 | username cadastrado    | username inexistente  |
+| username | Condição 02 | username inexistente   | username cadastrado   |
 
-#### Fluxo Secundário – Username inexistente
+## 3. Análise de Valor Limite
 
-| Username      | Resultado esperado                                     | Resultado obtido | Situação |
-| ------------- | ------------------------------------------------------ | ---------------- | -------- |
-| naoexiste999  | Error: Usuário não encontrado.                          | -                | -        |
-| teste_invalido | Error: Usuário não encontrado.                          | -                | -        |
+| Entrada  | Limite | Valor Testado | Esperado |
+|----------|--------|---------------|-----------|
+| username | mínimo 3 caracteres | `abc` (3) | Aceito |
+| username | abaixo do mínimo | `ab` (2) | Rejeitado |
+| username | máximo 30 caracteres | `a...a` (30) | Aceito |
+| username | acima do máximo | `a...a` (31) | Rejeitado |
 
----
+## 4. Definir Casos de Teste
 
-#### Fluxo Secundário – Análise de Valor Limite
-
-| Username (cenário limite)          | Resultado esperado                                                   | Resultado obtido | Situação |
-| --------------------------------- | -------------------------------------------------------------------- | ---------------- | -------- |
-| `ab` (2 caracteres – abaixo limite) | Error: Username deve ter no mínimo 3 caracteres.                       | -                | -        |
-| `abc` (3 caracteres – limite mínimo) | Exibição dos dados do perfil se existir / erro se não existir          | -                | -        |
-| `a...a` (30 caracteres – limite máximo) | Exibição dos dados do perfil se existir / erro se não existir        | -                | -        |
+| Entrada (username) | Saída Esperada |
+|-------------------|---------------|
+| `joao123` (existe) | Retorna dados do perfil (200 + JSON) |
+| `naoexiste999` (não existe) | Retorna mensagem de erro ou 404 |
+| `ab` (abaixo do limite) | Retorna erro de validação |
+| `abc` (no limite mínimo) | Retorna dados do perfil ou erro conforme existência |
+| `a...a` (31 caracteres) | Retorna erro de validação |
 
