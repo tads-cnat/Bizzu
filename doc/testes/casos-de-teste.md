@@ -84,3 +84,19 @@ O documento foi estruturado para garantir clareza e facilitar a consulta aos tes
 | -       | Exibição de todas as postagens dos usuários que um usuário segue    | -                | -        |
 | -       | Error: Você não segue nenhuma comunidade.                           | -                | -        |
 | -       | Error: Você não segue nenhum usuário.                               | -                | -        |
+
+### CDU 011 - Ver feed
+
+#### Fluxo Principal - Visualizar postagens nos feeds (pessoas e comunidades)
+
+| Entrada 01                | Entrada 02                                          | Entrada 03                                 | Resultado esperado                                                                                                                 |
+| ------------------------- | --------------------------------------------------- | ------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------- |
+| Usuário autenticado       | Segue 2 pessoas                                     | Ambas possuem postagens recentes           | Feed de pessoas exibe postagens dessas 2 pessoas em ordem cronológica. Interações habilitadas.                                     |
+| Usuário autenticado       | Não segue nenhuma pessoa                            | -                                          | Feed de pessoas exibe mensagem: “Nenhuma publicação disponível. Siga pessoas para ver suas postagens.”                             |
+| Usuário autenticado       | Segue comunidade TADS                               | Existem postagens em TADS, InfoWeb e Redes | Feed de comunidades exibe somente postagens da TADS em ordem cronológica. Interações habilitadas.                                  |
+| Usuário autenticado       | Não segue nenhuma comunidade                        | -                                          | Feed de comunidades exibe mensagem: “Nenhuma publicação disponível. Siga comunidades para ver suas postagens.”                     |
+| Usuário autenticado       | Segue todas as comunidades (TADS, InfoWeb e Redes)  | Existem postagens em todas                 | Feed de comunidades exibe postagens de todas as comunidades seguidas, em ordem cronológica.                                        |
+| Visitante não autenticado | Existem postagens públicas em TADS, InfoWeb e Redes | -                                          | Feed inicial exibe todas as postagens públicas, ordenadas por data. Interações (curtir/comentar/denunciar) aparecem desabilitadas. |
+| Visitante não autenticado | Nenhuma postagem pública disponível                 | -                                          | Feed inicial exibe mensagem: “Nenhuma postagem pública disponível no momento.”                                                     |
+| Usuário autenticado       | Tentativa de acessar feed com sessão expirada       | -                                          | Sistema redireciona para login com mensagem: “Sua sessão expirou.”                                                                 |
+| Visitante não autenticado | Clica em curtir/comentar/denunciar                  | -                                          | Sistema direciona para tela/modal de login com mensagem: “Faça login para continuar.”                                              |
