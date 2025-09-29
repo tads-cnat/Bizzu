@@ -32,3 +32,40 @@ O documento foi estruturado para garantir clareza e facilitar a consulta aos tes
 | Usuário autenticado       | Tentativa de acessar feed com sessão expirada       | -                                          | Sistema redireciona para login com mensagem: “Sua sessão expirou.”                                                                 |
 | Visitante não autenticado | Clica em curtir/comentar/denunciar                  | -                                          | Sistema direciona para tela/modal de login com mensagem: “Faça login para continuar.”                                              |
 
+### CDU 011 - Acessar Perfil
+
+## 1. Identificar Entradas e Condições
+
+| Entrada  | Condição                   |
+|----------|----------------------------|
+| username | Condição 01 – existe no banco |
+|          | Condição 02 – não existe no banco |
+
+## 2. Definir Classes de Equivalência
+
+| Entrada  | Condição    | Classe Válida          | Classe Inválida       |
+|----------|-------------|------------------------|-----------------------|
+| username | Condição 01 | username cadastrado    | username inexistente  |
+| username | Condição 02 | username inexistente   | username cadastrado   |
+
+## 3. Análise de Valor Limite
+
+| Entrada  | Limite | Valor Testado | Esperado |
+|----------|--------|---------------|-----------|
+| username | mínimo 3 caracteres | `abc` (3) | Aceito |
+| username | abaixo do mínimo | `ab` (2) | Rejeitado |
+| username | máximo 30 caracteres | `a...a` (30) | Aceito |
+| username | acima do máximo | `a...a` (31) | Rejeitado |
+
+## 4. Definir Casos de Teste
+
+| Entrada (username) | Saída Esperada |
+|-------------------|---------------|
+| `joao123` (existe) | Retorna dados do perfil (200 + JSON) |
+| `naoexiste999` (não existe) | Retorna mensagem de erro ou 404 |
+| `ab` (abaixo do limite) | Retorna erro de validação |
+| `abc` (no limite mínimo) | Retorna dados do perfil ou erro conforme existência |
+| `a...a` (31 caracteres) | Retorna erro de validação |
+
+
+
