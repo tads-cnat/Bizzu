@@ -112,7 +112,7 @@ O documento foi estruturado para garantir clareza e facilitar a consulta aos tes
 
 | Username (cenário limite)          | Resultado esperado                                                   | Resultado obtido | Situação |
 | --------------------------------- | -------------------------------------------------------------------- | ---------------- | -------- |
-| `ab` (2 caracteres – abaixo limite) | Error: Username deve ter no mínimo 3 caracteres                       | -                | -        |
+| `ab` (2 caracteres – abaixo limite) | Error: Username deve ter no mínimo 3 caracteres.                       | -                | -        |
 | `abc` (3 caracteres – limite mínimo) | Exibição dos dados do perfil se existir / erro se não existir          | -                | -        |
 | `a...a` (30 caracteres – limite máximo) | Exibição dos dados do perfil se existir / erro se não existir        | -                | -        |
 
