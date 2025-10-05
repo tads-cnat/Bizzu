@@ -18,17 +18,17 @@ Stakeholder | Interesse no projeto | Poder/influência | Grau de importância | 
 
 
 # 2. Mapear necessidades e desejos
-- Professores:  Opiniões e feedbacks sejam levadas em consideração;
-- Alunos: Plataforma intuitiva e de fácil uso;
-- Interessados em entrar no curso: Informações sobre a plataforma, entender como a plataforma pode ajudar-los no futuro;
-- Equipe de TI: Requisitos bem definidos, cronograma realista, recursos suficientes;
-- Coordenador da Diatinf: Garantir a qualidade da experiência acadêmica, promover a interação de alunos;
-- Instituições de ensino:  participação nas decisões do projeto, transparência total sobre o projeto, feedback constante;
+- **Professores**:  Plataforma intuitiva e de fácil uso, opiniões e feedbacks sejam levadas em consideração;
+- **Alunos**: Plataforma intuitiva e de fácil uso;
+- **Interessados em entrar no curso**: Informações sobre a plataforma, entender como a plataforma pode ajudar-los no futuro;
+- **Equipe de TI**: Requisitos bem definidos, cronograma realista, recursos suficientes;
+- **Coordenador da Diatinf**: Garantir a qualidade da experiência acadêmica, promover a interação de alunos;
+- **Instituições de ensino**:  participação nas decisões do projeto, transparência total sobre o projeto, feedback constante;
 
 # 3. Estratégias de engajamento
-- Professores: Levar em consideração as opiniões e feedbacks, por meio de participação ativa no projeto, isso pode ser feito via email ou pessoalmente;
-- Alunos: Mostrar como está o progresso de desenvolvimento do sistema, mediante a disponibilização de demos e protótipos que serão disponibilizados via email para os alunos;
-- Equipe de TI: Implementação de metodologias ágeis (Scrum, kanban entre outros);
-- Coordenador da Diatinf: Reuniões estratégicas com a equipe de TI e os patrocinadores, onde os mesmos fazem decisões críticas e também são feitas atualizações regulares sobre o projeto;
-- Instituições de ensino: Reuniões quando possível entre a equipe de TI e coordenador da diatinf com apresentação de relatórios e métricas, para garantir que tudo esteja alinhado e funcionando corretamente. 
+- **Professores**: Levar em consideração as opiniões e feedbacks, por meio de participação ativa no projeto, isso pode ser feito via email ou pessoalmente;
+- **Alunos**: Mostrar como está o progresso de desenvolvimento do sistema, mediante a disponibilização de demos e protótipos que serão disponibilizados via email para os alunos;
+- **Equipe de TI**: Implementação de metodologias ágeis (Scrum, kanban entre outros);
+- **Coordenador da Diatinf**: Reuniões estratégicas com a equipe de TI e os patrocinadores, onde os mesmos fazem decisões críticas e também são feitas atualizações regulares sobre o projeto;
+- **Instituições de ensino:** Reuniões quando possível entre a equipe de TI e coordenador da diatinf com apresentação de relatórios e métricas, para garantir que tudo esteja alinhado e funcionando corretamente. 
 Observação: Mesmo que não haja reuniões o coordenador da diatinf será responsável por ser o mediante entre o instituto e o ifrn, ele também ficará encarregado de notificar ao instituto como está o decorrer do projeto de preferência via email.
