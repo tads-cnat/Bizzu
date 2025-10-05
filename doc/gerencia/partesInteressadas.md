@@ -4,7 +4,7 @@
 
 |    Data    | Versão |   Descrição    |     Autores     |
 | :--------: | :----: | :------------: | :-------------: |
-| 15/05/2025 |  1.0   | Versão inicial | Fábio Alexandre |
+| 05/10/2025 |  1.0   | Versão inicial | Fábio Alexandre |
 
 # 1. Identificação dos Stakeholders (com interesse e poder)
 
