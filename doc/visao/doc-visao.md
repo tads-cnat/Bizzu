@@ -12,6 +12,7 @@
 | 26/02/25 | 5.0 | Atualização do documento de visão | Gabrielly |
 | 24/04/25 | 6.0 | Atualização do documento de visão | Ana Maria |
 | 30/04/25 | 7.0 | Atualização do documento de visão | Ana Maria e Jesrriel |
+| 08/10/25 | 8.0 | Atualização do documento de visão | Fábio Alexandre |
 
 
 
@@ -37,6 +38,7 @@ Portanto, o objetivo do Bizzu é promover uma solução viável para este proble
 | Internauta | Pessoa logada no sistema, independentemente da faixa etária ou vínculo acadêmico, que demonstra interesse nos conteúdos e funcionalidades da plataforma. Esses usuários podem incluir estudantes, professores, servidores ou qualquer internauta que deseje acessar materiais, interagir com outros usuários e contribuir com ideias, discussões e projetos. | Acessar e consultar materiais disponíveis na plataforma. / Colaborar e trocar dúvidas com outros usuários em projetos, discussões ou atividades de interesse comum. / Utilizar a plataforma para fazer postagens, compartilhar ideias, levantar temas e desenvolver projetos em conjunto.|
 | Visitante do sistema| Um individuo que não é um usuário ainda mas consegue ver publicações feitas na plataforma mas não interagir com o sistema. | Navegar livremente por publicações abertas. / Visualizar ideias, temas e projetos compartilhados por usuários.|
 | Moderador da Plataforma | É um usuário com permissões avançadas, Seu principal papel é garantir que as interações entre estudantes ocorram de maneira segura, colaborativa e dentro das diretrizes estabelecidas pelo Bizzu. |Moderação da rede e discussões, garantindo um ambiente colaborativo e respeitoso.	/ Revisão e monitoramento de postagens para evitar conteúdo inapropriado, como agressões e spam./ Tem acesso completo às funcionalidades disponíveis para todos os usuários, além de contar com a funcionalidade adicional de moderador. |
+| Administrador da comunidade  | É um usuário com permissões avançadas, responsável por garantir que tudo esteja certo a respeito das comunidades, por meio da criação, edição ou exclusão de uma comunidade, também possui a possibilidade de criar avisos informativos na comunidade. | Pode criar uma ou mais comunidades de qualquer curso. / Pode editar as comunidades as quais pertencem a ele./ Cria avisos informativos com o intuito de passar alguma informação para as pessoas que acessam a comunidade. / Pode a qualquer momento excluir uma comunidade a qual ele faz parte.|
 
 
 ## 4. Descrição do ambiente dos usuários
@@ -125,6 +127,7 @@ Na tela inicial, os usuários terão um feed que exibirá atualizações das pes
 | F19 | Criação de categorias | Um moderador do sistema pode fazer a criação de categorias de postagens como adição de matérias, períodos e tecnologias que uma publicação pode ter.| 
 | F20 | Mudança de papel | Um internauta pode solicitar o cargo de moderador para que dessa forma ele possa gerenciar as denúncias e ter outras funcionalidades especiais no sistema|
 | F21 | Gerencia de papéis | Um moderador pode revisar solicitações de internautas que desejam ser moderadores e mudar o seu papel no sistema. |
+| F22 | Manter comunidade | Um adminstrador pode criar, editar ou excluir uma comunidade bem como criar avisos informativos para a mesma. |
 
 ## 9. Requisitos não-funcionais
 
