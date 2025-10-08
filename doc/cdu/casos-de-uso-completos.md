@@ -1,6 +1,6 @@
 # Casos de Uso
 
-![alt text](<UseCase Diagram0.svg>)
+![alt text](<Diagrama CDU bizzu.png>)
 
 ## Listagem das prioridades
 
