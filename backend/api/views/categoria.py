@@ -4,6 +4,9 @@ from api.serializers.categoria import CategoriaSerializer
 from rest_framework.permissions import AllowAny
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated
+from ..permissions.moderador import Moderador
+from ..permissions.internanuta import Internauta
+from ..permissions.admin import Adm
 
 
 class CategoriaViewSet(viewsets.ModelViewSet):
@@ -11,3 +14,8 @@ class CategoriaViewSet(viewsets.ModelViewSet):
     serializer_class = CategoriaSerializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
+
+    def get_permissions(self):
+        if self.action == "list":
+            return [((Moderador | Internauta | Adm), IsAuthenticated)()]
+        return super().get_permissions()

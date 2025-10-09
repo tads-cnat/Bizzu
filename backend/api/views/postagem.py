@@ -2,7 +2,7 @@ from django.db.models import Q
 from ..permissions.moderador import Moderador
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from rest_framework import viewsets, permissions
+from rest_framework import viewsets
 from ..models import Postagem, Usuario
 from api.serializers.postagem import PostagemSerializer, PostagemUpdateSerializer
 from rest_framework.parsers import MultiPartParser
