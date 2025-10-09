@@ -2,6 +2,7 @@ import {Controller} from "react-hook-form";
 import type {IBeeInput} from "./IBeeInput";
 
 const BeeInput: React.FC<IBeeInput> = ({
+	name,
 	label,
 	defaultValue = "",
 	placeholder,
@@ -12,7 +13,7 @@ const BeeInput: React.FC<IBeeInput> = ({
 	return (
 		<>
 			<Controller
-				name="texto"
+				name={name}
 				control={control}
 				render={({field}) => (
 					<div>

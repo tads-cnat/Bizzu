@@ -3,12 +3,15 @@ import {Button, Upload, UploadFile} from "antd";
 import {IBeeArquivo} from "./IBeeArquivo";
 import {useEffect, useState} from "react";
 import {UploadChangeParam} from "antd/es/upload";
+import {Controller} from "react-hook-form";
 
 const BeeArquivo: React.FC<IBeeArquivo> = ({
+	name,
 	value,
 	label,
 	onChange,
 	multiple,
+	control,
 }: IBeeArquivo) => {
 	const [fileList, setFileList] = useState<UploadFile[]>([]);
 
@@ -96,25 +99,32 @@ const BeeArquivo: React.FC<IBeeArquivo> = ({
 	};
 
 	return (
-		<Upload
-			multiple={multiple}
-			listType="picture"
-			onChange={handleChange}
-			onRemove={handleRemove}
-			beforeUpload={() => false}
-			fileList={fileList}
-		>
-			<Button
-				type="primary"
-				style={{
-					backgroundColor: "#FCBD18",
-				}}
-				icon={<UploadSimple />}
-				className="mb-2"
-			>
-				{label}
-			</Button>
-		</Upload>
+		<Controller
+			name={name}
+			control={control}
+			render={({field}) => (
+				<Upload
+					{...field}
+					multiple={multiple}
+					listType="picture"
+					onChange={handleChange}
+					onRemove={handleRemove}
+					beforeUpload={() => false}
+					fileList={fileList}
+				>
+					<Button
+						type="primary"
+						style={{
+							backgroundColor: "#FCBD18",
+						}}
+						icon={<UploadSimple />}
+						className="mb-2"
+					>
+						{label}
+					</Button>
+				</Upload>
+			)}
+		/>
 	);
 };
 
