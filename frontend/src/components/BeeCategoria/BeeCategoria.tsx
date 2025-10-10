@@ -3,9 +3,10 @@ import BeeFiltroCategorias from "../BeeFiltroCategorias/BeeFiltroCategorias";
 import BeeTags from "../BeeTags/BeeTags";
 import {IBeeCategoria} from "./IBeeCategoria";
 import CategoriaService from "../../services/models/CategoriaService";
+import {ICategoria} from "../BeeFiltroCategorias/IBeeFiltroCategorias";
 
 const BeeCategoria = ({errors, watch}: IBeeCategoria) => {
-	const [categorias, setCategorias] = useState<IBeeCategoria[]>([]);
+	const [categorias, setCategorias] = useState<ICategoria[]>([]);
 	const categoriasSelecionadas = watch("categorias");
 	const [termoPesquisa, setTermoPesquisa] = useState("");
 
@@ -26,24 +27,8 @@ const BeeCategoria = ({errors, watch}: IBeeCategoria) => {
 		loadCategorias();
 	}, []);
 
-	const categoriasFiltradas = categorias.filter((categoria) =>
+	const categoriasFiltradas: any[] = categorias.filter((categoria: any) =>
 		categoria.nome.toLowerCase().includes(termoPesquisa.toLowerCase()),
-	);
-
-	const aoSelecionarCategoria = useCallback(
-		(categoriaId: number) => {
-			const categoriasAtuais = getValues("categorias") || [];
-			let novasCategorias;
-
-			if (categoriasAtuais.includes(categoriaId)) {
-				novasCategorias = categoriasAtuais.filter((id) => id !== categoriaId);
-			} else {
-				novasCategorias = [...categoriasAtuais, categoriaId];
-			}
-
-			setValue("categorias", novasCategorias, {shouldValidate: true});
-		},
-		[getValues, setValue],
 	);
 
 	const handlePesquisarCategorias = useCallback((termo: string) => {
@@ -58,7 +43,6 @@ const BeeCategoria = ({errors, watch}: IBeeCategoria) => {
 			<BeeFiltroCategorias
 				categorias={categoriasFiltradas}
 				categoriasSelecionadas={categoriasSelecionadas || []}
-				aoSelecionarCategoria={aoSelecionarCategoria}
 				aoPesquisar={handlePesquisarCategorias}
 			/>
 			{errors && <p className="text-red-500 text-sm mt-1">{errors}</p>}
@@ -68,8 +52,8 @@ const BeeCategoria = ({errors, watch}: IBeeCategoria) => {
 						Categorias selecionadas: {categoriasSelecionadas.length}
 					</p>
 					<div className="flex flex-wrap gap-1 mt-1">
-						{categoriasSelecionadas.map((catId) => {
-							const categoria = categorias.find((cat) => cat.id === catId);
+						{categoriasSelecionadas.map((catId: any) => {
+							const categoria: any = categorias.find((cat) => cat.id === catId);
 							return categoria ? (
 								<div key={catId}>
 									{categoria.tipo == "tec" ? (

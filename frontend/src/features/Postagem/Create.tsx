@@ -9,10 +9,13 @@ import acessAuth from "../../utils/acessAuth";
 import {IBeeUser} from "../Perfil/components/BeeHeaderProfile/IBeeUser";
 import schema from "./Forms/schema";
 import sections from "./Forms/sections";
+import ComunidadeService from "../../services/models/ComunidadeService";
 
 const CreatePostagem: React.FC = () => {
 	const [usuario, setUsuario] = useState<IBeeUser>();
 	const {username} = acessAuth();
+	const [comunidades, setComunidades] = useState<any[]>([]);
+
 	useEffect(() => {
 		if (usuario === undefined) {
 			void UsuarioService.getbyUsername(username)
@@ -59,11 +62,35 @@ const CreatePostagem: React.FC = () => {
 		}
 	};
 
+	useEffect(() => {
+		const loadComunidades = async () => {
+			try {
+				const response = await ComunidadeService.listAll();
+				if (response.data && Array.isArray(response.data)) {
+					const comunidadesFormatadas = response.data.map(
+						(comunidade: any) => ({
+							label: comunidade.nome || comunidade.title,
+							value: comunidade.id,
+						}),
+					);
+					setComunidades(comunidadesFormatadas);
+				} else {
+					setComunidades([]);
+				}
+			} catch {
+				setComunidades([]);
+			}
+		};
+
+		loadComunidades();
+	}, []);
+
 	return (
 		<BeeForm
 			schema={schema}
 			sections={sections}
 			onSubmit={onSubmit}
+			options={comunidades}
 		/>
 	);
 };

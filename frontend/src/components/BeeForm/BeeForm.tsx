@@ -4,8 +4,10 @@ import {yupResolver} from "@hookform/resolvers/yup";
 import BeeInput from "../BeeInput/BeeInput";
 import {BeeTextArea} from "../BeeTextArea/BeeTextArea";
 import BeeArquivo from "../BeeArquivo/BeeArquivo";
+import BeeCategoria from "../BeeCategoria/BeeCategoria";
+import BeeSelect from "../BeeSelect/BeeSelect";
 
-const BeeForm = ({schema, sections, onSubmit}: IBeeForm) => {
+const BeeForm = ({schema, sections, onSubmit, options}: IBeeForm) => {
 	const {
 		control,
 		handleSubmit,
@@ -24,40 +26,48 @@ const BeeForm = ({schema, sections, onSubmit}: IBeeForm) => {
 					onSubmit={handleSubmit(onSubmit)}
 					className="flex flex-col gap-6"
 				>
-					{sections.fields.map((field: any) => {
-						console.log(field.type == "textarea");
-						return (
-							field.type == "input" && (
-								<BeeInput
+					{sections.fields.map((field: any) => (
+						
+							{field.type == "input" && (
+								<><BeeInput
 									name={field.name}
 									control={control}
 									label={field.props.label}
 									placeholder={field.props.label}
-								/>
-							),
-							field.type == "textarea" && (
+								/></>
+							)}
+							{field.type == "textarea" && (
+								<>
 								<BeeTextArea
 									control={control}
 									name={field.name}
 									label={field.props.label}
 									placeholder={field.props.label}
 								/>
-							),
+								</>
+							)}
 							field.type == "arquivo" && (
 								<BeeArquivo
 									control={control}
 									name={field.name}
 									label={field.props.label}
 								/>
+							),
+							field.type == "categorias" && (
+								<BeeCategoria
+									errors=""
+									watch={watch}
+								/>
+							),
+							field.type == "select" && (
+								<BeeSelect
+									icone={field.props.icon}
+									options={options}
+									placeholder={field.props.label}
+								/>
 							)
-							// field.type == "categorias" && (
-							// 	<BeeCategoria
-							// 		errors=""
-							// 		watch={watch}
-							// 	/>
-							// )
-						);
-					})}
+						
+					))}
 				</form>
 			</div>
 		</>

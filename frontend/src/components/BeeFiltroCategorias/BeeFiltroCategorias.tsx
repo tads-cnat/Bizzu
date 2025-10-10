@@ -1,16 +1,16 @@
-import React from "react";
+import React, {useCallback, useState} from "react";
 import type {IBeeFiltroCategorias} from "./IBeeFiltroCategorias";
 import BeeSearchBar from "../BeeSearchBar/BeeSearchBar";
 import {Tabs} from "antd";
-import TabPane from "antd/es/tabs/TabPane";
 import "./styles.css";
 
 const BeeFiltroCategorias: React.FC<IBeeFiltroCategorias> = ({
 	categorias,
 	categoriasSelecionadas,
-	aoSelecionarCategoria,
 	aoPesquisar,
 }) => {
+	const [categoriasAtuais, setCategoriasAtuais] = useState<any>();
+
 	const [tipoAtivo, setTipoAtivo] = React.useState<"tec" | "mat" | "per">(
 		"tec",
 	);
@@ -19,13 +19,26 @@ const BeeFiltroCategorias: React.FC<IBeeFiltroCategorias> = ({
 		(cat) => cat.tipo === tipoAtivo,
 	);
 
-	const handleTipoChange = (tipo: "tec" | "mat" | "per") => {
+	const handleTipoChange: any = (tipo: "tec" | "mat" | "per") => {
 		setTipoAtivo(tipo);
 	};
 
-	const handleCategoriaClick = (categoriaId: number) => {
-		aoSelecionarCategoria(categoriaId);
-	};
+	const handleCategoriaClick = useCallback(
+		(categoriaId: number) => {
+			let novasCategorias;
+
+			if (categoriasAtuais.includes(categoriaId)) {
+				novasCategorias = categoriasAtuais.filter(
+					(id: number) => id !== categoriaId,
+				);
+			} else {
+				novasCategorias = [...categoriasAtuais, categoriaId];
+			}
+
+			setCategoriasAtuais(novasCategorias);
+		},
+		[categoriasSelecionadas, categorias],
+	);
 
 	const tabsItems = [
 		{
@@ -47,7 +60,9 @@ const BeeFiltroCategorias: React.FC<IBeeFiltroCategorias> = ({
 			<div className="flex justify-between gap-2">
 				<Tabs
 					activeKey={tipoAtivo}
-					onChange={handleTipoChange}
+					onChange={() => {
+						handleTipoChange;
+					}}
 					tabBarStyle={{marginBottom: "1rem"}}
 					centered
 					items={tabsItems}

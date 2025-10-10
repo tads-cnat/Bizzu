@@ -2,6 +2,7 @@ export interface IBeeForm {
 	schema: any;
 	sections: section;
 	onSubmit: any;
+	options?: any;
 }
 
 export interface section {
