@@ -13,21 +13,23 @@ export const BeeTextArea: React.FC<IBeeTextArea> = ({
 	name,
 	control,
 }) => {
+	console.log("AAAAAAAAAAA");
+
 	return (
-		<Controller
-			name={name}
-			control={control}
-			render={({field}) => (
-				<div
-					className="sm:col-span-2"
-					style={{fontFamily: "Poppins, sans-serif"}}
-				>
-					<label
-						htmlFor={id}
-						className="block text-sm/6 font-medium text-gray-900"
-					>
-						{label}
-					</label>
+		<div
+			className="sm:col-span-2"
+			style={{fontFamily: "Poppins, sans-serif"}}
+		>
+			<label
+				htmlFor={id}
+				className="block text-sm/6 font-medium text-gray-900"
+			>
+				{label}
+			</label>
+			<Controller
+				name={name}
+				control={control}
+				render={({field}) => (
 					<div className="mt-2.5">
 						<textarea
 							{...field}
@@ -42,8 +44,8 @@ export const BeeTextArea: React.FC<IBeeTextArea> = ({
 							style={{fontFamily: "Poppins, sans-serif"}}
 						/>
 					</div>
-				</div>
-			)}
-		/>
+				)}
+			/>
+		</div>
 	);
 };

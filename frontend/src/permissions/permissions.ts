@@ -8,9 +8,9 @@ export const Permissions: Record<string, Partial<Record<Types, Roles[]>>> = {
 		[Types.UPDATE]: [Roles.MODERADOR, Roles.INTERNAUTA],
 		[Types.DELETE]: [Roles.MODERADOR, Roles.INTERNAUTA],
 	},
-	"/postagem/criar/": {
-		[Types.CREATE]: [Roles.MODERADOR, Roles.INTERNAUTA, Roles.ADMINISTRADOR],
-	},
+	// "/postagem/criar/": {
+	// 	[Types.CREATE]: [Roles.MODERADOR, Roles.INTERNAUTA, Roles.ADMINISTRADOR],
+	// },
 	"/postagem/editar/:id": {
 		[Types.UPDATE]: [Roles.MODERADOR, Roles.INTERNAUTA, Roles.ADMINISTRADOR],
 	},
@@ -28,7 +28,7 @@ export const Permissions: Record<string, Partial<Record<Types, Roles[]>>> = {
 		[Types.UPDATE]: [Roles.MODERADOR, Roles.INTERNAUTA],
 		[Types.DELETE]: [Roles.MODERADOR, Roles.INTERNAUTA],
 	},
-	"editar": {
+	editar: {
 		[Types.CREATE]: [Roles.MODERADOR, Roles.INTERNAUTA],
 		[Types.READ]: [Roles.MODERADOR, Roles.INTERNAUTA],
 		[Types.UPDATE]: [Roles.MODERADOR, Roles.INTERNAUTA],

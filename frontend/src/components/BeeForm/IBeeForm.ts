@@ -4,12 +4,12 @@ export interface IBeeForm {
 	onSubmit: any;
 }
 
-interface section {
-	fields: [
-		{
-			name: string;
-			type: string;
-			props: any;
-		},
-	];
+export interface section {
+	fields: field[];
+}
+
+interface field {
+	name: string;
+	type: string;
+	props: any;
 }

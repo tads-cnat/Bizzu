@@ -2,11 +2,20 @@ import {useForm} from "react-hook-form";
 import {IBeeForm} from "./IBeeForm";
 import {yupResolver} from "@hookform/resolvers/yup";
 import BeeInput from "../BeeInput/BeeInput";
+import {BeeTextArea} from "../BeeTextArea/BeeTextArea";
+import BeeArquivo from "../BeeArquivo/BeeArquivo";
 
 const BeeForm = ({schema, sections, onSubmit}: IBeeForm) => {
-	const {control, handleSubmit} = useForm({
+	const {
+		control,
+		handleSubmit,
+		watch,
+		formState: {errors},
+	} = useForm({
 		resolver: yupResolver(schema) as any,
 	});
+
+	console.log(sections.fields);
 
 	return (
 		<>
@@ -15,17 +24,40 @@ const BeeForm = ({schema, sections, onSubmit}: IBeeForm) => {
 					onSubmit={handleSubmit(onSubmit)}
 					className="flex flex-col gap-6"
 				>
-					{sections.fields.map(
-						(field: any) =>
+					{sections.fields.map((field: any) => {
+						console.log(field.type == "textarea");
+						return (
 							field.type == "input" && (
 								<BeeInput
-									name="input"
+									name={field.name}
 									control={control}
-									label={field.prop.label}
-									placeholder={field.prop.label}
+									label={field.props.label}
+									placeholder={field.props.label}
 								/>
 							),
-					)}
+							field.type == "textarea" && (
+								<BeeTextArea
+									control={control}
+									name={field.name}
+									label={field.props.label}
+									placeholder={field.props.label}
+								/>
+							),
+							field.type == "arquivo" && (
+								<BeeArquivo
+									control={control}
+									name={field.name}
+									label={field.props.label}
+								/>
+							)
+							// field.type == "categorias" && (
+							// 	<BeeCategoria
+							// 		errors=""
+							// 		watch={watch}
+							// 	/>
+							// )
+						);
+					})}
 				</form>
 			</div>
 		</>
