@@ -24,8 +24,6 @@ const BeeForm = ({
 		resolver: yupResolver(schema) as any,
 	});
 
-	console.log(sections.fields);
-
 	return (
 		<>
 			<div className="bg-white p-6 rounded-lg shadow-sm w-[550px]">
@@ -40,7 +38,7 @@ const BeeForm = ({
 									name={field.name}
 									control={control}
 									label={field.props.label}
-									placeholder={field.props.label}
+									placeholder={field.props.placeholder}
 									defaultValue={defaultValues ? defaultValues[field.name] : ""}
 								/>
 							);
@@ -52,7 +50,7 @@ const BeeForm = ({
 									control={control}
 									name={field.name}
 									label={field.props.label}
-									placeholder={field.props.label}
+									placeholder={field.props.placeholder}
 									defaultValue={defaultValues ? defaultValues[field.name] : ""}
 								/>
 							);

@@ -1,4 +1,4 @@
-import {Controller, useForm} from "react-hook-form";
+import {useForm} from "react-hook-form";
 import * as yup from "yup";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {useState} from "react";
@@ -53,7 +53,6 @@ const FormSig: React.FC = () => {
 
 	const {
 		handleSubmit,
-		register,
 		control,
 		formState: {errors},
 	} = useForm({resolver: yupResolver(schema)});

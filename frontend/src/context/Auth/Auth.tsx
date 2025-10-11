@@ -28,7 +28,9 @@ const AuthProvider = ({children}: IBeeProvider) => {
 		password: string,
 	): Promise<void> => {
 		const saveToken = await UsuarioService.postToken({username, password});
+
 		const user: IBeeUsuario = await UsuarioService.getbyUsername(username);
+		console.log("TOKEN ", user);
 		const tokens = {token: saveToken.access, username, papel: user.papel};
 		setUsuario(tokens);
 		setLocalStorage(tokens);
