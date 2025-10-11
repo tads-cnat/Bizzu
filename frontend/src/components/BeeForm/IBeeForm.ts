@@ -4,6 +4,7 @@ export interface IBeeForm {
 	onSubmit: any;
 	options?: any;
 	defaultValues?: any
+	usuario?: any;
 }
 
 export interface section {

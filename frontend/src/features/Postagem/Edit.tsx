@@ -66,7 +66,7 @@ const EditPostagem: React.FC = () => {
 			<BeeForm
 				schema={schema}
 				sections={sections}
-				onSubmit={onsubmit}
+				onSubmit={onSubmit}
 			/>
 		</div>
 	);

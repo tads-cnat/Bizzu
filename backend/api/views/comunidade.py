@@ -13,8 +13,8 @@ from ..permissions.admin import Adm
 class ComunidadeViewSet(viewsets.ModelViewSet):
     queryset = Comunidade.objects.all()
     serializer_class = ComunidadeSerializer
-    authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
+    # authentication_classes = [JWTAuthentication]
+    # permission_classes = [IsAuthenticated]
 
     # permission_classes = [IsAuthenticated, Adm, Internauta]
 

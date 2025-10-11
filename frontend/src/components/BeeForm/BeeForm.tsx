@@ -7,6 +7,8 @@ import BeeArquivo from "../BeeArquivo/BeeArquivo";
 import BeeCategoria from "../BeeCategoria/BeeCategoria";
 import BeeSelect from "../BeeSelect/BeeSelect";
 import {Hexagon} from "@phosphor-icons/react";
+import BeeButton from "../BeeButtons/BeeButtons";
+import {useNavigate} from "react-router-dom";
 
 const BeeForm = ({
 	schema,
@@ -14,6 +16,7 @@ const BeeForm = ({
 	onSubmit,
 	options,
 	defaultValues,
+	usuario,
 }: IBeeForm) => {
 	const {
 		control,
@@ -24,6 +27,10 @@ const BeeForm = ({
 		resolver: yupResolver(schema) as any,
 	});
 
+	const caminho = useNavigate();
+
+	console.log("SCHEMA ", schema);
+
 	return (
 		<>
 			<div className="bg-white p-6 rounded-lg shadow-sm w-[550px]">
@@ -33,36 +40,67 @@ const BeeForm = ({
 				>
 					{sections.fields.map((field: any) => {
 						if (field.type == "input") {
+							const nameField = field.name;
+							const errorMessage = errors[nameField]?.message as
+								| string
+								| undefined;
 							return (
-								<BeeInput
-									name={field.name}
-									control={control}
-									label={field.props.label}
-									placeholder={field.props.placeholder}
-									defaultValue={defaultValues ? defaultValues[field.name] : ""}
-								/>
+								<>
+									<BeeInput
+										name={field.name}
+										control={control}
+										label={field.props.label}
+										placeholder={field.props.placeholder}
+										defaultValue={
+											defaultValues ? defaultValues[field.name] : ""
+										}
+									/>
+									{errorMessage !== undefined && (
+										<p className="text-red-500 text-sm">{errorMessage}</p>
+									)}
+								</>
 							);
 						}
 
 						if (field.type == "textarea") {
+							const nameField = field.name;
+							const errorMessage = errors[nameField]?.message as
+								| string
+								| undefined;
 							return (
-								<BeeTextArea
-									control={control}
-									name={field.name}
-									label={field.props.label}
-									placeholder={field.props.placeholder}
-									defaultValue={defaultValues ? defaultValues[field.name] : ""}
-								/>
+								<>
+									<BeeTextArea
+										control={control}
+										name={field.name}
+										label={field.props.label}
+										placeholder={field.props.placeholder}
+										defaultValue={
+											defaultValues ? defaultValues[field.name] : ""
+										}
+									/>
+									{errorMessage !== undefined && (
+										<p className="text-red-500 text-sm">{errorMessage}</p>
+									)}
+								</>
 							);
 						}
 
 						if (field.type == "arquivo") {
+							const nameField = field.name;
+							const errorMessage = errors[nameField]?.message as
+								| string
+								| undefined;
 							return (
-								<BeeArquivo
-									control={control}
-									name={field.name}
-									label={field.props.label}
-								/>
+								<>
+									<BeeArquivo
+										control={control}
+										name={field.name}
+										label={field.props.label}
+									/>
+									{errorMessage !== undefined && (
+										<p className="text-red-500 text-sm">{errorMessage}</p>
+									)}
+								</>
 							);
 						}
 
@@ -84,6 +122,17 @@ const BeeForm = ({
 							);
 						}
 					})}
+					<div className="mt-6 flex items-center justify-end gap-x-6">
+						<BeeButton
+							label="cancelar"
+							variante="negativo"
+							onClick={() => caminho(`/${usuario.username}`)}
+						/>
+						<BeeButton
+							label={"Salvar"}
+							variante="primaria"
+						/>
+					</div>
 				</form>
 			</div>
 		</>
