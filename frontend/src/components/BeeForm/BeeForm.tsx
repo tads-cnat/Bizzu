@@ -6,8 +6,15 @@ import {BeeTextArea} from "../BeeTextArea/BeeTextArea";
 import BeeArquivo from "../BeeArquivo/BeeArquivo";
 import BeeCategoria from "../BeeCategoria/BeeCategoria";
 import BeeSelect from "../BeeSelect/BeeSelect";
+import {Hexagon} from "@phosphor-icons/react";
 
-const BeeForm = ({schema, sections, onSubmit, options}: IBeeForm) => {
+const BeeForm = ({
+	schema,
+	sections,
+	onSubmit,
+	options,
+	defaultValues,
+}: IBeeForm) => {
 	const {
 		control,
 		handleSubmit,
@@ -26,48 +33,59 @@ const BeeForm = ({schema, sections, onSubmit, options}: IBeeForm) => {
 					onSubmit={handleSubmit(onSubmit)}
 					className="flex flex-col gap-6"
 				>
-					{sections.fields.map((field: any) => (
-						
-							{field.type == "input" && (
-								<><BeeInput
+					{sections.fields.map((field: any) => {
+						if (field.type == "input") {
+							return (
+								<BeeInput
 									name={field.name}
 									control={control}
 									label={field.props.label}
 									placeholder={field.props.label}
-								/></>
-							)}
-							{field.type == "textarea" && (
-								<>
+									defaultValue={defaultValues ? defaultValues[field.name] : ""}
+								/>
+							);
+						}
+
+						if (field.type == "textarea") {
+							return (
 								<BeeTextArea
 									control={control}
 									name={field.name}
 									label={field.props.label}
 									placeholder={field.props.label}
+									defaultValue={defaultValues ? defaultValues[field.name] : ""}
 								/>
-								</>
-							)}
-							field.type == "arquivo" && (
+							);
+						}
+
+						if (field.type == "arquivo") {
+							return (
 								<BeeArquivo
 									control={control}
 									name={field.name}
 									label={field.props.label}
 								/>
-							),
-							field.type == "categorias" && (
+							);
+						}
+
+						if (field.type == "categorias") {
+							return (
 								<BeeCategoria
 									errors=""
 									watch={watch}
 								/>
-							),
-							field.type == "select" && (
+							);
+						}
+						if (field.type == "select") {
+							return (
 								<BeeSelect
-									icone={field.props.icon}
+									icone={Hexagon}
 									options={options}
-									placeholder={field.props.label}
+									placeholder={field.props.placeholder}
 								/>
-							)
-						
-					))}
+							);
+						}
+					})}
 				</form>
 			</div>
 		</>

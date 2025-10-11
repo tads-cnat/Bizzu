@@ -3,24 +3,21 @@ import type {IBeeFiltroCategorias} from "./IBeeFiltroCategorias";
 import BeeSearchBar from "../BeeSearchBar/BeeSearchBar";
 import {Tabs} from "antd";
 import "./styles.css";
+import BeeTags from "../BeeTags/BeeTags";
 
 const BeeFiltroCategorias: React.FC<IBeeFiltroCategorias> = ({
 	categorias,
-	categoriasSelecionadas,
 	aoPesquisar,
 }) => {
-	const [categoriasAtuais, setCategoriasAtuais] = useState<any>();
-
-	const [tipoAtivo, setTipoAtivo] = React.useState<"tec" | "mat" | "per">(
-		"tec",
-	);
+	const [categoriasAtuais, setCategoriasAtuais] = useState<any>([]);
+	const [tipoAtivo, setTipoAtivo] = useState<"tec" | "mat" | "per">("tec");
 
 	const categoriasFiltradas = categorias.filter(
 		(cat) => cat.tipo === tipoAtivo,
 	);
 
-	const handleTipoChange: any = (tipo: "tec" | "mat" | "per") => {
-		setTipoAtivo(tipo);
+	const handleTipoChange: any = (key: any) => {
+		setTipoAtivo(key);
 	};
 
 	const handleCategoriaClick = useCallback(
@@ -37,7 +34,7 @@ const BeeFiltroCategorias: React.FC<IBeeFiltroCategorias> = ({
 
 			setCategoriasAtuais(novasCategorias);
 		},
-		[categoriasSelecionadas, categorias],
+		[categoriasAtuais, categorias],
 	);
 
 	const tabsItems = [
@@ -56,12 +53,15 @@ const BeeFiltroCategorias: React.FC<IBeeFiltroCategorias> = ({
 	];
 
 	return (
-		<div className="bg-white rounded-[15px] p-4 w-full max-w-sm">
-			<div className="flex justify-between gap-2">
+		<div className="bg-white rounded-[15px] w-full max-w-sm">
+			<label className="block text-sm font-medium text-gray-900 pt-5">
+				Categorias *
+			</label>
+			<div className="flex">
 				<Tabs
 					activeKey={tipoAtivo}
-					onChange={() => {
-						handleTipoChange;
+					onChange={(key: string) => {
+						handleTipoChange(key);
 					}}
 					tabBarStyle={{marginBottom: "1rem"}}
 					centered
@@ -80,13 +80,37 @@ const BeeFiltroCategorias: React.FC<IBeeFiltroCategorias> = ({
 					>
 						<input
 							type="checkbox"
-							checked={categoriasSelecionadas.includes(categoria.id)}
-							onChange={() => {}} // Função vazia para evitar warnings
+							checked={categoriasAtuais.includes(categoria.id)}
 							className="accent-[#FCBD18] w-4 h-4 pointer-events-none"
 						/>
 						<span className="text-gray-700 select-none">{categoria.nome}</span>
 					</div>
 				))}
+			</div>
+			<div className="flex flex-wrap gap-1 mt-1">
+				{categoriasAtuais.map((catId: any) => {
+					const categoria: any = categorias.find((cat) => cat.id === catId);
+					return categoria ? (
+						<div key={catId}>
+							{categoria.tipo == "tec" ? (
+								<BeeTags
+									label={categoria.nome}
+									color="magenta"
+								/>
+							) : categoria.tipo == "per" ? (
+								<BeeTags
+									label={categoria.nome}
+									color="cyan"
+								/>
+							) : (
+								<BeeTags
+									label={categoria.nome}
+									color="orange"
+								/>
+							)}
+						</div>
+					) : null;
+				})}
 			</div>
 		</div>
 	);

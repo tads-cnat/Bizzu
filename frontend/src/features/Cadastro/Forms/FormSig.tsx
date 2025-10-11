@@ -123,7 +123,8 @@ const FormSig: React.FC = () => {
 										placeholder="Digite seu nome"
 										label="Nome"
 										type="text"
-										register={{...register("nome")}}
+										control={control}
+										name="nome"
 									/>
 									{errors.nome && (
 										<p className="text-red-500 text-sm mt-1">
@@ -139,7 +140,8 @@ const FormSig: React.FC = () => {
 										placeholder="Digite seu usuário"
 										label="Usuário"
 										type="text"
-										register={{...register("username")}}
+										name="username"
+										control={control}
 									/>
 									{errors.username && (
 										<p className="text-red-500 text-sm mt-1">
@@ -155,7 +157,8 @@ const FormSig: React.FC = () => {
 										placeholder="Digite sua senha"
 										label="Senha"
 										type="password"
-										register={{...register("password")}}
+										name="password"
+										control={control}
 									/>
 									{errors.password && (
 										<p className="text-red-500 text-sm mt-1">
@@ -171,7 +174,8 @@ const FormSig: React.FC = () => {
 										placeholder="Digite sua senha novamente"
 										label="Confime sua senha"
 										type="password"
-										register={{...register("passwordConfirmation")}}
+										name="passwordConfirmation"
+										control={control}
 									/>
 									{errors.passwordConfirmation && (
 										<p className="text-red-500 text-sm mt-1">
@@ -209,7 +213,8 @@ const FormSig: React.FC = () => {
 									placeholder="Fale um pouco mais sobre você..."
 									label="Descrição"
 									type="text"
-									register={{...register("descricao")}}
+									name="descricao"
+									control={control}
 								/>
 								{errors.descricao && (
 									<p className="text-red-500 text-sm mt-1">
@@ -223,7 +228,8 @@ const FormSig: React.FC = () => {
 									placeholder="Antiga formação..."
 									label="Escola de formação"
 									type="text"
-									register={{...register("escolaFormacao")}}
+									name="escolaFormacao"
+									control={control}
 								/>
 								{errors.escolaFormacao && (
 									<p className="text-red-500 text-sm mt-1">
@@ -237,7 +243,8 @@ const FormSig: React.FC = () => {
 									placeholder="Onde você estuda atualmente..."
 									label="Instituição Atual"
 									type="text"
-									register={{...register("instituicaoAtual")}}
+									control={control}
+									name="instituicaoAtual"
 								/>
 								{errors.instituicaoAtual && (
 									<p className="text-red-500 text-sm mt-1">
@@ -271,24 +278,19 @@ const FormSig: React.FC = () => {
 												"polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0% 50%)",
 										}}
 									/>
-									<Controller
-										name="imagemPerfil"
+
+									<BeeArquivo
+										multiple={false}
+										label="Mostra sua cara"
+										onChange={(val) => {
+											if (val == null)
+												setPreview(
+													"http://localhost:8000/imgPostagens/usuarios/2025/06/10/sem_imagem_avatar.png",
+												);
+											else setPreview(URL.createObjectURL(val));
+										}}
 										control={control}
-										render={({field}) => (
-											<BeeArquivo
-												multiple={false}
-												value={field.value}
-												label="Mostra sua cara"
-												onChange={(val) => {
-													field.onChange(val);
-													if (val == null)
-														setPreview(
-															"http://localhost:8000/imgPostagens/usuarios/2025/06/10/sem_imagem_avatar.png",
-														);
-													else setPreview(URL.createObjectURL(val));
-												}}
-											/>
-										)}
+										name="perfil"
 									/>
 								</div>
 							</div>
@@ -297,22 +299,17 @@ const FormSig: React.FC = () => {
 									<label className="block text-sm/6 font-medium text-gray-900">
 										Banner do perfil
 									</label>
-									<Controller
-										name="banner"
+									<BeeArquivo
+										multiple={false}
+										label="Personalize seu espaço"
+										onChange={(val) => {
+											if (val == null) setPreviewBanner("/banner.png");
+											else setPreviewBanner(URL.createObjectURL(val));
+										}}
 										control={control}
-										render={({field}) => (
-											<BeeArquivo
-												multiple={false}
-												label="Personalize seu espaço"
-												value={field.value}
-												onChange={(val) => {
-													field.onChange(val);
-													if (val == null) setPreviewBanner("/banner.png");
-													else setPreviewBanner(URL.createObjectURL(val));
-												}}
-											/>
-										)}
+										name="banner"
 									/>
+
 									<img
 										src={previewBanner}
 										className="w-full h-36 object-cover mt-4"

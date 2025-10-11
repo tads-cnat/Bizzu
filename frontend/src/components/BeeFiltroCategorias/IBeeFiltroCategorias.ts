@@ -6,6 +6,5 @@ export interface ICategoria {
 
 export interface IBeeFiltroCategorias {
 	categorias: ICategoria[];
-	categoriasSelecionadas: number[];
 	aoPesquisar: (termo: string) => void;
 }

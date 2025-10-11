@@ -29,6 +29,7 @@ export const BeeTextArea: React.FC<IBeeTextArea> = ({
 			<Controller
 				name={name}
 				control={control}
+				defaultValue={defaultValue}
 				render={({field}) => (
 					<div className="mt-2.5">
 						<textarea

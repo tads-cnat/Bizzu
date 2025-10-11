@@ -15,6 +15,7 @@ const BeeInput: React.FC<IBeeInput> = ({
 			<Controller
 				name={name}
 				control={control}
+				defaultValue={defaultValue}
 				render={({field}) => (
 					<div>
 						<label className="block text-sm/6 font-medium text-gray-900">

@@ -3,6 +3,7 @@ export interface IBeeForm {
 	sections: section;
 	onSubmit: any;
 	options?: any;
+	defaultValues?: any
 }
 
 export interface section {

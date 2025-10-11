@@ -52,6 +52,8 @@ const BeeSelect = ({
 		}
 	}, [value, placeholder]);
 
+	console.log("PLAce", Icon);
+
 	return (
 		<div className="w-full max-w-full">
 			<Listbox
