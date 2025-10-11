@@ -14,16 +14,20 @@ class ComunidadeViewSet(viewsets.ModelViewSet):
     queryset = Comunidade.objects.all()
     serializer_class = ComunidadeSerializer
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated, Adm]
+    permission_classes = [IsAuthenticated]
 
-    def get_permissions(self):
-        if (
-            self.action == "seguir_comunidade"
-            or self.action == "deixar_de_seguir_comunidade"
-            or self.action == "verificar_seguimento_comunidade"
-        ):
-            return [(Moderador | Internauta, IsAuthenticated)()]
-        return super().get_permissions()
+    # permission_classes = [IsAuthenticated, Adm, Internauta]
+
+    # def get_permissions(self):
+    #     if (
+    #         self.action == "seguir_comunidade"
+    #         or self.action == "deixar_de_seguir_comunidade"
+    #         or self.action == "verificar_seguimento_comunidade"
+    #         or self.action == "verificar_seguimento_comunidade"
+    #         or self.action == "list"
+    #     ):
+    #         return [(Moderador | Internauta | Adm)(), IsAuthenticated]
+    #     return super().get_permissions()
 
     @action(detail=True, methods=["post"])
     def seguir_comunidade(self, request, pk=None):

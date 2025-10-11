@@ -15,7 +15,7 @@ class CategoriaViewSet(viewsets.ModelViewSet):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
 
-    def get_permissions(self):
-        if self.action == "list":
-            return [((Moderador | Internauta | Adm), IsAuthenticated)()]
-        return super().get_permissions()
+    # def get_permissions(self):
+    #     if self.action == "list":
+    #         return [(Moderador | Internauta | Adm)(), IsAuthenticated()]
+    #     return super().get_permissions()
