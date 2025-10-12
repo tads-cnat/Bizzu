@@ -9,8 +9,8 @@ from rest_framework.parsers import MultiPartParser
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated
 from ..permissions.basePermission import IsOwnerOrReadOnly
-from rest_framework.permissions import AllowAny
 from rest_framework import status
+from rest_framework.permissions import AllowAny
 
 
 class PostagemViewSet(viewsets.ModelViewSet):

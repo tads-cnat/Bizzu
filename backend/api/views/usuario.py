@@ -1,3 +1,4 @@
+from api.permissions.basePermission import IsOwnerOrReadOnly
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework import viewsets, status
@@ -75,16 +76,11 @@ class UsuarioViewSet(viewsets.ModelViewSet):
     serializer_class = UsuarioSerializer
     parser_classes = [MultiPartParser, JSONParser]
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
 
     def get_permissions(self):
-        if (
-            self.action == "create"
-            or self.action == "usernameExits"
-            or self.action == "profileUsername"
-            or self.action == "retrieve"
-        ):
-            return [(Moderador | Internauta | Adm)()]
+        if self.action in ["create", "usernameExits", "profileUsername"]:
+            return [AllowAny()]
         return super().get_permissions()
 
     def get_serializer_class(self):

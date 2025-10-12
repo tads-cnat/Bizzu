@@ -8,26 +8,25 @@ from rest_framework.permissions import IsAuthenticated
 from ..permissions.moderador import Moderador
 from ..permissions.internanuta import Internauta
 from ..permissions.admin import Adm
+from rest_framework.permissions import AllowAny
 
 
 class ComunidadeViewSet(viewsets.ModelViewSet):
     queryset = Comunidade.objects.all()
     serializer_class = ComunidadeSerializer
-    # authentication_classes = [JWTAuthentication]
-    # permission_classes = [IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated, Adm]
 
-    # permission_classes = [IsAuthenticated, Adm, Internauta]
-
-    # def get_permissions(self):
-    #     if (
-    #         self.action == "seguir_comunidade"
-    #         or self.action == "deixar_de_seguir_comunidade"
-    #         or self.action == "verificar_seguimento_comunidade"
-    #         or self.action == "verificar_seguimento_comunidade"
-    #         or self.action == "list"
-    #     ):
-    #         return [(Moderador | Internauta | Adm)(), IsAuthenticated]
-    #     return super().get_permissions()
+    def get_permissions(self):
+        if self.action in ["list", "contar_seguidores_comunidade", "retrieve"]:
+            return [AllowAny()]
+        elif self.action in [
+            "deixar_de_seguir_comunidade",
+            "verificar_seguimento_comunidade",
+            "seguir_comunidade",
+        ]:
+            return [(Moderador | Internauta)()]
+        return super().get_permissions()
 
     @action(detail=True, methods=["post"])
     def seguir_comunidade(self, request, pk=None):
