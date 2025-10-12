@@ -4,7 +4,7 @@ import {IBeeCategoria} from "./IBeeCategoria";
 import CategoriaService from "../../services/models/CategoriaService";
 import {ICategoria} from "../BeeFiltroCategorias/IBeeFiltroCategorias";
 
-const BeeCategoria = ({errors}: IBeeCategoria) => {
+const BeeCategoria = ({errors, defaultValue, name, control}: IBeeCategoria) => {
 	const [categorias, setCategorias] = useState<ICategoria[]>([]);
 	const [termoPesquisa, setTermoPesquisa] = useState("");
 
@@ -38,7 +38,11 @@ const BeeCategoria = ({errors}: IBeeCategoria) => {
 			<BeeFiltroCategorias
 				categorias={categoriasFiltradas}
 				aoPesquisar={handlePesquisarCategorias}
+				name={name}
+				control={control}
+				defaultValue={defaultValue}
 			/>
+
 			{errors && <p className="text-red-500 text-sm mt-1">{errors}</p>}
 		</>
 	);

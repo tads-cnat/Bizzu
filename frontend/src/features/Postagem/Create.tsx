@@ -8,8 +8,11 @@ import schema from "./Forms/schema";
 import sections from "./Forms/sections";
 import ComunidadeService from "../../services/models/ComunidadeService";
 import onSubmit from "./Forms/submit";
+import {useNavigate} from "react-router-dom";
+import {Spin} from "antd";
 
 const CreatePostagem: React.FC = () => {
+	const caminho = useNavigate();
 	const [usuario, setUsuario] = useState<IBeeUser>();
 	const {username} = acessAuth();
 	const [comunidades, setComunidades] = useState<any[]>([]);
@@ -49,14 +52,18 @@ const CreatePostagem: React.FC = () => {
 		loadComunidades();
 	}, []);
 
-	return (
+	return username !== undefined ? (
 		<BeeForm
 			schema={schema}
 			sections={sections}
-			onSubmit={onSubmit}
+			onSubmit={(data: any) => {
+				onSubmit(data, caminho, usuario, username);
+			}}
 			options={comunidades}
 			usuario={usuario}
 		/>
+	) : (
+		<Spin />
 	);
 };
 

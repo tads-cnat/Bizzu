@@ -16,7 +16,7 @@ const sections: section = {
 			name: "texto",
 			type: "textarea",
 			props: {
-				name: "comunidade",
+				name: "texto",
 				label: "Conteúdo da Postagem",
 				placeholder: "Digite o conteúdo da sua postagem...",
 				rows: 4,

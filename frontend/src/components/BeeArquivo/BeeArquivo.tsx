@@ -12,64 +12,60 @@ const BeeArquivo: React.FC<IBeeArquivo> = ({
 	onChange,
 	multiple,
 	control,
+	defaultValue,
 }: IBeeArquivo) => {
 	const [fileList, setFileList] = useState<UploadFile[]>([]);
 
-	// Inicializar fileList a partir de value (em edição)
 	useEffect(() => {
-		if (!value) return;
+		const arquivosOrigem = value ?? defaultValue;
+		if (!arquivosOrigem) return;
 
-		let arquivos: UploadFile[] = [];
-
-		if (Array.isArray(value)) {
-			arquivos = value
-				.map((file: any, index) => {
-					if (file instanceof File) {
-						return {
-							uid: `${index}-${file.name}`,
-							name: file.name,
+		const arquivos: UploadFile[] = Array.isArray(arquivosOrigem)
+			? (arquivosOrigem
+					.map((f, index) => {
+						if (typeof f === "string") {
+							return {
+								uid: `file-${index}`,
+								name: f.split("/").pop() ?? `arquivo-${index}`,
+								status: "done",
+								url: f,
+							};
+						} else if (f instanceof File) {
+							return {
+								uid: `file-${index}`,
+								name: f.name,
+								status: "done",
+								originFileObj: f,
+							};
+						}
+						return null;
+					})
+					.filter(Boolean) as UploadFile[])
+			: typeof arquivosOrigem === "string"
+				? [
+						{
+							uid: "file-1",
+							name: arquivosOrigem.split("/").pop() ?? "arquivo",
 							status: "done",
-							originFileObj: file,
-						};
-					} else if (typeof file === "string") {
-						// URL de arquivo já salvo
-						return {
-							uid: `${index}-${file}`,
-							name: file.split("/").pop() ?? `arquivo-${index}`,
+							url: arquivosOrigem,
+						},
+					]
+				: [
+						{
+							uid: "file-1",
+							name: arquivosOrigem.name,
 							status: "done",
-							url: file,
-						};
-					}
-					return null;
-				})
-				.filter(Boolean) as UploadFile[];
-		} else {
-			// único arquivo
-			if (value instanceof File) {
-				arquivos = [
-					{
-						uid: "1",
-						name: value.name,
-						status: "done",
-						originFileObj: value,
-					},
-				];
-			} else if (typeof value === "string") {
-				arquivos = [
-					{
-						uid: "1",
-						name: value.split("/").pop() ?? "arquivo",
-						status: "done",
-						url: value,
-					},
-				];
-			}
-		}
+							originFileObj: arquivosOrigem,
+						},
+					];
 
 		setFileList(arquivos);
-	}, [value]);
+	}, [defaultValue, value]);
 
-	const handleChange = (info: UploadChangeParam<UploadFile>) => {
+	const handleChange = (
+		info: UploadChangeParam<UploadFile>,
+		fieldOnChange: (value: any) => void,
+	) => {
 		let newFileList = info.fileList;
 
 		if (!multiple && newFileList.length > 1) {
@@ -81,9 +77,12 @@ const BeeArquivo: React.FC<IBeeArquivo> = ({
 		const arquivos = newFileList
 			.map((f) => f.originFileObj || f.url)
 			.filter(Boolean);
+		const finalValue = multiple ? arquivos : (arquivos[0] ?? null);
 
-		onChange?.(multiple ? arquivos : (arquivos[0] ?? null));
+		fieldOnChange(finalValue);
+		onChange?.(finalValue);
 	};
+
 	const handleRemove = async (arquivos: UploadFile) => {
 		const newList = fileList.filter((f) => f.uid !== arquivos.uid);
 		setFileList(newList);
@@ -98,16 +97,18 @@ const BeeArquivo: React.FC<IBeeArquivo> = ({
 		return true;
 	};
 
+	console.log(fileList);
+
 	return (
 		<Controller
 			name={name}
 			control={control}
+			defaultValue={defaultValue}
 			render={({field}) => (
 				<Upload
-					{...field}
 					multiple={multiple}
 					listType="picture"
-					onChange={handleChange}
+					onChange={(value) => handleChange(value, field.onChange)}
 					onRemove={handleRemove}
 					beforeUpload={() => false}
 					fileList={fileList}

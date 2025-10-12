@@ -1,18 +1,25 @@
 import type React from "react";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import BeeForm from "../../components/BeeForm/BeeForm";
 import schema from "./Forms/schema";
 import sections from "./Forms/sections";
 import {useState, useEffect} from "react";
-import {SubmitHandler} from "react-hook-form";
-import PostagemService from "../../services/models/PostagemService";
 import UsuarioService from "../../services/models/UsuarioService";
 import acessAuth from "../../utils/acessAuth";
 import {IBeeUser} from "../Perfil/components/BeeHeaderProfile/IBeeUser";
+import onSubmit from "./Forms/submitEdit";
+import ComunidadeService from "../../services/models/ComunidadeService";
+import PostagemService from "../../services/models/PostagemService";
+import {Spin} from "antd";
 
 const EditPostagem: React.FC = () => {
 	const [usuario, setUsuario] = useState<IBeeUser>();
+	const [comunidades, setComunidades] = useState<any[]>([]);
+	const [comunidadeSelecionada, setComunidadeSelecionada] = useState<any[]>([]);
+	const {id} = useParams();
+	const [postagem, setPostagem] = useState<any[]>([]);
 	const {username} = acessAuth();
+	const caminho = useNavigate();
 
 	useEffect(() => {
 		if (usuario === undefined) {
@@ -26,49 +33,78 @@ const EditPostagem: React.FC = () => {
 		}
 	}, []);
 
-	const caminho = useNavigate();
-	const onSubmit: SubmitHandler<any> = async (data) => {
-		const dataSubmit = new FormData();
-		dataSubmit.append("usuario", String(usuario?.id));
-		dataSubmit.append("texto", data.texto);
-		if (data.imagem !== null && data.imagem !== undefined)
-			dataSubmit.append("imagem", data.imagem);
-		for (let i = 0; i < data.categorias.length; i++) {
-			dataSubmit.append("categorias", String(data.categorias[i]));
-		}
-		dataSubmit.append("comunidade", String(data.comunidade?.value));
-		try {
-			await PostagemService.post(dataSubmit);
-			caminho(`/${username}/`, {
-				state: {
-					alerta: {
-						tipo: "success",
-						mensagem: "Postagem criada com sucesso.",
-					},
-				},
-			});
-		} catch (e) {
-			caminho(`/${username}/`, {
-				state: {
-					alerta: {
-						tipo: "error",
-						mensagem: "Erro ao criar postagem.",
-					},
-				},
-			});
-			console.error("Deu mal", e);
-		}
-	};
+	useEffect(() => {
+		const loadComunidades = async () => {
+			try {
+				const response = await ComunidadeService.listAll();
+				if (response.data && Array.isArray(response.data)) {
+					const comunidadesFormatadas = response.data.map(
+						(comunidade: any) => ({
+							label: comunidade.nome || comunidade.title,
+							value: comunidade.id,
+						}),
+					);
+					setComunidades(comunidadesFormatadas);
+				} else {
+					setComunidades([]);
+				}
+			} catch {
+				setComunidades([]);
+			}
+		};
 
-	return (
+		loadComunidades();
+	}, []);
+
+	useEffect(() => {
+		const loadPostagem = async () => {
+			try {
+				const response = await PostagemService.get(Number(id));
+				setPostagem(response.data);
+			} catch {
+				setPostagem([]);
+			}
+		};
+
+		loadPostagem();
+	}, []);
+
+	useEffect(() => {
+		const loadComunidades = async () => {
+			try {
+				const response = await ComunidadeService.get(postagem.comunidade);
+				setComunidadeSelecionada(response.data);
+			} catch {
+				setComunidades([]);
+			}
+		};
+
+		loadComunidades();
+	}, [postagem]);
+
+	return username !== undefined ? (
 		<div className="w-full">
 			<h1 className="text-2xl font-bold mb-4">Editar Postagem</h1>
 			<BeeForm
 				schema={schema}
 				sections={sections}
-				onSubmit={onSubmit}
+				options={comunidades}
+				onSubmit={(data: any) => {
+					onSubmit(id, data, caminho, usuario, username);
+				}}
+				defaultValues={{
+					texto: postagem.texto,
+					comunidade: {
+						label: comunidadeSelecionada.nome,
+						value: comunidadeSelecionada.id,
+					},
+					categoria: postagem.categorias,
+					imagem: postagem.imagem,
+				}}
 			/>
 		</div>
+	) : (
+		<Spin />
 	);
 };
 

@@ -11,4 +11,6 @@ export interface IBeeArquivo {
 	multiple?: boolean;
 	// Control do use form
 	control: any;
+	//valores default em caso de edição
+	defaultValue? : any;
 }

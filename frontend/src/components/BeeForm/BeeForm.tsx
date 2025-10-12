@@ -9,6 +9,7 @@ import BeeSelect from "../BeeSelect/BeeSelect";
 import {Hexagon} from "@phosphor-icons/react";
 import BeeButton from "../BeeButtons/BeeButtons";
 import {useNavigate} from "react-router-dom";
+import {useEffect, useState} from "react";
 
 const BeeForm = ({
 	schema,
@@ -22,14 +23,35 @@ const BeeForm = ({
 		control,
 		handleSubmit,
 		watch,
+		reset,
 		formState: {errors},
 	} = useForm({
 		resolver: yupResolver(schema) as any,
+		defaultValues: {
+			texto: defaultValues ? defaultValues.texto : null,
+			imagem: defaultValues ? defaultValues.imagem : null,
+			arquivo: defaultValues ? defaultValues.arquivo : null,
+			comunidade: defaultValues ? defaultValues.comunidade : null,
+			categoria: defaultValues ? defaultValues.categoria : null,
+		},
 	});
 
 	const caminho = useNavigate();
+	const [nomeComunidade, setNomeComunidade] = useState("Escolha uma ");
 
-	console.log("SCHEMA ", schema);
+	const nome = watch("comunidade");
+
+	useEffect(() => {
+		if (typeof nome === "string") setNomeComunidade("Escolha uma ");
+		else if (typeof nome === "object" && nome !== null)
+			setNomeComunidade(nome.label);
+	}, [nome]);
+
+	useEffect(() => {
+		if (defaultValues) {
+			reset(defaultValues);
+		}
+	}, [defaultValues, reset]);
 
 	return (
 		<>
@@ -67,6 +89,7 @@ const BeeForm = ({
 							const errorMessage = errors[nameField]?.message as
 								| string
 								| undefined;
+
 							return (
 								<>
 									<BeeTextArea
@@ -74,9 +97,7 @@ const BeeForm = ({
 										name={field.name}
 										label={field.props.label}
 										placeholder={field.props.placeholder}
-										defaultValue={
-											defaultValues ? defaultValues[field.name] : ""
-										}
+										defaultValue={defaultValues ? defaultValues[nameField] : ""}
 									/>
 									{errorMessage !== undefined && (
 										<p className="text-red-500 text-sm">{errorMessage}</p>
@@ -92,33 +113,65 @@ const BeeForm = ({
 								| undefined;
 							return (
 								<>
-									<BeeArquivo
-										control={control}
-										name={field.name}
-										label={field.props.label}
-									/>
-									{errorMessage !== undefined && (
-										<p className="text-red-500 text-sm">{errorMessage}</p>
-									)}
+									<div>
+										<BeeArquivo
+											control={control}
+											name={field.name}
+											label={field.props.label}
+											defaultValue={
+												defaultValues ? defaultValues[nameField] : ""
+											}
+										/>
+										{errorMessage !== undefined && (
+											<p className="text-red-500 text-sm">{errorMessage}</p>
+										)}
+									</div>
 								</>
 							);
 						}
 
 						if (field.type == "categorias") {
+							const nameField = field.name;
+							const errorMessage = errors[nameField]?.message as
+								| string
+								| undefined;
 							return (
-								<BeeCategoria
-									errors=""
-									watch={watch}
-								/>
+								<div>
+									<BeeCategoria
+										errors=""
+										watch={watch}
+										name={field.name}
+										control={control}
+										defaultValue={
+											defaultValues ? defaultValues[field.name] : ""
+										}
+									/>
+									{errorMessage !== undefined && (
+										<p className="text-red-500 text-sm">{errorMessage}</p>
+									)}
+								</div>
 							);
 						}
 						if (field.type == "select") {
 							return (
-								<BeeSelect
-									icone={Hexagon}
-									options={options}
-									placeholder={field.props.placeholder}
-								/>
+								<div className="bg-white p-2 rounded-t-lg border-b border-gray-200">
+									<div className="flex items-center justify-between gap-4">
+										<p className="text-sm text-gray-600 break-words w-full">
+											<span className="font-medium">Comunidade:</span>{" "}
+											{nomeComunidade}
+										</p>
+										<BeeSelect
+											icone={Hexagon}
+											options={options}
+											placeholder={field.props.placeholder}
+											name={field.props.name}
+											control={control}
+											defaultValue={
+												defaultValues ? defaultValues[field.name] : ""
+											}
+										/>
+									</div>
+								</div>
 							);
 						}
 					})}

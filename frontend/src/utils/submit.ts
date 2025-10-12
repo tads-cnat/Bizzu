@@ -1,25 +1,8 @@
-import { useState, useEffect } from "react";
 import { SubmitHandler } from "react-hook-form";
-import { IBeeUser } from "../features/Perfil/components/BeeHeaderProfile/IBeeUser";
-import UsuarioService from "../services/models/UsuarioService";
-import acessAuth from "./acessAuth";
 
-const submitData: SubmitHandler<any> =  (data) => {
-        const [usuario, setUsuario] = useState<IBeeUser>();
-            const {username} = acessAuth();
-        useEffect(() => {
-                if (usuario === undefined) {
-                    void UsuarioService.getbyUsername(username)
-                        .then((response) => {
-                            setUsuario(response);
-                        })
-                        .catch(() => {
-                            console.error("Não recebeu dados");
-                        });
-                }
-            }, []);
-
+const submitData: SubmitHandler<any> =  (data: any, usuario: any) => {
         const dataSubmit = new FormData();
+        
         dataSubmit.append("usuario", String(usuario?.id));
         if (data.texto !== null && data.texto !== undefined){
             dataSubmit.append("texto", data.texto);
@@ -27,9 +10,9 @@ const submitData: SubmitHandler<any> =  (data) => {
         if (data.imagem !== null && data.imagem !== undefined){
             dataSubmit.append("imagem", data.imagem);
         }
-        if (data.categorias !== null && data.categorias !== undefined){
-            for (let i = 0; i < data.categorias.length; i++) {
-                dataSubmit.append("categorias", String(data.categorias[i]));
+        if (data.categoria !== null && data.categoria !== undefined){
+            for (let i = 0; i < data.categoria.length; i++) {
+                dataSubmit.append("categorias", String(data.categoria[i]));
             }
         }
         if (data.comunidade !== null && data.comunidade !== undefined){
@@ -48,8 +31,8 @@ const submitData: SubmitHandler<any> =  (data) => {
         } else if (data.arquivo) {
             dataSubmit.append("arquivos[]", data.arquivo);
         }
-
-        return {"username" : username, "dataSubmit" : dataSubmit};
+    
+        return dataSubmit;
     };
 
 export default submitData;

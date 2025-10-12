@@ -96,6 +96,8 @@ const FormCategoria = ({
 												placeholder="Digite o nome da categoria"
 												label="Nome"
 												type="text"
+												control={control}
+												name="nome"
 												register={{...register("nome")}}
 											/>
 											{errors.nome && (
