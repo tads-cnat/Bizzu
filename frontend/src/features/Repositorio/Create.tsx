@@ -5,9 +5,28 @@ import sections from "./Forms/sections";
 import {useState, useEffect} from "react";
 import ComunidadeService from "../../services/models/ComunidadeService";
 import onSubmit from "./Forms/submit";
+import {useNavigate} from "react-router-dom";
+import UsuarioService from "../../services/models/UsuarioService";
+import acessAuth from "../../utils/acessAuth";
+import {IBeeUser} from "../Perfil/components/BeeHeaderProfile/IBeeUser";
 
 const CreateRepositorio: React.FC = () => {
+	const caminho = useNavigate();
+	const [usuario, setUsuario] = useState<IBeeUser>();
+	const {username} = acessAuth();
 	const [comunidades, setComunidades] = useState<any[]>([]);
+
+	useEffect(() => {
+		if (usuario === undefined) {
+			void UsuarioService.getbyUsername(username)
+				.then((response) => {
+					setUsuario(response);
+				})
+				.catch(() => {
+					console.error("Não recebeu dados");
+				});
+		}
+	}, []);
 
 	useEffect(() => {
 		const loadComunidades = async () => {
@@ -38,7 +57,9 @@ const CreateRepositorio: React.FC = () => {
 			<BeeForm
 				schema={schema}
 				sections={sections}
-				onSubmit={onSubmit}
+				onSubmit={(data: any) => {
+					onSubmit(data, caminho, username);
+				}}
 				options={comunidades}
 			/>
 		</div>

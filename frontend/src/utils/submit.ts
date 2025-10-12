@@ -2,6 +2,7 @@ import { SubmitHandler } from "react-hook-form";
 
 const submitData: SubmitHandler<any> =  (data: any, usuario: any) => {
         const dataSubmit = new FormData();
+        console.log("DATA ", data);
         
         dataSubmit.append("usuario", String(usuario?.id));
         if (data.texto !== null && data.texto !== undefined){

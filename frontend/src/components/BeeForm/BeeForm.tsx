@@ -33,6 +33,8 @@ const BeeForm = ({
 			arquivo: defaultValues ? defaultValues.arquivo : null,
 			comunidade: defaultValues ? defaultValues.comunidade : null,
 			categoria: defaultValues ? defaultValues.categoria : null,
+			titulo: defaultValues ? defaultValues.titulo : null,
+			descricao: defaultValues ? defaultValues.descricao : null,
 		},
 	});
 
@@ -118,6 +120,7 @@ const BeeForm = ({
 											control={control}
 											name={field.name}
 											label={field.props.label}
+											multiple={field.props.multiple}
 											defaultValue={
 												defaultValues ? defaultValues[nameField] : ""
 											}

@@ -15,7 +15,6 @@ const BeeArquivo: React.FC<IBeeArquivo> = ({
 	defaultValue,
 }: IBeeArquivo) => {
 	const [fileList, setFileList] = useState<UploadFile[]>([]);
-
 	useEffect(() => {
 		const arquivosOrigem = value ?? defaultValue;
 		if (!arquivosOrigem) return;

@@ -4,16 +4,19 @@ import { NavigateFunction } from "react-router-dom";
 import RepositorioService from "../../../services/models/RepositorioService";
 import submitData from "../../../utils/submit";
 
-const onSubmit: any = async (data: any, caminho: NavigateFunction, username: any) => {
+const onSubmit: any = async (id:number, data: any, caminho: NavigateFunction, username: any) => {
         const object: any = submitData(data);
 
+        console.log("LOOLO", data);
+        
+
         try {
-            await RepositorioService.post(object);
+            await RepositorioService.patch(id,object);
             caminho(`/${username}/`, {
                 state: {
                     alerta: {
                         tipo: "success",
-                        mensagem: "Repositório criado com sucesso.",
+                        mensagem: "Repositório editado com sucesso.",
                     },
                 },
             });
@@ -23,7 +26,7 @@ const onSubmit: any = async (data: any, caminho: NavigateFunction, username: any
                 state: {
                     alerta: {
                         tipo: "error",
-                        mensagem: "Erro ao criar repositório.",
+                        mensagem: "Erro ao editar repositório.",
                     },
                 },
             });

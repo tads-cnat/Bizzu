@@ -33,10 +33,10 @@ const sections: section = {
 			},
 		},
 		{
-			name: "arquivos",
+			name: "arquivo",
 			type: "arquivo",
 			props: {
-				name: "arquivos",
+				name: "arquivo",
 				label: "Selecione os arquivos",
 				multiple: true,
 			},
