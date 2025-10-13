@@ -1,3 +1,0 @@
-# Arquivo script.js do repositório Gerador de QR Code
-
-Conteúdo de exemplo...

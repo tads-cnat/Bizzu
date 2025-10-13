@@ -1,3 +1,0 @@
-# Arquivo requirements.txt do repositório Chat em Tempo Real
-
-Conteúdo de exemplo...

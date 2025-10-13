@@ -1,3 +1,0 @@
-# Arquivo main.py do repositório Dashboard Analytics
-
-Conteúdo de exemplo...

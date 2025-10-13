@@ -1,3 +1,0 @@
-# Arquivo requirements.txt do repositório Gerador de QR Code
-
-Conteúdo de exemplo...

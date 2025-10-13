@@ -1,3 +1,0 @@
-# Arquivo script.js do repositório Chat em Tempo Real
-
-Conteúdo de exemplo...

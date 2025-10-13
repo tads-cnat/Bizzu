@@ -1,3 +1,0 @@
-# Arquivo script.js do repositório Automação de Tarefas
-
-Conteúdo de exemplo...

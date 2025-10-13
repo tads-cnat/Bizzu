@@ -1,3 +1,0 @@
-# Arquivo main.py do repositório Sistema de Estoque
-
-Conteúdo de exemplo...
