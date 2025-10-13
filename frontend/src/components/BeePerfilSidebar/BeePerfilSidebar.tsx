@@ -49,8 +49,7 @@ const BeePerfilSidebar: React.FC = () => {
 	};
 
 	const handleEditarFavoritos = () => {
-		// Implementar navegação para favoritos
-		console.log("Editar favoritos");
+		navigate(`/${username}/favoritos`);
 	};
 
 	if (loading || !load) {
@@ -232,7 +231,7 @@ const BeePerfilSidebar: React.FC = () => {
 
 									<button
 										onClick={config.onClick}
-										className="flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-[#058B92] hover:bg-gray-50 rounded-md transition-colors"
+										className="flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-[#058B92] hover:bg-[#058B92] hover:text-white rounded-md transition-all duration-200 ease-in-out transform hover:scale-105 cursor-pointer shadow-sm hover:shadow-md"
 									>
 										<PencilSimple
 											size={12}

@@ -1,0 +1,3 @@
+# Arquivo main.py do repositório Sistema de Gerenciamento Escolar
+
+Conteúdo de exemplo...

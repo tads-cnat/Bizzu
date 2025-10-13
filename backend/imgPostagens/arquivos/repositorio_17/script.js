@@ -1,0 +1,3 @@
+# Arquivo script.js do repositório Conversor de Moedas
+
+Conteúdo de exemplo...

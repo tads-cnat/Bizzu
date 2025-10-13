@@ -1,0 +1,3 @@
+# Arquivo main.py do repositório App de Controle Financeiro
+
+Conteúdo de exemplo...

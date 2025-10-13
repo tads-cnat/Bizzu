@@ -66,6 +66,11 @@ class UsuarioService extends BaseService{
         const response = await axiosInstance.post('/usuario/reprovarSolicitacao/', {id: id})
         return response
     }
+
+    async getRepositoriosFavoritos() {
+        const response = await axiosInstance.get(`usuario/repositorios_favoritos/`);
+        return response.data;
+    }
 }
 
 export default new UsuarioService("usuario");

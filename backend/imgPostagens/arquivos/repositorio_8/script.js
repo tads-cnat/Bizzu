@@ -1,0 +1,3 @@
+# Arquivo script.js do repositório Portfolio Pessoal
+
+Conteúdo de exemplo...

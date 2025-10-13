@@ -1,0 +1,3 @@
+# Arquivo main.py do repositório Sistema de Votação
+
+Conteúdo de exemplo...

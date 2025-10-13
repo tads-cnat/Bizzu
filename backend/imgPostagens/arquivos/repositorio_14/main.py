@@ -1,0 +1,3 @@
+# Arquivo main.py do repositório API REST para Blog
+
+Conteúdo de exemplo...

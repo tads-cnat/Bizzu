@@ -1,0 +1,3 @@
+# Arquivo database.sql do repositório Sistema de Votação
+
+Conteúdo de exemplo...

@@ -1,0 +1,3 @@
+# Arquivo README.md do repositório Chat em Tempo Real
+
+Conteúdo de exemplo...

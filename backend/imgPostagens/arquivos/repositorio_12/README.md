@@ -1,0 +1,3 @@
+# Arquivo README.md do repositório Sistema de Votação
+
+Conteúdo de exemplo...

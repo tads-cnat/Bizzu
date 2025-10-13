@@ -1,0 +1,3 @@
+# Arquivo script.js do repositório Game 2D em Python
+
+Conteúdo de exemplo...

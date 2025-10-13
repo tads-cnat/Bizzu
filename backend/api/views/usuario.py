@@ -216,6 +216,22 @@ class UsuarioViewSet(viewsets.ModelViewSet):
             status=200,
         )
 
+    @action(detail=False, methods=["GET"], permission_classes=[IsAuthenticated])
+    def repositorios_favoritos(self, request):
+        """Listar repositórios favoritados do usuário autenticado"""
+        try:
+            user = request.user
+            repositorios_favoritos = user.repositoriosFavoritados.all()
+
+            from api.serializers.repositorio import RepositorioSerializer
+
+            serializer = RepositorioSerializer(repositorios_favoritos, many=True)
+
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
 
 class PesquisaViewSet(viewsets.ModelViewSet):
     queryset = Usuario.objects.all()
