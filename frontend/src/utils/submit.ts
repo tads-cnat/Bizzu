@@ -2,14 +2,13 @@ import { SubmitHandler } from "react-hook-form";
 
 const submitData: SubmitHandler<any> =  (data: any, usuario: any) => {
         const dataSubmit = new FormData();
-        console.log("DATA ", data);
         if (data.usuario !== null && data.usuario !== undefined){
             dataSubmit.append("usuario", String(usuario?.id));
         }
         if (data.texto !== null && data.texto !== undefined){
             dataSubmit.append("texto", data.texto);
         }
-        if (data.imagem !== null && data.imagem !== undefined){
+        if (data.imagem !== null && data.imagem !== undefined && data.imagem instanceof File){
             dataSubmit.append("imagem", data.imagem);
         }
         if (data.nome !== null && data.nome !== undefined){
@@ -47,9 +46,7 @@ const submitData: SubmitHandler<any> =  (data: any, usuario: any) => {
             });
         } else if (data.arquivo) {
             dataSubmit.append("arquivos[]", data.arquivo);
-        }
-        console.log("AAAAAAAAAAAAa");
-    
+        }    
         return dataSubmit;
     };
 
