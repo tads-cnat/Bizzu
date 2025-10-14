@@ -57,8 +57,6 @@ const CreatePostagem: React.FC = () => {
 			schema={schema}
 			sections={sections}
 			onSubmit={(data: any) => {
-				console.log("SUBMETEu");
-
 				onSubmit(data, caminho, usuario, username);
 			}}
 			options={comunidades}

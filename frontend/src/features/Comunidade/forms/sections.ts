@@ -23,7 +23,7 @@ const sections: section = {
         },
         {
             name: "imagem",
-            type: "arquivo",
+            type: "perfil",
             props: {
                 name: "imagem",
                 label: "Selecione a foto",
