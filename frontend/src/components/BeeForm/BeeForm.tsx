@@ -35,19 +35,38 @@ const BeeForm = ({
 			categoria: defaultValues ? defaultValues.categoria : null,
 			titulo: defaultValues ? defaultValues.titulo : null,
 			descricao: defaultValues ? defaultValues.descricao : null,
+			escolaFormacao: defaultValues ? defaultValues.escolaFormacao : null,
+			instituicaoAtual: defaultValues ? defaultValues.instituicaoAtual : null,
+			imagemPerfil: defaultValues ? defaultValues.imagemPerfil : null,
 		},
 	});
 
 	const caminho = useNavigate();
 	const [nomeComunidade, setNomeComunidade] = useState("Escolha uma ");
+	const [fotoPerfil, setFotoPerfil] = useState(
+		"http://localhost:8000/imgPostagens/usuarios/2025/06/10/sem_imagem_avatar.png",
+	);
 
 	const nome = watch("comunidade");
+
+	const perfil: any = watch("imagemPerfil");
 
 	useEffect(() => {
 		if (typeof nome === "string") setNomeComunidade("Escolha uma ");
 		else if (typeof nome === "object" && nome !== null)
 			setNomeComunidade(nome.label);
 	}, [nome]);
+
+	useEffect(() => {
+		if (typeof perfil === "string")
+			setFotoPerfil(
+				"http://localhost:8000/imgPostagens/usuarios/2025/06/10/sem_imagem_avatar.png",
+			);
+		else if (typeof perfil === "object" && perfil !== null) {
+			const previewUrl = URL.createObjectURL(perfil);
+			setFotoPerfil(previewUrl);
+		}
+	}, [perfil]);
 
 	useEffect(() => {
 		if (defaultValues) {
@@ -177,15 +196,53 @@ const BeeForm = ({
 								</div>
 							);
 						}
+
+						if (field.type == "perfil") {
+							const nameField = field.name;
+							const errorMessage = errors[nameField]?.message as
+								| string
+								| undefined;
+							return (
+								<>
+									<div className="flex items-center gap-4">
+										<img
+											src={fotoPerfil}
+											alt="Imagem de usuário"
+											className={
+												"w-20 h-20 object-cover gap-1 mt-1 opacity-60 w-8 h-8"
+											}
+											style={{
+												clipPath:
+													"polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0% 50%)",
+											}}
+										/>
+										<BeeArquivo
+											control={control}
+											name={field.name}
+											label={field.props.label}
+											multiple={field.props.multiple}
+											defaultValue={
+												defaultValues ? defaultValues[nameField] : ""
+											}
+										/>
+										{errorMessage !== undefined && (
+											<p className="text-red-500 text-sm">{errorMessage}</p>
+										)}
+									</div>
+								</>
+							);
+						}
 					})}
 					<div className="mt-6 flex items-center justify-end gap-x-6">
 						<BeeButton
 							label="cancelar"
 							variante="negativo"
+							type="button"
 							onClick={() => caminho(`/${usuario.username}`)}
 						/>
 						<BeeButton
 							label={"Salvar"}
+							type="submit"
 							variante="primaria"
 						/>
 					</div>

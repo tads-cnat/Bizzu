@@ -13,7 +13,6 @@ import {Controller, useForm} from "react-hook-form";
 import BeeSelect from "../../../components/BeeSelect/BeeSelect";
 import {Hexagon} from "@phosphor-icons/react";
 import CategoriaService from "../../../services/models/CategoriaService";
-import {IBeeFormCategoria} from "./IBeeFormCategoria";
 
 const schema = yup.object().shape({
 	nome: yup.string().required("O nome é obrigatório"),

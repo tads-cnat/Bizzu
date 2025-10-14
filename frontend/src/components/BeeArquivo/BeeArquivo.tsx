@@ -96,8 +96,6 @@ const BeeArquivo: React.FC<IBeeArquivo> = ({
 		return true;
 	};
 
-	console.log(fileList);
-
 	return (
 		<Controller
 			name={name}

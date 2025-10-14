@@ -30,4 +30,6 @@ export interface BeeButtonProps {
   desabilitado?: boolean;
   // Para botões sem classes
   classesDefault?: boolean;
+  //Tipo do botão
+  type?: string;
 }

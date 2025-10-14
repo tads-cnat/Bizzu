@@ -13,6 +13,7 @@ export const BeeButton = ({
 	desabilitado = false,
 	classesDefault = true,
 	className = "",
+	type = "submit",
 }: BeeButtonProps) => {
 	// Aqui estão as classes defaults em tailwind para os botões
 	const classesPrimarias =
@@ -47,6 +48,7 @@ export const BeeButton = ({
 			onClick={onClick}
 			disabled={desabilitado}
 			className={classes}
+			type={type}
 		>
 			{icone && <span>{icone}</span>}
 			<span>{label}</span>

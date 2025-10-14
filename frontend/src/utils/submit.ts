@@ -3,13 +3,20 @@ import { SubmitHandler } from "react-hook-form";
 const submitData: SubmitHandler<any> =  (data: any, usuario: any) => {
         const dataSubmit = new FormData();
         console.log("DATA ", data);
-        
-        dataSubmit.append("usuario", String(usuario?.id));
+        if (data.usuario !== null && data.usuario !== undefined){
+            dataSubmit.append("usuario", String(usuario?.id));
+        }
         if (data.texto !== null && data.texto !== undefined){
             dataSubmit.append("texto", data.texto);
         }
         if (data.imagem !== null && data.imagem !== undefined){
             dataSubmit.append("imagem", data.imagem);
+        }
+        if (data.nome !== null && data.nome !== undefined){
+            dataSubmit.append("nome", data.nome);
+        }
+        if (data.imagemPerfil !== null && data.imagemPerfil !== undefined && data.imagemPerfil instanceof File){
+            dataSubmit.append("imagemPerfil", data.imagemPerfil);
         }
         if (data.categoria !== null && data.categoria !== undefined){
             for (let i = 0; i < data.categoria.length; i++) {
@@ -21,6 +28,15 @@ const submitData: SubmitHandler<any> =  (data: any, usuario: any) => {
         }
         if (data.titulo !== null && data.titulo !== undefined){
             dataSubmit.append("titulo", data.titulo);
+        }
+        if (data.escolaFormacao !== null && data.escolaFormacao !== undefined){
+            dataSubmit.append("escolaFormacao", data.escolaFormacao);
+        }
+        if (data.instituicaoAtual !== null && data.instituicaoAtual !== undefined){
+            dataSubmit.append("instituicaoAtual", data.instituicaoAtual);
+        }
+        if (data.banner !== null && data.banner !== undefined){
+            dataSubmit.append("banner", data.banner);
         }
         if (data.descricao !== null && data.descricao !== undefined){
             dataSubmit.append("descricao", data.descricao);
