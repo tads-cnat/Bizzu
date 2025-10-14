@@ -69,7 +69,10 @@ const BeeSelect = ({
 						value={selected}
 						onChange={(newValue) => {
 							handleChange(newValue);
-							field.onChange(newValue);
+							const numericValue = newValue?.value
+								? Number(newValue.value)
+								: null;
+							field.onChange({value: numericValue, label: newValue.label});
 						}}
 					>
 						<div className="relative">

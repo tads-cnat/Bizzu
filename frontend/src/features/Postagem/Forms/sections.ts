@@ -13,6 +13,15 @@ const sections: section = {
 			},
 		},
 		{
+			name: "usuario",
+			type: "",
+			props: {
+				name: "usuario",
+				placeholder: "Selecione uma comunidade",
+				icone: {Hexagon},
+			},
+		},
+		{
 			name: "texto",
 			type: "textarea",
 			props: {

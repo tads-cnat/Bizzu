@@ -175,6 +175,10 @@ const BeeForm = ({
 							);
 						}
 						if (field.type == "select") {
+							const nameField = field.name;
+							const errorMessage = errors[nameField]?.message as
+								| string
+								| undefined;
 							return (
 								<div className="bg-white p-2 rounded-t-lg border-b border-gray-200">
 									<div className="flex items-center justify-between gap-4">
@@ -193,6 +197,9 @@ const BeeForm = ({
 											}
 										/>
 									</div>
+									{errorMessage !== undefined && (
+										<p className="text-red-500 text-sm">{errorMessage}</p>
+									)}
 								</div>
 							);
 						}

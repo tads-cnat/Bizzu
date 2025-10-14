@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import {useState} from "react";
 import BeeButton from "../../../components/BeeButtons/BeeButtons";
 import {
 	Dialog,
@@ -9,7 +9,7 @@ import {
 import BeeInput from "../../../components/BeeInput/BeeInput";
 import * as yup from "yup";
 import {yupResolver} from "@hookform/resolvers/yup";
-import {Controller, useForm} from "react-hook-form";
+import {useForm} from "react-hook-form";
 import BeeSelect from "../../../components/BeeSelect/BeeSelect";
 import {Hexagon} from "@phosphor-icons/react";
 import CategoriaService from "../../../services/models/CategoriaService";
@@ -23,7 +23,7 @@ const FormCategoria = ({
 	label,
 	defaultValues = undefined,
 	type = "criar",
-}: IBeeFormCategoria) => {
+}: any) => {
 	const [open, setOpen] = useState(true);
 
 	const handleCreate = async (data: {
@@ -62,6 +62,8 @@ const FormCategoria = ({
 		{label: "Período", value: 2},
 		{label: "Tecnologia", value: 3},
 	];
+
+	console.log(defaultValues);
 
 	return (
 		<>
@@ -106,33 +108,14 @@ const FormCategoria = ({
 											)}
 										</div>
 										<div className="mt-3">
-											<Controller
-												name="tipo"
+											<BeeSelect
 												control={control}
-												render={({field}) => (
-													<BeeSelect
-														placeholder="Selecione o tipo"
-														options={options}
-														value={
-															defaultValues == undefined
-																? {
-																		label:
-																			options[field.value - 1] !== undefined
-																				? options[field.value - 1].label
-																				: "Selecione o tipo",
-																		value: field.value,
-																	}
-																: {
-																		label:
-																			options[defaultValues.value - 1].label,
-																		value: defaultValues.value,
-																	}
-														}
-														onChange={(option) => field.onChange(option.value)}
-														icone={Hexagon}
-													/>
-												)}
+												name="tipo"
+												placeholder="Selecione o tipo"
+												options={options}
+												icone={Hexagon}
 											/>
+
 											{errors.tipo && (
 												<p className="text-red-500 text-sm mt-1">
 													{errors.tipo.message}

@@ -79,7 +79,11 @@ class UsuarioViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
 
     def get_permissions(self):
-        if self.action in ["create", "usernameExits", "profileUsername"]:
+        if self.action in [
+            "create",
+            "usernameExits",
+            "profileUsername",
+        ]:
             return [AllowAny()]
         return super().get_permissions()
 

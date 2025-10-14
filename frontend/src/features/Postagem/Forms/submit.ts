@@ -5,7 +5,7 @@ import { NavigateFunction } from "react-router-dom";
 
 const onSubmit: any = async (data: any, caminho: NavigateFunction, usuario: any, username: any) => {
         const info: any = submitData(data, usuario);
-
+    
         try {
             await PostagemService.post(info);
             caminho(`/${username}/`, {

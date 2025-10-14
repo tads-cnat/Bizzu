@@ -100,6 +100,7 @@ const EditPostagem: React.FC = () => {
 					},
 					categoria: postagem.categorias,
 					imagem: postagem.imagem,
+					usuario: 1,
 				}}
 				usuario={usuario}
 			/>

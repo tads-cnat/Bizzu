@@ -48,6 +48,7 @@ const submitData: SubmitHandler<any> =  (data: any, usuario: any) => {
         } else if (data.arquivo) {
             dataSubmit.append("arquivos[]", data.arquivo);
         }
+        console.log("AAAAAAAAAAAAa");
     
         return dataSubmit;
     };
