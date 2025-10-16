@@ -10,6 +10,8 @@ import PerfilComunidade from "../features/Perfil/PerfilComunidade";
 import LayoutCommunity from "../features/Layout/LayoutCommunity";
 import DetalhesRepositorio from "../features/Repositorio/Detalhes";
 import EditPerfil from "../features/Perfil/Edit";
+import CreateComunidade from "../features/Comunidade/Create";
+import EditComunidade from "../features/Comunidade/Edit";
 
 export const privatesRoutes = [
 	{
@@ -51,6 +53,14 @@ export const privatesRoutes = [
 			{
 				path: "repositorio/:id",
 				element: <DetalhesRepositorio />,
+			},
+			{
+				path: "comunidade/criar/",
+				element: <CreateComunidade />,
+			},
+			{
+				path: "comunidade/editar/:id",
+				element: <EditComunidade />,
 			},
 		],
 	},

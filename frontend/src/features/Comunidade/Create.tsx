@@ -28,15 +28,18 @@ const CreateComunidade: React.FC = () => {
 	}, []);
 
 	return username !== undefined ? (
-		<BeeForm
-			schema={schema}
-			sections={sections}
-			onSubmit={(data: any) => {
-				onSubmit(data, caminho, usuario, username);
-			}}
-			usuario={usuario}
-			defaultValues={{usuario: 1}}
-		/>
+		<div className="w-full">
+			<h1 className="text-2xl font-bold mb-4">Criar Comunidade</h1>
+			<BeeForm
+				schema={schema}
+				sections={sections}
+				onSubmit={(data: any) => {
+					onSubmit(data, caminho, usuario, username);
+				}}
+				usuario={usuario}
+				defaultValues={{usuario: 1}}
+			/>
+		</div>
 	) : (
 		<Spin />
 	);

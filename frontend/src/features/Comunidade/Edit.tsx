@@ -11,7 +11,7 @@ import sections from "./forms/sections";
 import onSubmit from "./forms/submitEdit";
 import ComunidadeService from "../../services/models/ComunidadeService";
 
-const EditPostagem: React.FC = () => {
+const EditComunidade: React.FC = () => {
 	const [usuario, setUsuario] = useState<IBeeUser>();
 	const {id} = useParams();
 	const [comunidade, setComunidade] = useState<any[]>([]);
@@ -69,4 +69,4 @@ const EditPostagem: React.FC = () => {
 	);
 };
 
-export default EditPostagem;
+export default EditComunidade;
