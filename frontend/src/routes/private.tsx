@@ -10,7 +10,7 @@ import FormEditarPerfil from "../features/Perfil/Form/FormEditarPerfil";
 import PerfilComunidade from "../features/Perfil/PerfilComunidade";
 import LayoutCommunity from "../features/Layout/LayoutCommunity";
 import DetalhesRepositorio from "../features/Repositorio/Detalhes";
-import RepositoriosFavoritos from "../features/Repositorio/Favoritos";
+import RepositoriosFavoritos from "../features/Repositorio/RepositoriosFavoritos";
 
 export const privatesRoutes = [
 	{
@@ -54,7 +54,7 @@ export const privatesRoutes = [
 				element: <DetalhesRepositorio />,
 			},
 			{
-				path: "/:username/favoritos",
+				path: "repositorios-favoritos",
 				element: <RepositoriosFavoritos />,
 			},
 		],
