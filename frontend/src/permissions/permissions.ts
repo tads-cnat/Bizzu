@@ -28,10 +28,10 @@ export const Permissions: Record<string, Partial<Record<Types, Roles[]>>> = {
 		[Types.UPDATE]: [Roles.MODERADOR, Roles.INTERNAUTA],
 		[Types.DELETE]: [Roles.MODERADOR, Roles.INTERNAUTA],
 	},
-	editar: {
-		[Types.CREATE]: [Roles.MODERADOR, Roles.INTERNAUTA],
-		[Types.READ]: [Roles.MODERADOR, Roles.INTERNAUTA],
-		[Types.UPDATE]: [Roles.MODERADOR, Roles.INTERNAUTA],
-		[Types.DELETE]: [Roles.MODERADOR, Roles.INTERNAUTA],
+	"/comunidade/criar": {
+		[Types.CREATE]: [Roles.ADMINISTRADOR],
+	},
+	"/comunidade/editar/:id": {
+		[Types.CREATE]: [Roles.ADMINISTRADOR],
 	},
 };

@@ -1,31 +1,28 @@
 import React, {useState} from "react";
 import {IBeeAbasPerfil} from "./IBeeAbasPerfil";
 import "./styles.css";
-import getLocalStorage from "../../../../utils/getLocalStorage";
 import {Tabs} from "antd";
 
 const BeeAbasPerfil: React.FC<IBeeAbasPerfil> = ({
 	children,
 	initialActiveKey,
+	papel,
 	owner,
 }) => {
-	const [papel, setPapel] = useState("");
-	if (getLocalStorage() != null && papel == "") {
-		setPapel(getLocalStorage().papel);
-	}
 	const childrenArray = React.Children.toArray(children);
-	const abas = [
-		{
-			key: "1",
-			label: <span className="text-[#333333] font-medium">Postagens</span>,
-			children: <>{childrenArray[0]}</>,
-		},
-		{
+	const abas = [];
+	if ((papel === "mod" || papel == "int") && owner) {
+		abas.push({
 			key: "2",
 			label: <span className="text-[#333333] font-medium">Repositórios</span>,
 			children: <>{childrenArray[1]}</>,
-		},
-	];
+		});
+		abas.push({
+			key: "1",
+			label: <span className="text-[#333333] font-medium">Postagens</span>,
+			children: <>{childrenArray[0]}</>,
+		});
+	}
 	if (papel === "mod" && owner) {
 		abas.push({
 			key: "4",
@@ -43,6 +40,13 @@ const BeeAbasPerfil: React.FC<IBeeAbasPerfil> = ({
 			key: "5",
 			label: <span className="text-[#333333] font-medium">Denúncias</span>,
 			children: <>{childrenArray[4]}</>,
+		});
+	}
+	if (papel === "adm" && owner) {
+		abas.push({
+			key: "6",
+			label: <span className="text-[#333333] font-medium">Comunidades</span>,
+			children: <>{childrenArray[5]}</>,
 		});
 	}
 	const [activeKey, setActiveKey] = useState(initialActiveKey || abas[0].key);

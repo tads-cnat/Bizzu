@@ -3,4 +3,8 @@ export interface IBeeCard{
     title:string;
     //Descrição da comunidade 
     description: string;
+    //O que ocorre quando clicar
+    click?: any;
+    //Capa do card
+    cover?: React.ReactNode;
 }

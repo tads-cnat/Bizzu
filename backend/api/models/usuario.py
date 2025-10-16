@@ -39,7 +39,7 @@ class Usuario(AbstractUser):
         blank=True,
     )
 
-    PERFIS = (("mod", "moderador"), ("int", "internauta"))
+    PERFIS = (("mod", "moderador"), ("int", "internauta"), ("adm", "administrador"))
     papel = models.CharField(verbose_name="Papel", null=True, choices=PERFIS)
 
     def __str__(self):

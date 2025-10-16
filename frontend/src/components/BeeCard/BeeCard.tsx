@@ -1,23 +1,21 @@
 import {Card} from "antd";
 import {IBeeCard} from "./IBeeCard";
-import BeeButton from "../BeeButtons/BeeButtons";
 
 const {Meta} = Card;
 
-const BeeCard = ({title, description}: IBeeCard) => {
+const BeeCard = ({title, description, click, cover}: IBeeCard) => {
 	return (
 		<>
 			<Card
 				title={title}
-				style={{width: 300, marginBottom: "10px", justifySelf: "center"}}
+				style={{width: 500, marginBottom: "10px", justifySelf: "center"}}
+				onClick={click}
+				cover={cover}
+				hoverable
 			>
 				<Meta
 					description={description}
 					style={{marginBottom: "10px"}}
-				/>
-				<BeeButton
-					variante="primaria"
-					label="Seguir"
 				/>
 			</Card>
 		</>
