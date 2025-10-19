@@ -6,6 +6,13 @@ export interface IUsuario {
 	id: number; // Adicionado id
 }
 
+// Interface para categoria
+export interface ICategoria {
+	id: number;
+	nome: string;
+	tipo: "tec" | "mat" | "per";
+}
+
 // Interface para repositorio conforme retornada pelo backend
 export interface IRepositorio {
 	id: number;
@@ -15,7 +22,8 @@ export interface IRepositorio {
 	dataPublicacao: string;
 	usuario?: IUsuario | null;
 	comunidade?: number | null;
-	categorias: number[];
+	categorias: ICategoria[]; // Mudado para array de objetos categoria
+	estaFavoritado?: boolean;
 }
 
 // Interface para valores do formulário de postagem
