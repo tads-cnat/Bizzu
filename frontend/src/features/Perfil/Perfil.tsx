@@ -221,11 +221,7 @@ const Perfil: React.FC = () => {
 								<BeeCardDenuncia />
 							</div>
 							<div>
-								<BeeCard
-									click={"comunidade/:id"}
-									description="lalal"
-									title="teste"
-								/>
+								<BeeCard />
 							</div>
 						</BeeAbasPerfil>
 					</div>

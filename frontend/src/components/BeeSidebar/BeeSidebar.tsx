@@ -17,12 +17,14 @@ export const BeeSidebar = ({onSelecionarSecao}: IBeeSidebarProps) => {
 	const [usuario, setUsuario] = useState<IBeeUser>();
 	const [comunidades, setComunidades] = useState<MenuItem[]>([]);
 	const [collapsed, setCollapsed] = useState(false);
+	const [papel, setPapel] = useState();
 
 	const toggleCollapsed = () => {
 		setCollapsed(!collapsed);
 	};
 
 	if (getLocalStorage() != null && username == undefined) {
+		if (papel == undefined) setPapel(getLocalStorage().papel);
 		setUsername(getLocalStorage().username);
 	}
 
@@ -55,34 +57,44 @@ export const BeeSidebar = ({onSelecionarSecao}: IBeeSidebarProps) => {
 	}, []);
 
 	type MenuItem = GetProp<MenuProps, "items">[number];
-	const items: MenuItem[] = [
-		{
-			key: "1",
-			icon: (
-				<House
-					size={23}
-					weight="fill"
-				/>
-			),
-			label: "Página inicial",
-		},
-		{
-			key: "2",
-			icon: (
-				<User
-					size={23}
-					weight="fill"
-				/>
-			),
-			label: "Você segue",
-		},
-		{
-			key: "3",
-			label: "Comunidades",
-			icon: <Globe size={23} />,
-			children: comunidades,
-		},
-	];
+	const items: MenuItem[] =
+		papel === "adm"
+			? [
+					{
+						key: "3",
+						label: "Comunidades",
+						icon: <Globe size={23} />,
+						children: comunidades,
+					},
+				]
+			: [
+					{
+						key: "1",
+						icon: (
+							<House
+								size={23}
+								weight="fill"
+							/>
+						),
+						label: "Página inicial",
+					},
+					{
+						key: "2",
+						icon: (
+							<User
+								size={23}
+								weight="fill"
+							/>
+						),
+						label: "Você segue",
+					},
+					{
+						key: "3",
+						label: "Comunidades",
+						icon: <Globe size={23} />,
+						children: comunidades,
+					},
+				];
 
 	return (
 		<>

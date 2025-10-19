@@ -13,9 +13,6 @@ class Comunidade(models.Model):
         verbose_name="Banner", upload_to="banners/%Y/%m/%d/", blank=True, null=True
     )
     coordenacao = models.CharField(verbose_name="Coordenação", max_length=50)
-    linkPPC = models.URLField(verbose_name="Link ppc")
-    linkHorarios = models.URLField(verbose_name="Link horários")
-    linkExtra = models.URLField(verbose_name="Link extra")
     seguidores = models.ManyToManyField(
         "Usuario",
         symmetrical=False,

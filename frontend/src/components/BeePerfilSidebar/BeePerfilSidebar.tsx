@@ -202,7 +202,7 @@ const BeePerfilSidebar: React.FC = () => {
 				</div>
 
 				{/* Card de Configurações */}
-				{userLocal == usuario.username && (
+				{papel !== "adm" && userLocal == usuario.username && (
 					<div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
 						<div className="flex items-center gap-2 mb-4">
 							<Gear

@@ -26,6 +26,8 @@ class ComunidadeViewSet(viewsets.ModelViewSet):
             "seguir_comunidade",
         ]:
             return [(Moderador | Internauta)()]
+        elif self.action == "listarComunidadeAdm":
+            return [Adm()]
         return super().get_permissions()
 
     @action(detail=True, methods=["post"])
@@ -64,3 +66,10 @@ class ComunidadeViewSet(viewsets.ModelViewSet):
         return Response(
             {"seguidores": comunidade.seguidores.count()}, status=status.HTTP_200_OK
         )
+
+    @action(detail=False, methods=["get"], url_path="listarComunidadeAdm")
+    def listarComunidadeAdm(self, request):
+        usuario = request.user
+        comunidades = Comunidade.objects.filter(usuario=usuario)
+        serializer = ComunidadeSerializer(comunidades, many=True)
+        return Response(serializer.data)
