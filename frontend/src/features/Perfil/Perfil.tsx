@@ -116,6 +116,7 @@ const Perfil: React.FC = () => {
 							initialActiveKey={papel == "adm" ? "6" : "1"}
 							owner={usuario?.username == username}
 							papel={papel}
+							isComunidade={false}
 						>
 							{postagens?.length ? (
 								<div className="space-y-4">

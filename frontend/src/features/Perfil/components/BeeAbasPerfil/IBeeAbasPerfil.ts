@@ -7,4 +7,6 @@ export interface IBeeAbasPerfil {
     owner: boolean;
     //Papel do usuário
     papel:string;
+    // para dizer se é comunidade ou não
+    isComunidade?: boolean;
 }

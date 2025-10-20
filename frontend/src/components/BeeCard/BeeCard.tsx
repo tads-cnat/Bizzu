@@ -26,45 +26,42 @@ const BeeCard = ({}: IBeeCard) => {
 	console.log("BeeCard montou!");
 	return (
 		<>
-			{comunidades.length === 0 ? (
-				<Empty
-					description="Você ainda não criou nenhuma comunidade!"
-					image={Empty.PRESENTED_IMAGE_SIMPLE}
-				/>
-			) : (
-				comunidades.map((s: any) => (
+			{comunidades.map((s) => (
+				<div
+					key={s.id}
+					className="mb-4"
+				>
 					<Link
 						to={`/comunidade/${s.id}`}
-						key={s.id}
+						className="block"
 					>
 						<Card
-							title={s.nome}
-							style={{width: 500, marginBottom: "10px", justifySelf: "center"}}
-							cover={
+							hoverable
+							className="w-[500px] p-4"
+						>
+							<div className="flex items-center gap-4">
 								<img
 									src={
 										s.imagem
 											? `http://localhost:8000${s.imagem}`
 											: "http://localhost:8000/imgPostagens/usuarios/2025/06/10/sem_imagem_avatar.png"
 									}
-									alt="Imagem de usuário"
-									className="size-22 flex-none rounded-full bg-gray-50"
+									alt="Imagem da comunidade"
+									className="w-20 h-20 object-cover rounded-full"
 									style={{
 										clipPath:
 											"polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0% 50%)",
 									}}
 								/>
-							}
-							hoverable
-						>
-							<Meta
-								description={s.descricao}
-								style={{marginBottom: "10px"}}
-							/>
+								<div className="flex flex-col justify-center">
+									<h3 className="font-semibold text-lg">{s.nome}</h3>
+									<p className="text-sm text-gray-600">{s.descricao}</p>
+								</div>
+							</div>
 						</Card>
 					</Link>
-				))
-			)}
+				</div>
+			))}
 		</>
 	);
 };

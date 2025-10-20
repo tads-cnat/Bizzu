@@ -8,6 +8,7 @@ const BeeAbasPerfil: React.FC<IBeeAbasPerfil> = ({
 	initialActiveKey,
 	papel,
 	owner,
+	isComunidade,
 }) => {
 	const childrenArray = React.Children.toArray(children);
 	const abas = [];
@@ -42,11 +43,23 @@ const BeeAbasPerfil: React.FC<IBeeAbasPerfil> = ({
 			children: <>{childrenArray[4]}</>,
 		});
 	}
-	if (papel === "adm" && owner) {
+	if (papel === "adm" && owner && !isComunidade) {
 		abas.push({
 			key: "6",
 			label: <span className="text-[#333333] font-medium">Comunidades</span>,
 			children: <>{childrenArray[5]}</>,
+		});
+	}
+	if (papel === "adm" && isComunidade) {
+		abas.push({
+			key: "2",
+			label: <span className="text-[#333333] font-medium">Repositórios</span>,
+			children: <>{childrenArray[1]}</>,
+		});
+		abas.push({
+			key: "1",
+			label: <span className="text-[#333333] font-medium">Postagens</span>,
+			children: <>{childrenArray[0]}</>,
 		});
 	}
 	const [activeKey, setActiveKey] = useState(initialActiveKey || abas[0].key);
