@@ -6,16 +6,38 @@ import UsuarioService from "../../services/models/UsuarioService";
 import setLocalStorage from "../../utils/setLocalStorage";
 import {IBeeContext} from "./interfaces/IBeeContext";
 
-export const AutenticationContext = createContext<IBeeContext>(
-	{} as IBeeContext,
-);
+export const AutenticationContext = createContext<IBeeContext>({
+	username: "",
+	token: "",
+	id: 0,
+	papel: "",
+	autenticar: async () => {},
+	deslogar: () => {},
+	atualizarUsuario: () => {},
+});
 
 const AuthProvider = ({children}: IBeeProvider) => {
 	const [usuario, setUsuario] = useState<IBeeUsuario | null>(null);
 
 	useEffect(() => {
 		const user = getLocalStorage();
-		if (user) setUsuario(user);
+		if (user) {
+			// Se o usuário não tem ID, tenta recarregar os dados do servidor
+			if (!user.id && user.username) {
+				UsuarioService.getbyUsername(user.username)
+					.then((fullUser) => {
+						const updatedUser = {...user, id: fullUser.id};
+						setUsuario(updatedUser);
+						setLocalStorage(updatedUser);
+					})
+					.catch(() => {
+						// Se falhar, mantém o usuário atual
+						setUsuario(user);
+					});
+			} else {
+				setUsuario(user);
+			}
+		}
 	}, []);
 
 	const atualizarUsuario = () => {
@@ -30,8 +52,12 @@ const AuthProvider = ({children}: IBeeProvider) => {
 		const saveToken = await UsuarioService.postToken({username, password});
 
 		const user: IBeeUsuario = await UsuarioService.getbyUsername(username);
-		console.log("TOKEN ", user);
-		const tokens = {token: saveToken.access, username, papel: user.papel};
+		const tokens = {
+			token: saveToken.access,
+			username,
+			papel: user.papel,
+			id: user.id,
+		};
 		setUsuario(tokens);
 		setLocalStorage(tokens);
 	};
@@ -44,7 +70,15 @@ const AuthProvider = ({children}: IBeeProvider) => {
 	return (
 		<>
 			<AutenticationContext.Provider
-				value={{autenticar, deslogar, atualizarUsuario, ...usuario}}
+				value={{
+					autenticar,
+					deslogar,
+					atualizarUsuario,
+					username: usuario?.username || "",
+					token: usuario?.token || "",
+					id: usuario?.id || 0,
+					papel: usuario?.papel || "",
+				}}
 			>
 				{children}
 			</AutenticationContext.Provider>

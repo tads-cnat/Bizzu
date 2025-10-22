@@ -12,6 +12,7 @@ import DetalhesRepositorio from "../features/Repositorio/Detalhes";
 import EditPerfil from "../features/Perfil/Edit";
 import CreateComunidade from "../features/Comunidade/Create";
 import EditComunidade from "../features/Comunidade/Edit";
+import RepositoriosFavoritos from "../features/Repositorio/RepositoriosFavoritos";
 
 export const privatesRoutes = [
 	{
@@ -61,6 +62,10 @@ export const privatesRoutes = [
 			{
 				path: "comunidade/editar/:id",
 				element: <EditComunidade />,
+			},
+			{
+				path: "repositorios-favoritos",
+				element: <RepositoriosFavoritos />,
 			},
 		],
 	},
