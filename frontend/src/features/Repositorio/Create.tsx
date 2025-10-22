@@ -53,7 +53,7 @@ const CreateRepositorio: React.FC = () => {
 
 	return (
 		<div className="w-full">
-			<h1 className="text-2xl font-bold mb-4">Criar Novo Repositorio</h1>
+			<h1 className="text-2xl font-bold mb-4">Criar Repositório</h1>
 			<BeeForm
 				schema={schema}
 				sections={sections}
@@ -61,6 +61,7 @@ const CreateRepositorio: React.FC = () => {
 					onSubmit(data, caminho, username);
 				}}
 				options={comunidades}
+				usuario={usuario}
 			/>
 		</div>
 	);

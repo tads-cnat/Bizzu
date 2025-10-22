@@ -14,14 +14,14 @@ const BeeAbasPerfil: React.FC<IBeeAbasPerfil> = ({
 	const abas = [];
 	if ((papel === "mod" || papel == "int") && owner) {
 		abas.push({
-			key: "2",
-			label: <span className="text-[#333333] font-medium">Repositórios</span>,
-			children: <>{childrenArray[1]}</>,
-		});
-		abas.push({
 			key: "1",
 			label: <span className="text-[#333333] font-medium">Postagens</span>,
 			children: <>{childrenArray[0]}</>,
+		});
+		abas.push({
+			key: "2",
+			label: <span className="text-[#333333] font-medium">Repositórios</span>,
+			children: <>{childrenArray[1]}</>,
 		});
 	}
 	if (papel === "mod" && owner) {
