@@ -38,6 +38,7 @@ const BeeForm = ({
 			escolaFormacao: defaultValues ? defaultValues.escolaFormacao : null,
 			instituicaoAtual: defaultValues ? defaultValues.instituicaoAtual : null,
 			imagemPerfil: defaultValues ? defaultValues.imagemPerfil : null,
+			coordenacao: defaultValues ? defaultValues.coordenacao : null,
 		},
 	});
 
@@ -97,6 +98,7 @@ const BeeForm = ({
 										defaultValue={
 											defaultValues ? defaultValues[field.name] : ""
 										}
+										type={field.props.type ? field.props.type : "text"}
 									/>
 									{errorMessage !== undefined && (
 										<p className="text-red-500 text-sm">{errorMessage}</p>

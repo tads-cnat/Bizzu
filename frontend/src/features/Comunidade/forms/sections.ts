@@ -37,13 +37,14 @@ const sections: section = {
                 name: "fundacao",
                 label: "Ano de fundação",
                 placeholder: "Digite o ano de fundação...",
+                type: "date"
             },
         },
         {
-            name: "coodenacao",
+            name: "coordenacao",
             type: "input",
             props: {
-                name: "coodenacao",
+                name: "coordenacao",
                 label: "Coordenação do curso",
                 placeholder: "Digite a coordenação do curso...",
             },

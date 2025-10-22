@@ -37,7 +37,7 @@ const CreateComunidade: React.FC = () => {
 					onSubmit(data, caminho, usuario, username);
 				}}
 				usuario={usuario}
-				defaultValues={{usuario: 1}}
+				defaultValues={{usuario: usuario}}
 			/>
 		</div>
 	) : (

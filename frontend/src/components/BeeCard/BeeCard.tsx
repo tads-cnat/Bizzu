@@ -14,16 +14,14 @@ const BeeCard = ({}: IBeeCard) => {
 		try {
 			const data = await ComunidadeService.listarComunidadeAdm();
 			setComunidades(Array.isArray(data) ? data : []);
-			console.log("Comunidades do administrador carregadas com sucesso!");
 		} catch {
-			console.log("Erro ao carregar comunidades do adm");
 			setComunidades([]);
 		}
 	};
 	useEffect(() => {
 		loadComunidadeAdm();
 	}, []);
-	console.log("BeeCard montou!");
+
 	return (
 		<>
 			{comunidades.map((s) => (

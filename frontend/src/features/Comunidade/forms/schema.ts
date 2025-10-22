@@ -13,11 +13,11 @@ const schema = yup.object().shape({
         .max(200, "Decrição não pode ter mais de 200 caracteres"),
     imagem: yup.mixed().nullable().optional(),
     fundacao: yup
+        .date()
+        .required("o ano de fundação é obrigatório"),
+    coordenacao: yup
         .string()
-        .optional(),
-    coodenacao: yup
-        .string()
-        .optional(),
+        .required("A coordenação do curso é obrigatória"),
     banner: yup.mixed().nullable().optional(),
     
 });

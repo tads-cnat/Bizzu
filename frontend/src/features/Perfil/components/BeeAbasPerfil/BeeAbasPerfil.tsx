@@ -52,14 +52,14 @@ const BeeAbasPerfil: React.FC<IBeeAbasPerfil> = ({
 	}
 	if (papel === "adm" && isComunidade) {
 		abas.push({
-			key: "2",
-			label: <span className="text-[#333333] font-medium">Repositórios</span>,
-			children: <>{childrenArray[1]}</>,
-		});
-		abas.push({
 			key: "1",
 			label: <span className="text-[#333333] font-medium">Postagens</span>,
 			children: <>{childrenArray[0]}</>,
+		});
+		abas.push({
+			key: "2",
+			label: <span className="text-[#333333] font-medium">Repositórios</span>,
+			children: <>{childrenArray[1]}</>,
 		});
 	}
 	const [activeKey, setActiveKey] = useState(initialActiveKey || abas[0].key);

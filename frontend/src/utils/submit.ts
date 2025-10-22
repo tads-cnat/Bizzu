@@ -1,6 +1,7 @@
 import { SubmitHandler } from "react-hook-form";
 
 const submitData: SubmitHandler<any> =  (data: any, usuario: any) => {
+    console.log("DATA ", data);
         const dataSubmit = new FormData();
         if (data.usuario !== null && data.usuario !== undefined){
             dataSubmit.append("usuario", String(usuario?.id));
@@ -39,6 +40,12 @@ const submitData: SubmitHandler<any> =  (data: any, usuario: any) => {
         }
         if (data.descricao !== null && data.descricao !== undefined){
             dataSubmit.append("descricao", data.descricao);
+        }
+        if (data.coordenacao !== null && data.coordenacao !== undefined){
+            dataSubmit.append("coordenacao", data.coordenacao);
+        }
+        if (data.fundacao !== null && data.fundacao !== undefined){
+            dataSubmit.append("anoFundacao", data.fundacao.toISOString().split("T")[0]);
         }
         if (data.arquivo && Array.isArray(data.arquivo)) {
             data.arquivo.forEach((file: File) => {
