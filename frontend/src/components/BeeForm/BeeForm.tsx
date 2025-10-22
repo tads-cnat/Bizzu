@@ -39,6 +39,7 @@ const BeeForm = ({
 			instituicaoAtual: defaultValues ? defaultValues.instituicaoAtual : null,
 			imagemPerfil: defaultValues ? defaultValues.imagemPerfil : null,
 			coordenacao: defaultValues ? defaultValues.coordenacao : null,
+			fundacao: defaultValues ? defaultValues.fundacao : null,
 		},
 	});
 

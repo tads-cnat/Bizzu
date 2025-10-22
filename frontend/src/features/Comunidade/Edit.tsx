@@ -56,8 +56,8 @@ const EditComunidade: React.FC = () => {
 					nome: comunidade.nome,
 					descricao: comunidade.descricao,
 					imagem: comunidade.imagem,
-					fundacao: comunidade.fundacao,
-					coodenacao: comunidade.coodenacao,
+					fundacao: comunidade.anoFundacao,
+					coordenacao: comunidade.coordenacao,
 					banner: comunidade.banner,
 					usuario: 1,
 				}}
