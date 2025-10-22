@@ -3,9 +3,6 @@
 import {useEffect, useState} from "react";
 import UsuarioService from "../../services/models/UsuarioService";
 import {IBeeFTPerfil} from "./IBeeFTPerfil";
-import {Link} from "react-router-dom";
-import acessAuth from "../../utils/acessAuth";
-import BeeNotification from "../BeeNotification/BeeNotification";
 
 function tempoDesde(data: string): string {
 	const date = new Date(data);
@@ -22,7 +19,11 @@ function tempoDesde(data: string): string {
 	return "agora mesmo";
 }
 
-const BeeFTPerfil: React.FC<IBeeFTPerfil> = ({usuarioId, dataPublicacao}) => {
+const BeeFTPerfil: React.FC<IBeeFTPerfil> = ({
+	usuarioId,
+	dataPublicacao,
+	comunidade,
+}) => {
 	const [usuario, setUsuario] = useState<any>();
 
 	useEffect(() => {
@@ -37,6 +38,10 @@ const BeeFTPerfil: React.FC<IBeeFTPerfil> = ({usuarioId, dataPublicacao}) => {
 		if (usuario == undefined) {
 			fetchUser();
 		}
+	}, []);
+
+	useEffect(() => {
+		console.log("USER ", usuario);
 	}, []);
 
 	return (
@@ -58,7 +63,11 @@ const BeeFTPerfil: React.FC<IBeeFTPerfil> = ({usuarioId, dataPublicacao}) => {
 					/>
 				</div>
 				<div className="p-2 ">
-					{usuario?.username || "usuário não encontrado"}
+					{!usuario?.username
+						? "usuário não encontrado"
+						: usuario.papel === "adm"
+							? comunidade
+							: usuario?.username}
 					<span className="text-[#FCBD18] font-poppins font-semibold text-xs">
 						{" "}
 						• {tempoDesde(dataPublicacao)}{" "}

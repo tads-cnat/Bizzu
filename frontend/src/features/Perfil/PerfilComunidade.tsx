@@ -75,6 +75,7 @@ const PerfilComunidade = () => {
 										dataPublicacao={post.dataPublicacao}
 										imagemPost={post.imagem}
 										onExcluir={handleExcluir}
+										comunidade={comunidadeNome}
 									/>
 								</div>
 							);

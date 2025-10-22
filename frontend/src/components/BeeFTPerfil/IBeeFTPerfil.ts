@@ -3,4 +3,6 @@ export interface IBeeFTPerfil {
     usuarioId: number | string;
     // props utilizada para fazer a função que vai calcular o tempo da postagem
     dataPublicacao: string;
+    //Se for um SDM criando postagem
+    comunidade? : string
 }
