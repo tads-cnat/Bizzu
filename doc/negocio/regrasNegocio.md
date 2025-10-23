@@ -3,7 +3,8 @@
 **Histórico de Alterações:**
 | Versão | Autor | Data |
 |--------|-------|------|
-| 1.0 | Ana Maria | 02 de agosto de 2025 |
+| 02/08/2025 | 1.0 | Ana Maria |
+| 08/10/2025 | 2.0 | Ana Maria |
 
 | N°  | Descrição                                                             | Contexto                                                                                                                      | Ação do sistema                                                                                                                                       |
 | --- | --------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -19,3 +20,4 @@
 | 010 | Alteração de perfil                                                   | Apenas usuários autenticados podem atualizar dados do seu próprio perfil                                                      | Outros usuário não podem fazer modificações em perfis que não lhe pertençam.                                                                          |
 | 011 | Criação de postagens e comentários                                    | Apenas usuários autenticados (internautas ou moderadores) podem postar e comentar                                             | Visitantes não têm acesso às funções de criar postagens ou comentar.                                                                                  |
 | 012 | Visualização de perfis de outros usuários                             | Somente usuários autenticados podem visualizar perfis completos de outros usuários                                            | Visitantes visualizam apenas conteúdo público, sem acesso a detalhes de perfis.                                                                       |
+| 013 | Edição, criação e manutenção de comunidades                           | Somente usuários autenticados com o papel de administrador                                                                    | Moderadores e internautas não possuem controle sobre as comunidades do sistema                                                                        |
