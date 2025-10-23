@@ -16,7 +16,7 @@ import CategoriaService from "../../../services/models/CategoriaService";
 
 const schema = yup.object().shape({
 	nome: yup.string().required("O nome é obrigatório"),
-	tipo: yup.number().required("Selecione um tipo"),
+	tipo: yup.mixed().required("Selecione um tipo"),
 });
 
 const FormCategoria = ({
@@ -30,9 +30,10 @@ const FormCategoria = ({
 		nome: string;
 		tipo: string;
 	}): Promise<void> => {
+		console.log("DATA ", data);
 		let tipagem = "mat";
-		if (data.tipo == "2") tipagem = "per";
-		else if (data.tipo == "3") tipagem = "tec";
+		if (data.tipo.value == "2") tipagem = "per";
+		else if (data.tipo.value == "3") tipagem = "tec";
 		const response = {nome: data.nome, tipo: tipagem};
 		if (type == "criar") {
 			await CategoriaService.post(response);
@@ -63,7 +64,7 @@ const FormCategoria = ({
 		{label: "Tecnologia", value: 3},
 	];
 
-	console.log(defaultValues);
+	console.log("CAR", defaultValues);
 
 	return (
 		<>
@@ -114,6 +115,19 @@ const FormCategoria = ({
 												placeholder="Selecione o tipo"
 												options={options}
 												icone={Hexagon}
+												defaultValue={
+													defaultValues
+														? {
+																value: defaultValues.value,
+																label:
+																	defaultValues.label == "mat"
+																		? "Matéria"
+																		: defaultValues.label == "tec"
+																			? "Tecnologia"
+																			: "Período",
+															}
+														: undefined
+												}
 											/>
 
 											{errors.tipo && (

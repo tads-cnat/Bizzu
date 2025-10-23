@@ -30,18 +30,9 @@ const BeeSelect = ({
 			e.preventDefault();
 			e.stopPropagation();
 			const emptyValue = {label: placeholder, value: ""};
-			setSelected(emptyValue);
 			onChange?.(emptyValue);
 		},
 		[placeholder, onChange],
-	);
-
-	const handleChange = useCallback(
-		(newValue: any) => {
-			setSelected(newValue);
-			onChange?.(newValue);
-		},
-		[onChange],
 	);
 
 	// Evitar loop infinito verificando se o valor realmente mudou
@@ -57,6 +48,7 @@ const BeeSelect = ({
 			setSelected({label: placeholder, value: ""});
 		}
 	}, [value, placeholder, defaultValue]);
+	console.log("DEFAULTTT ", defaultValue);
 
 	return (
 		<div className="w-full max-w-full">
@@ -64,73 +56,74 @@ const BeeSelect = ({
 				name={name}
 				control={control}
 				defaultValue={defaultValue}
-				render={({field}) => (
-					<Listbox
-						value={selected}
-						onChange={(newValue) => {
-							handleChange(newValue);
-							const numericValue = newValue?.value
-								? Number(newValue.value)
-								: null;
-							field.onChange({value: numericValue, label: newValue.label});
-						}}
-					>
-						<div className="relative">
-							<ListboxButton
-								className="relative w-full cursor-default rounded-lg bg-[#FFFFFF] py-1.5 pr-10 pl-3 text-left text-[#333333] outline-1 -outline-offset-1 outline-[#B0B0B0] focus:outline-2 focus:-outline-offset-2 focus:outline-[#333333] sm:text-sm/6"
-								type="button"
-							>
-								<span className="flex items-center">
-									{Icon && (
-										<Icon
-											size={20}
-											weight="bold"
-											className="mr-2"
-										/>
-									)}
-									<span className="block truncate">
-										{selected?.value ? selected.label : placeholder}
+				render={({field}) => {
+					return (
+						<Listbox
+							value={field.value}
+							onChange={(newValue) => {
+								const numericValue = newValue?.value
+									? Number(newValue.value)
+									: null;
+								field.onChange({value: numericValue, label: newValue.label});
+							}}
+						>
+							<div className="relative">
+								<ListboxButton
+									className="relative w-full cursor-default rounded-lg bg-[#FFFFFF] py-1.5 pr-10 pl-3 text-left text-[#333333] outline-1 -outline-offset-1 outline-[#B0B0B0] focus:outline-2 focus:-outline-offset-2 focus:outline-[#333333] sm:text-sm/6"
+									type="button"
+								>
+									<span className="flex items-center">
+										{Icon && (
+											<Icon
+												size={20}
+												weight="bold"
+												className="mr-2"
+											/>
+										)}
+										<span className="block truncate">
+											{field.value?.value ? field.value.label : placeholder}
+										</span>
 									</span>
-								</span>
-								<span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-									{selected?.value && selected.value !== "" ? (
-										<button
-											type="button"
-											onClick={(e) => {
-												field.onChange("");
-												handleClear(e);
-											}}
-											className="pointer-events-auto cursor-pointer hover:bg-gray-100 rounded p-1"
-										>
-											<X size={16} />
-										</button>
-									) : (
-										<CaretUpDown size={20} />
-									)}
-								</span>
-							</ListboxButton>
+									<span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+										{field.value?.value && field.value.value !== "" ? (
+											<button
+												type="button"
+												onClick={(e) => {
+													field.onChange("");
+													handleClear(e);
+												}}
+												className="pointer-events-auto cursor-pointer hover:bg-gray-100 rounded p-1"
+											>
+												<X size={16} />
+											</button>
+										) : (
+											<CaretUpDown size={20} />
+										)}
+									</span>
+								</ListboxButton>
 
-							<ListboxOptions
-								transition
-								className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-hidden data-leave:transition data-leave:duration-100 data-leave:ease-in data-closed:data-leave:opacity-0 sm:text-sm"
-							>
-								{options.map((op) => (
-									<ListboxOption
-										key={op.value}
-										value={op}
-										className="group relative cursor-default select-none py-2 pl-3 pr-9 text-gray-900 data-focus:bg-[#FCBD18] data-focus:text-white"
-									>
-										<div className="flex items-center">
-											<span className="block truncate font-normal group-data-selected:font-semibold">
-												{op.label}
-											</span>
-										</div>
-									</ListboxOption>
-								))}
-							</ListboxOptions>
-						</div>
-					</Listbox>
-				)}
+								<ListboxOptions
+									transition
+									className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-hidden data-leave:transition data-leave:duration-100 data-leave:ease-in data-closed:data-leave:opacity-0 sm:text-sm"
+								>
+									{options.map((op) => (
+										<ListboxOption
+											key={op.value}
+											value={op}
+											className="group relative cursor-default select-none py-2 pl-3 pr-9 text-gray-900 data-focus:bg-[#FCBD18] data-focus:text-white"
+										>
+											<div className="flex items-center">
+												<span className="block truncate font-normal group-data-selected:font-semibold">
+													{op.label}
+												</span>
+											</div>
+										</ListboxOption>
+									))}
+								</ListboxOptions>
+							</div>
+						</Listbox>
+					);
+				}}
 			/>
 			{error && <p className="text-red-500 text-sm mt-1">{error}</p>}
 		</div>
