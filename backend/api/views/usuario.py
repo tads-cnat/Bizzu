@@ -216,6 +216,125 @@ class UsuarioViewSet(viewsets.ModelViewSet):
             status=200,
         )
 
+    @action(detail=False, methods=["GET"], permission_classes=[IsAuthenticated])
+    def repositorios_favoritos(self, request):
+        """Listar repositórios favoritados do usuário autenticado"""
+        try:
+            user = request.user
+            repositorios_favoritos = user.repositoriosFavoritados.all()
+
+            from api.serializers.repositorio import RepositorioSerializer
+
+            serializer = RepositorioSerializer(repositorios_favoritos, many=True)
+
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+    @action(detail=False, methods=["POST"], permission_classes=[IsAuthenticated])
+    def favoritar_repositorio(self, request):
+        """Favoritar um repositório"""
+        try:
+            repositorio_id = request.data.get("repositorio_id")
+            if not repositorio_id:
+                return Response(
+                    {"error": "ID do repositório é obrigatório"},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+
+            from ..models import Repositorio
+
+            repositorio = Repositorio.objects.get(id=repositorio_id)
+            usuario = request.user
+
+            if usuario.repositoriosFavoritados.filter(id=repositorio_id).exists():
+                return Response(
+                    {"message": "Repositório já foi favoritado anteriormente"},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+
+            usuario.repositoriosFavoritados.add(repositorio)
+
+            return Response(
+                {"message": "Repositório favoritado com sucesso"},
+                status=status.HTTP_200_OK,
+            )
+
+        except Repositorio.DoesNotExist:
+            return Response(
+                {"error": "Repositório não encontrado"},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+        except Exception as e:
+            return Response(
+                {"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
+    @action(detail=False, methods=["DELETE"], permission_classes=[IsAuthenticated])
+    def desfavoritar_repositorio(self, request):
+        """Remover um repositório dos favoritos"""
+        try:
+            repositorio_id = request.data.get("repositorio_id")
+            if not repositorio_id:
+                return Response(
+                    {"error": "ID do repositório é obrigatório"},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+
+            from ..models import Repositorio
+
+            repositorio = Repositorio.objects.get(id=repositorio_id)
+            usuario = request.user
+
+            if not usuario.repositoriosFavoritados.filter(id=repositorio_id).exists():
+                return Response(
+                    {"message": "Repositório não está nos favoritos"},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+
+            usuario.repositoriosFavoritados.remove(repositorio)
+
+            return Response(
+                {"message": "Repositório removido dos favoritos com sucesso"},
+                status=status.HTTP_200_OK,
+            )
+
+        except Repositorio.DoesNotExist:
+            return Response(
+                {"error": "Repositório não encontrado"},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+        except Exception as e:
+            return Response(
+                {"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
+    @action(detail=False, methods=["GET"], permission_classes=[IsAuthenticated])
+    def verificar_favorito(self, request):
+        """Verificar se um repositório está favoritado pelo usuário"""
+        try:
+            repositorio_id = request.query_params.get("repositorio_id")
+            if not repositorio_id:
+                return Response(
+                    {"error": "ID do repositório é obrigatório"},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+
+            usuario = request.user
+            esta_favoritado = usuario.repositoriosFavoritados.filter(
+                id=repositorio_id
+            ).exists()
+
+            return Response(
+                {"esta_favoritado": esta_favoritado}, status=status.HTTP_200_OK
+            )
+
+        except Exception as e:
+            return Response(
+                {"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
 
 class PesquisaViewSet(viewsets.ModelViewSet):
     queryset = Usuario.objects.all()

@@ -25,26 +25,36 @@ flowchart TD
 - ** (Usuário não autenticado)
 
 ## A. Tela 1: Feed 
-![FEED PRINCIPAL - LOGADO (COM ALTERAÇÕES)](https://github.com/user-attachments/assets/b1c35ec9-5110-4611-bad7-658053c2c84d)
+<img width="1919" height="985" alt="image" src="https://github.com/user-attachments/assets/bf7a8199-ada8-4fc0-8fb7-179b82265bdc" />
 
 
 ## B. Tela 2: Login/cadastro
-![TELA DE CADASTRO](https://github.com/user-attachments/assets/8f4d9693-c2ce-4f3b-80d3-f7891894c9a4)
+<img width="1919" height="982" alt="image" src="https://github.com/user-attachments/assets/453d1336-d982-4fdf-a230-3b10b9c4769f" />
 
-![LOGIN - DESLOGADO (COM ALTERAÇÕES](https://github.com/user-attachments/assets/f9de1987-f6fc-4135-9c89-c71278424141)
 
 ## C. Tela 3: Publicar repositórios
-![PERFIL NA MINHA VISÂO - NOVO REPOSITÓRIO](https://github.com/user-attachments/assets/e0288ec5-cfe3-4065-9efe-9d588b293f74)
+<img width="1140" height="644" alt="image" src="https://github.com/user-attachments/assets/a3ade00f-8295-4164-be98-f6db451a5fef" />
+
+
 
 ## D. Tela 4: Publicar postagem
-![PERFIL NA MINHA VISÂO - NOVO POST](https://github.com/user-attachments/assets/d0d89710-aa11-48ad-ae82-aa76e70b48b5)
+<img width="1151" height="640" alt="image" src="https://github.com/user-attachments/assets/71daa95f-b512-44d0-a050-51363fec648f" />
+
+
 
 ## E. Tela 5: Acessar repositório
-![FEED PRINCIPAL - REPOSITÓRIO](https://github.com/user-attachments/assets/975db22a-977d-4bcc-a608-5bd292f3aca6)
+<img width="1919" height="986" alt="image" src="https://github.com/user-attachments/assets/856f8565-2cb1-4b16-b3f6-f5754538e191" />
+
 
 ## F. Tela 6: Perfil da comunidade
-![COMUNIDADES - POSTS](https://github.com/user-attachments/assets/b870a70a-f5d1-4806-8639-fd87652e5167)
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/a50d8c14-98c3-42a1-9f31-3a4c7a0cdd8f" />
+
+<img width="1919" height="985" alt="image" src="https://github.com/user-attachments/assets/5b4ef444-6a10-4fc7-950a-388bea9cbe41" />
+
+
 
 ## G. Tela 7: Editar perfil
-![EDITAR PERFIL](https://github.com/user-attachments/assets/c346ea7f-6042-470b-beb0-5b3af953e21c)
+<img width="1140" height="644" alt="image" src="https://github.com/user-attachments/assets/f32f8631-e8ed-4428-9b3e-37e894216f40" />
+
+
 

@@ -1,12 +1,15 @@
 "use client";
 
 import type React from "react";
+import {useState, useEffect} from "react";
 import {File, Download, Calendar, Tag as TagIcon} from "@phosphor-icons/react";
 import type {IBeeTabelaRepositorio, FileItem} from "./IBeeTabelaRepositorio";
 import BeeTags from "../BeeTags/BeeTags";
 import BeeFTPerfil from "../BeeFTPerfil/BeeFTPerfil";
 import BeeButton from "../BeeButtons/BeeButtons";
 import {Star} from "@phosphor-icons/react";
+import RepositorioService from "../../services/models/RepositorioService";
+import acessAuth from "../../utils/acessAuth";
 
 // Função para calcular tempo decorrido
 function tempoDesde(data: string): string {
@@ -76,6 +79,45 @@ const BeeTabelaRepositorio: React.FC<IBeeTabelaRepositorio> = ({
 	arquivos,
 	imagem,
 }) => {
+	const [isFavorite, setIsFavorite] = useState(false);
+	const [loadingFavorite, setLoadingFavorite] = useState(false);
+	const {username} = acessAuth();
+
+	// Verificar se o repositório está favoritado quando componente carrega
+	useEffect(() => {
+		if (id && username) {
+			verificarFavorito();
+		}
+	}, [id, username]);
+
+	const verificarFavorito = async () => {
+		if (!id) return;
+		try {
+			const response = await RepositorioService.verificarFavorito(id);
+			setIsFavorite(response.data.favoritado);
+		} catch (error) {
+			console.error("Erro ao verificar favorito:", error);
+		}
+	};
+
+	const handleToggleFavorite = async () => {
+		if (!id || loadingFavorite) return;
+
+		setLoadingFavorite(true);
+		try {
+			if (isFavorite) {
+				await RepositorioService.desfavoritar(id);
+				setIsFavorite(false);
+			} else {
+				await RepositorioService.favoritar(id);
+				setIsFavorite(true);
+			}
+		} catch (error) {
+			console.error("Erro ao alterar favorito:", error);
+		} finally {
+			setLoadingFavorite(false);
+		}
+	};
 	const handleDownload = async (arquivo: FileItem) => {
 		try {
 			let fileUrl = arquivo.arquivo;
@@ -151,17 +193,17 @@ const BeeTabelaRepositorio: React.FC<IBeeTabelaRepositorio> = ({
 							<span className="text-sm font-medium text-gray-700">Tags:</span>
 						</div>
 						<div className="flex flex-wrap gap-2">
-						{tags && tags.length > 0 && (
-							<div className="flex gap-1 flex-wrap">
-								{tagsPadronizadas.map((tag, index) => (
-									<BeeTags
-										key={index}
-										label={tag.label}
-										color={tag.color}
-									/>
-								))}
-							</div>
-						)}
+							{tags && tags.length > 0 && (
+								<div className="flex gap-1 flex-wrap">
+									{tagsPadronizadas.map((tag, index) => (
+										<BeeTags
+											key={index}
+											label={tag.label}
+											color={tag.color}
+										/>
+									))}
+								</div>
+							)}
 						</div>
 					</div>
 				)}
@@ -242,17 +284,22 @@ const BeeTabelaRepositorio: React.FC<IBeeTabelaRepositorio> = ({
 							<TagIcon size={14} />
 							{tags.length} {tags.length === 1 ? "tag" : "tags"}
 						</span>
-						<div className="pl-30">
-							<BeeButton
-								label="Favoritar"
-								icone={<Star size={16} />}
-								variante="aviso"
-								desabilitado={false}
-								onClick={() => {
-									alert("Implementar o favoritar");
-								}}
-							/>
-						</div>
+						{username && (
+							<div className="pl-30">
+								<BeeButton
+									label={isFavorite ? "Favoritado" : "Favoritar"}
+									icone={
+										<Star
+											size={16}
+											weight={isFavorite ? "fill" : "regular"}
+										/>
+									}
+									variante={isFavorite ? "primaria" : "aviso"}
+									desabilitado={loadingFavorite}
+									onClick={handleToggleFavorite}
+								/>
+							</div>
+						)}
 					</div>
 				</div>
 			</div>

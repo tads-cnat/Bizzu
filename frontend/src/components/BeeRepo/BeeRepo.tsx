@@ -7,6 +7,7 @@ import {
 	PencilSimple,
 	Trash,
 	WarningCircle,
+	Star,
 } from "@phosphor-icons/react";
 import {useNavigate, Link} from "react-router-dom";
 import BeeFTPerfil from "../BeeFTPerfil/BeeFTPerfil";
@@ -17,6 +18,7 @@ import "../../index.css";
 import acessAuth from "../../utils/acessAuth";
 import {BeeButton} from "../BeeButtons/BeeButtons";
 import UsuarioService from "../../services/models/UsuarioService";
+import RepositorioService from "../../services/models/RepositorioService";
 import BeeModal from "../BeeModal/BeeModal";
 
 const defaultBeeImg = "/static/img/abelha_bizzu.svg";
@@ -47,9 +49,48 @@ const BeeRepo: React.FC<iBeeRepoProps> = ({
 }) => {
 	const [showMenu, setShowMenu] = useState(false);
 	const [deleteConfirmation, setDeleteConfirmation] = useState(false);
+	const [isFavorite, setIsFavorite] = useState(false);
+	const [loadingFavorite, setLoadingFavorite] = useState(false);
 	const navigate = useNavigate();
 	const {username} = acessAuth();
 	const isOwner = usuario && usuario.username === username;
+
+	// Verificar se o repositório está favoritado quando componente carrega
+	useEffect(() => {
+		if (id && username) {
+			verificarFavorito();
+		}
+	}, [id, username]);
+
+	const verificarFavorito = async () => {
+		if (!id) return;
+		try {
+			const response = await RepositorioService.verificarFavorito(id);
+			setIsFavorite(response.data.favoritado);
+		} catch (error) {
+			console.error("Erro ao verificar favorito:", error);
+		}
+	};
+
+	const handleToggleFavorite = async (e: React.MouseEvent) => {
+		e.stopPropagation();
+		if (!id || loadingFavorite) return;
+
+		setLoadingFavorite(true);
+		try {
+			if (isFavorite) {
+				await RepositorioService.desfavoritar(id);
+				setIsFavorite(false);
+			} else {
+				await RepositorioService.favoritar(id);
+				setIsFavorite(true);
+			}
+		} catch (error) {
+			console.error("Erro ao alterar favorito:", error);
+		} finally {
+			setLoadingFavorite(false);
+		}
+	};
 
 	// Função para tratar a exclusão e fechar o modal
 	const handleConfirmarExclusao = (id: number) => {
@@ -88,8 +129,7 @@ const BeeRepo: React.FC<iBeeRepoProps> = ({
 
 	return (
 		<div
-			className="bg-[#F7F7FA] shadow-md rounded-xl p-3 mb-2 relative w-full flex flex-col gap-1 border border-[#F2F2F7] transition-all duration-200 hover:shadow-xl hover:-translate-y-1"
-			style={{maxWidth: 320}}
+			className="bg-[#F7F7FA] shadow-md rounded-xl p-4 mb-2 relative w-full flex flex-col gap-2 border border-[#F2F2F7] transition-all duration-200 hover:shadow-xl hover:-translate-y-1 min-h-[160px] min-w-[200px] cursor-pointer"
 			onClick={(e) => handleClickRepositorio(e)}
 		>
 			{/* Modal de confirmação de exclusão */}
@@ -102,7 +142,29 @@ const BeeRepo: React.FC<iBeeRepoProps> = ({
 				/>
 			)}
 			{/* Ícone de ação no canto superior direito */}
-			<div className="absolute top-3 right-3 z-10">
+			<div className="absolute top-3 right-3 z-10 flex gap-2">
+				{/* Botão de favoritar (sempre visível para usuários logados) */}
+				{username && (
+					<button
+						type="button"
+						disabled={loadingFavorite}
+						className={`transition duration-200 ease-in-out p-1 rounded-full ${
+							isFavorite
+								? "text-yellow-500 hover:text-yellow-600"
+								: "text-gray-400 hover:text-yellow-500"
+						} ${loadingFavorite ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`}
+						onClick={handleToggleFavorite}
+						title={
+							isFavorite ? "Remover dos favoritos" : "Adicionar aos favoritos"
+						}
+					>
+						<Star
+							size={18}
+							weight={isFavorite ? "fill" : "regular"}
+						/>
+					</button>
+				)}
+
 				{usuario && isOwner ? (
 					<>
 						<button
@@ -159,7 +221,7 @@ const BeeRepo: React.FC<iBeeRepoProps> = ({
 							/>
 						)}
 					</>
-				) : (
+				) : username ? null : (
 					<button
 						type="button"
 						className="text-[#FCBD18] hover:text-[#e6a800] cursor-pointer bg-transparent border-none"
@@ -186,15 +248,17 @@ const BeeRepo: React.FC<iBeeRepoProps> = ({
 			)}
 			{/* Título */}
 			{titulo && (
-				<h3 className="text-base font-bold text-[#333333] mb-0.5">{titulo}</h3>
+				<h3 className="text-lg font-bold text-[#333333] mb-2 line-clamp-2">
+					{titulo}
+				</h3>
 			)}
 			{/* Descrição */}
-			<p className="mb-1 text-[#6B6B6B] text-xs leading-snug line-clamp-2">
+			<p className="mb-3 text-[#6B6B6B] text-sm leading-relaxed line-clamp-3 flex-1">
 				{descricao}
 			</p>
 			{/* Tags */}
 			{tags && tags.length > 0 && (
-				<div className="flex gap-1 flex-wrap mt-1">
+				<div className="flex gap-2 flex-wrap mt-auto pt-2">
 					{tags.map((tag, index) => (
 						<BeeTags
 							key={index}

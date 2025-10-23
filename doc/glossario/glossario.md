@@ -8,6 +8,7 @@
 | **Visitante** | Usuário não autenticado, sem cadastro no sistema. Pode acessar o site e visualizar o feed com postagens públicas.  |
 | **Internauta** | Usuário comum com cadastro no sistema. Pode realizar ações como publicar postagens e repositórios, curtir, comentar e seguir perfis ou comunidades. |
 | **Moderador** | Usuário com permissões especiais, responsável por garantir a segurança e o respeito nas interações. Pode revisar postagens, monitorar denúncias e interagir como os demais usuários. |
+| **Administrador** | Usuário com permissões especiais, responsável por garantir que tudo esteja certo a respeito das comunidades. Pode criar, editar e excluir uma comunidade, bem como criar avisos informativos para essa comunidade. |
 | **Comunidade** | Grupos dentro da plataforma organizados por curso da DIATINF, como TADS, Redes ou Infoweb. Permitem que estudantes com interesses semelhantes interajam entre si. |
 | **Perfil Pessoal** | Representação individual do usuário na plataforma, podendo ser personalizado com nome, foto, descrição, informações acadêmicas e profissionais. Mostra seguidores e seguidos. |
 | **Feed** | Página principal onde são exibidas as postagens das pessoas e comunidades seguidas pelo usuário. |

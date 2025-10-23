@@ -40,7 +40,9 @@ class Usuario(AbstractUser):
     )
 
     PERFIS = (("mod", "moderador"), ("int", "internauta"))
-    papel = models.CharField(verbose_name="Papel", null=True, choices=PERFIS)
+    papel = models.CharField(
+        verbose_name="Papel", null=True, max_length=15, choices=PERFIS
+    )
 
     def __str__(self):
         return self.username
@@ -59,7 +61,7 @@ class Solicitacao(models.Model):
     data_solocitacao = models.DateTimeField(
         auto_now_add=True, verbose_name="Data da solicitação", null=True, blank=True
     )
-    status = models.CharField(verbose_name="status", choices=stats, default="pendente")
+    status = models.CharField(verbose_name="status", max_length=20, choices=stats, default="pendente")
 
     def __str__(self):
         return self.status
