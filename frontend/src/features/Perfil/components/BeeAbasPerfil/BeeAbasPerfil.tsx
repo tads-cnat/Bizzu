@@ -12,7 +12,7 @@ const BeeAbasPerfil: React.FC<IBeeAbasPerfil> = ({
 }) => {
 	const childrenArray = React.Children.toArray(children);
 	const abas = [];
-	if ((papel === "mod" || papel == "int") && owner) {
+	if (papel === "mod" || papel == "int") {
 		abas.push({
 			key: "1",
 			label: <span className="text-[#333333] font-medium">Postagens</span>,
