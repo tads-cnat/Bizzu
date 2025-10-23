@@ -42,7 +42,9 @@ class PostagemViewSet(viewsets.ModelViewSet):
     )  # Para pegar todos os post de um usuário especifico
     def getPost(self, request, pk):
         try:
-            postagens = Postagem.objects.filter(usuario__pk=pk)
+            postagens = Postagem.objects.filter(usuario__pk=pk).order_by(
+                "-dataPublicacao"
+            )
 
             if not postagens.exists():
                 return Response({"message": "Não existem postagens para este usuário"})
@@ -113,7 +115,9 @@ class PostagemViewSet(viewsets.ModelViewSet):
     )  # Para pegar todos os post de uma comunidade especifica
     def getPostComunidade(self, request, pk):
         try:
-            postagens = Postagem.objects.filter(comunidade__pk=pk)
+            postagens = Postagem.objects.filter(comunidade__pk=pk).order_by(
+                "-dataPublicacao"
+            )
 
             if not postagens.exists():
                 return Response(
