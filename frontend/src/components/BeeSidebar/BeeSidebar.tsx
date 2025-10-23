@@ -95,7 +95,6 @@ export const BeeSidebar = ({onSelecionarSecao}: IBeeSidebarProps) => {
 						children: comunidades,
 					},
 				];
-
 	return (
 		<>
 			{usuario == undefined && getLocalStorage() != null ? (
@@ -121,7 +120,8 @@ export const BeeSidebar = ({onSelecionarSecao}: IBeeSidebarProps) => {
 										<div className="flex items-center gap-3">
 											<img
 												src={
-													usuario.imagemPerfil != undefined
+													usuario.imagemPerfil !== undefined &&
+													usuario.imagemPerfil !== null
 														? `http://localhost:8000${usuario.imagemPerfil}`
 														: "http://localhost:8000/imgPostagens/usuarios/2025/06/10/sem_imagem_avatar.png"
 												}

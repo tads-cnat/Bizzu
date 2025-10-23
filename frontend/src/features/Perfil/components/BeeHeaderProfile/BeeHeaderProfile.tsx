@@ -80,7 +80,8 @@ const BeeHeaderProfile = () => {
 				<div className="flex min-w-0 gap-x-4 mb-7">
 					<img
 						src={
-							usuario.imagemPerfil
+							usuario.imagemPerfil !== undefined &&
+							usuario.imagemPerfil !== null
 								? `http://localhost:8000${usuario.imagemPerfil}`
 								: "http://localhost:8000/imgPostagens/usuarios/2025/06/10/sem_imagem_avatar.png"
 						}

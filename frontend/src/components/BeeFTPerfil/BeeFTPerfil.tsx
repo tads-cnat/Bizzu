@@ -40,17 +40,14 @@ const BeeFTPerfil: React.FC<IBeeFTPerfil> = ({
 		}
 	}, []);
 
-	useEffect(() => {
-		console.log("USER ", usuario);
-	}, []);
-
 	return (
 		<>
 			<div className="inline-flex items-center">
 				<div className="flex items-center mb-2">
 					<img
 						src={
-							usuario?.imagemPerfil
+							usuario?.imagemPerfil !== undefined &&
+							usuario.imagemPerfil !== null
 								? `${usuario.imagemPerfil}`
 								: "http://localhost:8000/imgPostagens/usuarios/2025/06/10/sem_imagem_avatar.png"
 						}
