@@ -1,8 +1,6 @@
 from django.test import TestCase
-from ..models import Curtida
 
-from ..models.usuario import Usuario
-from ..models.postagem import Postagem
+from ...models import Curtida, Usuario, Postagem
 
 class CurtidaModelTest(TestCase):
     """Testes unitários para o modelo Curtida"""
@@ -10,7 +8,7 @@ class CurtidaModelTest(TestCase):
     def setUp(self):
         self.usuario = Usuario.objects.create(username="luiz", password="123")
         self.postagem = Postagem.objects.create(
-            titulo="Primeiro post", conteudo="Texto da postagem", autor=self.usuario
+            texto="Primeiro post", usuario=self.usuario
         )
         self.curtida = Curtida.objects.create(
             usuario=self.usuario, postagem=self.postagem
@@ -19,7 +17,7 @@ class CurtidaModelTest(TestCase):
     def test_criacao_com_sucesso(self):
         """Deve criar uma curtida com sucesso"""
         self.assertEqual(self.curtida.usuario.username, "luiz")
-        self.assertEqual(self.curtida.postagem.titulo, "Primeiro post")
+        self.assertEqual(self.curtida.postagem.texto, "Primeiro post")
 
     def test_str_retorna_texto_correto(self):
         """O método __str__ deve exibir a frase esperada"""

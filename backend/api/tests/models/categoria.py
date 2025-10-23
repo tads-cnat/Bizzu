@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.core.exceptions import ValidationError
-from ..models import Categoria
+from ...models import Categoria
 
 class CategoriaModelTest(TestCase):
     """Testes unitários para o modelo Categoria"""

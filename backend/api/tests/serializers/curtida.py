@@ -1,8 +1,6 @@
-from ..serializers import CurtidaSerializer
+from ...serializers import CurtidaSerializer
 from django.test import TestCase
-from ..models import Curtida
-from ..models.usuario import Usuario
-from ..models.postagem import Postagem
+from ...models import Curtida, Usuario, Postagem
 
 class CurtidaSerializerTest(TestCase):
     """Testes unitários para o serializer CurtidaSerializer"""

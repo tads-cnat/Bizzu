@@ -1,6 +1,7 @@
 from django.test import TestCase
 from django.core.exceptions import ValidationError
-from ..serializers import CategoriaSerializer
+from ...serializers import CategoriaSerializer
+from ...models import Categoria
 
 class CategoriaSerializerTest(TestCase):
     """Testes unitários para o serializer CategoriaSerializer"""
