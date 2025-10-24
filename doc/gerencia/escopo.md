@@ -43,6 +43,8 @@
 
 ## 3. Estrutura Analítica do Projeto (EAP)
 ## Diagrama de Fluxo - Projeto Bizzu
+<img width="5539" height="2586" alt="BizzuEap" src="https://github.com/user-attachments/assets/ad2acf70-86bd-4e71-b0b9-c7ffe2625fd3" />
+
 
 ## 4. Dicionário da EAP
 | Código | Termo Técnico | Descrição |
