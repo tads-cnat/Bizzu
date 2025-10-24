@@ -19,8 +19,8 @@
 ### Escopo do Projeto
 
 - Cadastro e autenticação de usuários (e-mail/senha; Google como alternativa).
-- Perfil de usuário (foto, bio, formações, repositórios, favoritos).
-- Feed principal (postagens de usuários seguidos e recomendações).
+- Perfil de usuário (foto, formações, repositórios e favoritos).
+- Feed principal (postagens de usuários e comunidades seguidas).
 - Postagens com texto/imagem (criar/editar/excluir).
 - Comentários em postagens.
 - Curtidas em postagens.
@@ -28,7 +28,7 @@
 - Favoritar repositórios.
 - Comunidades (criar, editar, visualizar).
 - Sistema de categorias/tags (tecnologia, matéria, período, curso).
-- Busca por palavras-chave e filtro por categorias.
+- Busca por nome de usuário e filtro por categorias.
 - Moderação: denúncias, painel de denúncias e gerenciamento de papéis.
 - Painel administrativo para criação/remoção de comunidades e categorias.
 
@@ -43,7 +43,10 @@
 
 ## 3. Estrutura Analítica do Projeto (EAP)
 ## Diagrama de Fluxo - Projeto Bizzu
-<img width="5539" height="2586" alt="BizzuEap" src="https://github.com/user-attachments/assets/ad2acf70-86bd-4e71-b0b9-c7ffe2625fd3" />
+
+<img width="5539" height="2586" alt="BizzuEap" src="https://github.com/user-attachments/assets/beaf8ce6-acc1-4a1b-90e9-95fa9577a908" />
+
+
 
 
 ## 4. Dicionário da EAP
@@ -54,9 +57,11 @@
 | 1.7 | Desenvolvimento Frontend | Construção da interface do usuário e integração com o backend. |
 | 2.4 | Manual do Usuário / Notion | Criação de documentação técnica e orientações de uso do sistema. |
 | 3.1 | Planejamento da implantação | Definição da estratégia de deploy, escolha do provedor de cloud e arquitetura de implantação. |
+| 3.1.1 | AWS | É uma plataforma de serviços de computação em nuvem oferecida pela Amazon. |
 | 3.2 | Deploy e testes de infraestrutura | Publicação do backend e frontend, configuração do banco remoto e testes de desempenho. |
 | 4.1 | Especificação dos casos de teste | Planejamento dos testes, identificação de módulos críticos e definição de critérios. |
 | 4.2 | Testes de unidade | Execução de verificações automatizadas em pequenas partes do código. |
 | 4.3 | Análise heurística (Lista Eureca) | Avaliação da interface com base em princípios de usabilidade reconhecidos. |
 | 4.4 | Análise empírica / Teste de usabilidade | Testes com usuários reais para avaliar a experiência e registrar melhorias. |
 
+## 5. Cronograma de marcos
