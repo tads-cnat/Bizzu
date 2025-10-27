@@ -15,4 +15,5 @@ export interface BeePostProps {
   onAbrirComentarios: () => void
   onExcluir?: (id: number) => void
   disableInteractions?: boolean
+  comunidade?: string;
 }

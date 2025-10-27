@@ -49,8 +49,7 @@ const BeePerfilSidebar: React.FC = () => {
 	};
 
 	const handleEditarFavoritos = () => {
-		// Implementar navegação para favoritos
-		console.log("Editar favoritos");
+		navigate(`/repositorios-favoritos`);
 	};
 
 	if (loading || !load) {
@@ -172,37 +171,39 @@ const BeePerfilSidebar: React.FC = () => {
 				</div>
 
 				{/* Card de Formação Acadêmica */}
-				<div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
-					<div className="flex items-center gap-2 mb-4">
-						<GraduationCap
-							size={20}
-							weight="regular"
-							className="text-[#333333]"
-						/>
-						<h3 className="text-lg font-semibold text-[#333333] font-poppins">
-							Formação acadêmica
-						</h3>
-					</div>
+				{papel !== "adm" && userLocal == usuario.username && (
+					<div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
+						<div className="flex items-center gap-2 mb-4">
+							<GraduationCap
+								size={20}
+								weight="regular"
+								className="text-[#333333]"
+							/>
+							<h3 className="text-lg font-semibold text-[#333333] font-poppins">
+								Formação acadêmica
+							</h3>
+						</div>
 
-					<div className="space-y-3">
-						{formacoes.map((formacao, index) => (
-							<div
-								key={index}
-								className="border-l-2 border-gray-200 pl-3"
-							>
-								<h4 className="font-medium text-[#333333] font-poppins text-sm">
-									{formacao.instituicao}
-								</h4>
-								<p className="text-xs text-[#666666] font-poppins leading-relaxed">
-									{formacao.curso}
-								</p>
-							</div>
-						))}
+						<div className="space-y-3">
+							{formacoes.map((formacao, index) => (
+								<div
+									key={index}
+									className="border-l-2 border-gray-200 pl-3"
+								>
+									<h4 className="font-medium text-[#333333] font-poppins text-sm">
+										{formacao.instituicao}
+									</h4>
+									<p className="text-xs text-[#666666] font-poppins leading-relaxed">
+										{formacao.curso}
+									</p>
+								</div>
+							))}
+						</div>
 					</div>
-				</div>
+				)}
 
 				{/* Card de Configurações */}
-				{userLocal == usuario.username && (
+				{papel !== "adm" && userLocal == usuario.username && (
 					<div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
 						<div className="flex items-center gap-2 mb-4">
 							<Gear
@@ -232,7 +233,7 @@ const BeePerfilSidebar: React.FC = () => {
 
 									<button
 										onClick={config.onClick}
-										className="flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-[#058B92] hover:bg-gray-50 rounded-md transition-colors"
+										className="flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-[#058B92] hover:bg-[#058B92] hover:text-white rounded-md transition-all duration-200 ease-in-out transform hover:scale-105 cursor-pointer"
 									>
 										<PencilSimple
 											size={12}

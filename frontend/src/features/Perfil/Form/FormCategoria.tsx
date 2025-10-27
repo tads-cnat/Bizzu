@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import {useState} from "react";
 import BeeButton from "../../../components/BeeButtons/BeeButtons";
 import {
 	Dialog,
@@ -9,31 +9,31 @@ import {
 import BeeInput from "../../../components/BeeInput/BeeInput";
 import * as yup from "yup";
 import {yupResolver} from "@hookform/resolvers/yup";
-import {Controller, useForm} from "react-hook-form";
+import {useForm} from "react-hook-form";
 import BeeSelect from "../../../components/BeeSelect/BeeSelect";
 import {Hexagon} from "@phosphor-icons/react";
 import CategoriaService from "../../../services/models/CategoriaService";
-import {IBeeFormCategoria} from "./IBeeFormCategoria";
 
 const schema = yup.object().shape({
 	nome: yup.string().required("O nome é obrigatório"),
-	tipo: yup.number().required("Selecione um tipo"),
+	tipo: yup.mixed().required("Selecione um tipo"),
 });
 
 const FormCategoria = ({
 	label,
 	defaultValues = undefined,
 	type = "criar",
-}: IBeeFormCategoria) => {
+}: any) => {
 	const [open, setOpen] = useState(true);
 
 	const handleCreate = async (data: {
 		nome: string;
 		tipo: string;
 	}): Promise<void> => {
+		console.log("DATA ", data);
 		let tipagem = "mat";
-		if (data.tipo == "2") tipagem = "per";
-		else if (data.tipo == "3") tipagem = "tec";
+		if (data.tipo.value == "2") tipagem = "per";
+		else if (data.tipo.value == "3") tipagem = "tec";
 		const response = {nome: data.nome, tipo: tipagem};
 		if (type == "criar") {
 			await CategoriaService.post(response);
@@ -96,6 +96,8 @@ const FormCategoria = ({
 												placeholder="Digite o nome da categoria"
 												label="Nome"
 												type="text"
+												control={control}
+												name="nome"
 												register={{...register("nome")}}
 											/>
 											{errors.nome && (
@@ -105,33 +107,27 @@ const FormCategoria = ({
 											)}
 										</div>
 										<div className="mt-3">
-											<Controller
-												name="tipo"
+											<BeeSelect
 												control={control}
-												render={({field}) => (
-													<BeeSelect
-														placeholder="Selecione o tipo"
-														options={options}
-														value={
-															defaultValues == undefined
-																? {
-																		label:
-																			options[field.value - 1] !== undefined
-																				? options[field.value - 1].label
-																				: "Selecione o tipo",
-																		value: field.value,
-																	}
-																: {
-																		label:
-																			options[defaultValues.value - 1].label,
-																		value: defaultValues.value,
-																	}
-														}
-														onChange={(option) => field.onChange(option.value)}
-														icone={Hexagon}
-													/>
-												)}
+												name="tipo"
+												placeholder="Selecione o tipo"
+												options={options}
+												icone={Hexagon}
+												defaultValue={
+													defaultValues
+														? {
+																value: defaultValues.value,
+																label:
+																	defaultValues.label == "mat"
+																		? "Matéria"
+																		: defaultValues.label == "tec"
+																			? "Tecnologia"
+																			: "Período",
+															}
+														: undefined
+												}
 											/>
+
 											{errors.tipo && (
 												<p className="text-red-500 text-sm mt-1">
 													{errors.tipo.message}
@@ -143,6 +139,7 @@ const FormCategoria = ({
 											<BeeButton
 												label="Cancelar"
 												variante="neutro"
+												type="button"
 												onClick={handleCancelDelete}
 											/>
 										</div>

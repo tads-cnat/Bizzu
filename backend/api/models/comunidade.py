@@ -20,6 +20,14 @@ class Comunidade(models.Model):
         related_name="comunidades_que_sigo",
         blank=True,
     )
+    usuario = models.ForeignKey(
+        "Usuario",
+        verbose_name="Usuário",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="comunidades",
+    )
 
     def __str__(self):
         return self.nome

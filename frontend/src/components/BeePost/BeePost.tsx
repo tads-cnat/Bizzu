@@ -32,6 +32,7 @@ const BeePost: React.FC<BeePostProps> = ({
 	onCurtir,
 	onAbrirComentarios,
 	onExcluir,
+	comunidade,
 	disableInteractions = false, // Nova prop com valor padrão false
 }) => {
 	const [showMenu, setShowMenu] = useState(false);
@@ -207,16 +208,19 @@ const BeePost: React.FC<BeePostProps> = ({
 				/>
 			)}
 			<BeeFTPerfil
-				usuarioId={usuario}
+				usuarioId={Number(usuario)}
 				dataPublicacao={dataPublicacao}
+				comunidade={comunidade}
 			/>
 			<p className="mb-3 mt-2">{texto}</p>
 			{imagemPost && (
-				<img
-					src={imagemPost || "/placeholder.svg"}
-					alt="Imagem do post"
-					className="rounded-lg mb-3 w-full object-cover"
-				/>
+				<div className="w-full h-90 mb-3">
+					<img
+						src={imagemPost || "/placeholder.svg"}
+						alt="Imagem do post"
+						className="rounded-lg w-full h-full object-cover"
+					/>
+				</div>
 			)}
 			<div className="flex items-center justify-between text-sm mb-2">
 				<div

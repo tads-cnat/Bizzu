@@ -75,7 +75,6 @@ const FormPapel = () => {
 
 	const {
 		handleSubmit,
-		register,
 		control,
 		formState: {errors},
 	} = useForm({
@@ -125,6 +124,8 @@ const FormPapel = () => {
 														label="Descriçao"
 														defaultValue={field.value}
 														onChange={(e) => field.onChange(e.target.value)}
+														control={control}
+														name="descricao"
 													/>
 												)}
 											/>

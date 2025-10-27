@@ -1,16 +1,23 @@
 import {Building, GraduationCap} from "@phosphor-icons/react";
 import {IBeeCommunity} from "../../../../interfaces/IBeeCommunity";
 import {useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
+import {useParams, useNavigate} from "react-router-dom";
+import getLocalStorage from "../../../../utils/getLocalStorage";
 import ComunidadeService from "../../../../services/models/ComunidadeService";
 import {Spin} from "antd";
+import {Gear, PencilSimple} from "@phosphor-icons/react";
 
 const BeeSidebarCommunity = () => {
+	const [papel, setPapel] = useState();
+	const navigate = useNavigate();
 	const identificator = Number(useParams().id);
 	const [comunidade, setComunidade] = useState<IBeeCommunity | undefined>(
 		undefined,
 	);
 	const [informacoes, setInformacoes] = useState<any[]>([]);
+	if (getLocalStorage() != null) {
+		if (papel == undefined) setPapel(getLocalStorage().papel);
+	}
 
 	useEffect(() => {
 		if (comunidade === undefined) {
@@ -45,6 +52,18 @@ const BeeSidebarCommunity = () => {
 			setInformacoes(info);
 		}
 	}, [comunidade]);
+
+	const handleEditarComunidade = () => {
+		navigate(`comunidade/editar/${comunidade?.id}`);
+	};
+	const configuracoes = [
+		{
+			label: "Editar Comunidade",
+			descricao: "Edite a foto, descrição, tema...",
+			acao: "Editar",
+			onClick: handleEditarComunidade,
+		},
+	];
 
 	return (
 		<>
@@ -114,6 +133,48 @@ const BeeSidebarCommunity = () => {
 							))}
 						</div>
 					</div>
+					{papel === "adm" && (
+						<div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
+							<div className="flex items-center gap-2 mb-4">
+								<Gear
+									size={20}
+									weight="regular"
+									className="text-[#333333]"
+								/>
+								<h3 className="text-lg font-semibold text-[#333333] font-poppins">
+									Configurações
+								</h3>
+							</div>
+							<div className="space-y-3">
+								{configuracoes.map((config, index) => (
+									<div
+										key={index}
+										className="flex items-center justify-between"
+									>
+										<div className="flex-1">
+											<h4 className="font-medium text-[#333333] font-poppins text-sm">
+												{config.label}
+											</h4>
+											<p className="text-xs text-[#666666] font-poppins">
+												{config.descricao}
+											</p>
+										</div>
+
+										<button
+											onClick={config.onClick}
+											className="flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-[#058B92] hover:bg-gray-50 rounded-md transition-colors"
+										>
+											<PencilSimple
+												size={12}
+												weight="regular"
+											/>
+											{config.acao}
+										</button>
+									</div>
+								))}
+							</div>
+						</div>
+					)}
 				</div>
 			) : (
 				<Spin />

@@ -1,13 +1,20 @@
-import {Menu} from "@headlessui/react";
+import {Menu, MenuItem} from "@headlessui/react";
 import BeeButton from "../../../../components/BeeButtons/BeeButtons";
 import {IBeeHeaderCommunity} from "./IBeeHeaderCommunity";
 import {useEffect, useState} from "react";
 import ComunidadeService from "../../../../services/models/ComunidadeService";
-
+import getLocalStorage from "../../../../utils/getLocalStorage";
+import {Plus, Newspaper} from "@phosphor-icons/react";
+import {Link} from "react-router-dom";
 const BeeHeaderComunnity = ({comunidade}: IBeeHeaderCommunity) => {
 	const [estaSeguindo, setEstaSeguindo] = useState(false);
 	const [seguidores, setSeguidores] = useState(0);
+	const [visible, setVisible] = useState<Boolean>(false);
+	const [papel, setPapel] = useState();
 
+	if (getLocalStorage() != null) {
+		if (papel == undefined) setPapel(getLocalStorage().papel);
+	}
 	// Função para contar quantos usuários seguem a comunidade
 	useEffect(() => {
 		if (!comunidade?.id) return;
@@ -70,6 +77,10 @@ const BeeHeaderComunnity = ({comunidade}: IBeeHeaderCommunity) => {
 			console.error("Erro ao deixar de seguir usuário:", error);
 		}
 	};
+	const openOptions = () => {
+		if (visible) setVisible(false);
+		else setVisible(true);
+	};
 	return (
 		<>
 			{comunidade && (
@@ -103,11 +114,35 @@ const BeeHeaderComunnity = ({comunidade}: IBeeHeaderCommunity) => {
 								as="div"
 								className="relative inline-block text-left"
 							>
-								<BeeButton
-									variante={estaSeguindo ? "secundaria" : "primaria"}
-									label={estaSeguindo ? "Seguindo" : "Seguir"}
-									onClick={estaSeguindo ? handleDeixarDeSeguir : handleSeguir}
-								/>
+								{papel === "adm" ? (
+									<>
+										<BeeButton
+											variante="primaria"
+											label="Novo"
+											icone={<Plus />}
+											onClick={openOptions}
+										/>
+										{visible && (
+											<div className="absolute top-full left-0 z-50 w-56 mt-2 bg-white shadow-xl rounded-xl border border-gray-200 py-2">
+												<MenuItem>
+													<Link
+														to="/postagem/criar/"
+														className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
+													>
+														<Newspaper className="w-5 h-5 text-cyan-500" />{" "}
+														Criar Postagem
+													</Link>
+												</MenuItem>
+											</div>
+										)}
+									</>
+								) : (
+									<BeeButton
+										variante={estaSeguindo ? "secundaria" : "primaria"}
+										label={estaSeguindo ? "Seguindo" : "Seguir"}
+										onClick={estaSeguindo ? handleDeixarDeSeguir : handleSeguir}
+									/>
+								)}
 							</Menu>
 						</div>
 					</div>

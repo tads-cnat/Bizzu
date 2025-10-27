@@ -6,13 +6,15 @@ from api.models import Curtida, Postagem
 from api.serializers.curtida import CurtidaSerializer
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated
+from ..permissions.moderador import Moderador
+from ..permissions.internanuta import Internauta
 
 
 class CurtidaViewSet(viewsets.ModelViewSet):
     queryset = Curtida.objects.all()
     serializer_class = CurtidaSerializer
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, Moderador | Internauta]
 
     def perform_create(self, serializer):
         serializer.save(usuario=self.request.user)

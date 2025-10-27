@@ -6,10 +6,13 @@ import EditRepositorio from "../features/Repositorio/Edit";
 import CreateRepositorio from "../features/Repositorio/Create";
 import Repositorio from "../features/Repositorio/Repositorio";
 import LayoutFeed from "../features/Layout/LayoutFeed";
-import FormEditarPerfil from "../features/Perfil/Form/FormEditarPerfil";
 import PerfilComunidade from "../features/Perfil/PerfilComunidade";
 import LayoutCommunity from "../features/Layout/LayoutCommunity";
 import DetalhesRepositorio from "../features/Repositorio/Detalhes";
+import EditPerfil from "../features/Perfil/Edit";
+import CreateComunidade from "../features/Comunidade/Create";
+import EditComunidade from "../features/Comunidade/Edit";
+import RepositoriosFavoritos from "../features/Repositorio/RepositoriosFavoritos";
 
 export const privatesRoutes = [
 	{
@@ -46,11 +49,23 @@ export const privatesRoutes = [
 			},
 			{
 				path: "editar",
-				element: <FormEditarPerfil />,
+				element: <EditPerfil />,
 			},
 			{
 				path: "repositorio/:id",
 				element: <DetalhesRepositorio />,
+			},
+			{
+				path: "comunidade/criar/",
+				element: <CreateComunidade />,
+			},
+			{
+				path: "comunidade/editar/:id",
+				element: <EditComunidade />,
+			},
+			{
+				path: "repositorios-favoritos",
+				element: <RepositoriosFavoritos />,
 			},
 		],
 	},

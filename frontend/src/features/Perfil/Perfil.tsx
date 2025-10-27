@@ -19,12 +19,17 @@ import {useLocation} from "react-router-dom";
 import BeeCardDenuncia from "../../components/BeeCardDenuncia/BeeCardDenuncia";
 import getLocalStorage from "../../utils/getLocalStorage";
 import BeeAlert from "../../components/BeeAlert/BeeAlert";
+import BeeCard from "../../components/BeeCard/BeeCard";
 
 const Perfil: React.FC = () => {
 	let {load} = acessPermissions();
 	const [abrirModal, setModal] = useState<Boolean>(false);
 	const [username, setUsername] = useState();
 	const [key, setKey] = useState<number>(0);
+	const [papel, setPapel] = useState("");
+	if (getLocalStorage() != null && papel == "") {
+		setPapel(getLocalStorage().papel);
+	}
 	const {
 		categorias,
 		comunidades,
@@ -37,9 +42,7 @@ const Perfil: React.FC = () => {
 	const location = useLocation();
 	const [alerta, setAlerta] = useState(null);
 	const hasSeenTour = localStorage.getItem("hasSeenTour") === "true";
-	const [tourOpen, setTourOpen] = useState(
-		location.state?.showTour && !hasSeenTour,
-	);
+	const [tourOpen] = useState(location.state?.showTour && !hasSeenTour);
 
 	const getComunidadeNome = (comunidadeId: number | null): string | null => {
 		if (!comunidadeId) return null;
@@ -110,8 +113,10 @@ const Perfil: React.FC = () => {
 					</div>
 					<div ref={refPubli}>
 						<BeeAbasPerfil
-							initialActiveKey="1"
+							initialActiveKey={papel == "adm" ? "6" : "1"}
 							owner={usuario?.username == username}
+							papel={papel}
+							isComunidade={false}
 						>
 							{postagens?.length ? (
 								<div className="space-y-4">
@@ -215,6 +220,9 @@ const Perfil: React.FC = () => {
 							</div>
 							<div>
 								<BeeCardDenuncia />
+							</div>
+							<div>
+								<BeeCard />
 							</div>
 						</BeeAbasPerfil>
 					</div>

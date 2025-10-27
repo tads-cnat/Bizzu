@@ -3,9 +3,6 @@
 import {useEffect, useState} from "react";
 import UsuarioService from "../../services/models/UsuarioService";
 import {IBeeFTPerfil} from "./IBeeFTPerfil";
-import {Link} from "react-router-dom";
-import acessAuth from "../../utils/acessAuth";
-import BeeNotification from "../BeeNotification/BeeNotification";
 
 function tempoDesde(data: string): string {
 	const date = new Date(data);
@@ -22,7 +19,11 @@ function tempoDesde(data: string): string {
 	return "agora mesmo";
 }
 
-const BeeFTPerfil: React.FC<IBeeFTPerfil> = ({usuarioId, dataPublicacao}) => {
+const BeeFTPerfil: React.FC<IBeeFTPerfil> = ({
+	usuarioId,
+	dataPublicacao,
+	comunidade,
+}) => {
 	const [usuario, setUsuario] = useState<any>();
 
 	useEffect(() => {
@@ -45,7 +46,8 @@ const BeeFTPerfil: React.FC<IBeeFTPerfil> = ({usuarioId, dataPublicacao}) => {
 				<div className="flex items-center mb-2">
 					<img
 						src={
-							usuario?.imagemPerfil
+							usuario?.imagemPerfil !== undefined &&
+							usuario.imagemPerfil !== null
 								? `${usuario.imagemPerfil}`
 								: "http://localhost:8000/imgPostagens/usuarios/2025/06/10/sem_imagem_avatar.png"
 						}
@@ -58,7 +60,11 @@ const BeeFTPerfil: React.FC<IBeeFTPerfil> = ({usuarioId, dataPublicacao}) => {
 					/>
 				</div>
 				<div className="p-2 ">
-					{usuario?.username || "usuário não encontrado"}
+					{!usuario?.username
+						? "usuário não encontrado"
+						: usuario.papel === "adm"
+							? comunidade
+							: usuario?.username}
 					<span className="text-[#FCBD18] font-poppins font-semibold text-xs">
 						{" "}
 						• {tempoDesde(dataPublicacao)}{" "}
