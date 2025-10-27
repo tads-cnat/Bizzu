@@ -86,7 +86,7 @@ class UsuarioViewSet(viewsets.ModelViewSet):
         ]:
             return [AllowAny()]
         elif self.action in ["seguir", "deixar_de_seguir"]:
-            return [Internauta()]
+            return [(Internauta | Moderador)()]
         return super().get_permissions()
 
     def get_serializer_class(self):

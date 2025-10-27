@@ -64,8 +64,6 @@ const FormCategoria = ({
 		{label: "Tecnologia", value: 3},
 	];
 
-	console.log("CAR", defaultValues);
-
 	return (
 		<>
 			<Dialog
@@ -141,6 +139,7 @@ const FormCategoria = ({
 											<BeeButton
 												label="Cancelar"
 												variante="neutro"
+												type="button"
 												onClick={handleCancelDelete}
 											/>
 										</div>

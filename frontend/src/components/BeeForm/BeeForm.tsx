@@ -78,7 +78,7 @@ const BeeForm = ({
 
 	return (
 		<>
-			<div className="bg-white p-6 rounded-lg shadow-sm w-[550px]">
+			<div className="bg-white p-6 rounded-lg shadow-sm w-[550px] max-h-[80vh] overflow-auto">
 				<form
 					onSubmit={handleSubmit(onSubmit)}
 					className="flex flex-col gap-6"

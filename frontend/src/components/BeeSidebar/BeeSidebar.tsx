@@ -1,5 +1,5 @@
 import "./style.css";
-import {Link} from "react-router-dom";
+import {Link, Navigate, useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 import ComunidadeService from "../../services/models/ComunidadeService";
 import UsuarioService from "../../services/models/UsuarioService";
@@ -95,6 +95,7 @@ export const BeeSidebar = ({onSelecionarSecao}: IBeeSidebarProps) => {
 						children: comunidades,
 					},
 				];
+	const caminho = useNavigate();
 	return (
 		<>
 			{usuario == undefined && getLocalStorage() != null ? (
@@ -188,6 +189,11 @@ export const BeeSidebar = ({onSelecionarSecao}: IBeeSidebarProps) => {
 							inlineCollapsed={collapsed}
 							onSelect={(e) => {
 								onSelecionarSecao(e.key);
+							}}
+							onClick={(e) => {
+								if (e.key == "1" || e.key == "2") {
+									caminho(`/`);
+								}
 							}}
 						/>
 					)}

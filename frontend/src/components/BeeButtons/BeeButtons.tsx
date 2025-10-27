@@ -24,11 +24,11 @@ export const BeeButton = ({
 
 	// Aqui são as variáveis existentes, então ao criar uma nova, adicionar a cor do botão, a cor do texto e o hover dela aqui!
 	const classesVariantes = {
-		primaria: "bg-[#058B92] text-white hover:bg-teal-700",
-		secundaria: "bg-teal-500 text-white hover:bg-teal-600",
-		negativo: "bg-[#D32F2F] text-white hover:bg-red-700",
-		aviso: "bg-[#FCBD18] text-white hover:bg-yellow-500",
-		neutro: "bg-gray-300 text-black hover:bg-gray-400",
+		primaria: "bg-[#058B92] text-white hover:bg-teal-700 cursor",
+		secundaria: "bg-teal-500 text-white hover:bg-teal-600 cursor",
+		negativo: "bg-[#D32F2F] text-white hover:bg-red-700 cursor",
+		aviso: "bg-[#FCBD18] text-white hover:bg-yellow-500 cursor",
+		neutro: "bg-gray-300 text-black hover:bg-gray-400 cursor",
 	}; // Secundaria é opcional
 
 	// Aqui é onde vamos referenciar as classes que criamos para dentro do tailwind do botão principal, então na constante classes nós temos
