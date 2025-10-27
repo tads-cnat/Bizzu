@@ -4,6 +4,8 @@ from jsonschema import ValidationError
 from api.models.postagem import Postagem
 from api.models.categoria import Categoria
 from api.models.usuario import Usuario
+from django.core.files.uploadedfile import SimpleUploadedFile
+
 from api.models.comunidade import Comunidade
 
 
@@ -15,10 +17,10 @@ class PostagemTest(TestCase):
 
     def setUp(self):
         self.usuario = Usuario.objects.create(
-            nome="Cristina",
+            nome="Ana",
             descricao="Estudando tecnologias legais",
             papel="int",
-            username="nana",
+            username="anaa",
         )
         self.comunidade = Comunidade.objects.create(
             nome="TADS",
@@ -31,7 +33,7 @@ class PostagemTest(TestCase):
             tipo="mat",
         )
         self.postagem = Postagem.objects.create(
-            texto="Uma postagem de teste",
+            texto="desenvolvi um projeto em django rest",
             imagem="imgPostagens/usuarios/2025/06/10/sem_imagem_avatar.png",
             usuario=self.usuario,
             comunidade=self.comunidade,
@@ -39,7 +41,7 @@ class PostagemTest(TestCase):
         self.postagem.categorias.add(self.categorias)
 
     def test_create_sucess(self):
-        self.assertEqual(self.postagem.texto, "Uma postagem de teste")
+        self.assertEqual(self.postagem.texto, "desenvolvi um projeto em django rest")
         self.assertEqual(
             self.postagem.imagem,
             "imgPostagens/usuarios/2025/06/10/sem_imagem_avatar.png",
@@ -54,21 +56,38 @@ class PostagemTest(TestCase):
         )
 
     def test_text_required(self):
-        postagem = Postagem.objects.create(
-            imagem="imgPostagens/usuarios/2025/06/10/sem_imagem_avatar.png",
+        postagem = Postagem(
             usuario=self.usuario,
             comunidade=self.comunidade,
+            imagem=SimpleUploadedFile(
+                "sem_imagem_avatar.png",
+                b"fake image content",
+                content_type="image/png",
+            ),
         )
-        self.postagem.categorias.add(self.categorias)
-        with self.assertRaises(ValidationError):
+        with self.assertRaises(ValidationError) as context:
             postagem.full_clean()
 
-    def test_text_length(self):
+        self.assertIn("texto", context.exception.message_dict)
+
+    def test_max_text_length(self):
+        with self.assertRaisesMessage(
+            ValidationError, "O texto deve conter menos de 200 caracteres"
+        ):
+            Postagem(
+                texto="A programação é uma arte que une lógica e criatividade. Cada linha de código representa uma instrução, mas juntas formam sistemas complexos que impactam o mundo. Dominar linguagens e estruturas",
+                imagem="imgPostagens/usuarios/2025/06/10/sem_imagem_avatar.png",
+                usuario=self.usuario,
+                comunidade=self.comunidade,
+            )
+            self.postagem.categorias.add(self.categorias)
+
+    def test_min_text_length(self):
         with self.assertRaisesMessage(
             ValidationError, "O texto deve conter menos de 200 caracteres"
         ):
             Postagem.objects.create(
-                texto="texto" * 40,
+                texto="👍🏾",
                 imagem="imgPostagens/usuarios/2025/06/10/sem_imagem_avatar.png",
                 usuario=self.usuario,
                 comunidade=self.comunidade,
