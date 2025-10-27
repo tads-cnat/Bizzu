@@ -15,9 +15,9 @@ class UsuarioTest(TestCase):
         )
 
     def test_create_success(self):
-        self.assertEqual(self.usuario.username, self.usuario)
-        self.assertEqual(self.usuario.nome, self.usuario)
-        self.assertEqual(self.usuario.papel, self.usuario)
+        self.assertEqual(self.usuario.username, "Nirvana")
+        self.assertEqual(self.usuario.nome, "Nirvana")
+        self.assertEqual(self.usuario.papel, "int")
 
     def test_name_required(self):
         usuario = Usuario(username=self.usuario, papel=self.usuario.papel)

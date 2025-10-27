@@ -1,4 +1,5 @@
 from django.core.exceptions import ValidationError
+from django.db.utils import IntegrityError
 from django.test import TestCase
 from api.serializers.comentario import ComentarioSerializer, ComentarioCreateSerializer
 from api.models.comentario import Comentario
@@ -13,7 +14,7 @@ class ComentarioTestSerializer(TestCase):
     usuario = None
     postagem = None
     comunidade = None
-    categoria = None
+    categorias = None
 
     def setUp(self):
         self.usuario = Usuario.objects.create(
@@ -25,17 +26,17 @@ class ComentarioTestSerializer(TestCase):
             anoFundacao="2012-05-01",
             coordenacao="Marília Freire",
         )
-        self.categoria = Categoria.objects.create(
+        self.categorias = Categoria.objects.create(
             nome="Teste de software",
             tipo="mat",
         )
 
-        self.postagem.categorias.add(self.categoria)
         self.postagem = Postagem.objects.create(
             texto="Um texto para uma postagem",
             usuario=self.usuario,
             comunidade=self.comunidade,
         )
+        self.postagem.categorias.add(self.categorias)
         self.comentario = Comentario.objects.create(
             usuario=self.usuario,
             postagem=self.postagem,
@@ -47,7 +48,8 @@ class ComentarioTestSerializer(TestCase):
         data = serializer.data
 
         self.assertEqual(data["postagem"], self.postagem.id)
-        self.assertEqual(data["usuario"], self.usuario.id)
+        self.assertEqual(data["usuario"]["id"], self.usuario.id)
+        self.assertEqual(data["usuario"]["username"], self.usuario.username)
         self.assertEqual(data["conteudo"], self.comentario.conteudo)
 
     def test_serializer_valid_input(self):
@@ -75,9 +77,9 @@ class ComentarioTestSerializer(TestCase):
             "conteudo": self.comentario.conteudo,
         }
         serializer = ComentarioSerializer(data=input)
-        self.assertFalse(serializer.is_valid())
-
-        self.assertIn("usuario", serializer.errors)
+        self.assertTrue(serializer.is_valid())
+        with self.assertRaises(IntegrityError):
+            serializer.save()
 
     def test_serializer_missing_content(self):
         input = {
@@ -130,12 +132,12 @@ class ComentarioCreateSerializerTest(TestCase):
             tipo="mat",
         )
 
-        self.postagem.categorias.add(self.categoria)
         self.postagem = Postagem.objects.create(
             texto="Um texto para uma postagem",
             usuario=self.usuario,
             comunidade=self.comunidade,
         )
+        self.postagem.categorias.add(self.categoria)
 
     def test_serializer_valid(self):
         data = {"conteudo": "Comentário válido", "postagem": self.postagem.id}

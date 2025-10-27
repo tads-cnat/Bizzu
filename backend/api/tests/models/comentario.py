@@ -28,13 +28,12 @@ class ComentarioTest(TestCase):
             nome="Teste de software",
             tipo="mat",
         )
-
-        self.postagem.categorias.add(self.categoria)
         self.postagem = Postagem.objects.create(
             texto="Um texto para uma postagem",
             usuario=self.usuario,
             comunidade=self.comunidade,
         )
+        self.postagem.categorias.add(self.categoria)
         self.comentario = Comentario.objects.create(
             usuario=self.usuario,
             postagem=self.postagem,
@@ -42,7 +41,7 @@ class ComentarioTest(TestCase):
         )
 
     def test_create_success(self):
-        self.assertEqual(self.comentario.usuario, self.comentario)
+        self.assertEqual(self.comentario.usuario, self.usuario)
         self.assertEqual(self.comentario.postagem, self.postagem)
 
     def test_user_required(self):

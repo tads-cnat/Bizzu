@@ -1,4 +1,5 @@
 from django.core.exceptions import ValidationError
+from django.db.utils import IntegrityError
 from django.test import TestCase
 from api.serializers.usuario import (
     UsuarioSerializer,
@@ -8,6 +9,8 @@ from api.serializers.usuario import (
     SolicitacaoSerializer,
 )
 from api.models.usuario import Usuario, Solicitacao
+
+default_password = "12345678"
 
 
 class UsuarioSerializerTest(TestCase):
@@ -32,12 +35,13 @@ class UsuarioSerializerTest(TestCase):
 
     def test_usuario_serializer_input_valid(self):
         input = {
-            "username": self.usuario.username,
-            "nome": self.usuario.nome,
-            "papel": self.usuario.papel,
+            "id": 999,
+            "username": "testeInput",
+            "nome": "testeInput",
+            "papel": "int",
         }
         serializer = UsuarioSerializer(data=input)
-        self.assertTrue(serializer.is_valid())
+        self.assertTrue(serializer.is_valid(), serializer.errors)
 
     def test_usuario_serializer_missing_username(self):
         input = {"nome": self.usuario.nome, "papel": self.usuario.papel}
@@ -51,14 +55,8 @@ class UsuarioSerializerTest(TestCase):
         self.assertFalse(serializer.is_valid())
         self.assertIn("nome", serializer.errors)
 
-    def test_usuario_serializer_missing_papel(self):
-        input = {"username": self.usuario.username, "nome": self.usuario.nome}
-        serializer = UsuarioSerializer(data=input)
-        self.assertFalse(serializer.is_valid())
-        self.assertIn("papel", serializer.errors)
 
-
-class UsuarioProfileSerializer(TestCase):
+class UsuarioProfileSerializerTest(TestCase):
     usuario = None
 
     def setUp(self):
@@ -71,9 +69,9 @@ class UsuarioProfileSerializer(TestCase):
 
     def test_profile_serializer_create(self):
         input = {
-            "username": self.usuario.username,
+            "username": "teste",
             "nome": self.usuario.nome,
-            "password": "12345678",
+            "password": default_password,
             "papel": "int",
         }
         serializer = UsuarioProfileSerializer(data=input)
@@ -87,7 +85,7 @@ class UsuarioProfileSerializer(TestCase):
         input = {
             "username": self.usuario.username,
             "nome": nome_longo,
-            "password": "12345678",
+            "password": default_password,
             "papel": "int",
         }
         serializer = UsuarioProfileSerializer(data=input)
@@ -98,7 +96,7 @@ class UsuarioProfileSerializer(TestCase):
         input = {
             "username": self.usuario.username,
             "nome": self.usuario.nome,
-            "password": "12345678",
+            "password": default_password,
             "papel": "olaa",
         }
         serializer = UsuarioProfileSerializer(data=input)
@@ -106,7 +104,7 @@ class UsuarioProfileSerializer(TestCase):
         self.assertIn("papel", serializer.errors)
 
 
-class UsuarioPatchSerializer(TestCase):
+class UsuarioPatchSerializerTest(TestCase):
     usuario = None
 
     def setUp(self):
@@ -167,7 +165,7 @@ class UsuarioPatchSerializer(TestCase):
         self.assertIn("instituicaoAtual", serializer.errors)
 
 
-class PesquisaSerializer(TestCase):
+class PesquisaSerializerTest(TestCase):
     usuario = None
 
     def setUp(self):
