@@ -1,6 +1,10 @@
 export interface IBeeCard{
     //Nome da comunidade 
-    title:string;
+    nome?:string;
     //Descrição da comunidade 
-    description: string;
+    descricao?: string;
+    //O que ocorre quando clicar
+    click?: any;
+    //Capa do card
+    imagem?: React.ReactNode;
 }

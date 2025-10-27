@@ -1,3 +1,4 @@
+from api.permissions.basePermission import IsOwnerOrReadOnly
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework import viewsets, status
@@ -19,13 +20,15 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
 from api.filters.usuario import UsuarioFilter, SolicitacaoFilter
 from rest_framework import filters
-from ..models import Comunidade
 import requests
 from django.conf import settings
 import secrets
 from django.core.files.base import ContentFile
 from urllib.parse import urlparse
 import os
+from ..permissions.moderador import Moderador
+from ..permissions.internanuta import Internauta
+from ..permissions.admin import Adm
 
 
 def download_and_save_google_picture(picture_url, user):
@@ -73,16 +76,17 @@ class UsuarioViewSet(viewsets.ModelViewSet):
     serializer_class = UsuarioSerializer
     parser_classes = [MultiPartParser, JSONParser]
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
 
     def get_permissions(self):
-        if (
-            self.action == "create"
-            or self.action == "usernameExits"
-            or self.action == "profileUsername"
-            or self.action == "retrieve"
-        ):
+        if self.action in [
+            "create",
+            "usernameExits",
+            "profileUsername",
+        ]:
             return [AllowAny()]
+        elif self.action in ["seguir", "deixar_de_seguir"]:
+            return [(Internauta | Moderador)()]
         return super().get_permissions()
 
     def get_serializer_class(self):

@@ -8,6 +8,8 @@ import tagsCategory from "../../utils/tagsCategory";
 import BeePost from "../../components/BeePost/BeePost";
 import {IPostagem} from "../../interfaces/Postagem";
 import {IRepositorio} from "../../interfaces/Repositorio";
+import {useState} from "react";
+import getLocalStorage from "../../utils/getLocalStorage";
 
 const PerfilComunidade = () => {
 	const identificator = useParams().id;
@@ -20,6 +22,12 @@ const PerfilComunidade = () => {
 		handleExcluirRepositorio,
 		postagens,
 	} = useCommunity(Number(identificator));
+	const [userLocal, setUserlocal] = useState();
+	const [papel, setPapel] = useState("");
+	if (getLocalStorage() != null && papel == "") {
+		setPapel(getLocalStorage().papel);
+		if (userLocal == undefined) setUserlocal(getLocalStorage().username);
+	}
 
 	const getComunidadeNome = (comunidadeId: number | null): string | null => {
 		if (!comunidadeId) return null;
@@ -30,7 +38,12 @@ const PerfilComunidade = () => {
 	return (
 		<>
 			<BeeHeaderComunnity comunidade={comunidade} />
-			<BeeAbasPerfil initialActiveKey="1">
+			<BeeAbasPerfil
+				initialActiveKey={"1"}
+				owner={userLocal}
+				papel={papel}
+				isComunidade={true}
+			>
 				{postagens?.length ? (
 					<div className="space-y-4">
 						{postagens.map((post: IPostagem) => {
@@ -62,6 +75,7 @@ const PerfilComunidade = () => {
 										dataPublicacao={post.dataPublicacao}
 										imagemPost={post.imagem}
 										onExcluir={handleExcluir}
+										comunidade={comunidadeNome}
 									/>
 								</div>
 							);

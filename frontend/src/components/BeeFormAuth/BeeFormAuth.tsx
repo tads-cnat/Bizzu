@@ -23,6 +23,7 @@ const BeeFormAuth: React.FC = () => {
 		handleSubmit,
 		register,
 		formState: {errors},
+		control,
 	} = useForm({resolver: yupResolver(schema)});
 	const redirecionar = useNavigate();
 	const deOndeVeio = useLocation();
@@ -127,7 +128,8 @@ const BeeFormAuth: React.FC = () => {
 						placeholder="Digite seu usuário"
 						label="Usuário"
 						type="text"
-						register={{...register("username")}}
+						control={control}
+						name="username"
 					/>
 					{errors.username && (
 						<p className="text-red-500 text-sm">{errors.username.message}</p>
@@ -137,7 +139,8 @@ const BeeFormAuth: React.FC = () => {
 						placeholder="Digite sua senha"
 						label="Senha"
 						type="password"
-						register={{...register("password")}}
+						name="password"
+						control={control}
 					/>
 					{errors.password && (
 						<p className="text-red-500 text-sm">{errors.password.message}</p>

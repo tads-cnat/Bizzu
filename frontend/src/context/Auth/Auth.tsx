@@ -50,6 +50,7 @@ const AuthProvider = ({children}: IBeeProvider) => {
 		password: string,
 	): Promise<void> => {
 		const saveToken = await UsuarioService.postToken({username, password});
+
 		const user: IBeeUsuario = await UsuarioService.getbyUsername(username);
 		const tokens = {
 			token: saveToken.access,

@@ -1,5 +1,5 @@
 import "./style.css";
-import {Link} from "react-router-dom";
+import {Link, Navigate, useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 import ComunidadeService from "../../services/models/ComunidadeService";
 import UsuarioService from "../../services/models/UsuarioService";
@@ -17,12 +17,14 @@ export const BeeSidebar = ({onSelecionarSecao}: IBeeSidebarProps) => {
 	const [usuario, setUsuario] = useState<IBeeUser>();
 	const [comunidades, setComunidades] = useState<MenuItem[]>([]);
 	const [collapsed, setCollapsed] = useState(false);
+	const [papel, setPapel] = useState();
 
 	const toggleCollapsed = () => {
 		setCollapsed(!collapsed);
 	};
 
 	if (getLocalStorage() != null && username == undefined) {
+		if (papel == undefined) setPapel(getLocalStorage().papel);
 		setUsername(getLocalStorage().username);
 	}
 
@@ -55,35 +57,45 @@ export const BeeSidebar = ({onSelecionarSecao}: IBeeSidebarProps) => {
 	}, []);
 
 	type MenuItem = GetProp<MenuProps, "items">[number];
-	const items: MenuItem[] = [
-		{
-			key: "1",
-			icon: (
-				<House
-					size={23}
-					weight="fill"
-				/>
-			),
-			label: "Página inicial",
-		},
-		{
-			key: "2",
-			icon: (
-				<User
-					size={23}
-					weight="fill"
-				/>
-			),
-			label: "Você segue",
-		},
-		{
-			key: "3",
-			label: "Comunidades",
-			icon: <Globe size={23} />,
-			children: comunidades,
-		},
-	];
-
+	const items: MenuItem[] =
+		papel === "adm"
+			? [
+					{
+						key: "3",
+						label: "Comunidades",
+						icon: <Globe size={23} />,
+						children: comunidades,
+					},
+				]
+			: [
+					{
+						key: "1",
+						icon: (
+							<House
+								size={23}
+								weight="fill"
+							/>
+						),
+						label: "Página inicial",
+					},
+					{
+						key: "2",
+						icon: (
+							<User
+								size={23}
+								weight="fill"
+							/>
+						),
+						label: "Você segue",
+					},
+					{
+						key: "3",
+						label: "Comunidades",
+						icon: <Globe size={23} />,
+						children: comunidades,
+					},
+				];
+	const caminho = useNavigate();
 	return (
 		<>
 			{usuario == undefined && getLocalStorage() != null ? (
@@ -109,7 +121,8 @@ export const BeeSidebar = ({onSelecionarSecao}: IBeeSidebarProps) => {
 										<div className="flex items-center gap-3">
 											<img
 												src={
-													usuario.imagemPerfil != undefined
+													usuario.imagemPerfil !== undefined &&
+													usuario.imagemPerfil !== null
 														? `http://localhost:8000${usuario.imagemPerfil}`
 														: "http://localhost:8000/imgPostagens/usuarios/2025/06/10/sem_imagem_avatar.png"
 												}
@@ -176,6 +189,11 @@ export const BeeSidebar = ({onSelecionarSecao}: IBeeSidebarProps) => {
 							inlineCollapsed={collapsed}
 							onSelect={(e) => {
 								onSelecionarSecao(e.key);
+							}}
+							onClick={(e) => {
+								if (e.key == "1" || e.key == "2") {
+									caminho(`/`);
+								}
 							}}
 						/>
 					)}

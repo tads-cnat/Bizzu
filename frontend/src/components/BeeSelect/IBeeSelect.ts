@@ -21,4 +21,10 @@ export default interface IBeeSelect {
   onChange?: (value: Option) => void
   // Mensagem de erro
   error?: string
+  // Control do useform
+  control: any;
+  // Valor default quando é caso de edição
+  defaultValue: Option;
+  // Nome do campo
+  name: string;
 }

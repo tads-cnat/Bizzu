@@ -404,6 +404,7 @@ const LayoutFeed = () => {
 												usuario={post.usuario}
 												dataPublicacao={post.dataPublicacao}
 												imagemPost={post.imagem}
+												comunidade={post.comunidade}
 												onCurtir={() => console.log("Curtir post:", post.id)}
 												onAbrirComentarios={() =>
 													console.log("Abrir comentários:", post.id)

@@ -1,5 +1,6 @@
-export enum Roles{
-    MODERADOR = "mod",
-    VISITANTE = "visitante",
-    INTERNAUTA = "int",
+export enum Roles {
+	MODERADOR = "mod",
+	VISITANTE = "visitante",
+	INTERNAUTA = "int",
+	ADMINISTRADOR = "adm",
 }

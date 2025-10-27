@@ -2,15 +2,15 @@ from django.db.models import Q
 from ..permissions.moderador import Moderador
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from rest_framework import viewsets, permissions
+from rest_framework import viewsets
 from ..models import Postagem, Usuario
 from api.serializers.postagem import PostagemSerializer, PostagemUpdateSerializer
 from rest_framework.parsers import MultiPartParser
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated
 from ..permissions.basePermission import IsOwnerOrReadOnly
-from rest_framework.permissions import AllowAny
 from rest_framework import status
+from rest_framework.permissions import AllowAny
 
 
 class PostagemViewSet(viewsets.ModelViewSet):
@@ -42,7 +42,9 @@ class PostagemViewSet(viewsets.ModelViewSet):
     )  # Para pegar todos os post de um usuário especifico
     def getPost(self, request, pk):
         try:
-            postagens = Postagem.objects.filter(usuario__pk=pk)
+            postagens = Postagem.objects.filter(usuario__pk=pk).order_by(
+                "-dataPublicacao"
+            )
 
             if not postagens.exists():
                 return Response({"message": "Não existem postagens para este usuário"})
@@ -113,7 +115,9 @@ class PostagemViewSet(viewsets.ModelViewSet):
     )  # Para pegar todos os post de uma comunidade especifica
     def getPostComunidade(self, request, pk):
         try:
-            postagens = Postagem.objects.filter(comunidade__pk=pk)
+            postagens = Postagem.objects.filter(comunidade__pk=pk).order_by(
+                "-dataPublicacao"
+            )
 
             if not postagens.exists():
                 return Response(
