@@ -52,15 +52,17 @@ class ArquivoTest(TestCase):
         )
 
     def test_repository_required(self):
-        arquivo = Arquivo.objects.create(
+        arquivo = Arquivo(
             arquivo="../../imgPostagens/usuarios/2025/06/10/sem_imagem_avatar.png",
         )
+
         with self.assertRaises(ValidationError):
             arquivo.full_clean()
 
     def test_arquivo_required(self):
-        arquivo = Arquivo.objects.create(
+        arquivo = Arquivo(
             repositorio=self.repositorio,
         )
+        arquivo.save()
         with self.assertRaises(ValidationError):
             arquivo.full_clean()
