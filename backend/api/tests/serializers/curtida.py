@@ -1,6 +1,9 @@
 from ...serializers.curtida import CurtidaSerializer
 from django.test import TestCase
-from ...models import Curtida, Usuario, Postagem
+from ...models.curtida import Curtida
+from ...models.usuario import Usuario
+from ...models.postagem import Postagem
+
 
 class CurtidaSerializerTest(TestCase):
     """Testes unitários para o serializer CurtidaSerializer"""
@@ -8,7 +11,7 @@ class CurtidaSerializerTest(TestCase):
     def setUp(self):
         self.usuario = Usuario.objects.create(username="ana", password="123")
         self.postagem = Postagem.objects.create(
-            titulo="Post Legal", conteudo="Conteúdo legal", autor=self.usuario
+            texto="Post Legal: Conteúdo legal", usuario=self.usuario
         )
         self.curtida = Curtida.objects.create(
             usuario=self.usuario, postagem=self.postagem
