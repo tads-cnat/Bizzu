@@ -1,4 +1,4 @@
-from ...serializers import CurtidaSerializer
+from ...serializers.curtida import CurtidaSerializer
 from django.test import TestCase
 from ...models import Curtida, Usuario, Postagem
 
