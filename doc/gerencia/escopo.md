@@ -1,5 +1,11 @@
 # Planejamento do Escopo do Projeto
 
+## Histórico de Revisões
+
+|    Data    | Versão |   Descrição    |     Autores     |
+| :--------: | :----: | :------------: | :-------------: |
+| 26/10/2025 |  1.0   | Versão inicial | Fábio Alexandre |
+
 ## 1. Objetivo SMART do Projeto
 
 **Específico**: Desenvolver uma plataforma web estilo rede social voltada à integração acadêmica entre calouros e veteranos da DIATINF.
@@ -41,9 +47,8 @@
 ## 3. Estrutura Analítica do Projeto (EAP)
 
 ## Diagrama de Fluxo - Projeto Bizzu
+
 <img width="5539" height="2586" alt="BizzuEap" src="https://github.com/user-attachments/assets/ee8aed6a-2fed-400f-b789-122fe116848d" />
-
-
 
 ## 4. Dicionário da EAP
 
