@@ -404,6 +404,7 @@ const LayoutFeed = () => {
 												usuario={post.usuario}
 												dataPublicacao={post.dataPublicacao}
 												imagemPost={post.imagem}
+												comunidade={post.comunidade}
 												onCurtir={() => console.log("Curtir post:", post.id)}
 												onAbrirComentarios={() =>
 													console.log("Abrir comentários:", post.id)
@@ -428,30 +429,46 @@ const LayoutFeed = () => {
 						</div>
 					</div>
 				</div>
-				<aside className="fixed top-[70px] right-4 w-[22%] min-h-screen flex flex-col justify-start px-3 py-4 bg-white z-40 overflow-y-auto gap-4 border-l border-gray-300">
-					<h2 className="text-lg font-bold mb-2">Repositórios</h2>
-					{repositorios.length === 0 && (
-						<Empty
-							image={Empty.PRESENTED_IMAGE_SIMPLE}
-							description="Nenhum repositório encontrado"
-						/>
-					)}
-					{repositorios.map((repo) => {
-						const tags = categoriasParaTagsRepositorio(repo.categorias);
-						return (
-							<BeeRepo
-								key={repo.id}
-								id={repo.id}
-								usuario={repo.usuario}
-								titulo={repo.titulo}
-								descricao={repo.descricao}
-								imagemRepo={repo.imagem}
-								dataPublicacao={repo.dataPublicacao}
-								tags={tags}
-								onExcluir={handleExcluirRepositorio}
-							/>
-						);
-					})}
+				<aside className="fixed top-[70px] right-4 w-[22%] h-[calc(100vh-70px)] flex flex-col bg-white z-40 border-l border-gray-300">
+					<div className="px-3 py-4 border-b border-gray-200">
+						<h2 className="text-lg font-bold">Repositórios</h2>
+					</div>
+					<div className="flex-1 overflow-y-auto px-3 py-2 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
+						{repositorios.length === 0 ? (
+							<div className="flex flex-col items-center justify-center h-full">
+								<Empty
+									image={Empty.PRESENTED_IMAGE_SIMPLE}
+									description="Nenhum repositório encontrado"
+								/>
+							</div>
+						) : (
+							<div className="space-y-3">
+								{repositorios.map((repo) => {
+									const tags = categoriasParaTagsRepositorio(repo.categorias);
+									return (
+										<BeeRepo
+											key={repo.id}
+											id={repo.id}
+											usuario={
+												repo.usuario || {
+													id: 0,
+													nome: "Usuário não encontrado",
+													username: "unknown",
+													imagemPerfil: undefined,
+												}
+											}
+											titulo={repo.titulo}
+											descricao={repo.descricao}
+											imagemRepo={repo.imagem}
+											dataPublicacao={repo.dataPublicacao}
+											tags={tags}
+											onExcluir={handleExcluirRepositorio}
+										/>
+									);
+								})}
+							</div>
+						)}
+					</div>
 				</aside>
 			</div>
 		</>

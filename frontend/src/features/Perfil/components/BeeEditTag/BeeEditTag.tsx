@@ -56,6 +56,7 @@ const BeeEditTag = () => {
 					id: categoriaSelecionada,
 					nome: categoriaSelecionada.nome,
 					value: tipoSecundario,
+					label: categoriaSelecionada.tipo,
 				}}
 				type="editar"
 			/>
@@ -66,7 +67,7 @@ const BeeEditTag = () => {
 		<>
 			{categoria.length > 0 ? (
 				<div className="flex flex-wrap gap-2 mt-2">
-					{categoria.map((comunidade) => (
+					{categoria.map((cat) => (
 						<div>
 							<Tag
 								style={{cursor: "pointer"}}
@@ -75,24 +76,24 @@ const BeeEditTag = () => {
 								onClick={(e) => {
 									setEditar(true);
 									e.preventDefault();
-									setSelecionada(comunidade);
+									setSelecionada(cat);
 									setKeyEdit((prev) => prev + 1);
 								}}
 								color={
-									comunidade.tipo == "mat"
+									cat.tipo == "mat"
 										? "orange"
-										: comunidade.tipo == "per"
+										: cat.tipo == "per"
 											? "cyan"
 											: "magenta"
 								}
 								onClose={(e) => {
 									setExcluir(true);
 									e.preventDefault(); //Para não apagar se eu cancelar
-									setSelecionada(comunidade);
+									setSelecionada(cat);
 									setKey((prev) => prev + 1);
 								}}
 							>
-								{comunidade.nome}
+								{cat.nome}
 							</Tag>
 						</div>
 					))}

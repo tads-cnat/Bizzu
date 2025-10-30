@@ -20,6 +20,10 @@ class ComunidadeService extends BaseService {
         const response = await axiosInstance.get(`comunidade/${id}/contar_seguidores_comunidade/`);
         return response.data;
     }
+    async listarComunidadeAdm(){
+        const response = await axiosInstance.get(`comunidade/listarComunidadeAdm`);
+        return response.data
+    }
 }
 
 export default new ComunidadeService("comunidade");

@@ -7,16 +7,21 @@ import UsuarioService from "../../../../services/models/UsuarioService";
 import BeeButton from "../../../../components/BeeButtons/BeeButtons";
 import acessPermissions from "../../../../utils/acessPermissions";
 import acessAuth from "../../../../utils/acessAuth";
+import getLocalStorage from "../../../../utils/getLocalStorage";
 
 const BeeHeaderProfile = () => {
 	const identificator = useParams().username;
 	const [usuario, setUsuario] = useState<IBeeUser>();
-	const [visble, setVisible] = useState<Boolean>(false);
+	const [visible, setVisible] = useState<Boolean>(false);
 	const [estaSeguindo, setEstaSeguindo] = useState(false);
 	const [seguidores, setSeguidores] = useState(0);
 	const [seguindo, setSeguindo] = useState(0);
 	const {permissions} = acessPermissions();
 	const {username} = acessAuth();
+	const [papel, setPapel] = useState("");
+	if (getLocalStorage() != null && papel == "") {
+		setPapel(getLocalStorage().papel);
+	}
 
 	useEffect(() => {
 		void UsuarioService.getbyUsername(String(identificator))
@@ -65,7 +70,7 @@ const BeeHeaderProfile = () => {
 	};
 
 	const openOptions = () => {
-		if (visble) setVisible(false);
+		if (visible) setVisible(false);
 		else setVisible(true);
 	};
 
@@ -75,7 +80,8 @@ const BeeHeaderProfile = () => {
 				<div className="flex min-w-0 gap-x-4 mb-7">
 					<img
 						src={
-							usuario.imagemPerfil
+							usuario.imagemPerfil !== undefined &&
+							usuario.imagemPerfil !== null
 								? `http://localhost:8000${usuario.imagemPerfil}`
 								: "http://localhost:8000/imgPostagens/usuarios/2025/06/10/sem_imagem_avatar.png"
 						}
@@ -117,29 +123,42 @@ const BeeHeaderProfile = () => {
 										icone={<Plus />}
 										onClick={openOptions}
 									/>
-									{visble && (
-										<div className="absolute top-full left-0 z-50 w-56 mt-2 bg-white shadow-xl rounded-xl border border-gray-200 py-2">
-											<MenuItem>
-												<Link
-													to={`/postagem/criar/`}
-													className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
-												>
-													<Newspaper className="w-5 h-5 text-cyan-500" /> Criar
-													Postagem
-												</Link>
-											</MenuItem>
+									{visible &&
+										(papel === "mod" || papel === "int" ? (
+											<div className="absolute top-full left-0 z-50 w-56 mt-2 bg-white shadow-xl rounded-xl border border-gray-200 py-2">
+												<MenuItem>
+													<Link
+														to="/postagem/criar/"
+														className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
+													>
+														<Newspaper className="w-5 h-5 text-cyan-500" />{" "}
+														Criar Postagem
+													</Link>
+												</MenuItem>
 
-											<MenuItem>
-												<Link
-													to={`/repositorio/criar/`}
-													className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
-												>
-													<BoxArrowUp className="w-5 h-5 text-cyan-500" /> Criar
-													Repositório
-												</Link>
-											</MenuItem>
-										</div>
-									)}
+												<MenuItem>
+													<Link
+														to="/repositorio/criar/"
+														className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
+													>
+														<BoxArrowUp className="w-5 h-5 text-cyan-500" />{" "}
+														Criar Repositório
+													</Link>
+												</MenuItem>
+											</div>
+										) : papel === "adm" ? (
+											<div className="absolute top-full left-0 z-50 w-56 mt-2 bg-white shadow-xl rounded-xl border border-gray-200 py-2">
+												<MenuItem>
+													<Link
+														to="/comunidade/criar/"
+														className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
+													>
+														<Newspaper className="w-5 h-5 text-cyan-500" />{" "}
+														Criar Comunidade
+													</Link>
+												</MenuItem>
+											</div>
+										) : null)}
 								</Menu>
 							) : (
 								<BeeButton

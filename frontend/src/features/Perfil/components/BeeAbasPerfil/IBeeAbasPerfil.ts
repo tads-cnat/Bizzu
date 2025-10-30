@@ -5,4 +5,8 @@ export interface IBeeAbasPerfil {
     children: React.ReactNode[];
     //Perfil é daquele usuário
     owner: boolean;
+    //Papel do usuário
+    papel:string;
+    // para dizer se é comunidade ou não
+    isComunidade?: boolean;
 }

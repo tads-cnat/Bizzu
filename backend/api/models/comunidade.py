@@ -13,16 +13,20 @@ class Comunidade(models.Model):
         verbose_name="Banner", upload_to="banners/%Y/%m/%d/", blank=True, null=True
     )
     coordenacao = models.CharField(verbose_name="Coordenação", max_length=50)
-    linkPPC = models.URLField(verbose_name="Link ppc")
-    linkHorarios = models.URLField(verbose_name="Link horários")
-    linkExtra = models.URLField(verbose_name="Link extra")
-    # seguidores = models.ManyToManyField("Usuario", verbose_name="Seguidores", symmetrical=False,related_name="follows",blank=True)
     seguidores = models.ManyToManyField(
         "Usuario",
         symmetrical=False,
         verbose_name="seguidores",
         related_name="comunidades_que_sigo",
         blank=True,
+    )
+    usuario = models.ForeignKey(
+        "Usuario",
+        verbose_name="Usuário",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="comunidades",
     )
 
     def __str__(self):
