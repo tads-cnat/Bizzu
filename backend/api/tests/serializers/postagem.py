@@ -102,3 +102,83 @@ class PostagemSerializerTest(TestCase):
     #     self.assertIn("usuario", serializer.errors)
     #     self.assertIn("comunidade", serializer.errors)
     #     self.assertIn("categorias", serializer.errors)
+
+
+class PostagemUpdateSerializerTest(TestCase):
+    postagem = None
+    comunidade = None
+    categorias = None
+    categoriasRedes = None
+    categoria2 = None
+
+    def setUp(self):
+        self.comunidade = Comunidade.objects.create(
+            nome="TADS",
+            descricao="Comunidade do curso de TADS",
+            anoFundacao="2012-05-01",
+            coordenacao="Marília Freire",
+        )
+        self.comunidade = Comunidade.objects.create(
+            nome="Redes",
+            descricao="Comunidade do curso de Redes",
+            anoFundacao="2012-05-01",
+            coordenacao="Fulano",
+        )
+        self.categorias = Categoria.objects.create(
+            nome="PC",
+            tipo="mat",
+        )
+        self.categoriasRedes = Categoria.objects.create(
+            nome="Django",
+            tipo="tec",
+        )
+        self.postagem = Postagem.objects.create(
+            texto="desenvolvi um projeto em django rest",
+            comunidade=self.comunidade,
+            imagem="/usuarios/2025/06/10/sem_imagem_avatar.png",
+        )
+        self.postagem.categorias.add(self.categorias)
+
+    def test_serialization_valid_output(self):
+        serializer = PostagemUpdateSerializer(instance=self.postagem)
+        data = serializer.data
+        self.assertEqual(data["texto"], "desenvolvi um projeto em django rest")
+        self.assertEqual(
+            data["imagem"],
+            "/imgPostagens/usuarios/2025/06/10/sem_imagem_avatar.png",
+        )
+        self.assertEqual(data["comunidade"], self.comunidade.id)
+        self.assertQuerySetEqual(
+            self.postagem.categorias.all(),
+            [self.categorias],
+            transform=lambda x: x,
+        )
+
+    def test_invalid_input_fileFormat(self):
+        input = {
+            "texto": "desenvolvi um projeto em django rest",
+            "comunidade": self.comunidade.id,
+            "categorias": [self.categoriasRedes.id],
+            "imagem": SimpleUploadedFile(
+                "main.py",
+                b"arquivo fake de teste",
+                content_type="file/py",
+            ),
+        }
+        serializer = PostagemUpdateSerializer(data=input)
+        self.assertFalse(serializer.is_valid())
+
+    def test_serialization_invalid_input(self):
+        input = {
+            "texto": "",
+            "arquivo": SimpleUploadedFile(
+                "sem_imagem_avatar.png",
+                b"arquivo fake de teste",
+                content_type="image/png",
+            ),
+            "comunidade": "1",
+            "categorias": [self.categorias.id],
+        }
+
+        serializer = PostagemUpdateSerializer(data=input)
+        self.assertFalse(serializer.is_valid())
