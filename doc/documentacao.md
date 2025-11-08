@@ -15,7 +15,7 @@
 - [Modelo de Casos de Uso](cdu/casos-de-uso-completos.md) - Interações entre usuários e sistema
 
 ## Testes 
-- [Casos de Teste](testes/casos-de-testes.md) - Listagem de casos de usos criados para diferentes casos de usos
+- [Casos de Teste](testes/casos-de-teste.md) - Listagem de casos de usos criados para diferentes casos de usos
 - [Avaliação Heurística](heuristica/heuristica.md) - Relatório de Avaliação por inspeção de Interface utilizando a
 Técnica Eureka
 
