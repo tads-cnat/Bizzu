@@ -67,7 +67,7 @@ Os problemas identificados foram compilados em um relatório conjunto, com suges
 | 08 | Lista de comunidades/repositórios mostra itens não seguidos | AF10 – Restrições / FM3 – Filtragem da informação | Filtrar para mostrar apenas comunidades/usuários seguidos. | Média | Moderado | [Imagem 08](#8) |
 | 09 | Alinhamento inconsistente em botões, títulos e campos | FM9 – Alinhamento | Padronizar margens e espaçamento entre títulos, botões e formulários. | Baixa | Leve | [Imagem 09](#9) |
 | 10 | Botão “+ Novo” é genérico e causa ambiguidade | PU4 – Redução do esforço cognitivo / NA5 – Mínimo de cliques | Alterar rótulo para “+ Nova Postagem” ou “+ Novo Repositório”. | Média | Leve | [Imagem 10](#10) |
-| 11 | Ausência de widget ou opção de acessibilidade visível | AC6 – Destaque das configuraç ões de acessibilidade| Incluir botão flutuante de acessibilidade (ajuste de contraste, fonte etc.). | Alta | Grande | [Imagem 11](#11) |
+| 11 | Ausência de widget ou opção de acessibilidade visível | AC6 – Destaque das configurações de acessibilidade| Incluir botão flutuante de acessibilidade (ajuste de contraste, fonte etc.). | Alta | Grande | [Imagem 11](#11) |
 | 12 | Contraste de textos insuficiente | FM11 – Contraste / AC4 – Contraste de cor | Aumentar contraste entre texto e fundo, seguindo padrões de acessibilidade. | Média | Leve | [Imagem 12](#12) |
 | 13 | Falta de affordance (ícones ou dicas) para edição de informações |CO3 – Affordance – dicas| Inserir ícones de edição (lápis/“+”) próximos aos campos editáveis.| Média | Leve | [Imagem 13](#13) |
 | 14 | Repositório não atualiza lista de arquivos após edição |AF1 –Funcionalidade | Atualizar automaticamente a lista de arquivos após alterações.| Média | Moderado | [Imagem 14](#14) |
