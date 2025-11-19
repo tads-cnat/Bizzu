@@ -31,7 +31,7 @@ const BeeHeader: React.FC = () => {
 	};
 
 	return (
-		<header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between bg-white py-4 px-8 border-b border-gray-300">
+		<header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between bg-white h-[70px] px-8 border-b border-gray-300">
 			<div className="flex items-center">
 				<Link to={`/`}>
 					<img

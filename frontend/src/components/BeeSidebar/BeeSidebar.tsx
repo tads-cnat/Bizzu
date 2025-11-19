@@ -1,5 +1,5 @@
 import "./style.css";
-import {Link, Navigate, useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 import ComunidadeService from "../../services/models/ComunidadeService";
 import UsuarioService from "../../services/models/UsuarioService";
@@ -102,9 +102,7 @@ export const BeeSidebar = ({onSelecionarSecao}: IBeeSidebarProps) => {
 				<Spin />
 			) : (
 				<div
-					className={`h-screen transition-all duration-300 ${
-						collapsed ? "w-[80px]" : "w-[300px] border-r border-gray-300"
-					}`}
+					className={`h-full transition-all duration-300 ${collapsed ? "w-[70px]" : "w-fill"}`}
 				>
 					<div className="flex flex-col mt-4 ml-5 gap-3">
 						<BeeButton
