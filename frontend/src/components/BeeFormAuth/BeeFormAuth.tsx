@@ -17,6 +17,7 @@ const schema = yup.object().shape({
 const BeeFormAuth: React.FC = () => {
 	const [status, setStatus] = useState<string>("error");
 	const [alert, setAlert] = useState<boolean>(false);
+	const [errorMessage, setErrorMessage] = useState<string>("Não foi possível fazer o login");
 	const {autenticar, atualizarUsuario} = acessAuth();
 
 	const {
@@ -46,7 +47,16 @@ const BeeFormAuth: React.FC = () => {
 			});
 
 			if (!res.ok) {
-				const errorText = await res.text();
+				const errorData = await res.json().catch(() => ({}));
+				
+				// Tratamento específico para e-mail não educacional
+				if (res.status === 403 && errorData.error === "Acesso restrito a e-mails educacionais") {
+					throw new Error(
+						errorData.message || 
+						"O Bizzu é exclusivo para a comunidade acadêmica. Use um e-mail institucional."
+					);
+				}
+				
 				throw new Error("Falha ao autenticar com Google");
 			}
 
@@ -93,9 +103,14 @@ const BeeFormAuth: React.FC = () => {
 
 	function handleLoginErrorUI(error: any) {
 		console.error("Erro no login:", error);
+		
+		// Extrai mensagem de erro se disponível
+		const errorMessage = error?.message || "Não foi possível fazer o login";
+		
+		setErrorMessage(errorMessage);
 		setStatus("error");
 		setAlert(true);
-		setTimeout(() => setAlert(false), 4000);
+		setTimeout(() => setAlert(false), 6000); // 6 segundos para mensagens mais longas
 	}
 
 	return (
@@ -109,7 +124,7 @@ const BeeFormAuth: React.FC = () => {
 				) : (
 					<BeeAlert
 						typeAlert="error"
-						messageAlert="Não foi possível fazer o login"
+						messageAlert={errorMessage}
 					/>
 				))}
 

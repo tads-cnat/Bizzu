@@ -89,6 +89,21 @@ GOOGLE_CLIENT_ID = (
     "339878763062-a58uon1csivv1ru7ubt1g60cmc5tao3a.apps.googleusercontent.com"
 )
 
+# Domínios educacionais permitidos para autenticação
+ALLOWED_EDUCATIONAL_DOMAINS = [
+    # Domínios gerais educacionais
+    ".edu",
+    ".edu.br",
+    ".ac.br",
+    # Domínios do IFRN e instituições específicas
+    "ifrn.edu.br",
+    "escolar.ifrn.edu.br",
+    "academico.ifrn.edu.br",
+    # Adicione outros domínios institucionais específicos aqui
+    "ufrn.br",
+    "ufrn.edu.br",
+]
+
 # Internationalization
 LANGUAGE_CODE = "pt-br"
 TIME_ZONE = "America/Sao_Paulo"

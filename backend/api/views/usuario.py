@@ -31,6 +31,38 @@ from ..permissions.internanuta import Internauta
 from ..permissions.admin import Adm
 
 
+def is_educational_email(email):
+    """
+    Verifica se o e-mail pertence a um domínio educacional permitido.
+    Retorna True se o domínio for educacional, False caso contrário.
+    """
+    if not email or "@" not in email:
+        return False
+
+    # Divide o e-mail em parte local e domínio
+    parts = email.lower().split("@")
+    if len(parts) != 2 or not parts[0] or not parts[1]:
+        return False
+
+    email_domain = parts[1]
+
+    # Verifica se o domínio está na lista de domínios permitidos
+    for allowed_domain in settings.ALLOWED_EDUCATIONAL_DOMAINS:
+        # Se o domínio permitido começa com '.', verifica se termina com ele
+        if allowed_domain.startswith("."):
+            if (
+                email_domain.endswith(allowed_domain)
+                or email_domain == allowed_domain[1:]
+            ):
+                return True
+        # Caso contrário, verifica correspondência exata
+        else:
+            if email_domain == allowed_domain:
+                return True
+
+    return False
+
+
 def download_and_save_google_picture(picture_url, user):
     """
     Baixa a foto de perfil do Google e salva no sistema de arquivos
@@ -390,6 +422,19 @@ class GoogleAuthView(APIView):
             )
 
         email = google_data["email"]
+
+        # Validação de e-mail educacional
+        if not is_educational_email(email):
+            return Response(
+                {
+                    "error": "Acesso restrito a e-mails educacionais",
+                    "message": "O Bizzu é exclusivo para a comunidade acadêmica. "
+                    "Por favor, utilize um e-mail institucional (ex: @ifrn.edu.br, @ufrn.br, etc.)",
+                    "email_used": email,
+                },
+                status=status.HTTP_403_FORBIDDEN,
+            )
+
         name = google_data.get("name", email.split("@")[0])
         picture = google_data.get("picture")
 
