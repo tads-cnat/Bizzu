@@ -1,5 +1,3 @@
-"use client";
-
 import BeeHeader from "../../components/BeeHeader/BeeHeader";
 import {BeeSidebar} from "../../components/BeeSidebar/BeeSidebar";
 import BeeRepo from "../../components/BeeRepo/BeeRepo";
@@ -17,6 +15,7 @@ import type {FiltrosPostagem} from "../../components/BeeModalFiltros/IBeeModalFi
 import {Funnel} from "@phosphor-icons/react";
 import type {IBeeCategorias} from "../../interfaces/IBeeCategoria";
 import {IRepositorio} from "../../interfaces/Repositorio";
+import {colors, types} from "../../components/BeeTags/IBeeTags";
 
 interface Usuario {
 	username: string;
@@ -24,6 +23,7 @@ interface Usuario {
 
 interface BeePostPropsExtended extends BeePostProps {
 	categorias?: number[];
+	imagem: string;
 }
 
 const LayoutFeed = () => {
@@ -117,15 +117,12 @@ const LayoutFeed = () => {
 			alert("Erro ao excluir repositório. Tente novamente.");
 		}
 	};
-
-	const handleExcluirPostagem = (id: number) => {
-		console.log("Excluindo postagem:", id);
-	};
-
-	const categoriasParaTagsRepositorio = (categoriasIds: number[]): Tag[] => {
+	const categoriasParaTagsRepositorio = (
+		categoriasIds: number[],
+	): IBeeTags[] => {
 		if (!categoriasIds || categoriasIds.length === 0) return [];
 
-		const coresPorTipo: Record<"tec" | "mat" | "per", string> = {
+		const coresPorTipo: Record<types, colors> = {
 			tec: "magenta",
 			mat: "orange",
 			per: "cyan",
@@ -168,7 +165,7 @@ const LayoutFeed = () => {
 			per: "cyan",
 		};
 
-		const tagsValidas: IBeeTags[] = [];
+		const tagsValidas = [];
 
 		for (const categoriaId of categoriasIds) {
 			const categoria = categorias.find((c) => c.id === categoriaId);
@@ -418,11 +415,6 @@ const LayoutFeed = () => {
 												onCurtir={() => console.log("Curtir post:", post.id)}
 												onAbrirComentarios={() =>
 													console.log("Abrir comentários:", post.id)
-												}
-												onExcluir={
-													post.onExcluir
-														? () => handleExcluirPostagem(post.id || 0)
-														: undefined
 												}
 												imagemUsuarioLogado={post.imagemUsuarioLogado}
 												disableInteractions={post.disableInteractions}
