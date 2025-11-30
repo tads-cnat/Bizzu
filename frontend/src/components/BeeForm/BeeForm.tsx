@@ -45,9 +45,7 @@ const BeeForm = ({
 
 	const caminho = useNavigate();
 	const [nomeComunidade, setNomeComunidade] = useState("Escolha uma ");
-	const [fotoPerfil, setFotoPerfil] = useState(
-		"http://localhost:8000/imgPostagens/usuarios/2025/06/10/sem_imagem_avatar.png",
-	);
+	const [fotoPerfil, setFotoPerfil] = useState("./public/semFoto.jpg");
 
 	const nome = watch("comunidade");
 
@@ -60,10 +58,7 @@ const BeeForm = ({
 	}, [nome]);
 
 	useEffect(() => {
-		if (typeof perfil === "string")
-			setFotoPerfil(
-				"http://localhost:8000/imgPostagens/usuarios/2025/06/10/sem_imagem_avatar.png",
-			);
+		if (typeof perfil === "string") setFotoPerfil("./public/semFoto.jpg");
 		else if (typeof perfil === "object" && perfil !== null) {
 			const previewUrl = URL.createObjectURL(perfil);
 			setFotoPerfil(previewUrl);

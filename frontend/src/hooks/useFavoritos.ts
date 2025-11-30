@@ -40,11 +40,9 @@ export const useFavoritos = (repositorioId: number): UseFavoritosReturn => {
 			if (estaFavoritado) {
 				await UsuarioService.desfavoritarRepositorio(repositorioId);
 				setEstaFavoritado(false);
-				console.log("Repositório removido dos favoritos!");
 			} else {
 				await UsuarioService.favoritarRepositorio(repositorioId);
 				setEstaFavoritado(true);
-				console.log("Repositório adicionado aos favoritos!");
 			}
 		} catch (error: any) {
 			console.error("Erro ao alterar favorito:", error);

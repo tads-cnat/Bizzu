@@ -28,8 +28,6 @@ const EditPerfil: React.FC = () => {
 		}
 	}, []);
 
-	console.log("USER ", usuario, username);
-
 	return username !== undefined ? (
 		<div className="w-full">
 			<h1 className="text-2xl font-bold mb-4">Editar Perfil</h1>

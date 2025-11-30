@@ -268,7 +268,7 @@ const BeeModalComentarios: React.FC<IBeeModalComentarios> = ({
 												src={
 													comentario.usuario.imagemPerfil
 														? `${comentario.usuario.imagemPerfil}`
-														: "http://localhost:8000/imgPostagens/usuarios/2025/06/10/sem_imagem_avatar.png"
+														: "./public/semFoto.jpg"
 												}
 												alt={comentario.usuario.nome}
 												className="w-10 h-10 object-cover flex-shrink-0"

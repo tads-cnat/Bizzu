@@ -46,9 +46,7 @@ const schema = yup.object().shape({
 
 const FormSig: React.FC = () => {
 	const [current, setCurrent] = useState<number>(0);
-	const [preview, setPreview] = useState(
-		"http://localhost:8000/imgPostagens/usuarios/2025/06/10/sem_imagem_avatar.png",
-	);
+	const [preview, setPreview] = useState("./public/semFoto.jpg");
 	const [previewBanner, setPreviewBanner] = useState("/banner.png");
 
 	const {
@@ -282,10 +280,7 @@ const FormSig: React.FC = () => {
 										multiple={false}
 										label="Mostra sua cara"
 										onChange={(val) => {
-											if (val == null)
-												setPreview(
-													"http://localhost:8000/imgPostagens/usuarios/2025/06/10/sem_imagem_avatar.png",
-												);
+											if (val == null) setPreview("./public/semFoto.jpg");
 											else setPreview(URL.createObjectURL(val));
 										}}
 										control={control}

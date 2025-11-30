@@ -34,7 +34,7 @@ export const BeeSidebar = ({onSelecionarSecao}: IBeeSidebarProps) => {
 				setUsuario(response);
 			})
 			.catch(() => {
-				console.log("Não recebeu dados");
+				console.error("Não recebeu dados");
 			});
 	}, []);
 
@@ -122,7 +122,7 @@ export const BeeSidebar = ({onSelecionarSecao}: IBeeSidebarProps) => {
 													usuario.imagemPerfil !== undefined &&
 													usuario.imagemPerfil !== null
 														? `http://localhost:8000${usuario.imagemPerfil}`
-														: "http://localhost:8000/imgPostagens/usuarios/2025/06/10/sem_imagem_avatar.png"
+														: "./public/semFoto.jpg"
 												}
 												alt={username}
 												className="w-10 h-10 object-cover"
