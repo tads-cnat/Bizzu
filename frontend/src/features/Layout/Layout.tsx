@@ -1,23 +1,20 @@
-import React, {useState} from "react";
+import React from "react";
 import BeeHeader from "../../components/BeeHeader/BeeHeader";
 import {Outlet} from "react-router";
 import {BeeSidebar} from "../../components/BeeSidebar/BeeSidebar";
 import BeePerfilSidebar from "../../components/BeePerfilSidebar/BeePerfilSidebar";
 
 const Layout: React.FC = () => {
-	const [sidebarOpen, setSidebarOpen] = useState(false);
-
 	return (
 		<>
-			<BeeHeader onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
+			<BeeHeader />
 
 			<div className="flex pt-[70px] h-[calc(100vh-70px)]">
 				<div
 					className={`
 						fixed top-[70px] left-0 h-full bg-white z-40 border-r border-gray-200 
 						transition-transform duration-300
-						w-[250px]
-						${sidebarOpen ? "translate-x-0" : "-translate-x-full"}
+						w-[250px]-translate-x-full
 						md:translate-x-0 md:w-[300px]
 					`}
 				>

@@ -212,7 +212,7 @@ const BeePost: React.FC<BeePostProps> = ({
 				dataPublicacao={dataPublicacao}
 				comunidade={comunidade}
 			/>
-			<p className="mb-3 mt-2">{texto}</p>
+			<p className="mb-3 mt-2 whitespace-normal wrap-break-word">{texto}</p>
 			{imagemPost && (
 				<div className="w-full h-90 mb-3">
 					<img

@@ -6,4 +6,4 @@ services:
         ports: 
             - "5173:5173"
         volumes:
-            - ./:/bizzuVolumeFront
+            - ./:/bizzufront

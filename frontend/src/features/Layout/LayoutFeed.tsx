@@ -47,6 +47,7 @@ const LayoutFeed = () => {
 	const [filtrosAvancados, setFiltrosAvancados] =
 		useState<FiltrosPostagem | null>(null);
 	const [modalFiltrosAberto, setModalFiltrosAberto] = useState(false);
+	const [secaoAtual, setSecaoAtual] = useState("1");
 
 	useEffect(() => {
 		const user = getLocalStorage();
@@ -55,7 +56,6 @@ const LayoutFeed = () => {
 		}
 	}, [usuario]);
 	const [sidebarOpen] = useState(false);
-	const [secaoAtual] = useState("1");
 
 	const carregarRepositorios = async () => {
 		try {
@@ -303,6 +303,13 @@ const LayoutFeed = () => {
 			(filtrosAvancados.periodos?.length || 0)
 		: 0;
 
+	const handleSelecionarSecao = (secao: string) => {
+		setSecaoAtual(secao);
+		if (filtrosAvancados) {
+			limparFiltrosAvancados();
+		}
+	};
+
 	return (
 		<>
 			<BeeHeader />
@@ -316,7 +323,7 @@ const LayoutFeed = () => {
 										md:translate-x-0 md:w-[300px]
 									`}
 				>
-					<BeeSidebar />
+					<BeeSidebar onSelecionarSecao={handleSelecionarSecao} />
 				</div>
 				<div className="flex-1 mx-auto w-full md:ml-[220px] md:mr-[250px] px-4 py-4 overflow-y-auto">
 					<div className="max-w-[600px] mx-auto">
