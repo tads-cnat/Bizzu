@@ -11,7 +11,10 @@ class RepositorioService extends BaseService{
     const response = await axiosInstance.get(`${this.complementoURL}/${id}/getRepoComunidade`)
     return response
   }
-
+  async getArquivos(id : number){
+      const response = await axiosInstance.get((`${this.complementoURL}/${id}/getArquivos`))
+      return response.data
+    }
   async favoritar(id: number) {
     const response = await axiosInstance.post(`${this.complementoURL}/${id}/favoritar/`)
     return response

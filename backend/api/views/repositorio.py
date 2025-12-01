@@ -1,6 +1,7 @@
 from rest_framework import viewsets, status
 from ..models import Repositorio
 from api.serializers.repositorio import RepositorioSerializer
+from api.serializers.arquivo import ArquivoSerializer
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated
 from ..models.arquivo import Arquivo
@@ -65,6 +66,13 @@ class RepositorioViewSet(viewsets.ModelViewSet):
 
         except Exception as e:
             return Response({"error": str(e)}, status=400)
+
+    @action(detail=True, methods=["GET"])
+    def getArquivos(self, request, pk=None):
+        repositorio = self.get_object()
+        arquivos = repositorio.arquivos.all()
+        serializer = ArquivoSerializer(arquivos, many=True)
+        return Response(serializer.data)
 
     @action(
         detail=True, methods=["POST"], permission_classes=[IsAuthenticated]

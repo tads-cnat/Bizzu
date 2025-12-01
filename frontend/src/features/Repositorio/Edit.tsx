@@ -10,7 +10,7 @@ import onSubmit from "./Forms/submitEdit";
 import {useNavigate, useParams} from "react-router-dom";
 import ComunidadeService from "../../services/models/ComunidadeService";
 import RepositorioService from "../../services/models/RepositorioService";
-import ArquivoService from "../../services/models/ArquivoService";
+
 import {Spin} from "antd";
 
 const EditRepositorio: React.FC = () => {
@@ -18,6 +18,7 @@ const EditRepositorio: React.FC = () => {
 	const [usuario, setUsuario] = useState<IBeeUser>();
 	const {username} = acessAuth();
 	const {id} = useParams();
+
 	const [comunidades, setComunidades] = useState<any[]>([]);
 	const [repositorio, setRepositorio] = useState<any[]>([]);
 	const [comunidadeSelecionada, setComunidadeSelecionada] = useState<any[]>([]);
@@ -86,9 +87,12 @@ const EditRepositorio: React.FC = () => {
 
 	useEffect(() => {
 		const loadArquivos = async () => {
+			if (!repositorio) return;
 			try {
-				const response = await ArquivoService.get(Number(id));
-				setArquivos(response.data);
+				const arquivos = await RepositorioService.getArquivos(Number(id)); // Esse ID é o do repositório não do arquivo
+				setArquivos(arquivos);
+				console.log("ID recebido na rota:", id);
+				console.log("arquivos:", id);
 			} catch {
 				setArquivos([]);
 			}
@@ -115,7 +119,7 @@ const EditRepositorio: React.FC = () => {
 						value: comunidadeSelecionada.id,
 					},
 					categoria: repositorio.categorias,
-					arquivo: arquivos.arquivo,
+					arquivo: arquivos.map((arq) => arq.arquivo),
 				}}
 			/>
 		</div>
