@@ -8,3 +8,20 @@
 | R4            | Infraestrutura limitada dos membros              | Uso de computadores pessoais pode reduzir a produtividade                                                     | Média                     | Redução de produtividade                               | Utilizar laboratório do IFRN sempre que possível                                     | Não se aplica (não informado anteriormente)                                               |
 | R5            | Entregas semanais com prazos curtos              | Prazos apertados podem causar sobrecarga e estresse                                                           | Média                     | Sobrecarga e estresse                                  | Planejar tarefas com antecedência e dividir em partes menores                        | Negociar prazos com os professores, se necessário                                         |
 | R6            | Sobrecarga por múltiplas disciplinas simultâneas | Acúmulo de tarefas de várias matérias pode impactar negativamente o projeto                                   | Alta                      | Atrasos nas entregas, baixa qualidade na execução      | Planejamento semanal das atividades acadêmicas e do projeto, priorizando o essencial | Replanejar o cronograma do projeto e renegociar entregas com os professores se necessário |
+
+## Riscos, Contingências e Reserva Gerencial
+
+| Item                            | Valor (R$) |
+|---------------------------------|------------:|
+| Máquina quebrar                 | 200,00      |
+| Licenças insuficientes          | 285,00      |
+| Afastamento de membro           | 10.650,00   |
+| Degradação de performance       | 6.000,00    |
+| Descoberta de dependência       | 1.500,00    |
+| Treinamento urgente             | 900,00      |
+| Hospedagem (AWS)                | 328,56      |
+| **Reserva de contingência**     | **19.863,56** |
+| **Subtotal (Diretos + Riscos)**| **91.693,76** |
+| Reserva Gerencial (10%)         | **9.169,38**  |
+| **Valor Total Final do Projeto** | **100.863,14** |
+
