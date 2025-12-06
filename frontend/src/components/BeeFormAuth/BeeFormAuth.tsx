@@ -21,7 +21,6 @@ const BeeFormAuth: React.FC = () => {
 
 	const {
 		handleSubmit,
-		register,
 		formState: {errors},
 		control,
 	} = useForm({resolver: yupResolver(schema)});
@@ -76,19 +75,19 @@ const BeeFormAuth: React.FC = () => {
 		setAlert(true);
 		setTimeout(() => setAlert(false), 4000);
 
-		if (isNew) {
-			localStorage.setItem("hasSeenTour", "false");
-			redirecionar(`/${username}/`, {state: {showTour: true}});
-			return;
-		}
+		// if (isNew) {
+		// 	localStorage.setItem("hasSeenTour", "false");
+		// 	redirecionar(`/${username}/`, {state: {showTour: true}});
+		// 	return;
+		// }
 
-		if (deOndeVeio.state?.fromCadastro) {
-			localStorage.setItem("hasSeenTour", "false");
-			redirecionar(`/${username}/`, {state: {showTour: true}});
-		} else {
-			localStorage.setItem("hasSeenTour", "true");
-			redirecionar(`/${username}/`);
-		}
+		// if (deOndeVeio.state?.fromCadastro) {
+		// 	localStorage.setItem("hasSeenTour", "false");
+		// 	redirecionar(`/${username}/`, {state: {showTour: true}});
+		// } else {
+		// 	localStorage.setItem("hasSeenTour", "true");
+		// 	redirecionar(`/${username}/`);
+		// }
 	}
 
 	function handleLoginErrorUI(error: any) {
@@ -102,15 +101,21 @@ const BeeFormAuth: React.FC = () => {
 		<div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 w-[400px]">
 			{alert &&
 				(status === "success" ? (
-					<BeeAlert
-						typeAlert="success"
-						messageAlert="Login realizado com sucesso"
-					/>
+					<div data-cypress="success-messages">
+						<BeeAlert
+							typeAlert="success"
+							messageAlert="Login realizado com sucesso"
+							data-cypress="success-messages"
+						/>
+					</div>
 				) : (
-					<BeeAlert
-						typeAlert="error"
-						messageAlert="Não foi possível fazer o login"
-					/>
+					<div data-cypress="error-messages">
+						<BeeAlert
+							typeAlert="error"
+							messageAlert="Não foi possível fazer o login"
+							data-cypress="error-messages"
+						/>
+					</div>
 				))}
 
 			<div className="sm:mx-auto sm:w-full sm:max-w-sm">
