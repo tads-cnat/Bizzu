@@ -4,7 +4,9 @@ import {IBeeArquivo} from "./IBeeArquivo";
 import {useEffect, useState} from "react";
 import {UploadChangeParam} from "antd/es/upload";
 import {Controller} from "react-hook-form";
-
+import {useLocation} from "react-router-dom";
+import RepositorioService from "../../services/models/RepositorioService";
+import ArquivoService from "../../services/models/ArquivoService";
 const BeeArquivo: React.FC<IBeeArquivo> = ({
 	name,
 	value,
@@ -15,6 +17,10 @@ const BeeArquivo: React.FC<IBeeArquivo> = ({
 	defaultValue,
 }: IBeeArquivo) => {
 	const [fileList, setFileList] = useState<UploadFile[]>([]);
+	const location = useLocation();
+	const isRepositorio = location.pathname.includes("repositorio");
+	const IdUtils = Number(window.location.pathname.split("/").pop());
+
 	useEffect(() => {
 		const arquivosOrigem = value ?? defaultValue;
 		if (!arquivosOrigem) return;
@@ -81,8 +87,21 @@ const BeeArquivo: React.FC<IBeeArquivo> = ({
 		fieldOnChange(finalValue);
 		onChange?.(finalValue);
 	};
+	const handleRemoveRepo = async (file: any) => {
+		const arquivos = await RepositorioService.getArquivos(IdUtils);
+		const nomeFrontend = file.name ?? file.url?.split("/")?.pop();
+		const arquivoParaDeletar = arquivos.find((arq: any) => {
+			const nomeBackend = arq.arquivo.split("/").pop();
+			return nomeBackend === nomeFrontend;
+		});
+		if (arquivoParaDeletar?.id) {
+			await ArquivoService.delete(arquivoParaDeletar.id);
+			console.log("Arquivo deletado:", arquivoParaDeletar.id);
+		}
 
-	const handleRemove = async (arquivos: UploadFile) => {
+		return true;
+	};
+	const handleRemovePost = async (arquivos: UploadFile) => {
 		const newList = fileList.filter((f) => f.uid !== arquivos.uid);
 		setFileList(newList);
 
@@ -92,6 +111,7 @@ const BeeArquivo: React.FC<IBeeArquivo> = ({
 		onChange?.(multiple ? arquivos : (arquivos2[0] ?? null));
 
 		//Adicionar chamada de API para deletar caso um arquivo já está gurdado no banco em atualizar
+		console.log("id da postagem:", IdUtils);
 
 		return true;
 	};
@@ -106,7 +126,7 @@ const BeeArquivo: React.FC<IBeeArquivo> = ({
 					multiple={multiple}
 					listType="picture"
 					onChange={(value) => handleChange(value, field.onChange)}
-					onRemove={handleRemove}
+					onRemove={isRepositorio ? handleRemoveRepo : handleRemovePost}
 					beforeUpload={() => false}
 					fileList={fileList}
 				>
