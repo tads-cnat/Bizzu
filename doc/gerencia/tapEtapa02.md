@@ -8,7 +8,7 @@
 
 **Fase Atual**: Consolidação, Testes e Encerramento (Etapa 02)
 
-### 2. Justificativa do Projeto (Atualizada)
+### 2. Justificativa do Projeto 
 O projeto Bizzu entra em sua fase de consolidação. Após o desenvolvimento inicial da rede social acadêmica, há a necessidade crítica de garantir a qualidade do software, a estabilidade através de integração contínua e a validação de usabilidade com os usuários finais. Esta fase justifica-se pela necessidade de entregar um produto robusto, testado e com planejamento de custos e riscos refinado para a banca final.
 
 ### 3. Objetivos do Projeto
@@ -16,7 +16,7 @@ O projeto Bizzu entra em sua fase de consolidação. Após o desenvolvimento ini
 #### 3.1 Objetivos Principais
 Finalizar o ciclo de desenvolvimento da plataforma Bizzu até Janeiro de 2026, implementando rotinas de **Integração Contínua (CI)**, realizando **baterias completas de testes** (API, funcionais e usabilidade) e apresentando os relatórios de gerenciamento de **custos e riscos**.
 
-#### 3.2 Objetivos Específicos (Foco na Etapa 02)
+#### 3.2 Objetivos Específicos 
 - Implementar pipeline de CI (Integração Contínua) para automação de builds e testes.
 - Realizar e documentar testes de API, Funcionais e Não-funcionais.
 - Executar testes de usabilidade e avaliação empírica com usuários reais.
