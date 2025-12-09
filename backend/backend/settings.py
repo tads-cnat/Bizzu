@@ -140,6 +140,8 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
     "http://localhost:3000",
+    config("BASE_URL_CLOUD_FRONT"),
+    config("BASE_URL_CLOUD_BACK"),
 ]
 
 CORS_ALLOW_CREDENTIALS = True
@@ -149,12 +151,16 @@ ALLOWED_HOSTS = [
     "special-space-halibut-8000.app.github.dev",
     "localhost",
     "127.0.0.1",
+    config("BASE_URL_CLOUD_FRONT"),
+    config("BASE_URL_CLOUD_BACK"),
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:8000",
     "http://127.0.0.1:8000",
     "http://localhost:5173",
+    config("BASE_URL_CLOUD_FRONT"),
+    config("BASE_URL_CLOUD_BACK"),
 ]
 
 MEDIA_URL = "/imgPostagens/"

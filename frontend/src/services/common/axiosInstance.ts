@@ -1,14 +1,17 @@
 import axios from "axios"
 import getLocalStorage from "../../utils/getLocalStorage"
 
+const type = import.meta.env.ENV;
+let BASE_URL = "http://localhost:8000/api"
+
+if (type == 0) BASE_URL = import.meta.env.BASE_URL_CLOUD_API
+else if (type == 1) BASE_URL = import.meta.env.BASE_URL_LOCAL_API
+
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:8000/api/",
-  // headers: {
-  //   "Content-Type": "application/json",
-  // },
+  baseURL: BASE_URL,
 })
 
-axiosInstance.interceptors.request.use( ///token ser inserido na requisição automaticamente 
+axiosInstance.interceptors.request.use( 
     (config) => {
         const user = getLocalStorage();
         if (user  && user.token){
