@@ -75,19 +75,19 @@ const BeeFormAuth: React.FC = () => {
 		setAlert(true);
 		setTimeout(() => setAlert(false), 4000);
 
-		// if (isNew) {
-		// 	localStorage.setItem("hasSeenTour", "false");
-		// 	redirecionar(`/${username}/`, {state: {showTour: true}});
-		// 	return;
-		// }
+		if (isNew) {
+			localStorage.setItem("hasSeenTour", "false");
+			redirecionar(`/${username}/`, {state: {showTour: true}});
+			return;
+		}
 
-		// if (deOndeVeio.state?.fromCadastro) {
-		// 	localStorage.setItem("hasSeenTour", "false");
-		// 	redirecionar(`/${username}/`, {state: {showTour: true}});
-		// } else {
-		// 	localStorage.setItem("hasSeenTour", "true");
-		// 	redirecionar(`/${username}/`);
-		// }
+		if (deOndeVeio.state?.fromCadastro) {
+			localStorage.setItem("hasSeenTour", "false");
+			redirecionar(`/${username}/`, {state: {showTour: true}});
+		} else {
+			localStorage.setItem("hasSeenTour", "true");
+			redirecionar(`/${username}/`);
+		}
 	}
 
 	function handleLoginErrorUI(error: any) {
