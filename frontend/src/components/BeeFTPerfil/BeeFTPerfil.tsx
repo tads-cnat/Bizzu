@@ -3,6 +3,7 @@
 import {useEffect, useState} from "react";
 import UsuarioService from "../../services/models/UsuarioService";
 import {IBeeFTPerfil} from "./IBeeFTPerfil";
+import {Link} from "react-router-dom";
 
 function tempoDesde(data: string): string {
 	const date = new Date(data);
@@ -60,11 +61,19 @@ const BeeFTPerfil: React.FC<IBeeFTPerfil> = ({
 					/>
 				</div>
 				<div className="p-2 ">
-					{!usuario?.username
-						? "usuário não encontrado"
-						: usuario.papel === "adm"
-							? comunidade
-							: usuario?.username}
+					{!usuario?.username ? (
+						"usuário não encontrado"
+					) : usuario.papel === "adm" ? (
+						comunidade
+					) : (
+						<Link
+							className="!text-inherit !no-underline"
+							to={`/${usuario.username}/`}
+						>
+							{usuario.username}
+						</Link>
+					)}
+
 					<span className="text-[#FCBD18] font-poppins font-semibold text-xs">
 						{" "}
 						• {tempoDesde(dataPublicacao)}{" "}
