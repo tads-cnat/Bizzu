@@ -70,12 +70,6 @@ const BeeFTPerfil: React.FC<IBeeFTPerfil> = ({
 						<Link
 							className="!text-inherit !no-underline"
 							to={`/${usuario.username}/`}
-							onClick={(e) => {
-								if (!usuario?.username) {
-									e.preventDefault(); // impede a navegação
-									alert("Você precisa estar logado para acessar perfis.");
-								}
-							}}
 						>
 							{usuario.username}
 						</Link>
