@@ -30,6 +30,8 @@ const BeeHeader: React.FC = () => {
 		mudar(`/${usuario.username}/`);
 	};
 
+	console.log(username == "");
+
 	return (
 		<header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between bg-white h-[70px] px-8 border-b border-gray-300">
 			<div className="flex items-center">
@@ -41,7 +43,7 @@ const BeeHeader: React.FC = () => {
 					/>
 				</Link>
 			</div>
-			{username === undefined ? (
+			{username === undefined || username == "" ? (
 				<BeeNotification
 					type="warning"
 					title="Você não está conectado"
@@ -57,7 +59,7 @@ const BeeHeader: React.FC = () => {
 				/>
 			)}
 
-			{username != undefined ? (
+			{username != undefined && username != "" ? (
 				<BeeButton
 					onClick={() => sair()}
 					icone={
