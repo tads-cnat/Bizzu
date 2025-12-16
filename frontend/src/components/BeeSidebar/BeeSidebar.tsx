@@ -1,6 +1,6 @@
 import "./style.css";
 import {Link, useNavigate} from "react-router-dom";
-import {useEffect, useState} from "react";
+import {use, useEffect, useState} from "react";
 import ComunidadeService from "../../services/models/ComunidadeService";
 import UsuarioService from "../../services/models/UsuarioService";
 import {Divider, Menu, Spin} from "antd";
@@ -87,12 +87,14 @@ export const BeeSidebar = ({onSelecionarSecao}: IBeeSidebarProps) => {
 							/>
 						),
 						label: "Você segue",
+						disabled: username == undefined || username == "",
 					},
 					{
 						key: "3",
 						label: "Comunidades",
 						icon: <Globe size={23} />,
 						children: comunidades,
+						disabled: username == undefined || username == "",
 					},
 				];
 	const caminho = useNavigate();
