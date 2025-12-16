@@ -322,7 +322,7 @@ const LayoutFeed = () => {
 				>
 					<BeeSidebar onSelecionarSecao={handleSelecionarSecao} />
 				</div>
-				<div className="flex-1 mx-auto w-full md:ml-[220px] md:mr-[250px] px-4 py-4 overflow-y-auto">
+				<div className="flex-1 mx-auto w-full md:ml-[220px] md:mr-[350px] px-4 py-4 overflow-y-auto pr-2 py-4 space-y-4">
 					<div className="max-w-[600px] mx-auto">
 						<div className="mb-4">
 							{filtrosAvancados && (
@@ -385,7 +385,6 @@ const LayoutFeed = () => {
 							filtrosAtuais={filtrosAvancados}
 						/>
 
-						{/* Conteúdo das postagens */}
 						<div>
 							{carregandoFiltroAvancado ? (
 								<div className="flex justify-center items-center py-8">
@@ -431,7 +430,7 @@ const LayoutFeed = () => {
 						</div>
 					</div>
 				</div>
-				<aside className="hidden lg:block fixed top-[70px] right-0 w-[300px] h-[calc(100vh-70px)] px-3 py-4 bg-white border-l border-gray-300 overflow-y-auto">
+				<aside className="hidden lg:block fixed top-[70px] right-0 w-[350px] h-[calc(100vh-70px)] px-3 py-4 bg-white border-l border-gray-300 overflow-y-auto">
 					<div className="px-3 py-4 border-b border-gray-200">
 						<h2 className="text-lg font-bold">Repositórios</h2>
 					</div>
