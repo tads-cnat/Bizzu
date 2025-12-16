@@ -3,6 +3,10 @@
 import {useEffect, useState} from "react";
 import UsuarioService from "../../services/models/UsuarioService";
 import {IBeeFTPerfil} from "./IBeeFTPerfil";
+import {Link} from "react-router-dom";
+import BeeNotification from "../BeeNotification/BeeNotification";
+import getLocalStorage from "../../utils/getLocalStorage";
+import {Menu} from "antd";
 
 function tempoDesde(data: string): string {
 	const date = new Date(data);
@@ -25,7 +29,15 @@ const BeeFTPerfil: React.FC<IBeeFTPerfil> = ({
 	comunidade,
 }) => {
 	const [usuario, setUsuario] = useState<any>();
-
+	const username = getLocalStorage()?.username;
+	const [mostrarAviso, setMostrarAviso] = useState(false);
+	const handleClickPerfil = (e: React.MouseEvent) => {
+		if (!username) {
+			e.preventDefault();
+			setMostrarAviso(true);
+			console.log("clicando");
+		}
+	};
 	useEffect(() => {
 		const fetchUser = async () => {
 			try {
@@ -59,12 +71,28 @@ const BeeFTPerfil: React.FC<IBeeFTPerfil> = ({
 						}}
 					/>
 				</div>
-				<div className="p-2 ">
-					{!usuario?.username
-						? "usuário não encontrado"
-						: usuario.papel === "adm"
-							? comunidade
-							: usuario?.username}
+				<div className="p-2">
+					{!usuario?.username ? (
+						"Usuário não encontrado"
+					) : usuario.papel === "adm" ? (
+						comunidade
+					) : (
+						<Link
+							to={`/${usuario.username}/`}
+							onClick={handleClickPerfil}
+							className="!text-inherit !no-underline"
+						>
+							{usuario.username}
+						</Link>
+					)}
+					{mostrarAviso && (
+						<BeeNotification
+							type="warning"
+							title="Você não está conectado"
+							message="Faça o login e aproveite integralmente o bizzu"
+						/>
+					)}
+
 					<span className="text-[#FCBD18] font-poppins font-semibold text-xs">
 						{" "}
 						• {tempoDesde(dataPublicacao)}{" "}
