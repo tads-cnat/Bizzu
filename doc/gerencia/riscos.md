@@ -11,56 +11,55 @@
 
 Para a definição dos principais riscos do projeto Bizzu foram considerados passos:
 
-1. Coleta de possíveis riscos<br>
+> 1. Coleta de possíveis riscos<br>
    Foram utilizadas múltiplas fontes de informação:
-
-- Opinião dos desenvolvedores por meio de reuniões de equipe.
-- Análise dos requisitos funcionais e não funcionais do sistema.
-- Revisão de atas de reunião e relatórios de entregas.
+   - Opinião dos desenvolvedores por meio de reuniões de equipe.
+   - Análise dos requisitos funcionais e não funcionais do sistema.
+   - Revisão de atas de reunião e relatórios de entregas.
   <br>
 
-2. Definição de estratégias<br>
+> 2. Definição de estratégias<br>
 
-3. Atribuição de um nível de impacto e risco de ocorrer<br>
+> 3. Atribuição de um nível de impacto e risco de ocorrer<br>
    Para cada risco foram atribuídas estratégias conforme o PMBOK: eliminar, mitigar, transferir ou explorar.<br>
 
-4. Análise qualitativa <br>
+> 4. Análise qualitativa <br>
    Foi utilizada a técnica 20/60/20 para equilibrar a distribuição entre riscos graves, médios e leves. Cada risco recebeu avaliação de impacto (Grave, Médio, Leve) e probabilidade de ocorrência (Alta, Normal, Baixa).
 
-5. Atribuição de status <br>
+> 5. Atribuição de status <br>
    Os riscos foram classificados em:
 
-| Status      | Significado                                           |
-| ----------- | ----------------------------------------------------- | --- | --------------------- | ----- | ---- | -------- | --------------------------------------------- |
-| Aberto      | Risco não mais aplicável ao projeto.                  |
-| Monitorando | Risco em análise ou com alta probabilidade/gravidade. |     | Ana Maria - @namariaa | Médio | Alto | Eliminar | Adicionar verificações de email que estão rea |
-| Reoslvido   | Risco não mais aplicável ao projeto.                  |
+| Status      | Significado                                            |
+| ----------- | -----------------------------------------------------  | 
+| Aberto      | Risco que ainda há possibilidade de ocorrer no projeto.|
+| Monitorando | Risco em análise ou com alta probabilidade/gravidade.  |     
+| Resolvido   | Risco não mais aplicável ao projeto.                   |
 
 # 2. Gerenciamento de riscos
 
-| ID  | Descrição                                                                                                                                                  | Quem apontou o risco  | Impacto  | Riscos de ocorrer | Estratégia            | Forma de executar a estratégia                                                               | Status      |
-| --- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------- | -------- | ----------------- | --------------------- | -------------------------------------------------------------------------------------------- | ----------- |
-| R1  | Problemas de segurança com a existência de falhas de autorização que permitem em casos especiais um possível vazamento de informações sensiveis do usuário | Ana Maria - @namariaa | Grave    | Alto              | Eliminar              | Adicionar verificações rigidas                                                               | Aberto      |
-| R2  | Nuvem AWS ficar paga                                                                                                                                       | Ana Maria - @namariaa | Grave    | Baixo             | Mitigar               | Configurar alertas de billing e avaliar alternativas de nuvem                                | Aberto      |
-| R3  | Descoberta de Dependência                                                                                                                                  | Ana Maria - @namariaa | Grave    | Baixo             | Mitigar               | Criar plano de contingência                                                                  | Aberto      |
-| R4  | Degradação de Performance                                                                                                                                  | Ana Maria - @namariaa | Médio    | Alto              | Eliminar e transferir | Otimizar código e infraestrutura ou utilização de desenvolveres temporários mais experientes | Monitorando |
-| R5  | Atraso em alguma entrega                                                                                                                                   | Ana Maria - @namariaa | Médio    | Alto              | Mitigar               | Acompanhar progresso semanal                                                                 | Aberto      |
-| R6  | Falta de engajamento dos envolvidos                                                                                                                        | Ana Maria - @namariaa | Médio    | Normal            | Mitigar               | Envolver desenvolvedores em reuniões e cobrança de relatórios de progresso                   | Aberto      |
-| R7  | Github ficar fora do ar                                                                                                                                    | Fábio - @Fabioasl     | Médio    | Baixo             | Eliminar              | Usar ferramentas alternativas (GitLab, Bitbucket, Mercurial)                                 | Aberto      |
-| R8  | Falhas de segurança no cadastro de usuários externos                                                                                                       | Ana Maria - @namariaa | Eliminar | Médio             | Alto                  | Implementar verificação de e-mail instituciona                                               | Aberto      |
-| R9  | Falha de comunicação entre equipe                                                                                                                          | Ana Maria - @namariaa | Médio    | Normal            | Mitigar               | Reuniões semanais                                                                            | Aberto      |
-| R10 | Máquina quebrar                                                                                                                                            | Ana Maria - @namariaa | Leve     | Normal            | Mitigar               | Ter máquinas reserva ou acesso remoto                                                        | Aberto      |
-| R11 | Necessidade de Treinamento Urgente                                                                                                                         | Ana Maria - @namariaa | Leve     | Normal            | Explorar e mitigar    | Utilizar matérias gratuitos da internet e usar mentoria entre membros                        | Aberto      |
-| R12 | Afastamento de algum membro                                                                                                                                | Ana Maria - @namariaa | Leve     | Baixo             | Mitigar               | Promover trabalho em pares                                                                   | Aberto      |
-| R13 | Licença estudante do figma não ser suficiente                                                                                                              | Ana Maria - @namariaa | Leve     | Baixo             | Transferir            | Mapear necessidades antecipadamente e usar versões open-source                               | Aberto      |
+| ID  | Descrição                                                                                                                                                  | Quem apontou o risco  | Impacto  | Riscos de ocorrer | Estratégia            | Forma de executar a estratégia                                                               | Status      | Custo      |
+| --- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------- | -------- | ----------------- | --------------------- | -------------------------------------------------------------------------------------------- | ----------- | ----------- |
+| R1  | Problemas de segurança com a existência de falhas de autorização que permitem em casos especiais um possível vazamento de informações sensiveis do usuário | Ana Maria - @namariaa | Grave    | Alto              | Eliminar              | Adicionar verificações rigidas de dois fatores  | Aberto      | R$  0,00 - Tal custo está incluso em gastos com os desenvolvedores |
+| R2  | Nuvem AWS ficar paga                                                                                                                                       | Ana Maria - @namariaa | Grave    | Baixo             | Mitigar               | Configurar alertas de billing e avaliar alternativas de nuvem                                | Aberto      | R$ 328,56 - Alternativa paga da AWS que cobre os custos mensais necessários |
+| R3  | Descoberta de Dependência                                                                                                                                  | Ana Maria - @namariaa | Grave    | Baixo             | Mitigar               | Criar plano de contingência                                                                  | Aberto      | R$ 1.500,00 | 
+| R4  | Degradação de Performance                                                                                                                                  | Ana Maria - @namariaa | Médio    | Alto              | Eliminar e transferir | Otimizar código e infraestrutura ou utilização de desenvolveres temporários mais experientes | Monitorando | R$ 6.000,00 - Em casos da contratação de desenvolvedores mais experientes em arquitetura e otimização. | 
+| R5  | Atraso em alguma entrega                                                                                                                                   | Ana Maria - @namariaa | Médio    | Alto              | Mitigar               | Acompanhar progresso semanal                                                                 | Aberto      | R$ 0,00 - Reuniões semanais não trariam custos financeiros extras para o projeto |
+| R6  | Falta de engajamento dos envolvidos                                                                                                                        | Ana Maria - @namariaa | Médio    | Normal            | Mitigar               | Envolver desenvolvedores em reuniões e cobrança de relatórios de progresso                   | Aberto      | R$ 0,00 - Reuniões semanais não trariam custos financeiros extras para o projeto | 
+| R7  | Github ficar fora do ar                                                                                                                                    | Fábio - @Fabioasl     | Médio    | Baixo             | Eliminar              | Usar ferramentas alternativas (GitLab, Bitbucket, Mercurial)                                 | Aberto      |  R$ 0,00 - As demais alternativas de ferramentas são gratuitas assim com o github |
+| R8  | Falhas de segurança no cadastro de usuários externos                                                                                                       | Ana Maria - @namariaa | Eliminar | Médio             | Alto                  | Implementar verificação de e-mail institucional                                               | Aberto      | R$  0,00 - Tal custo está incluso em gastos com os desenvolvedores |
+| R9  | Falha de comunicação entre equipe                                                                                                                          | Ana Maria - @namariaa | Médio    | Normal            | Mitigar               | Reuniões semanais                                                                            | Aberto      | R$ 0,00 - Reuniões semanais não trariam custos financeiros extras para o projeto |
+| R10 | Máquina quebrar                                                                                                                                            | Ana Maria - @namariaa | Leve     | Normal            | Mitigar               | Ter máquinas reserva ou acesso remoto                                                        | Aberto      | R$ 270,00 - O custo médio de um aluguel diário de um computador é de 9,00 resultando em um gasto de 270 por um mês de uso até o momento de uma solução definitiva |
+| R11 | Necessidade de Treinamento Urgente                                                                                                                         | Ana Maria - @namariaa | Leve     | Normal            | Explorar e mitigar    | Utilizar matérias gratuitos da internet e usar mentoria entre membros                        | Aberto      | R$ 0,00 - A solução do risco não conta com gastos extras |
+| R12 | Afastamento de algum membro                                                                                                                                | Ana Maria - @namariaa | Leve     | Baixo             | Mitigar               | Promover trabalho em pares                                                                   | Aberto      | R$ 0,00 - A solução do risco não conta com gastos extras |
+| R13 | Licença estudante do figma não ser suficiente                                                                                                              | Ana Maria - @namariaa | Leve     | Baixo             | Transferir            | Mapear necessidades antecipadamente e usar versões open-source                               | Aberto      | R$ 135,25 - Valor de um plano pro intermediário que cubrisse todas as necessidades. |
 
 # 3. Planos de Ação para Riscos de Alto Impacto <br>
 
 Os riscos classificados como Grave/Alto ou Médio/Alto receberam planos de ação detalhados: <br>
 
-| ID  | Descrição                                                                 | Impacto | Probabilidade | Plano de Ação                                                                                                                                                      | Prazo    |
-| --- | ------------------------------------------------------------------------- | ------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------- |
-| R1  | Falhas de autorização que podem causar vazamento de informações sensíveis | Grave   | Alto          | Implementar auditoria de segurança contínua, Adotar autenticação multifator                                                                                        | 30 dias  |
-| R4  | Degradação de performance                                                 | Médio   | Alto          | Revisar arquitetura do sistema, Implementar monitoramento de desempenho em tempo real, Contratar consultoria externa para otimização                               | 45 dias  |
-| R5  | Atraso em entregas                                                        | Médio   | Alto          | Estabelecer cronograma detalhado com marcos semanais, Implementar ferramenta de acompanhamento (Notion/Trello), Criar plano de contingência para recursos críticos | Imediato |
-| R8  | Falhas de segurança no cadastro de usuários externos                      | Médio   | Alto          | Implementar verificação de e-mail institucional, Revisar políticas de acesso externo                                                                               | Imediato |
+| ID  | Descrição                                                                 | Impacto | Probabilidade | Plano de Ação                                                                                                                                                      | Prazo    | Custo |
+| --- | ------------------------------------------------------------------------- | ------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------- | -------- |
+| R1  | Falhas de autorização que podem causar vazamento de informações sensíveis | Grave   | Alto          | Implementar auditoria de segurança contínua, Adotar autenticação multifator                                                                                        | 30 dias  | R$  0,00 |
+| R4  | Degradação de performance                                                 | Médio   | Alto          | Revisar arquitetura do sistema, Implementar monitoramento de desempenho em tempo real, Contratar consultoria externa para otimização                               | 45 dias  | R$ 6.000,00 |  
+| R5  | Atraso em entregas                                                        | Médio   | Alto          | Estabelecer cronograma detalhado com marcos semanais, Implementar ferramenta de acompanhamento (Notion/Trello), Criar plano de contingência para recursos críticos | Imediato | R$ 0,00 |
+| R8  | Falhas de segurança no cadastro de usuários externos                      | Médio   | Alto          | Implementar verificação de e-mail institucional, Revisar políticas de acesso externo                                                                               | Imediato | R$ 0,00  |
