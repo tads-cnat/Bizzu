@@ -322,7 +322,7 @@ const LayoutFeed = () => {
 				>
 					<BeeSidebar onSelecionarSecao={handleSelecionarSecao} />
 				</div>
-				<div className="flex-1 mx-auto w-full md:ml-[220px] md:mr-[350px] px-4 py-4 overflow-y-auto pr-2 py-4 space-y-4">
+				<div className="flex-1 mx-auto w-screen md:ml-[220px] md:mr-[350px] px-4 py-4 pr-2 space-y-4 overflow-y-auto h-[calc(100vh-70px)]">
 					<div className="max-w-[600px] mx-auto">
 						<div className="mb-4">
 							{filtrosAvancados && (
@@ -411,10 +411,8 @@ const LayoutFeed = () => {
 												dataPublicacao={post.dataPublicacao}
 												imagemPost={post.imagem}
 												comunidade={post.comunidade}
-												onCurtir={() => console.log("Curtir post:", post.id)}
-												onAbrirComentarios={() =>
-													console.log("Abrir comentários:", post.id)
-												}
+												onCurtir={() => {}}
+												onAbrirComentarios={() => {}}
 												imagemUsuarioLogado={post.imagemUsuarioLogado}
 												disableInteractions={post.disableInteractions}
 											/>
@@ -434,7 +432,7 @@ const LayoutFeed = () => {
 					<div className="px-3 py-4 border-b border-gray-200">
 						<h2 className="text-lg font-bold">Repositórios</h2>
 					</div>
-					<div className="flex-1 overflow-y-auto px-3 py-2 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
+					<div className="flex-1 px-3 py-2 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
 						{repositorios.length === 0 ? (
 							<div className="flex flex-col items-center justify-center h-full">
 								<Empty

@@ -19,7 +19,7 @@ const LayoutCommunity: React.FC = () => {
 				>
 					<BeeSidebar />
 				</div>
-				<div className="flex-1 mx-auto w-full md:ml-[220px] md:mr-[300px] px-4 py-4 overflow-y-auto pr-2 py-4 space-y-4">
+				<div className="flex-1 mx-auto w-screen md:ml-[220px] md:mr-[300px] px-4 py-4 pr-2 space-y-4 overflow-y-auto h-[calc(100vh-70px)]">
 					<div className="max-w-[600px] mx-auto">
 						<Outlet />
 					</div>
