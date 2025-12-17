@@ -15,13 +15,6 @@ const BeeHeader: React.FC = () => {
 	const mudar = useNavigate();
 
 	const sair = () => {
-		UsuarioService.logout()
-			.then((response) => {
-				console.log("Logout realizado com sucesso ", response);
-			})
-			.catch((e) => {
-				console.log("Ainda está logado", e);
-			});
 		deslogar();
 		mudar("/login", {replace: true});
 	};
@@ -29,8 +22,6 @@ const BeeHeader: React.FC = () => {
 	const handleSelectUser = (usuario: IUsuarioPesquisa) => {
 		mudar(`/${usuario.username}/`);
 	};
-
-	console.log(username == "");
 
 	return (
 		<header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between bg-white h-[70px] px-8 border-b border-gray-300">
@@ -52,7 +43,7 @@ const BeeHeader: React.FC = () => {
 				/>
 			) : (
 				<BeeSearchBar
-					onSearch={(termo: string) => console.log("Search term:", termo)}
+					onSearch={() => {}}
 					showUserSearch={true}
 					onSelectUser={handleSelectUser}
 					placeholder="Buscar usuários..."

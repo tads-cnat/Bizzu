@@ -20,7 +20,7 @@ const BeePapelPerfil = () => {
 	const handleReprovarClick = async (id: number) => {
 		try {
 			const response = await UsuarioService.reprovarSolicitacao(id);
-			console.log("Solicitação reprovada:", response.data);
+			console.error("Solicitação reprovada:", response.data);
 			await loadSolicitacoes();
 		} catch (error) {
 			console.error("Erro ao aprovar solicitação:", error);
