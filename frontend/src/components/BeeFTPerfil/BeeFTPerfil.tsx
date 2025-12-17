@@ -1,12 +1,9 @@
-"use client";
-
 import {useEffect, useState} from "react";
 import UsuarioService from "../../services/models/UsuarioService";
 import {IBeeFTPerfil} from "./IBeeFTPerfil";
 import {Link} from "react-router-dom";
 import BeeNotification from "../BeeNotification/BeeNotification";
 import getLocalStorage from "../../utils/getLocalStorage";
-import {Menu} from "antd";
 
 function tempoDesde(data: string): string {
 	const date = new Date(data);
@@ -35,7 +32,6 @@ const BeeFTPerfil: React.FC<IBeeFTPerfil> = ({
 		if (!username) {
 			e.preventDefault();
 			setMostrarAviso(true);
-			console.log("clicando");
 		}
 	};
 	useEffect(() => {
@@ -49,6 +45,14 @@ const BeeFTPerfil: React.FC<IBeeFTPerfil> = ({
 		};
 		if (usuario == undefined) {
 			fetchUser();
+		}
+	}, []);
+
+	useEffect(() => {
+		if (username != null && username != "") {
+			setMostrarAviso(false);
+		} else {
+			setMostrarAviso(true);
 		}
 	}, []);
 
@@ -80,17 +84,10 @@ const BeeFTPerfil: React.FC<IBeeFTPerfil> = ({
 						<Link
 							to={`/${usuario.username}/`}
 							onClick={handleClickPerfil}
-							className="!text-inherit !no-underline"
+							className={`!text-inherit !no-underline ${mostrarAviso ? "pointer-events-none cursor-not-allowed" : ""}`}
 						>
 							{usuario.username}
 						</Link>
-					)}
-					{mostrarAviso && (
-						<BeeNotification
-							type="warning"
-							title="Você não está conectado"
-							message="Faça o login e aproveite integralmente o bizzu"
-						/>
 					)}
 
 					<span className="text-[#FCBD18] font-poppins font-semibold text-xs">
