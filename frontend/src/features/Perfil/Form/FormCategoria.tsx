@@ -30,7 +30,6 @@ const FormCategoria = ({
 		nome: string;
 		tipo: string;
 	}): Promise<void> => {
-		console.log("DATA ", data);
 		let tipagem = "mat";
 		if (data.tipo.value == "2") tipagem = "per";
 		else if (data.tipo.value == "3") tipagem = "tec";

@@ -7,9 +7,6 @@ import submitData from "../../../utils/submit";
 const onSubmit: any = async (id:number, data: any, caminho: NavigateFunction, username: any) => {
         const object: any = submitData(data);
 
-        console.log("LOOLO", data);
-        
-
         try {
             await RepositorioService.patch(id,object);
             caminho(`/${username}/`, {

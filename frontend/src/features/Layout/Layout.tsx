@@ -8,20 +8,26 @@ const Layout: React.FC = () => {
 	return (
 		<>
 			<BeeHeader />
-			<div className="flex mt-[70px] h-[calc(100vh-70px)]">
-				<div className="w-1/5 min-w-[200px] h-full fixed left-0 top-[70px] bg-white z-30 border-r border-gray-200">
+
+			<div className="flex pt-[70px] h-[calc(100vh-70px)]">
+				<div
+					className={`
+						fixed top-[70px] left-0 h-full bg-white z-40 border-r border-gray-200 
+						transition-transform duration-300
+						w-[250px]-translate-x-full
+						md:translate-x-0 md:w-[300px]
+					`}
+				>
 					<BeeSidebar />
 				</div>
 
-				<div className="flex-1 ml-[20%] mr-[22%] h-full flex flex-col justify-start items-center overflow-y-auto px-3 py-4">
-					<div className="w-[550px] px-4 flex flex-col">
-						<div className="max-h-full overflow-y-auto">
-							<Outlet />
-						</div>
+				<div className="flex-1 mx-auto w-screen md:ml-[220px] md:mr-[300px] px-4 py-4 pr-2 space-y-4 overflow-y-auto h-[calc(100vh-70px)]">
+					<div className="max-w-[600px] mx-auto">
+						<Outlet />
 					</div>
 				</div>
 
-				<aside className="fixed top-[70px] right-0 w-[22%] h-[calc(100vh-70px)] flex flex-col justify-start px-3 py-4 bg-white z-40 overflow-hidden border-l border-gray-300">
+				<aside className="hidden lg:block fixed top-[70px] right-0 w-[300px] h-[calc(100vh-70px)] px-3 py-4 bg-white border-l border-gray-300 overflow-y-auto">
 					<BeePerfilSidebar />
 				</aside>
 			</div>

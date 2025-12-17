@@ -32,7 +32,7 @@ const BeeHeaderProfile = () => {
 				}
 			})
 			.catch(() => {
-				console.log("Não recebeu dados");
+				console.error("Não recebeu dados");
 			});
 	}, [identificator]);
 
@@ -83,7 +83,7 @@ const BeeHeaderProfile = () => {
 							usuario.imagemPerfil !== undefined &&
 							usuario.imagemPerfil !== null
 								? `http://localhost:8000${usuario.imagemPerfil}`
-								: "http://localhost:8000/imgPostagens/usuarios/2025/06/10/sem_imagem_avatar.png"
+								: "./public/semFoto.jpg"
 						}
 						alt="Imagem de usuário"
 						className="size-22 flex-none rounded-full bg-gray-50"

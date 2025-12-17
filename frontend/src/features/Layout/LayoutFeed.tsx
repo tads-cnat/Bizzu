@@ -1,5 +1,3 @@
-"use client";
-
 import BeeHeader from "../../components/BeeHeader/BeeHeader";
 import {BeeSidebar} from "../../components/BeeSidebar/BeeSidebar";
 import BeeRepo from "../../components/BeeRepo/BeeRepo";
@@ -15,8 +13,9 @@ import type IBeeTags from "../../components/BeeTags/IBeeTags";
 import BeeModalFiltros from "../../components/BeeModalFiltros/BeeModalFiltros";
 import type {FiltrosPostagem} from "../../components/BeeModalFiltros/IBeeModalFiltros";
 import {Funnel} from "@phosphor-icons/react";
-import {IBeeCategoria} from "../../interfaces/IBeeCategoria";
+import type {IBeeCategorias} from "../../interfaces/IBeeCategoria";
 import {IRepositorio} from "../../interfaces/Repositorio";
+import {colors, types} from "../../components/BeeTags/IBeeTags";
 
 interface Usuario {
 	username: string;
@@ -24,12 +23,13 @@ interface Usuario {
 
 interface BeePostPropsExtended extends BeePostProps {
 	categorias?: number[];
+	imagem: string;
 }
 
 const LayoutFeed = () => {
 	const [usuario, setUsuario] = useState<Usuario | undefined>(undefined);
 	const [repositorios, setRepositorios] = useState<IRepositorio[]>([]);
-	const [categorias, setCategorias] = useState<IBeeCategoria[]>([]);
+	const [categorias, setCategorias] = useState<IBeeCategorias[]>([]);
 	const [postagensComunidade, setPostagensComunidade] = useState<
 		BeePostPropsExtended[]
 	>([]);
@@ -47,6 +47,7 @@ const LayoutFeed = () => {
 	const [filtrosAvancados, setFiltrosAvancados] =
 		useState<FiltrosPostagem | null>(null);
 	const [modalFiltrosAberto, setModalFiltrosAberto] = useState(false);
+	const [secaoAtual, setSecaoAtual] = useState("1");
 
 	useEffect(() => {
 		const user = getLocalStorage();
@@ -54,8 +55,7 @@ const LayoutFeed = () => {
 			setUsuario({username: user.username});
 		}
 	}, [usuario]);
-
-	const [secaoAtual, setSecaoAtual] = useState("1");
+	const [sidebarOpen] = useState(false);
 
 	const carregarRepositorios = async () => {
 		try {
@@ -117,15 +117,12 @@ const LayoutFeed = () => {
 			alert("Erro ao excluir repositório. Tente novamente.");
 		}
 	};
-
-	const handleExcluirPostagem = (id: number) => {
-		console.log("Excluindo postagem:", id);
-	};
-
-	const categoriasParaTagsRepositorio = (categoriasIds: number[]): Tag[] => {
+	const categoriasParaTagsRepositorio = (
+		categoriasIds: number[],
+	): IBeeTags[] => {
 		if (!categoriasIds || categoriasIds.length === 0) return [];
 
-		const coresPorTipo: Record<"tec" | "mat" | "per", string> = {
+		const coresPorTipo: Record<types, colors> = {
 			tec: "magenta",
 			mat: "orange",
 			per: "cyan",
@@ -168,7 +165,7 @@ const LayoutFeed = () => {
 			per: "cyan",
 		};
 
-		const tagsValidas: IBeeTags[] = [];
+		const tagsValidas = [];
 
 		for (const categoriaId of categoriasIds) {
 			const categoria = categorias.find((c) => c.id === categoriaId);
@@ -217,13 +214,6 @@ const LayoutFeed = () => {
 				: "Sem publicações das pessoas que você segue";
 		} else {
 			return "Sem publicações no bizzu";
-		}
-	};
-
-	const handleSelecionarSecao = (secao: string) => {
-		setSecaoAtual(secao);
-		if (filtrosAvancados) {
-			limparFiltrosAvancados();
 		}
 	};
 
@@ -310,13 +300,30 @@ const LayoutFeed = () => {
 			(filtrosAvancados.periodos?.length || 0)
 		: 0;
 
+	const handleSelecionarSecao = (secao: string) => {
+		setSecaoAtual(secao);
+		if (filtrosAvancados) {
+			limparFiltrosAvancados();
+		}
+	};
+
 	return (
 		<>
 			<BeeHeader />
-			<div className="flex flex-col flex-1 items-start w-1/5 mt-20">
-				<BeeSidebar onSelecionarSecao={handleSelecionarSecao} />
-				<div className="fixed top-[70px] ml-70 w-[66%] h-[calc(100vh-80px)] flex-1 flex flex-col px-3 py-4 rounded-xl z-40 overflow-y-auto justify-start items-center">
-					<div className="w-[550px] px-4 flex flex-col">
+			<div className="flex pt-[70px] h-[calc(100vh-70px)]">
+				<div
+					className={`
+										fixed top-[70px] left-0 h-full bg-white z-40 border-r border-gray-200 
+										transition-transform duration-300
+										w-[300px]
+										${sidebarOpen ? "translate-x-0" : "-translate-x-full"}
+										md:translate-x-0 md:w-[300px]
+									`}
+				>
+					<BeeSidebar onSelecionarSecao={handleSelecionarSecao} />
+				</div>
+				<div className="flex-1 mx-auto w-screen md:ml-[220px] md:mr-[350px] px-4 py-4 pr-2 space-y-4 overflow-y-auto h-[calc(100vh-70px)]">
+					<div className="max-w-[600px] mx-auto">
 						<div className="mb-4">
 							{filtrosAvancados && (
 								<div className="flex items-center gap-2 mb-3">
@@ -378,7 +385,6 @@ const LayoutFeed = () => {
 							filtrosAtuais={filtrosAvancados}
 						/>
 
-						{/* Conteúdo das postagens */}
 						<div>
 							{carregandoFiltroAvancado ? (
 								<div className="flex justify-center items-center py-8">
@@ -405,15 +411,8 @@ const LayoutFeed = () => {
 												dataPublicacao={post.dataPublicacao}
 												imagemPost={post.imagem}
 												comunidade={post.comunidade}
-												onCurtir={() => console.log("Curtir post:", post.id)}
-												onAbrirComentarios={() =>
-													console.log("Abrir comentários:", post.id)
-												}
-												onExcluir={
-													post.onExcluir
-														? () => handleExcluirPostagem(post.id || 0)
-														: undefined
-												}
+												onCurtir={() => {}}
+												onAbrirComentarios={() => {}}
 												imagemUsuarioLogado={post.imagemUsuarioLogado}
 												disableInteractions={post.disableInteractions}
 											/>
@@ -429,11 +428,11 @@ const LayoutFeed = () => {
 						</div>
 					</div>
 				</div>
-				<aside className="fixed top-[70px] right-4 w-[22%] h-[calc(100vh-70px)] flex flex-col bg-white z-40 border-l border-gray-300">
+				<aside className="hidden lg:block fixed top-[70px] right-0 w-[350px] h-[calc(100vh-70px)] px-3 py-4 bg-white border-l border-gray-300 overflow-y-auto">
 					<div className="px-3 py-4 border-b border-gray-200">
 						<h2 className="text-lg font-bold">Repositórios</h2>
 					</div>
-					<div className="flex-1 overflow-y-auto px-3 py-2 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
+					<div className="flex-1 px-3 py-2 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
 						{repositorios.length === 0 ? (
 							<div className="flex flex-col items-center justify-center h-full">
 								<Empty

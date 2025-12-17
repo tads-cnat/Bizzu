@@ -9,9 +9,7 @@ const BeePapelPerfil = () => {
 	// Função utilizada para lidar com as aprovações das solicitações
 	const handleAprovarClick = async (id: number) => {
 		try {
-			console.log("ID que está sendo enviado:", id);
 			const response = await UsuarioService.aprovarSolicitacao(id);
-			console.log("Solicitação aprovada:", response.data);
 			await loadSolicitacoes();
 		} catch (error) {
 			console.error("Erro ao aprovar solicitação:", error);
@@ -22,7 +20,7 @@ const BeePapelPerfil = () => {
 	const handleReprovarClick = async (id: number) => {
 		try {
 			const response = await UsuarioService.reprovarSolicitacao(id);
-			console.log("Solicitação reprovada:", response.data);
+			console.error("Solicitação reprovada:", response.data);
 			await loadSolicitacoes();
 		} catch (error) {
 			console.error("Erro ao aprovar solicitação:", error);

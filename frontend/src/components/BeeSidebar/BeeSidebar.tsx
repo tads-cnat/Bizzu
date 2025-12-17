@@ -1,6 +1,6 @@
 import "./style.css";
-import {Link, Navigate, useNavigate} from "react-router-dom";
-import {useEffect, useState} from "react";
+import {Link, useNavigate} from "react-router-dom";
+import {use, useEffect, useState} from "react";
 import ComunidadeService from "../../services/models/ComunidadeService";
 import UsuarioService from "../../services/models/UsuarioService";
 import {Divider, Menu, Spin} from "antd";
@@ -34,7 +34,7 @@ export const BeeSidebar = ({onSelecionarSecao}: IBeeSidebarProps) => {
 				setUsuario(response);
 			})
 			.catch(() => {
-				console.log("Não recebeu dados");
+				console.error("Não recebeu dados");
 			});
 	}, []);
 
@@ -87,12 +87,14 @@ export const BeeSidebar = ({onSelecionarSecao}: IBeeSidebarProps) => {
 							/>
 						),
 						label: "Você segue",
+						disabled: username == undefined || username == "",
 					},
 					{
 						key: "3",
 						label: "Comunidades",
 						icon: <Globe size={23} />,
 						children: comunidades,
+						disabled: username == undefined || username == "",
 					},
 				];
 	const caminho = useNavigate();
@@ -102,9 +104,7 @@ export const BeeSidebar = ({onSelecionarSecao}: IBeeSidebarProps) => {
 				<Spin />
 			) : (
 				<div
-					className={`h-screen transition-all duration-300 ${
-						collapsed ? "w-[80px]" : "w-[300px] border-r border-gray-300"
-					}`}
+					className={`h-full transition-all duration-300 ${collapsed ? "w-[70px]" : "w-fill"}`}
 				>
 					<div className="flex flex-col mt-4 ml-5 gap-3">
 						<BeeButton
@@ -124,7 +124,7 @@ export const BeeSidebar = ({onSelecionarSecao}: IBeeSidebarProps) => {
 													usuario.imagemPerfil !== undefined &&
 													usuario.imagemPerfil !== null
 														? `http://localhost:8000${usuario.imagemPerfil}`
-														: "http://localhost:8000/imgPostagens/usuarios/2025/06/10/sem_imagem_avatar.png"
+														: "./public/semFoto.jpg"
 												}
 												alt={username}
 												className="w-10 h-10 object-cover"

@@ -22,7 +22,7 @@ export interface IRepositorio {
 	dataPublicacao: string;
 	usuario?: IUsuario | null;
 	comunidade?: number | null;
-	categorias: ICategoria[]; // Mudado para array de objetos categoria
+	categorias: number[]; // Mudado para array de objetos categoria
 	estaFavoritado?: boolean;
 }
 

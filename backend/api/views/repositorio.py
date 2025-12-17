@@ -6,6 +6,7 @@ from rest_framework.permissions import IsAuthenticated
 from ..models.arquivo import Arquivo
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from rest_framework.permissions import AllowAny
 from ..permissions.moderador import Moderador
 from ..permissions.internanuta import Internauta
 
@@ -16,14 +17,14 @@ class RepositorioViewSet(viewsets.ModelViewSet):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated, Moderador | Internauta]
 
-    # def get_permissions(self):
-    #     if (
-    #         self.action == "getRepo"
-    #         or self.action == "getRepoComunidade"
-    #         or self.action == "list"
-    #     ):
-    #         return [AllowAny()]
-    #     return super().get_permissions()
+    def get_permissions(self):
+        if (
+            self.action == "getRepo"
+            or self.action == "getRepoComunidade"
+            or self.action == "list"
+        ):
+            return [AllowAny()]
+        return super().get_permissions()
 
     def perform_create(self, serializer):
         instance = serializer.save(usuario=self.request.user)
