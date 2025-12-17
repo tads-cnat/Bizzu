@@ -49,7 +49,7 @@ const BeeFTPerfil: React.FC<IBeeFTPerfil> = ({
 							usuario?.imagemPerfil !== undefined &&
 							usuario.imagemPerfil !== null
 								? `${usuario.imagemPerfil}`
-								: "http://localhost:8000/imgPostagens/usuarios/2025/06/10/sem_imagem_avatar.png"
+								: "./public/semFoto.jpg"
 						}
 						alt="Imagem de usuário"
 						className={`w-10 h-10 object-cover gap-1 mt-1${usuario?.username === "usuário não encontrado" ? " grayscale opacity-60 w-8 h-8" : ""}`}

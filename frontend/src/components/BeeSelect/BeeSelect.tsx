@@ -48,7 +48,6 @@ const BeeSelect = ({
 			setSelected({label: placeholder, value: ""});
 		}
 	}, [value, placeholder, defaultValue]);
-	console.log("DEFAULTTT ", defaultValue);
 
 	return (
 		<div className="w-full max-w-full">

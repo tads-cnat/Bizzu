@@ -42,7 +42,7 @@ const BeeCard = ({}: IBeeCard) => {
 									src={
 										s.imagem
 											? `http://localhost:8000${s.imagem}`
-											: "http://localhost:8000/imgPostagens/usuarios/2025/06/10/sem_imagem_avatar.png"
+											: "./public/semFoto.jpg"
 									}
 									alt="Imagem da comunidade"
 									className="w-20 h-20 object-cover rounded-full"

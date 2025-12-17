@@ -1,4 +1,5 @@
-import type {IUsuario, ITag} from "../../interfaces/Repositorio";
+import type {IUsuario} from "../../interfaces/Repositorio";
+import IBeeTags from "../BeeTags/IBeeTags";
 
 export interface iTag {
 	label: string;
@@ -12,7 +13,7 @@ export interface iBeeRepoProps {
 	titulo?: string;
 	descricao: string;
 	imagemRepo?: string;
-	tags?: ITag[];
+	tags?: IBeeTags[];
 	dataPublicacao: string;
 	imagemUsuarioLogado?: string;
 	onExcluir?: (id: number) => void;

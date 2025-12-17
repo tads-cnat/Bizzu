@@ -42,7 +42,6 @@ const BeeRepo: React.FC<iBeeRepoProps> = ({
 	usuario,
 	titulo,
 	descricao,
-	imagemRepo,
 	dataPublicacao,
 	tags = [],
 	onExcluir,
