@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bizzu-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bizzu-frontend
+  template:
+    metadata:
+      labels:
+        app: bizzu-frontend
+    spec:
+      containers:
+        - name: frontend
+          image: bizzu-frontend:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80

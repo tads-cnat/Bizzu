@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bizzu-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bizzu-app
+  template:
+    metadata:
+      labels:
+        app: bizzu-app
+    spec:
+      containers:
+        - name: bizzu
+          image: bizzu:latest
+          imagePullPolicy: IfNotPresent
+          command:
+            - bash
+            - -c
+            - |
+              python manage.py migrate &&
+              python manage.py runserver 0.0.0.0:8000
+          ports:
+            - containerPort: 8000
+          envFrom:
+            - secretRef:
+                name: postgres-secret
