@@ -11,7 +11,3 @@ ________________________________________________
 
 
 <img width="1048" height="689" alt="image" src="https://github.com/user-attachments/assets/f417c061-1d2b-465d-8e1a-86dcbdf52e08" />
-
-<br> 
-
-**Versão Detalhada:** [Cronograma](Cronograma Bizzu.xlsx) 
