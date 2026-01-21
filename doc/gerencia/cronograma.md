@@ -12,4 +12,4 @@ ________________________________________________
 <img width="1050" height="683" alt="image" src="https://github.com/user-attachments/assets/bcfd3adb-3bca-4ff6-bc71-136d4293d67f" />
 
 ### Gráfico de Gantt 
-<img width="1300" height="646" alt="image" src="https://github.com/user-attachments/assets/019e5b86-f706-4b89-a394-885093e4ea6b" />
+<img width="1216" height="648" alt="image" src="https://github.com/user-attachments/assets/990abf33-b764-44fd-939f-0d96cfc75be3" />
