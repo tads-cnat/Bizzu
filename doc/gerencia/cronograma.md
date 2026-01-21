@@ -9,4 +9,7 @@
 ________________________________________________
  O cronograma de gerenciamento é uma ferramenta que organiza todas as atividades do projeto, indicando o que deve ser feito, por quem e em qual iteração, permitindo planejar e acompanhar o desenvolvimento de forma clara. Sua utilidade está em garantir a distribuição equilibrada de tarefas, definir responsabilidades, monitorar prazos e entregas, reduzir riscos de atrasos e retrabalho, além de alinhar a equipe em torno dos objetivos e do progresso do sistema.
 
-<img width="1049" height="692" alt="image" src="https://github.com/user-attachments/assets/07fe6c10-3b79-43af-ac33-c50cb9e45518" />
+<img width="1050" height="683" alt="image" src="https://github.com/user-attachments/assets/bcfd3adb-3bca-4ff6-bc71-136d4293d67f" />
+
+### Gráfico de Gantt 
+<img width="1300" height="646" alt="image" src="https://github.com/user-attachments/assets/019e5b86-f706-4b89-a394-885093e4ea6b" />
