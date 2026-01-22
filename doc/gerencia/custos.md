@@ -7,8 +7,7 @@
   3.0   | Refatora o documento | Fábio |
 #  Descrição Geral dos Custos do Projeto Bizzu
 
-Organização detalhada dos custos envolvidos no desenvolvimento do projeto **Bizzu**, dividido em quatro seções principais:
-
+Organização detalhada dos custos envolvidos no desenvolvimento do projeto **Bizzu**.
 ## 1. Horas Alocadas (Substitui FTE)
 Nesta versão, o FTE foi convertido diretamente em **horas alocadas por colaborador** ao longo do projeto.
 
