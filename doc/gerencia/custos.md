@@ -3,7 +3,7 @@
  | Versão |   Descrição    |     Autores     |
  | :----: | :------------: | :-------------: |
  1.0   | Versão inicial | Ana Maria e Fábio |
- 2.0   |  Altera o documento | Jesriel |
+ 2.0   |  Coloca em MarkDown e Altera o documento | Jesriel |
   3.0   | Refatora o documento | Fábio |
 #  Descrição Geral dos Custos do Projeto Bizzu
 
@@ -46,6 +46,7 @@ Aqui são listados os custos fixos e essenciais do projeto.
 
 ---
 
+
 ## Custos Diretos 
 
 | Descrição               | Valor (R$) |
@@ -70,6 +71,9 @@ Aqui são listados os custos fixos e essenciais do projeto.
 
 
 ## Linha de Base (BAC)
+A linha de base de custos é o orçamento aprovado do projeto, formado pela soma dos custos diretos e indiretos (reserva de contingência) e acrescido de uma reserva gerencial de 10%. O resultado é o Budget at Completion (BAC), ou seja, o valor total planejado para concluir o projeto, que servirá como referência para monitoramento e controle financeiro.
+
+
 | Reserva de Contingência - diretos + indiretos    | Reserva gerencial (10%)  | Valor Total (R$)  |
 |-------------------------|------------| ---------- | 
 | 102.463,81 + 7.455,00 = 109.918,81 | 10.991,88 | 120.910,69
