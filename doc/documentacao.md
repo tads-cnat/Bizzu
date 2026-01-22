@@ -8,6 +8,7 @@
 - [Escopo do projeto](gerencia/escopo.md) - Escopo do projeto dando uma visão geral do mesmo
 - [Partes Interessadas](gerencia/partesInteressadas.md) - Registro das partes interessadas do projeto
 - [Cronograma de Marcos](gerencia/cronogramaDeMarcos.md) - Cronograma do projeto que indica as tarefas previstas para cada semana e o tempo estimado para sua execução
+- [Cronograma](gerencia/cronograma.md) - Cronograma de atividades do projeto 
 
 ## Interface e Casos de Usos
 
