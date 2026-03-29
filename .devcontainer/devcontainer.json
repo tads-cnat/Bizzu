@@ -1,6 +1,9 @@
 {
     "name": "React",
     "image": "mcr.microsoft.com/devcontainers/typescript-node:24",
+    "features": {
+        "ghcr.io/devcontainers/features/git-lfs:1": {}
+    }, 
     "customizations": {
         "vscode": {
             "extensions": [
