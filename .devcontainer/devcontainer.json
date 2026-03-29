@@ -1,0 +1,23 @@
+{
+    "name": "React",
+    "image": "mcr.microsoft.com/devcontainers/typescript-node:24",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "esbenp.prettier-vscode",
+                "dbaeumer.vscode-eslint",
+                "usernamehw.errorlens"
+            ]
+        }
+    },
+    // Qual porta deve ser liberada para usar o frontend, Como estamos usando Vite a 5173 é a recomendada.
+    "forwardPorts": [
+        5173
+    ]
+    // Quais comandos devem rodar após a criação do container
+    // "postCreateCommand": ""
+    // Configure tool-specific properties.
+    // "customizations": {},
+    // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+    // "remoteUser": "root"
+}
