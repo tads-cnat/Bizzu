@@ -96,14 +96,24 @@ Súmario de documentações:
 
 Para ter acesso a todas nossas documentações:
 
-- [Documento de Visão](https://github.com/tads-cnat/Bizzu/blob/main/doc/visao/doc-visao.md)
-- [Protótipo - Figma](https://www.figma.com/design/UgFAxl67foAlG0ZSShDrab/PDS?node-id=0-1&t=IbbWAPlmOGhArKjJ-1)
-- [Mapa de uso / Interfaces](https://github.com/tads-cnat/Bizzu/blob/main/doc/prototipos/prototipos.md)
-- [Códigos HTML/CSS](https://github.com/tads-cnat/Bizzu/tree/main/doc/prototipos/prototipos%20html%20e%20css)
-- [Casos de usos completos](https://github.com/tads-cnat/Bizzu/blob/main/doc/cdu/casos-de-uso-completos.md)
-- [Diagrama ER / Modelo Relacional / Dicionário de Dados](https://github.com/tads-cnat/Bizzu/blob/main/doc/bd/bd.md)
-- [Especificações caso de uso individuais](https://github.com/tads-cnat/Bizzu/blob/main/doc/especificacoes-cdu.md)
-- [Diagrama de Domínio](https://github.com/tads-cnat/Bizzu/blob/main/doc/dominio/dominio.md)
+- [Documento de Visão](visao/doc-visao.md) - Objetivos, escopo, usuários e requisitos do projeto
+- [Listagem de Riscos](riscos/ListaDeRiscos.md) - Identificação dos pontenciais riscos e estratégias de mitigação
+- [Tap](tap/tap.md) - Termo de Abertura do Projeto
+- [Escopo do projeto](gerencia/escopo.md) - Escopo do projeto dando uma visão geral do mesmo
+- [Partes Interessadas](gerencia/partesInteressadas.md) - Registro das partes interessadas do projeto
+- [Cronograma de Marcos](gerencia/cronogramaDeMarcos.md) - Cronograma do projeto que indica as tarefas previstas para cada semana e o tempo estimado para sua execução
+- [Cronograma](gerencia/cronograma.md) - Cronograma de atividades do projeto 
+- [Protótipos de Interface](prototipos/prototipos.md) - Wireframes e mockups do sistema
+- [Modelo de Casos de Uso](cdu/casos-de-uso-completos.md) - Interações entre usuários e sistema
+- [Casos de Teste](testes/casos-de-teste.md) - Listagem de casos de usos criados para diferentes casos de usos
+- [Avaliação Heurística](heuristica/heuristica.md) - Relatório de Avaliação por inspeção de Interface utilizando a
+Técnica Eureka
+- [Modelo de Domínio](dominio/dominio.md) - Conceitos fundamentais e relações
+- [Diagrama de Classes](projeto/projeto.md) - Estrutura estática do sistema
+- [Diagramas de Sequência](sequencia/documentacao.md) - Fluxos de interação dinâmica
+- [Modelo de Dados](bd/bd.md) - Estrutura e relacionamento de entidades
+- [Guia do Desenvolvedor](guia-ds/guia.md) - Configuração e boas práticas
+- [Glossário](glossario/glossario.md) - Terminologia técnica e definições
 
 # Manual da Desenvolvedor
 
