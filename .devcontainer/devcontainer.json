@@ -3,6 +3,9 @@
   "dockerComposeFile": "docker-compose.yml",
   "service": "backend", // Caso queria trocar para o container do frontend e so mudar o nome para "frontend" e fazer o build novamente.
   "workspaceFolder": "/workspace",
+  "features": {
+  "ghcr.io/devcontainers/features/git-lfs:1": {}
+},
 
   "runServices": ["frontend", "backend"],
 
