@@ -1,15 +1,23 @@
 {
-	"name": "Python 3",
-	"image": "mcr.microsoft.com/devcontainers/python:3-3.12-bookworm",
-	"forwardPorts": [
-		8000
-	],
-	"customizations": {
-		"vscode": {
-			"extensions": [
-				"ms-python.black-formatter"
-			]
-		}
-	},
-	"postCreateCommand": "cd ${containerWorkspaceFolder}/backend && pip3 install -r requirements.txt && python3 manage.py migrate"
+  "name": "Fullstack",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "backend", // Caso queria trocar para o container do frontend e so mudar o nome para "frontend" e fazer o build novamente.
+  "workspaceFolder": "/workspace",
+
+  "runServices": ["frontend", "backend"],
+
+  "forwardPorts": [5173, 8000],
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-eslint",
+        "usernamehw.errorlens",
+        "ms-python.black-formatter"
+      ]
+    }
+  },
+
+  "postCreateCommand": "pip3 install -r backend/requirements.txt && python3 backend/manage.py migrate"
 }

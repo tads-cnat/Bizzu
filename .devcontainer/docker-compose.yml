@@ -1,0 +1,20 @@
+version: "3.8"
+
+services:
+  backend:
+    image: mcr.microsoft.com/devcontainers/python:3-3.12-bookworm
+    volumes:
+      - ..:/workspace:cached
+    working_dir: /workspace/backend
+    command: sleep infinity
+    ports:
+      - "8000:8000"
+
+  frontend:
+    image: mcr.microsoft.com/devcontainers/typescript-node:24
+    volumes:
+      - ..:/workspace:cached
+    working_dir: /workspace/frontend
+    command: sleep infinity
+    ports:
+      - "5173:5173"
