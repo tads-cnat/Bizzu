@@ -1,26 +1,23 @@
 {
-  "name": "Fullstack",
-  "dockerComposeFile": "docker-compose.yml",
-  "service": "backend", // Caso queria trocar para o container do frontend e so mudar o nome para "frontend" e fazer o build novamente.
-  "workspaceFolder": "/workspace",
-  "features": {
-  "ghcr.io/devcontainers/features/git-lfs:1": {}
-},
-
-  "runServices": ["frontend", "backend"],
-
-  "forwardPorts": [5173, 8000],
-
-  "customizations": {
-    "vscode": {
-      "extensions": [
-        "esbenp.prettier-vscode",
-        "dbaeumer.vscode-eslint",
-        "usernamehw.errorlens",
-        "ms-python.black-formatter"
-      ]
-    }
-  },
-
-  "postCreateCommand": "pip3 install -r backend/requirements.txt && python3 backend/manage.py migrate"
+	"name": "Bizzu",
+	"image": "mcr.microsoft.com/devcontainers/typescript-node:24",
+	"forwardPorts": [
+		8000,
+		5173
+	],
+	"features": {
+		"ghcr.io/devcontainers/features/python:1": {
+			"version": "3.12"
+		}
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-python.black-formatter",
+				"esbenp.prettier-vscode",
+				"dbaeumer.vscode-eslint"
+			]
+		}
+	},
+	"postCreateCommand": "cd ${containerWorkspaceFolder}/backend && python3 -m venv venv && . venv/bin/activate && python -m pip install --upgrade pip && pip install -r requirements.txt && python manage.py migrate; cd ${containerWorkspaceFolder}/frontend && yarn install"
 }
