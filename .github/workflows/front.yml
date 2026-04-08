@@ -1,0 +1,36 @@
+name: Bizzu Frontend CI
+
+on: 
+  push:
+    paths:
+      - "frontend/**"
+      - ".github/workflows/front.yml"
+  pull_request:
+    paths:
+      - "frontend/**"
+      - ".github/workflows/front.yml"
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Instalar node 
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+        
+      - name: Instalar dependências 
+        working-directory: frontend
+        run: | 
+          yarn install
+
+      - name: Build do projeto
+        working-directory: frontend
+        run: |
+          yarn build
+
