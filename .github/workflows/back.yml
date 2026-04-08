@@ -15,6 +15,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      BASE_URL_CLOUD_BACK: ${{ secrets.BASE_URL_CLOUD_BACK }}
+      BASE_URL_CLOUD_FRONT: ${{ secrets.BASE_URL_CLOUD_FRONT }}
     strategy:
       matrix:
         python-version: [3.12]
