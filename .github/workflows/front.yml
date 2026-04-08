@@ -25,10 +25,12 @@ jobs:
           node-version: 24
         
       - name: Instalar dependências 
+        working-directory: frontend
         run: | 
           yarn install
 
       - name: Build do projeto
+        working-directory: frontend
         run: |
           yarn build
 
