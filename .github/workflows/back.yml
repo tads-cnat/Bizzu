@@ -1,0 +1,44 @@
+name: Bizzu Backend CI
+
+on:
+  push:
+    branches: ["*"]
+    paths:
+      - "backend/**"
+      - ".github/workflows/back.yml"
+  pull_request:
+    branches: ["*"]
+    paths:
+      - "backend/api/**"
+      - ".github/workflows/back.yml"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      BASE_URL_CLOUD_BACK: ${{ secrets.BASE_URL_CLOUD_BACK }}
+      BASE_URL_CLOUD_FRONT: ${{ secrets.BASE_URL_CLOUD_FRONT }}
+    strategy:
+      matrix:
+        python-version: [3.12]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Instala dependências
+        working-directory: backend
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          python manage.py migrate
+
+      - name: Run Tests
+        working-directory: backend
+        run: |
+          python manage.py test api.tests.models
+          python manage.py test api.tests.serializers
