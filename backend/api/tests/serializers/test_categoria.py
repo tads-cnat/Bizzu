@@ -1,5 +1,4 @@
 from django.test import TestCase
-from django.core.exceptions import ValidationError
 from ...serializers.categoria import CategoriaSerializer
 from ...models.categoria import Categoria
 

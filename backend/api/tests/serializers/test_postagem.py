@@ -1,5 +1,6 @@
 from django.test import TestCase
-from api.serializers.postagem import *
+from api.serializers.postagem import PostagemSerializer
+from api.serializers.postagem import PostagemUpdateSerializer
 from api.models.postagem import Postagem
 from api.models.categoria import Categoria
 from api.models.usuario import Usuario

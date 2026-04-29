@@ -35,6 +35,3 @@ class Repositorio(models.Model):
     class Meta:
         verbose_name = "Repositorio"
         verbose_name_plural = "Repositorios"
-
-
-# Posteriormente é necessário adicionar os relacionamentos de usuário, categoria, comunidade, postagem, arquivos

@@ -11,7 +11,6 @@ from drf_spectacular.views import (
 )
 from django.conf import settings
 from django.conf.urls.static import static
-from api.views.usuario import LogoutUsuarioView
 from api.views.usuario import GoogleAuthView
 
 urlpatterns = [

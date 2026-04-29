@@ -1,4 +1,3 @@
-from django.forms import ImageField
 from rest_framework import serializers
 from ..models import Usuario, Solicitacao
 
