@@ -1,13 +1,13 @@
 djangorestframework==3.16.0 
 drf-spectacular==0.28.0
 djangorestframework-simplejwt==5.5.0
-pillow==11.2.1
+pillow==11.1.0
 django-cors-headers==4.7.0
 drf-extra-fields==3.7.0
-django-filter==25.1
+django-filter==1.0
 requests==2.32.4
 psycopg2-binary==2.9.10
 python-decouple==3.8
 flake8==7.3.0
 black==26.3.1
-flake8-deprecated==2.3.0
+pip-audit==2.10.0
