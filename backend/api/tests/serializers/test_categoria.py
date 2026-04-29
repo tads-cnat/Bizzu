@@ -1,16 +1,13 @@
 from django.test import TestCase
-from django.core.exceptions import ValidationError
 from ...serializers.categoria import CategoriaSerializer
 from ...models.categoria import Categoria
+
 
 class CategoriaSerializerTest(TestCase):
     """Testes unitários para o serializer CategoriaSerializer"""
 
     def setUp(self):
-        self.categoria = Categoria.objects.create(
-            nome="Matemática",
-            tipo="mat"
-        )
+        self.categoria = Categoria.objects.create(nome="Matemática", tipo="mat")
 
     def test_serializacao_saida_valida(self):
         """Deve serializar corretamente os dados do model"""

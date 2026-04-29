@@ -8,7 +8,6 @@ from .urls.usuario import usuarioRouter
 from .urls.comentario import comentarioRouter
 from .urls.arquivo import arquivoRouter
 
-
 urlpatterns = [
     path("", include(postagemRouter.urls)),
     path("", include(comunidadeRouter.urls)),

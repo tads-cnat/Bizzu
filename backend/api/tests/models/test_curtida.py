@@ -4,6 +4,7 @@ from ...models.curtida import Curtida
 from ...models.usuario import Usuario
 from ...models.postagem import Postagem
 
+
 class CurtidaModelTest(TestCase):
     """Testes unitários para o modelo Curtida"""
 

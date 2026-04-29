@@ -1,5 +1,4 @@
 from django.db import models
-from .usuario import Usuario
 from .postagem import Postagem
 from .repositorio import Repositorio
 from .comentario import Comentario

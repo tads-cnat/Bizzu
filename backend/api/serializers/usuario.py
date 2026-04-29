@@ -1,4 +1,3 @@
-from django.forms import ImageField
 from rest_framework import serializers
 from ..models import Usuario, Solicitacao
 
@@ -64,6 +63,5 @@ class SolicitacaoSerializer(serializers.ModelSerializer):
         fields = ["descricao", "solicitante", "status", "nome_solicitante", "id"]
 
 
-# Tiver que criar esse serializer pois por algum motivo se eu tento usar o de cima da esso erro "[Violation] 'setTimeout' handler took 51ms"
 class AprovarSolicitacaoSerializer(serializers.Serializer):
     id = serializers.IntegerField()

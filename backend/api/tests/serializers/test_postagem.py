@@ -1,5 +1,6 @@
 from django.test import TestCase
-from api.serializers.postagem import *
+from api.serializers.postagem import PostagemSerializer
+from api.serializers.postagem import PostagemUpdateSerializer
 from api.models.postagem import Postagem
 from api.models.categoria import Categoria
 from api.models.usuario import Usuario
@@ -96,12 +97,6 @@ class PostagemSerializerTest(TestCase):
 
         serializer = PostagemSerializer(data=input)
         self.assertFalse(serializer.is_valid())
-
-    #     self.assertIn("texto", serializer.errors)
-    #     self.assertIn("imagem", serializer.errors)
-    #     self.assertIn("usuario", serializer.errors)
-    #     self.assertIn("comunidade", serializer.errors)
-    #     self.assertIn("categorias", serializer.errors)
 
 
 class PostagemUpdateSerializerTest(TestCase):

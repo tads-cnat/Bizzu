@@ -52,6 +52,6 @@ class RepositorioTesteModel(TestCase):
     def test_descricao_opcional(self):
         repositorio = Repositorio(titulo="Sem descrição")
         try:
-            repositorio.full_clean()  
+            repositorio.full_clean()
         except ValidationError:
             self.fail("Descrição opcional não deveria gerar erro de validação.")

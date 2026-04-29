@@ -1,5 +1,4 @@
 from datetime import datetime as date
-import random
 from django.test import TestCase
 from django.core.exceptions import ValidationError
 from api.models.postagem import Postagem
@@ -74,7 +73,10 @@ class PostagemTest(TestCase):
 
     def test_max_text_length(self):
         postagem = Postagem(
-            texto="A programação é uma arte que une lógica e criatividade. Cada linha de código representa uma instrução, mas juntas formam sistemas complexos que impactam o mundo. Dominar linguagens e estruturas super legais",
+            texto="A programação é uma arte que une lógica e criatividade. "
+            "Cada linha de código representa uma instrução, mas juntas formam sistemas "
+            "complexos que impactam o mundo. Dominar linguagens e "
+            "estruturas super legais",
             imagem="imgPostagens/usuarios/2025/06/10/sem_imagem_avatar.png",
             usuario=self.usuario,
             comunidade=self.comunidade,

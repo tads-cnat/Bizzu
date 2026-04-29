@@ -1,5 +1,4 @@
 from api.permissions.basePermission import IsOwnerOrReadOnly
-from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
@@ -28,7 +27,6 @@ from urllib.parse import urlparse
 import os
 from ..permissions.moderador import Moderador
 from ..permissions.internanuta import Internauta
-from ..permissions.admin import Adm
 
 
 def download_and_save_google_picture(picture_url, user):

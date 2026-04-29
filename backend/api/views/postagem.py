@@ -1,4 +1,3 @@
-from django.db.models import Q
 from ..permissions.moderador import Moderador
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -59,8 +58,7 @@ class PostagemViewSet(viewsets.ModelViewSet):
         detail=False,
         methods=["GET"],
         url_path="postCommunity/(?P<username>.*)",
-    )  # Para pegar todos os post de comunidade que um usuário segue
-    # so funcionou depois que mudei o nome dessa função
+    )
     def getPostComunidadee(self, request, username):
         try:
             usuario = Usuario.objects.filter(username=username).first()
@@ -136,10 +134,6 @@ class PostagemViewSet(viewsets.ModelViewSet):
         url_path="filtrar-por-tags",
     )
     def filtrar_por_tags(self, request):
-        """
-        Filtra postagens por múltiplas tags de diferentes tipos
-        Query params: tecnologia, curso, periodo (podem ser múltiplos valores separados por vírgula)
-        """
         try:
             # Obter todos os parâmetros de filtro
             tecnologias = (
