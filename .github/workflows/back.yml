@@ -30,17 +30,17 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
+      - name: Verifica código deprecated com o pip-audit
+        working-directory: backend
+        run: |
+          pip-audit -r requirements.txt 
+
       - name: Instala dependências
         working-directory: backend
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           python manage.py migrate
-
-      - name: Verifica código deprecated com o Flake8
-        working-directory: backend
-        run: |
-          flake8 . --config=.flake8 --count --show-source --statistics
 
       - name: Verifica code smell com o Flake8
         working-directory: backend
