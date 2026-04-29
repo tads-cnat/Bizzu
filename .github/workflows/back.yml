@@ -40,8 +40,7 @@ jobs:
       - name: Verifica código deprecated com o Flake8
         working-directory: backend
         run: |
-          flake8 . --exclude=.venv
-          flake8 . --count --show-source --statistics
+          flake8 . --config=.flake8 --count --show-source --statistics
 
       - name: Verifica se a formatação com Black está correta
         run: |
