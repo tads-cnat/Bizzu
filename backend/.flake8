@@ -1,6 +1,6 @@
 [flake8]
 max-line-length = 88
-extend-ignore = E203, W503, F403, F405
+extend-ignore = E, F, W, C901, E203, W503, F403, F405
 exclude =
     .git,
     .venv,
@@ -10,3 +10,4 @@ exclude =
 
 per-file-ignores =
     __init__.py:F401,F403
+select = D
