@@ -2,13 +2,13 @@ from django.test import TestCase
 from django.core.exceptions import ValidationError
 from ...models.categoria import Categoria
 
+
 class CategoriaModelTest(TestCase):
     """Testes unitários para o modelo Categoria"""
 
     def setUp(self):
         self.categoria = Categoria.objects.create(
-            nome="Tecnologia da Informação",
-            tipo="tec"
+            nome="Tecnologia da Informação", tipo="tec"
         )
 
     def test_criacao_com_sucesso(self):

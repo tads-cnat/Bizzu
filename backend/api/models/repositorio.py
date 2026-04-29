@@ -2,6 +2,7 @@ from django.db import models
 from .comunidade import Comunidade
 from .categoria import Categoria
 
+
 class Repositorio(models.Model):
     id = models.AutoField(primary_key=True, editable=False)
     titulo = models.CharField(max_length=100)
@@ -27,7 +28,6 @@ class Repositorio(models.Model):
     categorias = models.ManyToManyField(
         Categoria, verbose_name="Categorias", blank=True
     )
-
 
     def __str__(self):
         return f"{self.descricao[:20]}"

@@ -97,12 +97,6 @@ class PostagemSerializerTest(TestCase):
         serializer = PostagemSerializer(data=input)
         self.assertFalse(serializer.is_valid())
 
-    #     self.assertIn("texto", serializer.errors)
-    #     self.assertIn("imagem", serializer.errors)
-    #     self.assertIn("usuario", serializer.errors)
-    #     self.assertIn("comunidade", serializer.errors)
-    #     self.assertIn("categorias", serializer.errors)
-
 
 class PostagemUpdateSerializerTest(TestCase):
     postagem = None

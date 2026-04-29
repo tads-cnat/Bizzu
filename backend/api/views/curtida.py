@@ -5,7 +5,6 @@ from rest_framework.permissions import IsAuthenticated
 from api.models import Curtida, Postagem
 from api.serializers.curtida import CurtidaSerializer
 from rest_framework_simplejwt.authentication import JWTAuthentication
-from rest_framework.permissions import IsAuthenticated
 from ..permissions.moderador import Moderador
 from ..permissions.internanuta import Internauta
 

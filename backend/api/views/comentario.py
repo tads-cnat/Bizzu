@@ -16,11 +16,6 @@ class ComentarioViewSet(viewsets.ModelViewSet):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated, Moderador | Internauta | Adm]
 
-    # def get_permissions(self):
-    #     if self.action == "create":
-    #         return [Moderador() | Internauta(), IsAuthenticated()]
-    #     return super().get_permissions()
-
     def get_serializer_class(self):
         if self.action == "create":
             return ComentarioCreateSerializer

@@ -37,12 +37,17 @@ jobs:
           pip install -r requirements.txt
           python manage.py migrate
 
-      - name: Verificar código deprecated com o Flake8
+      - name: Verifica código deprecated com o Flake8
         working-directory: backend
         run: |
+          flake8 . --exclude=.venv
           flake8 . --count --show-source --statistics
 
-      - name: Run Tests
+      - name: Verifica se a formatação com Black está correta
+        run: |
+          black . --check
+
+      - name: Roda testes
         working-directory: backend
         run: |
           python manage.py test api.tests.models
