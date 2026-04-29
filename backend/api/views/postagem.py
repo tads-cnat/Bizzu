@@ -134,10 +134,6 @@ class PostagemViewSet(viewsets.ModelViewSet):
         url_path="filtrar-por-tags",
     )
     def filtrar_por_tags(self, request):
-        """
-        Filtra postagens por múltiplas tags de diferentes tipos
-        Query params: tecnologia, curso, periodo (podem ser múltiplos valores separados por vírgula)
-        """
         try:
             # Obter todos os parâmetros de filtro
             tecnologias = (

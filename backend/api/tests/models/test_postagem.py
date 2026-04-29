@@ -75,7 +75,8 @@ class PostagemTest(TestCase):
         postagem = Postagem(
             texto="A programação é uma arte que une lógica e criatividade. "
             "Cada linha de código representa uma instrução, mas juntas formam sistemas "
-            "complexos que impactam o mundo. Dominar linguagens e estruturas super legais",
+            "complexos que impactam o mundo. Dominar linguagens e "
+            "estruturas super legais",
             imagem="imgPostagens/usuarios/2025/06/10/sem_imagem_avatar.png",
             usuario=self.usuario,
             comunidade=self.comunidade,
