@@ -28,9 +28,21 @@ jobs:
         working-directory: frontend
         run: | 
           yarn install
+        
+      - name: OWASP Dependency Check
+              uses: dependency-check/Dependency-Check_Action@main
+              with:
+                project: "bizzu-frontend"
+                path: "./frontend"
+                format: "HTML"
+
+      - name: Upload relatório
+              uses: actions/upload-artifact@v4
+              with:
+                name: dependency-check-report
+                path:  ${{ github.workspace }}/reports
 
       - name: Build do projeto
         working-directory: frontend
         run: |
           yarn build
-
