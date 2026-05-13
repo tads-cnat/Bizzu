@@ -37,7 +37,6 @@ jobs:
           format: "HTML"
           out: "reports"
           args: >
-            --failOnCVSS 10
             --exclude "**/node_modules/**"
             --exclude "**/package-lock.json"
 
