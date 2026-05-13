@@ -1,15 +1,15 @@
 name: Bizzu Frontend CI
 
-on: 
+on:
   push:
     paths:
       - "frontend/**"
       - ".github/workflows/front.yml"
+
   pull_request:
     paths:
       - "frontend/**"
       - ".github/workflows/front.yml"
-
 
 jobs:
   build:
@@ -19,18 +19,34 @@ jobs:
       - name: Checkout do código
         uses: actions/checkout@v4
 
-      - name: Instalar node 
+      - name: Instalar node
         uses: actions/setup-node@v4
         with:
           node-version: 24
-        
-      - name: Instalar dependências 
+
+      - name: Instalar dependências
         working-directory: frontend
-        run: | 
+        run: |
           yarn install
+
+      - name: OWASP Dependency Check
+        uses: dependency-check/Dependency-Check_Action@main
+        with:
+          project: "bizzu-frontend"
+          path: "./frontend"
+          format: "HTML"
+          out: "reports"
+          args: >
+            --exclude "**/node_modules/**"
+            --exclude "**/package-lock.json"
+
+      - name: Upload relatório
+        uses: actions/upload-artifact@v4
+        with:
+          name: dependency-check-report
+          path: ${{ github.workspace }}/reports
 
       - name: Build do projeto
         working-directory: frontend
         run: |
           yarn build
-
