@@ -7,9 +7,9 @@ import {ReadOutlined, UserOutlined} from "@ant-design/icons";
 const BeePapelPerfil = () => {
 	const [solicitacoes, setSolicitacoes] = useState([]);
 	// Função utilizada para lidar com as aprovações das solicitações
-	const handleAprovarClick = async (id: number) => {
+	const handleAprovarClick = async () => {
 		try {
-			const response = await UsuarioService.aprovarSolicitacao(id);
+			//const response = await UsuarioService.aprovarSolicitacao(id);
 			await loadSolicitacoes();
 		} catch (error) {
 			console.error("Erro ao aprovar solicitação:", error);

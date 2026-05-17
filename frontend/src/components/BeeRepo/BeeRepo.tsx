@@ -9,21 +9,21 @@ import {
 	WarningCircle,
 	Star,
 } from "@phosphor-icons/react";
-import {useNavigate, Link} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import BeeFTPerfil from "../BeeFTPerfil/BeeFTPerfil";
 import type {iBeeRepoProps} from "./IBeeRepo";
-import type {Usuario} from "../../interfaces/Repositorio";
+// import type {Usuario} from "../../interfaces/Repositorio";
 import BeeTags from "../BeeTags/BeeTags";
 import "../../index.css";
 import acessAuth from "../../utils/acessAuth";
-import {BeeButton} from "../BeeButtons/BeeButtons";
-import UsuarioService from "../../services/models/UsuarioService";
+// import {BeeButton} from "../BeeButtons/BeeButtons";
+// import UsuarioService from "../../services/models/UsuarioService";
 import RepositorioService from "../../services/models/RepositorioService";
 import BeeModal from "../BeeModal/BeeModal";
 
-const defaultBeeImg = "/static/img/abelha_bizzu.svg";
+// const defaultBeeImg = "/static/img/abelha_bizzu.svg";
 
-function tempoDesde(data: string): string {
+/*function tempoDesde(data: string): string {
 	const date = new Date(data);
 	const agora = new Date();
 	const diffMs = agora.getTime() - date.getTime();
@@ -35,7 +35,7 @@ function tempoDesde(data: string): string {
 	if (horas > 0) return `há ${horas} hora${horas > 1 ? "s" : ""}`;
 	if (minutos > 0) return `há ${minutos} minuto${minutos > 1 ? "s" : ""}`;
 	return "agora mesmo";
-}
+} */
 
 const BeeRepo: React.FC<iBeeRepoProps> = ({
 	id,

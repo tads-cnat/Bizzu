@@ -34,6 +34,6 @@ const tagsCategory = (categoriasIds: number[], categorias:IBeeCategoria[]): ITag
         }
     
         return tagsValidas; 
-}
+};
 
 export default tagsCategory;

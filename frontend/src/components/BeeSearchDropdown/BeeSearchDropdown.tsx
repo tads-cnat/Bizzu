@@ -1,6 +1,6 @@
 import React from "react";
 import {User, Spinner} from "@phosphor-icons/react";
-import type {IBeeSearchDropdown, IUsuarioPesquisa} from "./IBeeSearchDropdown";
+import type {IBeeSearchDropdown} from "./IBeeSearchDropdown";
 
 const BeeSearchDropdown: React.FC<IBeeSearchDropdown> = ({
 	usuarios,

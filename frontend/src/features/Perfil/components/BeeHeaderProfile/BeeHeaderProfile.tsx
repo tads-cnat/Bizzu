@@ -12,7 +12,7 @@ import getLocalStorage from "../../../../utils/getLocalStorage";
 const BeeHeaderProfile = () => {
 	const identificator = useParams().username;
 	const [usuario, setUsuario] = useState<IBeeUser>();
-	const [visible, setVisible] = useState<Boolean>(false);
+	const [visible, setVisible] = useState<boolean>(false);
 	const [estaSeguindo, setEstaSeguindo] = useState(false);
 	const [seguidores, setSeguidores] = useState(0);
 	const [seguindo, setSeguindo] = useState(0);

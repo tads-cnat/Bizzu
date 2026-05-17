@@ -4,7 +4,7 @@ import BeeFTPerfil from "../BeeFTPerfil/BeeFTPerfil";
 import BeeTags from "../BeeTags/BeeTags";
 
 // Função para exibir "há X horas"
-function tempoDesde(data: Date): string {
+/*function tempoDesde(data: Date): string {
 	const agora = new Date();
 	const diffMs = agora.getTime() - data.getTime();
 	const diffSegundos = Math.floor(diffMs / 1000);
@@ -16,7 +16,7 @@ function tempoDesde(data: Date): string {
 	if (horas > 0) return `há ${horas} hora${horas > 1 ? "s" : ""}`;
 	if (minutos > 0) return `há ${minutos} minuto${minutos > 1 ? "s" : ""}`;
 	return "agora mesmo";
-}
+}*/
 
 const CaixaRepositorio: React.FC<CaixaRepositorioProps> = ({
 	usuarioIconeUrl,

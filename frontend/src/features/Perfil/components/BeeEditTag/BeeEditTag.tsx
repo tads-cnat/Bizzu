@@ -7,8 +7,8 @@ import FormCategoria from "../../Form/FormCategoria";
 
 const BeeEditTag = () => {
 	const [categoria, setcategoria] = useState<Categoria[]>([]);
-	const [excluir, setExcluir] = useState<Boolean>(false);
-	const [editar, setEditar] = useState<Boolean>(false);
+	const [excluir, setExcluir] = useState<boolean>(false);
+	const [editar, setEditar] = useState<boolean>(false);
 	const [categoriaSelecionada, setSelecionada] = useState<any>();
 	const [key, setKey] = useState<number>(0);
 	const [keyEdit, setKeyEdit] = useState<number>(0);

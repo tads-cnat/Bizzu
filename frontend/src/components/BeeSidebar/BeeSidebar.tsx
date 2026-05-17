@@ -1,6 +1,6 @@
 import "./style.css";
 import {Link, useNavigate} from "react-router-dom";
-import {use, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import ComunidadeService from "../../services/models/ComunidadeService";
 import UsuarioService from "../../services/models/UsuarioService";
 import {Divider, Menu, Spin} from "antd";

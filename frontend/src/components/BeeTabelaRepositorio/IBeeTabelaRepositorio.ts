@@ -1,5 +1,5 @@
-import  { IUsuario } from "../../interfaces/Postagem"
-import  IBeeTags from "../BeeTags/IBeeTags"
+import  { IUsuario } from "../../interfaces/Postagem";
+import  IBeeTags from "../BeeTags/IBeeTags";
 export interface FileItem {
   id: number
   nome?: string

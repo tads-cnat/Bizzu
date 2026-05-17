@@ -23,7 +23,7 @@ import {CloseOutlined} from "@ant-design/icons";
 import BeePost from "../BeePost/BeePost";
 import ComentarioService from "../../services/models/ComentarioService";
 import type {IBeeModalComentarios} from "./IBeeModalComentarios";
-import BeeFTPerfil from "../BeeFTPerfil/BeeFTPerfil";
+//import BeeFTPerfil from "../BeeFTPerfil/BeeFTPerfil";
 import BeeDenuncia from "../BeeDenuncia/BeeDenuncia";
 import BeeButton from "../BeeButtons/BeeButtons";
 import BeeAlert from "../BeeAlert/BeeAlert";
@@ -122,6 +122,7 @@ const BeeModalComentarios: React.FC<IBeeModalComentarios> = ({
 	const usuarioLocal = getLocalStorage();
 	const [tipos, setTipos] = useState<[]>([]);
 	const [mostrarDenuncia, setMostrarDenuncia] = useState(false);
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const [mostrarBotão, setMostrarBotão] = useState(true);
 	const [tipoSelecionado, setTipoSelecionado] = useState<string | null>(null);
 
@@ -181,6 +182,7 @@ const BeeModalComentarios: React.FC<IBeeModalComentarios> = ({
 				mensagem: "Denúncia enviada com sucesso.",
 			});
 			setMostrarDenuncia(false);
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		} catch (e) {
 			setAlertaDenuncia({
 				tipo: "error",

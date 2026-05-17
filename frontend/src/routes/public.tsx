@@ -1,4 +1,3 @@
-import {Empty} from "antd";
 import Cadastro from "../features/Cadastro/Cadastro";
 import LayoutFeed from "../features/Layout/LayoutFeed";
 import Login from "../features/Login/Login";

@@ -1,5 +1,5 @@
 import type React from "react";
-import {useNavigate, useParams} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import BeeForm from "../../components/BeeForm/BeeForm";
 import {useState, useEffect} from "react";
 import UsuarioService from "../../services/models/UsuarioService";
@@ -12,7 +12,7 @@ import onSubmit from "./Form/submitEdit";
 
 const EditPerfil: React.FC = () => {
 	const [usuario, setUsuario] = useState<IBeeUser>();
-	const {id} = useParams();
+	// const {id} = useParams();
 	const {username} = acessAuth();
 	const caminho = useNavigate();
 

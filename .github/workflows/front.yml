@@ -46,6 +46,10 @@ jobs:
           name: dependency-check-report
           path: ${{ github.workspace }}/reports
 
+      - name: Executar ESLint
+        working-directory: frontend
+        run: npm run lint
+
       - name: Build do projeto
         working-directory: frontend
         run: |

@@ -1,4 +1,4 @@
-import {Button, notification, Space} from "antd";
+import {Button, notification} from "antd";
 import {IBeeNotification} from "./IBeeNotification";
 import "./styles.css";
 import {Link} from "react-router-dom";

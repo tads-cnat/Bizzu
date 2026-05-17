@@ -14,7 +14,7 @@ describe('Login', () => {
 	cy.get("input[name='password']").type(this.credenciaisValidas.password);
 	cy.get("button[type='submit']").click();
 
-  })
+  });
 
    it('Credenciais inválidas!', function () {
     cy.intercept("POST", "/token", {
@@ -27,6 +27,6 @@ describe('Login', () => {
 	cy.get("input[name='password']").type(this.credenciaisInvalidas.password);
 	cy.get("button[type='submit']").click();
 
-  })
+  });
 
-})
+});

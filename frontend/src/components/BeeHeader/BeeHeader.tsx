@@ -4,7 +4,7 @@ import BeeButton from "../BeeButtons/BeeButtons";
 import {SignIn, SignOut} from "@phosphor-icons/react";
 import acessAuth from "../../utils/acessAuth";
 import {Link, useNavigate} from "react-router-dom";
-import UsuarioService from "../../services/models/UsuarioService";
+//import UsuarioService from "../../services/models/UsuarioService";
 import BeeNotification from "../BeeNotification/BeeNotification";
 import type {IUsuarioPesquisa} from "../BeeSearchDropdown/IBeeSearchDropdown";
 
