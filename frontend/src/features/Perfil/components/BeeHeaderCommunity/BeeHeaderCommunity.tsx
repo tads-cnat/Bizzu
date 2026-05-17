@@ -9,7 +9,7 @@ import {Link} from "react-router-dom";
 const BeeHeaderComunnity = ({comunidade}: IBeeHeaderCommunity) => {
 	const [estaSeguindo, setEstaSeguindo] = useState(false);
 	const [seguidores, setSeguidores] = useState(0);
-	const [visible, setVisible] = useState<Boolean>(false);
+	const [visible, setVisible] = useState<boolean>(false);
 	const [papel, setPapel] = useState();
 
 	if (getLocalStorage() != null) {
@@ -72,7 +72,7 @@ const BeeHeaderComunnity = ({comunidade}: IBeeHeaderCommunity) => {
 			setEstaSeguindo(false);
 			const data = await ComunidadeService.contar_seguidores(comunidade.id);
 			setSeguidores(data.seguidores);
-			("");
+			// ("");
 		} catch (error) {
 			console.error("Erro ao deixar de seguir usuário:", error);
 		}

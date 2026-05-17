@@ -45,6 +45,7 @@ const BeeFormAuth: React.FC = () => {
 			});
 
 			if (!res.ok) {
+				// eslint-disable-next-line @typescript-eslint/no-unused-vars
 				const errorText = await res.text();
 				throw new Error("Falha ao autenticar com Google");
 			}

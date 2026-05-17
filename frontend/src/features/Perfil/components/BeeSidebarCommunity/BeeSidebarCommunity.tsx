@@ -1,4 +1,4 @@
-import {Building, GraduationCap} from "@phosphor-icons/react";
+import {Building} from "@phosphor-icons/react";
 import {IBeeCommunity} from "../../../../interfaces/IBeeCommunity";
 import {useEffect, useState} from "react";
 import {useParams, useNavigate} from "react-router-dom";

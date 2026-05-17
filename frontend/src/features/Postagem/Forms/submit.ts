@@ -1,5 +1,5 @@
 
-import PostagemService from "../../../services/models/PostagemService"
+import PostagemService from "../../../services/models/PostagemService";
 import submitData from "../../../utils/submit";
 import { NavigateFunction } from "react-router-dom";
 

@@ -22,8 +22,8 @@ import BeeAlert from "../../components/BeeAlert/BeeAlert";
 import BeeCard from "../../components/BeeCard/BeeCard";
 
 const Perfil: React.FC = () => {
-	let {load} = acessPermissions();
-	const [abrirModal, setModal] = useState<Boolean>(false);
+	const {load} = acessPermissions();
+	const [abrirModal, setModal] = useState<boolean>(false);
 	const [username, setUsername] = useState();
 	const [key, setKey] = useState<number>(0);
 	const [papel, setPapel] = useState("");

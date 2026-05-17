@@ -13,14 +13,14 @@ import FormPapel from "./Forms/FormPapel";
 
 const BeePerfilSidebar: React.FC = () => {
 	const {username} = useParams();
-	const {load, permissions} = acessPermissions();
+	const {load} = acessPermissions();
 	const [usuario, setUsuario] = useState<IBeeUser | null>(null);
 	const [loading, setLoading] = useState(true);
 	const navigate = useNavigate();
 	const [papel, setPapel] = useState();
 	const [userLocal, setUserlocal] = useState();
 	const [key, setKey] = useState<number>(0);
-	const [abrirModal, setModal] = useState<Boolean>(false);
+	const [abrirModal, setModal] = useState<boolean>(false);
 
 	if (getLocalStorage() != null) {
 		if (!papel) setPapel(getLocalStorage().papel);

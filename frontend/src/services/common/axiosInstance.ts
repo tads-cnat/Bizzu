@@ -1,15 +1,15 @@
-import axios from "axios"
-import getLocalStorage from "../../utils/getLocalStorage"
+import axios from "axios";
+import getLocalStorage from "../../utils/getLocalStorage";
 
 const type = import.meta.env.ENV;
-let BASE_URL = "http://localhost:8000/api"
+let BASE_URL = "http://localhost:8000/api";
 
-if (type == 0) BASE_URL = import.meta.env.BASE_URL_CLOUD_API
-else if (type == 1) BASE_URL = import.meta.env.BASE_URL_LOCAL_API
+if (type == 0) BASE_URL = import.meta.env.BASE_URL_CLOUD_API;
+else if (type == 1) BASE_URL = import.meta.env.BASE_URL_LOCAL_API;
 
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
-})
+});
 
 axiosInstance.interceptors.request.use( 
     (config) => {
@@ -23,8 +23,8 @@ axiosInstance.interceptors.request.use(
     async (error) => {
 		await Promise.reject(error);
 	}
-)
+);
 
-export default axiosInstance
+export default axiosInstance;
 
 

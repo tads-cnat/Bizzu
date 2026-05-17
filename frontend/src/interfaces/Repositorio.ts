@@ -33,7 +33,7 @@ export interface IRepositorioFormValues {
 	imagem?: File[] | File | null;
 	comunidade?: {label: string; value: string | number} | undefined;
 	categorias: number[];
-	usuario: Number;
+	usuario: number;
 }
 
 // Interface para tag - corrigida para ser mais específica

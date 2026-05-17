@@ -1,4 +1,4 @@
-import type { BeePostProps } from "../BeePost/IBeePost"
+import type { BeePostProps } from "../BeePost/IBeePost";
 
 export interface IBeeModalComentarios {
   isOpen: boolean

@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import UsuarioService from "../../services/models/UsuarioService";
 import {IBeeFTPerfil} from "./IBeeFTPerfil";
 import {Link} from "react-router-dom";
-import BeeNotification from "../BeeNotification/BeeNotification";
+//import BeeNotification from "../BeeNotification/BeeNotification";
 import getLocalStorage from "../../utils/getLocalStorage";
 
 function tempoDesde(data: string): string {

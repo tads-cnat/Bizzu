@@ -8,4 +8,4 @@ export const isUsername = (path:string) => {
     if (conut == 2) return true;
     return false;
 
-}
+};

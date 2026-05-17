@@ -7,7 +7,7 @@ const onSubmit: any = async (data: any, caminho: NavigateFunction, usuario: any,
     // if (data.imagemPerfil === null) {
     //     data.imagemPerfil = "http://localhost:8000/imgPostagens/usuarios/2025/06/10/sem_imagem_avatar.png";
     // }        
-    const info: any = submitData(data, usuario)
+    const info: any = submitData(data, usuario);
     try {
         await UsuarioService.patch(usuario.id,info);
         caminho(`/${username}/`, {

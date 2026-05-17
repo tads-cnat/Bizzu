@@ -1,1 +1,1 @@
-export type IBeePerfilSidebar = {}
+export type IBeePerfilSidebar = object;

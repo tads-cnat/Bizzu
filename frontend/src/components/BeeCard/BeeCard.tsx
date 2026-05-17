@@ -2,12 +2,13 @@ import {Card} from "antd";
 import {IBeeCard} from "./IBeeCard";
 import {Link} from "react-router-dom";
 import ComunidadeService from "../../services/models/ComunidadeService";
-import {Empty} from "antd";
+// import {Empty} from "antd";
 import {useState} from "react";
 import {useEffect} from "react";
 
-const {Meta} = Card;
+//const {Meta} = Card;
 
+// eslint-disable-next-line no-empty-pattern
 const BeeCard = ({}: IBeeCard) => {
 	const [comunidades, setComunidades] = useState<any[]>([]);
 	const loadComunidadeAdm = async () => {

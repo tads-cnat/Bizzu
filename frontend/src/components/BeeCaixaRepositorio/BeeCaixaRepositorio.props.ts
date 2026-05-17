@@ -1,4 +1,4 @@
-import {ReactNode} from "react";
+// import {ReactNode} from "react";
 import {ITag} from "../../interfaces/Repositorio";
 // Para importar um componente ja existente em outro, se exporta o props do componente, referenciando o mesmo no props do seu componente
 
