@@ -17,4 +17,4 @@ urlpatterns = [
     path("", include(usuarioRouter.urls)),
     path("", include(comentarioRouter.urls)),
     path("", include(arquivoRouter.urls)),
-    ]
+]
