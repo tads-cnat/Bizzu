@@ -1,0 +1,33 @@
+[MESSAGES CONTROL]
+enable=duplicate-code
+disable=
+    missing-module-docstring,
+    missing-class-docstring,
+    missing-function-docstring,
+    invalid-name,
+    wrong-import-order,
+    ungrouped-imports,
+    too-few-public-methods,
+    missing-timeout,
+    relative-beyond-top-level,
+    no-member,
+    unsubscriptable-object,
+    line-too-long,
+    abstract-method,
+    redefined-builtin,
+    no-name-in-module,
+    too-many-ancestors,
+    unused-argument,
+    no-else-return,
+    consider-using-in,
+    inconsistent-return-statements,
+    broad-exception-caught,
+    invalid-str-returned,
+    import-outside-toplevel,
+    import-self
+
+[SIMILARITIES]
+min-similarity-lines=5 #Número máximo de linhas identicas que ele aceita
+ignore-comments=yes
+ignore-docstrings=yes
+ignore-imports=no #Ignora import ao calcular simalridades
