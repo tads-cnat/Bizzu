@@ -52,6 +52,13 @@ jobs:
         run: |
           pylint $(git ls-files '*.py')
 
+      - name: Gera diagramas UMLs
+        working-directory: backend
+        run: |
+          sudo apt-get install -y graphviz
+          mkdir -p diagramasUml
+          python manage.py graph_models api -o diagramasUml/diagrama-dominio.png
+
       - name: Roda testes
         working-directory: backend
         run: |
