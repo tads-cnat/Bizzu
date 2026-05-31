@@ -59,6 +59,12 @@ jobs:
           mkdir -p diagramasUml
           python manage.py graph_models api -o diagramasUml/diagrama-dominio.png
 
+      - name: Salva diagramas UML no actions
+        uses: actions/upload-artifact@v4
+        with:
+          name: diagramasUml
+          path: backend/diagramasUml/diagrama-dominio.png
+
       - name: Roda testes
         working-directory: backend
         run: |
