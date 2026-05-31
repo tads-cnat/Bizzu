@@ -8,6 +8,9 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from ..permissions.moderador import Moderador
 from ..permissions.internanuta import Internauta
 
+erroMessage = {"detail": "Postagem não encontrada."}
+statusError = status = status.HTTP_404_NOT_FOUND
+
 
 class CurtidaViewSet(viewsets.ModelViewSet):
     queryset = Curtida.objects.all()
@@ -36,9 +39,7 @@ class CurtidaViewSet(viewsets.ModelViewSet):
         try:
             postagem = Postagem.objects.get(id=postagem_id)
         except Postagem.DoesNotExist:
-            return Response(
-                {"detail": "Postagem não encontrada."}, status=status.HTTP_404_NOT_FOUND
-            )
+            return Response(erroMessage, statusError)
 
         curtida, created = Curtida.objects.get_or_create(
             usuario=request.user, postagem=postagem
@@ -64,9 +65,7 @@ class CurtidaViewSet(viewsets.ModelViewSet):
         try:
             postagem = Postagem.objects.get(id=postagem_id)
         except Postagem.DoesNotExist:
-            return Response(
-                {"detail": "Postagem não encontrada."}, status=status.HTTP_404_NOT_FOUND
-            )
+            return Response(erroMessage, statusError)
 
         curtida_existe = Curtida.objects.filter(
             usuario=request.user, postagem=postagem
@@ -84,8 +83,6 @@ class CurtidaViewSet(viewsets.ModelViewSet):
         try:
             postagem = Postagem.objects.get(id=postagem_id)
         except Postagem.DoesNotExist:
-            return Response(
-                {"detail": "Postagem não encontrada."}, status=status.HTTP_404_NOT_FOUND
-            )
+            return Response(erroMessage, statusError)
 
         return Response({"total_curtidas": postagem.postagem_curtida.count()})
