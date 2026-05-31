@@ -1,3 +1,8 @@
+[MAIN]
+ignore-paths=
+    .*/tests/.*,
+    .*/models/.*
+
 [MESSAGES CONTROL]
 enable=duplicate-code
 disable=
@@ -27,7 +32,7 @@ disable=
     import-self
 
 [SIMILARITIES]
-min-similarity-lines=5 #Número máximo de linhas identicas que ele aceita
+min-similarity-lines=4 #Número máximo de linhas identicas que ele aceita
 ignore-comments=yes
 ignore-docstrings=yes
 ignore-imports=no #Ignora import ao calcular simalridades
