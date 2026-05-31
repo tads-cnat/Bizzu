@@ -27,6 +27,8 @@ from urllib.parse import urlparse
 import os
 from ..permissions.moderador import Moderador
 from ..permissions.internanuta import Internauta
+from api.serializers.repositorio import RepositorioSerializer
+from ..models import Repositorio
 
 
 def download_and_save_google_picture(picture_url, user):
@@ -221,8 +223,6 @@ class UsuarioViewSet(viewsets.ModelViewSet):
             user = request.user
             repositorios_favoritos = user.repositoriosFavoritados.all()
 
-            from api.serializers.repositorio import RepositorioSerializer
-
             serializer = RepositorioSerializer(repositorios_favoritos, many=True)
 
             return Response(serializer.data, status=status.HTTP_200_OK)
@@ -240,8 +240,6 @@ class UsuarioViewSet(viewsets.ModelViewSet):
                     {"error": "ID do repositório é obrigatório"},
                     status=status.HTTP_400_BAD_REQUEST,
                 )
-
-            from ..models import Repositorio
 
             repositorio = Repositorio.objects.get(id=repositorio_id)
             usuario = request.user
@@ -279,8 +277,6 @@ class UsuarioViewSet(viewsets.ModelViewSet):
                     {"error": "ID do repositório é obrigatório"},
                     status=status.HTTP_400_BAD_REQUEST,
                 )
-
-            from ..models import Repositorio
 
             repositorio = Repositorio.objects.get(id=repositorio_id)
             usuario = request.user

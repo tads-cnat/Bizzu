@@ -47,6 +47,11 @@ jobs:
         run: |
           black . --check
 
+      - name: Verifica código duplicado e outros parametros de qualidade com pylint
+        working-directory: backend
+        run: |
+          pylint $(git ls-files '*.py')
+
       - name: Roda testes
         working-directory: backend
         run: |
