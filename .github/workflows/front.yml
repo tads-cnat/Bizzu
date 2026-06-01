@@ -49,7 +49,10 @@ jobs:
       - name: Executar ESLint
         working-directory: frontend
         run: npm run lint
-
+      - name: Verificar código duplicado
+        working-directory: frontend
+        run: yarn duplication
+        
       - name: Build do projeto
         working-directory: frontend
         run: |
