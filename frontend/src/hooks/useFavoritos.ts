@@ -44,13 +44,8 @@ export const useFavoritos = (repositorioId: number): UseFavoritosReturn => {
 				await UsuarioService.favoritarRepositorio(repositorioId);
 				setEstaFavoritado(true);
 			}
-		} catch (error: any) {
+		} catch (error) {
 			console.error("Erro ao alterar favorito:", error);
-			const errorMessage =
-				error.response?.data?.error ||
-				error.response?.data?.message ||
-				"Erro ao processar solicitação";
-			console.error(errorMessage);
 		} finally {
 			setCarregandoFavorito(false);
 		}

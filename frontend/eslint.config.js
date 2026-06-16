@@ -31,10 +31,10 @@ export default defineConfig([
 		rules: {
 			semi: ["error", "always"],
 			quotes: ["warn", "double"],
-			"@typescript-eslint/no-explicit-any": "off", // falando pra ele não reclamar dos any que tem no nosso cdg
-			"react/jsx-key": "warn", // isso daqui pode vir a quebrar no futuro por isso eu botei como wanr
+			"@typescript-eslint/no-explicit-any": "warn", // falando pra ele não reclamar dos any que tem no nosso cdg
+			"react/jsx-key": "off", // isso daqui pode vir a quebrar no futuro por isso eu botei como wanr
 			"react/react-in-jsx-scope": "off", // lint tava reclamando pois ele usava regra antiga então não tem problema tirar isso
-			"react/prop-types": "off", // tive que desativar pois ele reclamava que as props não tavam tipadas em arquivos específicos sendo que elas estavam
+			"react/prop-types": "warn", // tive que desativar pois ele reclamava que as props não tavam tipadas em arquivos específicos sendo que elas estavam
 		},
 
 		settings: {

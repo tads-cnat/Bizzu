@@ -5,12 +5,13 @@ import ComunidadeService from "../../services/models/ComunidadeService";
 // import {Empty} from "antd";
 import {useState} from "react";
 import {useEffect} from "react";
+import { IBeeComunidade } from "../../interfaces/IBeeComunidade";
 
 //const {Meta} = Card;
 
 // eslint-disable-next-line no-empty-pattern
 const BeeCard = ({}: IBeeCard) => {
-	const [comunidades, setComunidades] = useState<any[]>([]);
+	const [comunidades, setComunidades] = useState<IBeeComunidade[]>([]);
 	const loadComunidadeAdm = async () => {
 		try {
 			const data = await ComunidadeService.listarComunidadeAdm();
