@@ -26,7 +26,7 @@ const BeeHeader: React.FC = () => {
 	return (
 		<header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between bg-white h-[70px] px-8 border-b border-gray-300">
 			<div className="flex items-center">
-				<Link to={`/`}>
+				<Link to={"/"}>
 					<img
 						src="/logo.png"
 						alt="BIZZU Logo"
@@ -64,7 +64,7 @@ const BeeHeader: React.FC = () => {
 					className="ml-4"
 				/>
 			) : (
-				<Link to={`/login/`}>
+				<Link to={"/login/"}>
 					<BeeButton
 						icone={
 							<SignIn

@@ -1,11 +1,11 @@
-describe('Login', () => {
+describe("Login", () => {
   beforeEach(function () {
     cy.visit("/login");
     cy.fixture("login").as("credenciaisInvalidas");
     cy.fixture("loginCorrect").as("credenciaisValidas");
   });
 
-  it('Login realizado com sucesso!', function () {
+  it("Login realizado com sucesso!", function () {
     cy.intercept("POST", "/token", {
 			statusCode: 200,
 		}).as("loginRequest");
@@ -16,7 +16,7 @@ describe('Login', () => {
 
   });
 
-   it('Credenciais inválidas!', function () {
+   it("Credenciais inválidas!", function () {
     cy.intercept("POST", "/token", {
 			statusCode: 401,
       body: { message: "invalid" }

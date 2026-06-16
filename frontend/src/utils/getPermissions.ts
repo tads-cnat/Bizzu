@@ -15,13 +15,13 @@ export const getPermissions = (path: string,role: Roles, username:string): Recor
 	for (const permission in permissions) {
         let atribuiPermissao; 
         if (path == "/editar"){
-            atribuiPermissao = Permissions['editar'][permission as Types];
+            atribuiPermissao = Permissions["editar"][permission as Types];
         }
         else if (path.includes("editar")){
-            atribuiPermissao = Permissions['/postagem/editar/:id'][permission as Types];
+            atribuiPermissao = Permissions["/postagem/editar/:id"][permission as Types];
         }
         else if (user){
-            atribuiPermissao = Permissions['/:username/'][permission as Types];
+            atribuiPermissao = Permissions["/:username/"][permission as Types];
         }
         else atribuiPermissao = Permissions[path][permission as Types];
         if (atribuiPermissao?.includes(role)) { //Se aquele papel tiver permissão para aquilo 

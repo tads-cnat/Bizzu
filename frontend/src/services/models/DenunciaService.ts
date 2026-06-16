@@ -26,7 +26,7 @@ class DenunciaService extends BaseService{
         repositorio: repositorio ?? null,
         };
 
-        const response = await axiosInstance.post('/denuncia/', payload);
+        const response = await axiosInstance.post("/denuncia/", payload);
         return response.data;
     } catch (error) {
         console.error("Erro ao enviar denúncia:", error);
