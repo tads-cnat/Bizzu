@@ -3,6 +3,7 @@ import globals from "globals";
 import tseslint from "typescript-eslint";
 import pluginReact from "eslint-plugin-react";
 import prettier from "eslint-config-prettier";
+import sonarjs from "eslint-plugin-sonarjs";
 import {defineConfig} from "eslint/config";
 
 export default defineConfig([
@@ -24,6 +25,9 @@ export default defineConfig([
 	{
 		files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"],
 
+		plugins: {
+			sonarjs,
+		},
 		languageOptions: {
 			globals: globals.browser,
 		},
@@ -35,6 +39,11 @@ export default defineConfig([
 			"react/jsx-key": "off", // isso daqui pode vir a quebrar no futuro por isso eu botei como wanr
 			"react/react-in-jsx-scope": "off", // lint tava reclamando pois ele usava regra antiga então não tem problema tirar isso
 			"react/prop-types": "warn", // tive que desativar pois ele reclamava que as props não tavam tipadas em arquivos específicos sendo que elas estavam
+
+			"sonarjs/cognitive-complexity": ["error", 15],
+			"sonarjs/no-identical-functions": "error",
+			"sonarjs/no-duplicated-branches": "error",
+			"sonarjs/no-small-switch": "error",
 		},
 
 		settings: {
