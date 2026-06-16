@@ -4,12 +4,13 @@ import CategoriaService from "../../../../services/models/CategoriaService";
 import {Categoria} from "../../../../interfaces/IBeeCategoria";
 import BeeModal from "../../../../components/BeeModal/BeeModal";
 import FormCategoria from "../../Form/FormCategoria";
+import { IBeeCategoria } from "../../../../components/BeeCategoria/IBeeCategoria";
 
 const BeeEditTag = () => {
 	const [categoria, setcategoria] = useState<Categoria[]>([]);
 	const [excluir, setExcluir] = useState<boolean>(false);
 	const [editar, setEditar] = useState<boolean>(false);
-	const [categoriaSelecionada, setSelecionada] = useState<any>();
+	const [categoriaSelecionada, setSelecionada] = useState<IBeeCategoria>();
 	const [key, setKey] = useState<number>(0);
 	const [keyEdit, setKeyEdit] = useState<number>(0);
 
