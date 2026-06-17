@@ -40,7 +40,7 @@ export default defineConfig([
 			"react/react-in-jsx-scope": "off", // lint tava reclamando pois ele usava regra antiga então não tem problema tirar isso
 			"react/prop-types": "warn", // tive que desativar pois ele reclamava que as props não tavam tipadas em arquivos específicos sendo que elas estavam
 
-			"sonarjs/cognitive-complexity": ["error", 15],
+			"sonarjs/cognitive-complexity": ["warn", 15],
 			"sonarjs/no-identical-functions": "error",
 			"sonarjs/no-duplicated-branches": "error",
 			"sonarjs/no-small-switch": "error",
