@@ -52,6 +52,24 @@ jobs:
       - name: Verificar código duplicado
         working-directory: frontend
         run: yarn duplication
+
+              - name: Criar certificado self-signed
+        working-directory: frontend
+        run: |
+          mkdir -p certs
+          openssl req -x509 -newkey rsa:4096 \
+          -keyout certs/key.pem \
+          -out certs/cert.pem \
+          -days 365 \
+          -nodes \
+          -subj "/CN=localhost"
+
+      - name: Testar servidor HTTPS
+        working-directory: frontend
+        run: |
+          yarn dev --host 0.0.0.0 &
+          sleep 5
+          curl -k https://localhost:5173
         
       - name: Build do projeto
         working-directory: frontend
