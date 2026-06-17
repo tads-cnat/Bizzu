@@ -9,12 +9,13 @@ import {useNavigate} from "react-router-dom";
 import UsuarioService from "../../services/models/UsuarioService";
 import acessAuth from "../../utils/acessAuth";
 import {IBeeUser} from "../Perfil/components/BeeHeaderProfile/IBeeUser";
+import { IBeeComunidade } from "../../interfaces/IBeeComunidade";
 
 const CreateRepositorio: React.FC = () => {
 	const caminho = useNavigate();
 	const [usuario, setUsuario] = useState<IBeeUser>();
 	const {username} = acessAuth();
-	const [comunidades, setComunidades] = useState<any[]>([]);
+	const [comunidades, setComunidades] = useState<IBeeComunidade[]>([]);
 
 	useEffect(() => {
 		if (usuario === undefined) {
@@ -34,7 +35,7 @@ const CreateRepositorio: React.FC = () => {
 				const response = await ComunidadeService.listAll();
 				if (response.data && Array.isArray(response.data)) {
 					const comunidadesFormatadas = response.data.map(
-						(comunidade: any) => ({
+						(comunidade) => ({
 							label: comunidade.nome || comunidade.title,
 							value: comunidade.id,
 						}),
