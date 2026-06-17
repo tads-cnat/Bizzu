@@ -46,7 +46,7 @@ const BeePerfilSidebar: React.FC = () => {
 	}, [username]);
 
 	const handleEditarPerfil = () => navigate("editar");
-	const handleEditarFavoritos = () => navigate(`/repositorios-favoritos`);
+	const handleEditarFavoritos = () => navigate("/repositorios-favoritos");
 
 	if (loading || !load) {
 		return (
@@ -113,7 +113,7 @@ const BeePerfilSidebar: React.FC = () => {
 					style={{
 						backgroundImage: usuario.banner
 							? `url(http://localhost:8000${usuario.banner})`
-							: `url(/banner.png)`,
+							: "url(/banner.png)",
 						backgroundSize: "cover",
 						backgroundPosition: "center",
 					}}

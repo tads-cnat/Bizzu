@@ -11,7 +11,7 @@ const BeeNotification = ({message, title, type, content}: IBeeNotification) => {
 	const openNotificationWithIcon = (type: NotificationType) => {
 		api[type]({
 			message: title,
-			description: <Link to={`/login/`}>{message}</Link>,
+			description: <Link to={"/login/"}>{message}</Link>,
 		});
 	};
 	return (

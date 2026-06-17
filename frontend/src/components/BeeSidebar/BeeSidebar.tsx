@@ -192,7 +192,7 @@ export const BeeSidebar = ({onSelecionarSecao}: IBeeSidebarProps) => {
 							}}
 							onClick={(e) => {
 								if (e.key == "1" || e.key == "2") {
-									caminho(`/`);
+									caminho("/");
 								}
 							}}
 						/>

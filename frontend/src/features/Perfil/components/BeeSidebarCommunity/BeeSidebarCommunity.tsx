@@ -76,7 +76,7 @@ const BeeSidebarCommunity = () => {
 							style={{
 								backgroundImage: comunidade.banner
 									? `url(${comunidade.banner})`
-									: `url(/banner.png)`,
+									: "url(/banner.png)",
 								backgroundSize: "cover",
 								backgroundPosition: "center",
 							}}

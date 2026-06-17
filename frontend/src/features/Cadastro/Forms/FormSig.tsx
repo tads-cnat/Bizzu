@@ -186,7 +186,7 @@ const FormSig: React.FC = () => {
 								<p className="text-right text-sm/6 text-gray-500">
 									Já tem uma conta?{" "}
 									<Link
-										to={`/login/`}
+										to={"/login/"}
 										className="font-semibold text-[#FCBD18] hover:text-indigo-500"
 									>
 										Faça Login

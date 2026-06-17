@@ -3,7 +3,7 @@ import BaseService from "../common/baseService";
 
 class UsuarioService extends BaseService {
 	async postToken(content: any) {
-		const response = await axiosInstance.post(`token/`, content);
+		const response = await axiosInstance.post("token/", content);
 
 		return response.data;
 	}
@@ -41,11 +41,11 @@ class UsuarioService extends BaseService {
 		return response.data;
 	}
 	async editarPerfil(dados: any) {
-		const response = await axiosInstance.patch(`/usuario/editarPerfil/`, dados);
+		const response = await axiosInstance.patch("/usuario/editarPerfil/", dados);
 		return response.data;
 	}
 	async logout() {
-		const response = await axiosInstance.post(`/logout`);
+		const response = await axiosInstance.post("/logout");
 		return response.data;
 	}
 
@@ -85,13 +85,13 @@ class UsuarioService extends BaseService {
 	}
 
 	async obterRepositoriosFavoritos() {
-		const response = await axiosInstance.get(`usuario/repositorios_favoritos/`);
+		const response = await axiosInstance.get("usuario/repositorios_favoritos/");
 		return response.data;
 	}
 
 	async favoritarRepositorio(repositorioId: number) {
 		const response = await axiosInstance.post(
-			`usuario/favoritar_repositorio/`,
+			"usuario/favoritar_repositorio/",
 			{
 				repositorio_id: repositorioId,
 			},
@@ -101,7 +101,7 @@ class UsuarioService extends BaseService {
 
 	async desfavoritarRepositorio(repositorioId: number) {
 		const response = await axiosInstance.delete(
-			`usuario/desfavoritar_repositorio/`,
+			"usuario/desfavoritar_repositorio/",
 			{
 				data: {repositorio_id: repositorioId},
 			},

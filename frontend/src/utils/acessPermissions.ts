@@ -4,7 +4,7 @@ import { PermissionContext } from "../context/permissions/permission";
 const acessPermissions = () => {
     const contexto = useContext(PermissionContext);
     if (contexto === undefined) {
-        throw new Error('Deu erro no contexto de permissão');
+        throw new Error("Deu erro no contexto de permissão");
     }
     
     return contexto;
