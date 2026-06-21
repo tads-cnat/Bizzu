@@ -34,11 +34,10 @@ export const BeeButton = ({
 	// Aqui é onde vamos referenciar as classes que criamos para dentro do tailwind do botão principal, então na constante classes nós temos
 	// as variantes que criamos dentro das ClassesPrimarias e das Classes Variantes para ele adicionar tanto a cor quanto o modelo do botão
 	// e também temos o tailwind do botão desabilitado sendo aplicado caso o desenvolvedor escolha desabilitar o botão
+	const estadoClasse = desabilitado ? classesDesabilitado : classeAtivo;
 
 	const classes = classesDefault
-		? `${classesPrimarias} ${classesVariantes[variante]} ${
-				desabilitado ? classesDesabilitado : classeAtivo
-			}`
+		? `${classesPrimarias} ${classesVariantes[variante]} ${estadoClasse}`
 		: className; // usa as classes personalizadas diretamente
 
 	return (

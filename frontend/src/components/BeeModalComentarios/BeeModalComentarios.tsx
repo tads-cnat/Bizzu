@@ -123,7 +123,7 @@ const BeeModalComentarios: React.FC<IBeeModalComentarios> = ({
 	const [tipos, setTipos] = useState<[]>([]);
 	const [mostrarDenuncia, setMostrarDenuncia] = useState(false);
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	const [mostrarBotão, setMostrarBotão] = useState(true);
+	const [mostrarBotão] = useState(true);
 	const [tipoSelecionado, setTipoSelecionado] = useState<string | null>(null);
 
 	// Função para setar os tipos de alerta

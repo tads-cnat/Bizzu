@@ -2,12 +2,10 @@ import {Card} from "antd";
 import {IBeeCard} from "./IBeeCard";
 import {Link} from "react-router-dom";
 import ComunidadeService from "../../services/models/ComunidadeService";
-// import {Empty} from "antd";
-import {useState} from "react";
-import {useEffect} from "react";
+import {useState, useEffect} from "react";
 import { IBeeComunidade } from "../../interfaces/IBeeComunidade";
 
-//const {Meta} = Card;
+
 
 // eslint-disable-next-line no-empty-pattern
 const BeeCard = ({}: IBeeCard) => {
