@@ -78,9 +78,7 @@ class ComentarioViewSet(viewsets.ModelViewSet):
             postagem = Postagem.objects.get(id=request.data.get("postagem"))
         except Postagem.DoesNotExist:
             return Response(
-                {
-                    "detail": "Postagem não encontrada, por isso não foi possivel criar a postagem."
-                },
+                {"detail": "Não foi possivel criar o comentário."},
                 status=status.HTTP_404_NOT_FOUND,
             )
 
