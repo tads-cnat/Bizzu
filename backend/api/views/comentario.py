@@ -60,7 +60,7 @@ class ComentarioViewSet(viewsets.ModelViewSet):
             postagem = Postagem.objects.get(id=postagem_id)
         except Postagem.DoesNotExist:
             return Response(
-                {"detail": "Postagem não encontrada."}, status=status.HTTP_404_NOT_FOUND
+                {"detail": "Postagem não existente."}, status=status.HTTP_404_NOT_FOUND
             )
 
         total_comentarios = Comentario.objects.filter(postagem=postagem).count()
@@ -78,7 +78,8 @@ class ComentarioViewSet(viewsets.ModelViewSet):
             postagem = Postagem.objects.get(id=request.data.get("postagem"))
         except Postagem.DoesNotExist:
             return Response(
-                {"detail": "Postagem não encontrada."}, status=status.HTTP_404_NOT_FOUND
+                {"detail": "Não foi possivel criar o comentário."},
+                status=status.HTTP_404_NOT_FOUND,
             )
 
         comentario = serializer.save(usuario=request.user, postagem=postagem)

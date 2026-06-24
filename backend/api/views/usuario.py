@@ -237,7 +237,7 @@ class UsuarioViewSet(viewsets.ModelViewSet):
             repositorio_id = request.data.get("repositorio_id")
             if not repositorio_id:
                 return Response(
-                    {"error": "ID do repositório é obrigatório"},
+                    {"error": "Identificação do repositório é obrigatória"},
                     status=status.HTTP_400_BAD_REQUEST,
                 )
 
@@ -274,7 +274,7 @@ class UsuarioViewSet(viewsets.ModelViewSet):
             repositorio_id = request.data.get("repositorio_id")
             if not repositorio_id:
                 return Response(
-                    {"error": "ID do repositório é obrigatório"},
+                    {"error": "ID é obrigatório"},
                     status=status.HTTP_400_BAD_REQUEST,
                 )
 
