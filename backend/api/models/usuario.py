@@ -5,7 +5,7 @@ from django.db import models
 class Usuario(AbstractUser):
     nome = models.CharField(verbose_name="Nome", max_length=50)
     descricao = models.CharField(
-        verbose_name="Descrição", max_length=200, blank=True, null=True
+        verbose_name="Descrição", max_length=200, blank=True, null=False
     )
     imagemPerfil = models.ImageField(
         verbose_name="Imagem de perfil", upload_to="usuarios/%Y/%m/%d/", null=True
@@ -16,10 +16,10 @@ class Usuario(AbstractUser):
 
     linkedinUrl = models.URLField(verbose_name="LinkedIn URL", blank=True, null=True)
     escolaFormacao = models.CharField(
-        verbose_name="Escola de formação", max_length=30, blank=True, null=True
+        verbose_name="Escola de formação", max_length=30, blank=True, null=False
     )
     instituicaoAtual = models.CharField(
-        verbose_name="Instituição atual", max_length=30, blank=True, null=True
+        verbose_name="Instituição atual", max_length=30, blank=True, null=False
     )
     repositoriosFavoritados = models.ManyToManyField(
         "Repositorio",
@@ -40,7 +40,7 @@ class Usuario(AbstractUser):
     )
 
     PERFIS = (("mod", "moderador"), ("int", "internauta"), ("adm", "administrador"))
-    papel = models.CharField(verbose_name="Papel", null=True, choices=PERFIS)
+    papel = models.CharField(verbose_name="Papel", null=False, choices=PERFIS)
 
     def __str__(self):
         return self.username
@@ -53,7 +53,7 @@ class Solicitacao(models.Model):
         ("aprovada", "aprovada"),
     )
     descricao = models.CharField(
-        verbose_name="Descrição", max_length=400, blank=True, null=True
+        verbose_name="Descrição", max_length=400, blank=True, null=False
     )
     solicitante = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     data_solocitacao = models.DateTimeField(
